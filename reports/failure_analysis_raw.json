@@ -1,0 +1,102 @@
+[
+  {
+    "image": "10/cb33831c86d1f16db29ad58bf9e926f3.jpg",
+    "category": "low_res_thumbnail",
+    "resolution": "236x433",
+    "has_heavy_border": false,
+    "leaked_exterior_merge": true,
+    "max_component_ratio": 0.911,
+    "components_count": 11,
+    "texture_variance": 7951.4
+  },
+  {
+    "image": "1/00770eba64db20501bbd30bb21ce6aa5.jpg",
+    "category": "tall_narrow_plan",
+    "resolution": "877x1584",
+    "has_heavy_border": false,
+    "leaked_exterior_merge": true,
+    "max_component_ratio": 0.939,
+    "components_count": 26,
+    "texture_variance": 4505.3
+  },
+  {
+    "image": "1/download.png",
+    "category": "high_res_marketing",
+    "resolution": "1152x2048",
+    "has_heavy_border": false,
+    "leaked_exterior_merge": true,
+    "max_component_ratio": 0.729,
+    "components_count": 303,
+    "texture_variance": 468.7
+  },
+  {
+    "image": "3/0adf5f25feca052f9968d0a9f42bd8eb.jpg",
+    "category": "color_furniture",
+    "resolution": "720x1042",
+    "has_heavy_border": true,
+    "leaked_exterior_merge": true,
+    "max_component_ratio": 0.675,
+    "components_count": 168,
+    "texture_variance": 2218.8
+  },
+  {
+    "image": "7/0162fa659d7392157fc0854ef058f419.jpg",
+    "category": "dimension_heavy",
+    "resolution": "1200x1697",
+    "has_heavy_border": false,
+    "leaked_exterior_merge": true,
+    "max_component_ratio": 0.609,
+    "components_count": 66,
+    "texture_variance": 8743.2
+  },
+  {
+    "image": "3/0d2f29cf25a408c7e552e39b91189b34.jpg",
+    "category": "corridor_heavy",
+    "resolution": "736x1104",
+    "has_heavy_border": false,
+    "leaked_exterior_merge": true,
+    "max_component_ratio": 0.734,
+    "components_count": 206,
+    "texture_variance": 612.7
+  },
+  {
+    "image": "5/195e61769696aa144d1388a68ef92cc9.jpg",
+    "category": "bordered_marketing",
+    "resolution": "736x989",
+    "has_heavy_border": false,
+    "leaked_exterior_merge": true,
+    "max_component_ratio": 0.944,
+    "components_count": 4,
+    "texture_variance": 2002.0
+  },
+  {
+    "image": "5/1dfd85587a24e04e1e93659ba35f33cb.jpg",
+    "category": "contrast_challenged",
+    "resolution": "640x1136",
+    "has_heavy_border": true,
+    "leaked_exterior_merge": true,
+    "max_component_ratio": 0.822,
+    "components_count": 12,
+    "texture_variance": 3725.9
+  },
+  {
+    "image": "7/01d47a008ad8498cf8bc3f78cfc87765.jpg",
+    "category": "compact_flat",
+    "resolution": "532x865",
+    "has_heavy_border": false,
+    "leaked_exterior_merge": true,
+    "max_component_ratio": 0.862,
+    "components_count": 20,
+    "texture_variance": 5358.5
+  },
+  {
+    "image": "10/052da9368c90d89e449dc37055603d7d.jpg",
+    "category": "small_res_plan",
+    "resolution": "474x800",
+    "has_heavy_border": false,
+    "leaked_exterior_merge": true,
+    "max_component_ratio": 0.998,
+    "components_count": 1,
+    "texture_variance": 5496.2
+  }
+]

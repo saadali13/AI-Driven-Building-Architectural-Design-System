@@ -1,0 +1,22 @@
+{
+  "plan_id": "7_133",
+  "category": "7",
+  "source_image": "8acb230d32676951d19381417d03c625.jpg",
+  "source_path": "7/8acb230d32676951d19381417d03c625.jpg",
+  "plot": {
+    "inferred_type": "7 Marla (30' x 55')",
+    "frontage_ft": null,
+    "depth_ft": null,
+    "area_sqft": null
+  },
+  "resolution": "685x1185",
+  "aspect_ratio": 0.58,
+  "is_multi_sheet": false,
+  "rooms": [],
+  "doors": [],
+  "windows": [],
+  "stairs": [],
+  "exterior_spaces": [],
+  "adjacency_graph": [],
+  "annotation_status": "catalog_indexed"
+}

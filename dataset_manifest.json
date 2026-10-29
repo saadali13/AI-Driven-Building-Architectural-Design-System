@@ -1,0 +1,3857 @@
+{
+  "dataset_name": "Antigravity Real Reference Floor Plan Benchmark Dataset",
+  "description": "Complete ground-truth reference dataset across 5 urban plot categories (1, 3, 5, 7, 10)",
+  "total_assets": 187,
+  "total_valid": 187,
+  "total_invalid": 0,
+  "duplicate_groups_count": 2,
+  "categories": {
+    "1": {
+      "metadata": {
+        "plot_name": "1 Kanal",
+        "standard_dim": "50' x 90'",
+        "area_sqft": 4500
+      },
+      "inventory": {
+        "total_images": 26,
+        "valid_images": 26,
+        "invalid_images": 0,
+        "formats": {
+          "JPEG": 24,
+          "PNG": 2
+        },
+        "dimensions": [
+          [
+            877,
+            1584
+          ],
+          [
+            800,
+            1163
+          ],
+          [
+            736,
+            1306
+          ],
+          [
+            483,
+            881
+          ],
+          [
+            649,
+            1176
+          ],
+          [
+            471,
+            726
+          ],
+          [
+            670,
+            1191
+          ],
+          [
+            664,
+            1024
+          ],
+          [
+            900,
+            1034
+          ],
+          [
+            516,
+            940
+          ],
+          [
+            564,
+            785
+          ],
+          [
+            859,
+            1504
+          ],
+          [
+            1200,
+            1968
+          ],
+          [
+            1080,
+            1516
+          ],
+          [
+            736,
+            1301
+          ],
+          [
+            1170,
+            1387
+          ],
+          [
+            1080,
+            1753
+          ],
+          [
+            736,
+            1303
+          ],
+          [
+            1200,
+            2361
+          ],
+          [
+            557,
+            800
+          ],
+          [
+            557,
+            800
+          ],
+          [
+            1152,
+            2048
+          ],
+          [
+            1152,
+            2048
+          ],
+          [
+            550,
+            903
+          ],
+          [
+            735,
+            979
+          ],
+          [
+            450,
+            758
+          ]
+        ]
+      }
+    },
+    "3": {
+      "metadata": {
+        "plot_name": "3 Marla",
+        "standard_dim": "20' x 35'",
+        "area_sqft": 700
+      },
+      "inventory": {
+        "total_images": 40,
+        "valid_images": 40,
+        "invalid_images": 0,
+        "formats": {
+          "JPEG": 38,
+          "PNG": 2
+        },
+        "dimensions": [
+          [
+            720,
+            1042
+          ],
+          [
+            736,
+            1104
+          ],
+          [
+            972,
+            1619
+          ],
+          [
+            735,
+            1145
+          ],
+          [
+            588,
+            931
+          ],
+          [
+            1080,
+            2160
+          ],
+          [
+            736,
+            1169
+          ],
+          [
+            540,
+            960
+          ],
+          [
+            676,
+            1200
+          ],
+          [
+            675,
+            1200
+          ],
+          [
+            676,
+            1119
+          ],
+          [
+            736,
+            1308
+          ],
+          [
+            736,
+            1104
+          ],
+          [
+            1080,
+            1620
+          ],
+          [
+            563,
+            1017
+          ],
+          [
+            1024,
+            1536
+          ],
+          [
+            736,
+            1104
+          ],
+          [
+            720,
+            1228
+          ],
+          [
+            735,
+            1035
+          ],
+          [
+            937,
+            1703
+          ],
+          [
+            1024,
+            1536
+          ],
+          [
+            736,
+            913
+          ],
+          [
+            720,
+            1279
+          ],
+          [
+            675,
+            1200
+          ],
+          [
+            1080,
+            1996
+          ],
+          [
+            675,
+            1200
+          ],
+          [
+            736,
+            1104
+          ],
+          [
+            736,
+            1308
+          ],
+          [
+            1199,
+            2204
+          ],
+          [
+            680,
+            962
+          ],
+          [
+            720,
+            1155
+          ],
+          [
+            675,
+            1009
+          ],
+          [
+            1200,
+            1739
+          ],
+          [
+            736,
+            1104
+          ],
+          [
+            768,
+            1037
+          ],
+          [
+            1152,
+            2048
+          ],
+          [
+            300,
+            150
+          ],
+          [
+            600,
+            900
+          ],
+          [
+            570,
+            917
+          ],
+          [
+            736,
+            1308
+          ]
+        ]
+      }
+    },
+    "5": {
+      "metadata": {
+        "plot_name": "5 Marla",
+        "standard_dim": "25' x 45'",
+        "area_sqft": 1125
+      },
+      "inventory": {
+        "total_images": 41,
+        "valid_images": 41,
+        "invalid_images": 0,
+        "formats": {
+          "JPEG": 41
+        },
+        "dimensions": [
+          [
+            736,
+            989
+          ],
+          [
+            640,
+            1136
+          ],
+          [
+            609,
+            1155
+          ],
+          [
+            736,
+            1036
+          ],
+          [
+            724,
+            1024
+          ],
+          [
+            640,
+            1138
+          ],
+          [
+            896,
+            1171
+          ],
+          [
+            654,
+            1121
+          ],
+          [
+            705,
+            1186
+          ],
+          [
+            736,
+            920
+          ],
+          [
+            736,
+            920
+          ],
+          [
+            661,
+            1161
+          ],
+          [
+            807,
+            1366
+          ],
+          [
+            669,
+            1228
+          ],
+          [
+            705,
+            1410
+          ],
+          [
+            541,
+            933
+          ],
+          [
+            645,
+            1227
+          ],
+          [
+            627,
+            898
+          ],
+          [
+            736,
+            1082
+          ],
+          [
+            736,
+            1300
+          ],
+          [
+            430,
+            630
+          ],
+          [
+            720,
+            1280
+          ],
+          [
+            736,
+            1104
+          ],
+          [
+            935,
+            1419
+          ],
+          [
+            736,
+            1385
+          ],
+          [
+            717,
+            1132
+          ],
+          [
+            640,
+            672
+          ],
+          [
+            564,
+            1011
+          ],
+          [
+            657,
+            1168
+          ],
+          [
+            600,
+            987
+          ],
+          [
+            736,
+            1062
+          ],
+          [
+            736,
+            1146
+          ],
+          [
+            945,
+            1656
+          ],
+          [
+            736,
+            952
+          ],
+          [
+            720,
+            1018
+          ],
+          [
+            640,
+            1136
+          ],
+          [
+            686,
+            1188
+          ],
+          [
+            775,
+            1360
+          ],
+          [
+            620,
+            1176
+          ],
+          [
+            736,
+            1153
+          ],
+          [
+            735,
+            1197
+          ]
+        ]
+      }
+    },
+    "7": {
+      "metadata": {
+        "plot_name": "7 Marla",
+        "standard_dim": "30' x 55'",
+        "area_sqft": 1650
+      },
+      "inventory": {
+        "total_images": 42,
+        "valid_images": 42,
+        "invalid_images": 0,
+        "formats": {
+          "JPEG": 39,
+          "PNG": 3
+        },
+        "dimensions": [
+          [
+            1200,
+            1697
+          ],
+          [
+            532,
+            865
+          ],
+          [
+            720,
+            1280
+          ],
+          [
+            719,
+            1069
+          ],
+          [
+            720,
+            1219
+          ],
+          [
+            640,
+            800
+          ],
+          [
+            544,
+            960
+          ],
+          [
+            735,
+            874
+          ],
+          [
+            720,
+            919
+          ],
+          [
+            768,
+            1206
+          ],
+          [
+            736,
+            1209
+          ],
+          [
+            1200,
+            2018
+          ],
+          [
+            792,
+            1277
+          ],
+          [
+            345,
+            570
+          ],
+          [
+            1200,
+            1500
+          ],
+          [
+            474,
+            827
+          ],
+          [
+            540,
+            960
+          ],
+          [
+            736,
+            1307
+          ],
+          [
+            720,
+            1226
+          ],
+          [
+            738,
+            1248
+          ],
+          [
+            497,
+            761
+          ],
+          [
+            736,
+            1274
+          ],
+          [
+            1101,
+            1424
+          ],
+          [
+            720,
+            1269
+          ],
+          [
+            736,
+            1280
+          ],
+          [
+            685,
+            1185
+          ],
+          [
+            736,
+            1175
+          ],
+          [
+            768,
+            1407
+          ],
+          [
+            680,
+            963
+          ],
+          [
+            612,
+            960
+          ],
+          [
+            735,
+            1131
+          ],
+          [
+            735,
+            1103
+          ],
+          [
+            675,
+            769
+          ],
+          [
+            720,
+            847
+          ],
+          [
+            720,
+            837
+          ],
+          [
+            942,
+            1551
+          ],
+          [
+            1152,
+            2048
+          ],
+          [
+            1152,
+            2048
+          ],
+          [
+            1152,
+            2048
+          ],
+          [
+            501,
+            640
+          ],
+          [
+            1080,
+            1802
+          ],
+          [
+            640,
+            905
+          ]
+        ]
+      }
+    },
+    "10": {
+      "metadata": {
+        "plot_name": "10 Marla",
+        "standard_dim": "35' x 65'",
+        "area_sqft": 2275
+      },
+      "inventory": {
+        "total_images": 38,
+        "valid_images": 38,
+        "invalid_images": 0,
+        "formats": {
+          "JPEG": 37,
+          "PNG": 1
+        },
+        "dimensions": [
+          [
+            474,
+            800
+          ],
+          [
+            736,
+            1308
+          ],
+          [
+            745,
+            1280
+          ],
+          [
+            1024,
+            1536
+          ],
+          [
+            880,
+            1525
+          ],
+          [
+            1131,
+            1600
+          ],
+          [
+            736,
+            1466
+          ],
+          [
+            617,
+            1096
+          ],
+          [
+            735,
+            1174
+          ],
+          [
+            1199,
+            2142
+          ],
+          [
+            843,
+            1407
+          ],
+          [
+            607,
+            1074
+          ],
+          [
+            736,
+            949
+          ],
+          [
+            707,
+            1023
+          ],
+          [
+            362,
+            633
+          ],
+          [
+            736,
+            961
+          ],
+          [
+            672,
+            1195
+          ],
+          [
+            564,
+            1025
+          ],
+          [
+            830,
+            1306
+          ],
+          [
+            720,
+            1280
+          ],
+          [
+            736,
+            1276
+          ],
+          [
+            736,
+            1308
+          ],
+          [
+            780,
+            1024
+          ],
+          [
+            960,
+            1423
+          ],
+          [
+            340,
+            549
+          ],
+          [
+            522,
+            535
+          ],
+          [
+            563,
+            1021
+          ],
+          [
+            867,
+            1266
+          ],
+          [
+            345,
+            560
+          ],
+          [
+            564,
+            1025
+          ],
+          [
+            600,
+            1033
+          ],
+          [
+            236,
+            433
+          ],
+          [
+            606,
+            1024
+          ],
+          [
+            1152,
+            2048
+          ],
+          [
+            736,
+            1213
+          ],
+          [
+            750,
+            1125
+          ],
+          [
+            1038,
+            1705
+          ],
+          [
+            1200,
+            1697
+          ]
+        ]
+      }
+    }
+  },
+  "exact_duplicates": [
+    {
+      "sha256": "2ee729cde1c9ac8af8c0502d59e1d8cf9aded6d1abab97071a45eb24058ab913",
+      "instances": [
+        "1/dc63fcbef5792c11a0630cf42b1b279a (1).jpg",
+        "1/dc63fcbef5792c11a0630cf42b1b279a.jpg"
+      ]
+    },
+    {
+      "sha256": "9364eaa7d83b0aa5a9976d5955f3fe99967a974a9ba8089d3cdc78f8eb7510c9",
+      "instances": [
+        "5/56734469ec2d1b6642d46f696542f158 (1).jpg",
+        "5/56734469ec2d1b6642d46f696542f158.jpg"
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "category_label": "1",
+      "file_name": "00770eba64db20501bbd30bb21ce6aa5.jpg",
+      "file_path": "1/00770eba64db20501bbd30bb21ce6aa5.jpg",
+      "file_size_bytes": 215238,
+      "sha256": "8b6e354603f11210d8c3f0b2c3662d9b4191f931a6e41fac56f7714583eb8b09",
+      "is_valid": true,
+      "inferred_plot_size": "1 Kanal (50' x 90')",
+      "width_px": 877,
+      "height_px": 1584,
+      "aspect_ratio": 0.55,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "1",
+      "file_name": "027c487cd8eb1a07ba644f292fd32e0c.jpg",
+      "file_path": "1/027c487cd8eb1a07ba644f292fd32e0c.jpg",
+      "file_size_bytes": 118221,
+      "sha256": "1ac5cf21362384867a41bb10e6180faf48957edd3ce2fff28087616f04a5dd88",
+      "is_valid": true,
+      "inferred_plot_size": "1 Kanal (50' x 90')",
+      "width_px": 800,
+      "height_px": 1163,
+      "aspect_ratio": 0.69,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "1",
+      "file_name": "066fdb423d3141c8d88131702ce86c43.jpg",
+      "file_path": "1/066fdb423d3141c8d88131702ce86c43.jpg",
+      "file_size_bytes": 129466,
+      "sha256": "c6f695b8ccd129b1b0affd583a446ec595668780c9747068aca32cbe1a662980",
+      "is_valid": true,
+      "inferred_plot_size": "1 Kanal (50' x 90')",
+      "width_px": 736,
+      "height_px": 1306,
+      "aspect_ratio": 0.56,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "1",
+      "file_name": "0a921f345fb033e3b0dbf402e9f6b90c.jpg",
+      "file_path": "1/0a921f345fb033e3b0dbf402e9f6b90c.jpg",
+      "file_size_bytes": 90100,
+      "sha256": "fc4757d074c8924948392bf8158d39efde644d63e1b04b4692c9a5b4deb0ddcc",
+      "is_valid": true,
+      "inferred_plot_size": "1 Kanal (50' x 90')",
+      "width_px": 483,
+      "height_px": 881,
+      "aspect_ratio": 0.55,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "1",
+      "file_name": "20ba328abca8292cbf644fa2f1aaf0d2.jpg",
+      "file_path": "1/20ba328abca8292cbf644fa2f1aaf0d2.jpg",
+      "file_size_bytes": 130916,
+      "sha256": "b2c4115bc57a7a1654561d87b1dce40b07907aec725cc3a3b63c5f70957e030e",
+      "is_valid": true,
+      "inferred_plot_size": "1 Kanal (50' x 90')",
+      "width_px": 649,
+      "height_px": 1176,
+      "aspect_ratio": 0.55,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "1",
+      "file_name": "20f8dfbb9c1dd0dbccf4ae2a7cf53680.jpg",
+      "file_path": "1/20f8dfbb9c1dd0dbccf4ae2a7cf53680.jpg",
+      "file_size_bytes": 70229,
+      "sha256": "24aa539e9f19eb79b76199caac5f699e6fa357273eb148aea47fd66793399533",
+      "is_valid": true,
+      "inferred_plot_size": "1 Kanal (50' x 90')",
+      "width_px": 471,
+      "height_px": 726,
+      "aspect_ratio": 0.65,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "1",
+      "file_name": "31c8ba8259f47372f5680f4e13ac2540.jpg",
+      "file_path": "1/31c8ba8259f47372f5680f4e13ac2540.jpg",
+      "file_size_bytes": 116451,
+      "sha256": "47fb4739fc94fcfaaf03390e8c794c469a84eecdb6e00d79aeaa069d68b76a27",
+      "is_valid": true,
+      "inferred_plot_size": "1 Kanal (50' x 90')",
+      "width_px": 670,
+      "height_px": 1191,
+      "aspect_ratio": 0.56,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "1",
+      "file_name": "344dd5f88ce2e4f9dcf98ba99a838eaf.jpg",
+      "file_path": "1/344dd5f88ce2e4f9dcf98ba99a838eaf.jpg",
+      "file_size_bytes": 100611,
+      "sha256": "8433f2926a0199ce77f9addb150b774e91f17aa68216324a031f6eed8303e030",
+      "is_valid": true,
+      "inferred_plot_size": "1 Kanal (50' x 90')",
+      "width_px": 664,
+      "height_px": 1024,
+      "aspect_ratio": 0.65,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "1",
+      "file_name": "348dc036a4d22b04bdd794ff0de1752c.jpg",
+      "file_path": "1/348dc036a4d22b04bdd794ff0de1752c.jpg",
+      "file_size_bytes": 90893,
+      "sha256": "71d16180f09acb25cc65f6a7c68ffa745b4fd0ce2fe2a2db74c420eb6dcd9039",
+      "is_valid": true,
+      "inferred_plot_size": "1 Kanal (50' x 90')",
+      "width_px": 900,
+      "height_px": 1034,
+      "aspect_ratio": 0.87,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "1",
+      "file_name": "41847eb5f54a9509efa70c64ba29297d.jpg",
+      "file_path": "1/41847eb5f54a9509efa70c64ba29297d.jpg",
+      "file_size_bytes": 94604,
+      "sha256": "a39e2eb64fc76e708da9cabc26f7189b53df8fc3bae9fc50b999d6b00ca9489c",
+      "is_valid": true,
+      "inferred_plot_size": "1 Kanal (50' x 90')",
+      "width_px": 516,
+      "height_px": 940,
+      "aspect_ratio": 0.55,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "1",
+      "file_name": "5b541765ef090c505b5c0dc5a46933ae.jpg",
+      "file_path": "1/5b541765ef090c505b5c0dc5a46933ae.jpg",
+      "file_size_bytes": 87194,
+      "sha256": "92c030a08ebba8884ce071395a0566ddb47febe6cf46429fa8cd711b8afcd2b5",
+      "is_valid": true,
+      "inferred_plot_size": "1 Kanal (50' x 90')",
+      "width_px": 564,
+      "height_px": 785,
+      "aspect_ratio": 0.72,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "1",
+      "file_name": "6367c8c273d4b1d007fa03103612d22d.jpg",
+      "file_path": "1/6367c8c273d4b1d007fa03103612d22d.jpg",
+      "file_size_bytes": 117061,
+      "sha256": "eba2fb2da7fc2a90775b1ffecdcfc9e41ca4e8d3f07f70d14d41c9bba88e0d23",
+      "is_valid": true,
+      "inferred_plot_size": "1 Kanal (50' x 90')",
+      "width_px": 859,
+      "height_px": 1504,
+      "aspect_ratio": 0.57,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "1",
+      "file_name": "91b2c2a4d9d000431f6271dc95b4f161.jpg",
+      "file_path": "1/91b2c2a4d9d000431f6271dc95b4f161.jpg",
+      "file_size_bytes": 308471,
+      "sha256": "92deacfacde240d1308733a81b7f23ad4c423852f0dc29a9a864ef020a5fc7f5",
+      "is_valid": true,
+      "inferred_plot_size": "1 Kanal (50' x 90')",
+      "width_px": 1200,
+      "height_px": 1968,
+      "aspect_ratio": 0.61,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "1",
+      "file_name": "97abaa88d5f21c3240c969b10eb99341.jpg",
+      "file_path": "1/97abaa88d5f21c3240c969b10eb99341.jpg",
+      "file_size_bytes": 235043,
+      "sha256": "e1e443e80c451f4321f1dbfc28b125857089259d03be7f08146997370f3c62d1",
+      "is_valid": true,
+      "inferred_plot_size": "1 Kanal (50' x 90')",
+      "width_px": 1080,
+      "height_px": 1516,
+      "aspect_ratio": 0.71,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "1",
+      "file_name": "ad9deb5ed9c20f5a5549d01ecd65910a.jpg",
+      "file_path": "1/ad9deb5ed9c20f5a5549d01ecd65910a.jpg",
+      "file_size_bytes": 99600,
+      "sha256": "c8fa5b51799b47fe792a892d7d746be143b029813309e99df85de69c1fd4399f",
+      "is_valid": true,
+      "inferred_plot_size": "1 Kanal (50' x 90')",
+      "width_px": 736,
+      "height_px": 1301,
+      "aspect_ratio": 0.57,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "1",
+      "file_name": "b73b07da003283f412a40e57a31f2148.jpg",
+      "file_path": "1/b73b07da003283f412a40e57a31f2148.jpg",
+      "file_size_bytes": 173277,
+      "sha256": "7502f44ca1b3261cb66d2d58228cb2ca465c4c6869a34c46cbad48b54e7f1486",
+      "is_valid": true,
+      "inferred_plot_size": "1 Kanal (50' x 90')",
+      "width_px": 1170,
+      "height_px": 1387,
+      "aspect_ratio": 0.84,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "1",
+      "file_name": "bbdffd190faab6edff7a5cee357a9d17.jpg",
+      "file_path": "1/bbdffd190faab6edff7a5cee357a9d17.jpg",
+      "file_size_bytes": 217357,
+      "sha256": "fbd4b38adbd28301c76a79af2c8a7dbcc8358d3811f312847ba8b02708d8ed45",
+      "is_valid": true,
+      "inferred_plot_size": "1 Kanal (50' x 90')",
+      "width_px": 1080,
+      "height_px": 1753,
+      "aspect_ratio": 0.62,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "1",
+      "file_name": "bcb8f171cdca4416bb203d2206dff66f.jpg",
+      "file_path": "1/bcb8f171cdca4416bb203d2206dff66f.jpg",
+      "file_size_bytes": 102584,
+      "sha256": "38856e714b88e395fd512a9170ccda872645440a9bb133624383330b9c79386f",
+      "is_valid": true,
+      "inferred_plot_size": "1 Kanal (50' x 90')",
+      "width_px": 736,
+      "height_px": 1303,
+      "aspect_ratio": 0.56,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "1",
+      "file_name": "d9bbe3743996485fb1a50711fe5b8262.jpg",
+      "file_path": "1/d9bbe3743996485fb1a50711fe5b8262.jpg",
+      "file_size_bytes": 251409,
+      "sha256": "3460b50cbe9fc3d9e04d6fe18906b766d98d38ba0c6d6e97517a0aca0e92a0d7",
+      "is_valid": true,
+      "inferred_plot_size": "1 Kanal (50' x 90')",
+      "width_px": 1200,
+      "height_px": 2361,
+      "aspect_ratio": 0.51,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "1",
+      "file_name": "dc63fcbef5792c11a0630cf42b1b279a (1).jpg",
+      "file_path": "1/dc63fcbef5792c11a0630cf42b1b279a (1).jpg",
+      "file_size_bytes": 77645,
+      "sha256": "2ee729cde1c9ac8af8c0502d59e1d8cf9aded6d1abab97071a45eb24058ab913",
+      "is_valid": true,
+      "inferred_plot_size": "1 Kanal (50' x 90')",
+      "width_px": 557,
+      "height_px": 800,
+      "aspect_ratio": 0.7,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "1",
+      "file_name": "dc63fcbef5792c11a0630cf42b1b279a.jpg",
+      "file_path": "1/dc63fcbef5792c11a0630cf42b1b279a.jpg",
+      "file_size_bytes": 77645,
+      "sha256": "2ee729cde1c9ac8af8c0502d59e1d8cf9aded6d1abab97071a45eb24058ab913",
+      "is_valid": true,
+      "inferred_plot_size": "1 Kanal (50' x 90')",
+      "width_px": 557,
+      "height_px": 800,
+      "aspect_ratio": 0.7,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "1",
+      "file_name": "download (1).png",
+      "file_path": "1/download (1).png",
+      "file_size_bytes": 1046092,
+      "sha256": "0a675d0daa9fd07eb27db277a18c575cd18480fe2cdf94dd1913008100e80dc3",
+      "is_valid": true,
+      "inferred_plot_size": "1 Kanal (50' x 90')",
+      "width_px": 1152,
+      "height_px": 2048,
+      "aspect_ratio": 0.56,
+      "color_mode": "RGBA",
+      "format": "PNG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "1",
+      "file_name": "download.png",
+      "file_path": "1/download.png",
+      "file_size_bytes": 1819890,
+      "sha256": "427557b8e95543a30d7ca6e3971fbb058a4dbbcfa415c965d3a8f11c98d2fe30",
+      "is_valid": true,
+      "inferred_plot_size": "1 Kanal (50' x 90')",
+      "width_px": 1152,
+      "height_px": 2048,
+      "aspect_ratio": 0.56,
+      "color_mode": "RGBA",
+      "format": "PNG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "1",
+      "file_name": "e2e18820b596a3e330b98f9ac4e364bc.jpg",
+      "file_path": "1/e2e18820b596a3e330b98f9ac4e364bc.jpg",
+      "file_size_bytes": 102143,
+      "sha256": "16c726c72286fcac1702a306fe6c503e67eef87294a7e572224a9dfe0825a1df",
+      "is_valid": true,
+      "inferred_plot_size": "1 Kanal (50' x 90')",
+      "width_px": 550,
+      "height_px": 903,
+      "aspect_ratio": 0.61,
+      "color_mode": "L",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "1",
+      "file_name": "ea4c139c31fdefa9e5b7a50490d4f8bf.jpg",
+      "file_path": "1/ea4c139c31fdefa9e5b7a50490d4f8bf.jpg",
+      "file_size_bytes": 92961,
+      "sha256": "5a82da64d3bc1cd33f198650a2748e5f1ed991f8a072e233ff35d750c759c85e",
+      "is_valid": true,
+      "inferred_plot_size": "1 Kanal (50' x 90')",
+      "width_px": 735,
+      "height_px": 979,
+      "aspect_ratio": 0.75,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "1",
+      "file_name": "eae412f07bd795c6c50aa8dae34c86b6.jpg",
+      "file_path": "1/eae412f07bd795c6c50aa8dae34c86b6.jpg",
+      "file_size_bytes": 77088,
+      "sha256": "0446719eefed7c3ce2c92deb1e23fc9c1df0343f1201370d4f6039d4deceee0d",
+      "is_valid": true,
+      "inferred_plot_size": "1 Kanal (50' x 90')",
+      "width_px": 450,
+      "height_px": 758,
+      "aspect_ratio": 0.59,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "0adf5f25feca052f9968d0a9f42bd8eb.jpg",
+      "file_path": "3/0adf5f25feca052f9968d0a9f42bd8eb.jpg",
+      "file_size_bytes": 94725,
+      "sha256": "da838047064baf4bc549503189e4d7a89203325a33aef99c168b0e28d002b8ab",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 720,
+      "height_px": 1042,
+      "aspect_ratio": 0.69,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "0d2f29cf25a408c7e552e39b91189b34.jpg",
+      "file_path": "3/0d2f29cf25a408c7e552e39b91189b34.jpg",
+      "file_size_bytes": 98239,
+      "sha256": "3489841480adf015b3d5683a3d4cdb5c20ce64bb6213b84a95774e9690f0bb56",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 736,
+      "height_px": 1104,
+      "aspect_ratio": 0.67,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "0f969b09633a07439acc75819fbd1506.jpg",
+      "file_path": "3/0f969b09633a07439acc75819fbd1506.jpg",
+      "file_size_bytes": 224916,
+      "sha256": "6cf2eac3397f888383c1992d311e76d1d334251465d3806b44f73f313063c50b",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 972,
+      "height_px": 1619,
+      "aspect_ratio": 0.6,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "118c3a69f01310f3bd515ba2a9109e41.jpg",
+      "file_path": "3/118c3a69f01310f3bd515ba2a9109e41.jpg",
+      "file_size_bytes": 122874,
+      "sha256": "fdaa48dfe8fd7ccf799bdb8dcc2643cf436720b25eae25837caede1554a9da53",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 735,
+      "height_px": 1145,
+      "aspect_ratio": 0.64,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "136245892d121c74b3a7cf6063c928e6.jpg",
+      "file_path": "3/136245892d121c74b3a7cf6063c928e6.jpg",
+      "file_size_bytes": 74022,
+      "sha256": "cf00d6c2111d2e47ad70dd13a997cdf4ec14c80344a40130af24d8cce8a41962",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 588,
+      "height_px": 931,
+      "aspect_ratio": 0.63,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "1b14e27c276a847be7f0d5694be2c57d.jpg",
+      "file_path": "3/1b14e27c276a847be7f0d5694be2c57d.jpg",
+      "file_size_bytes": 185878,
+      "sha256": "968c7e1da759fc9eab785e22aa0a955276faf862d2aabc10243d2bced290e5e7",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 1080,
+      "height_px": 2160,
+      "aspect_ratio": 0.5,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "2107f8b0ce6b3d5bb924afabecc63e87.jpg",
+      "file_path": "3/2107f8b0ce6b3d5bb924afabecc63e87.jpg",
+      "file_size_bytes": 121709,
+      "sha256": "f3e1609ffa1574d994b9599a73756f8ac1417f2eb5220ccda4ce916525f44860",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 736,
+      "height_px": 1169,
+      "aspect_ratio": 0.63,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "2aefdd3e925ee9337c96c8c8ecc3e32f.jpg",
+      "file_path": "3/2aefdd3e925ee9337c96c8c8ecc3e32f.jpg",
+      "file_size_bytes": 48833,
+      "sha256": "ff0f23b86fa8c56621d56775c9cf76618544172dc9f6dc7c37afa2a64b5d13aa",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 540,
+      "height_px": 960,
+      "aspect_ratio": 0.56,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "332f77d7159e62a4b4c8ac89543bb94c.jpg",
+      "file_path": "3/332f77d7159e62a4b4c8ac89543bb94c.jpg",
+      "file_size_bytes": 105018,
+      "sha256": "de56a0b4863e4f1e63724dce0d7663fe8d0a360bf97adfe7a7ce3862308e92d4",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 676,
+      "height_px": 1200,
+      "aspect_ratio": 0.56,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "3398a39340324048f64931162c7dbca0.jpg",
+      "file_path": "3/3398a39340324048f64931162c7dbca0.jpg",
+      "file_size_bytes": 104767,
+      "sha256": "d0a113654896eaa403f751db99daab4e55fdd29576478f51df0c774b768c7404",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 675,
+      "height_px": 1200,
+      "aspect_ratio": 0.56,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "344ae6af69aeab2aef0c20c6e97ee50f.jpg",
+      "file_path": "3/344ae6af69aeab2aef0c20c6e97ee50f.jpg",
+      "file_size_bytes": 116810,
+      "sha256": "ef53b93f21b8c97377b95c688714534852244e7ece5f6d27d5dd189aeb1d77cb",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 676,
+      "height_px": 1119,
+      "aspect_ratio": 0.6,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "42f6d1b8ba5350e5dc17d0eb5b6a4e1e.jpg",
+      "file_path": "3/42f6d1b8ba5350e5dc17d0eb5b6a4e1e.jpg",
+      "file_size_bytes": 126994,
+      "sha256": "987cf8853bd9431f243d37672031222f2043455b9a618316d445bc02fe47ed0c",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 736,
+      "height_px": 1308,
+      "aspect_ratio": 0.56,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "4f3655f8abc77ad4446ea4f1c1b38779.jpg",
+      "file_path": "3/4f3655f8abc77ad4446ea4f1c1b38779.jpg",
+      "file_size_bytes": 121513,
+      "sha256": "e602002e751f3cad499aff731f12cae5f731e1abd4d98396da2ec0e9068583ce",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 736,
+      "height_px": 1104,
+      "aspect_ratio": 0.67,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "51ccd1f32dc512a057c404b60f687893.jpg",
+      "file_path": "3/51ccd1f32dc512a057c404b60f687893.jpg",
+      "file_size_bytes": 199387,
+      "sha256": "631f0402ba3de4cd8fe2d048e35fa499a980791398e0cc1499b045fa8a5dea32",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 1080,
+      "height_px": 1620,
+      "aspect_ratio": 0.67,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "5580b528a4346f1214b84d7d9e2df65c.jpg",
+      "file_path": "3/5580b528a4346f1214b84d7d9e2df65c.jpg",
+      "file_size_bytes": 87690,
+      "sha256": "fb1676b9e0bbfeb5a917eaeaba7e2f15035f38636c21691857caf0b73db26e0a",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 563,
+      "height_px": 1017,
+      "aspect_ratio": 0.55,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "5d19b4b83e36512fd37809345a8236eb.jpg",
+      "file_path": "3/5d19b4b83e36512fd37809345a8236eb.jpg",
+      "file_size_bytes": 232267,
+      "sha256": "0f8412aceba09255af8bcd28204460359a351d08cd13804c62dbbc21f4ab7325",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 1024,
+      "height_px": 1536,
+      "aspect_ratio": 0.67,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "60988e8b43bca6b0e86ff5d6c85aac01.jpg",
+      "file_path": "3/60988e8b43bca6b0e86ff5d6c85aac01.jpg",
+      "file_size_bytes": 146174,
+      "sha256": "54d5afbf00f71b0808c1cef445daed86f79397f06f612dcb0d89598a9859bd75",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 736,
+      "height_px": 1104,
+      "aspect_ratio": 0.67,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "630912d6a71a8c3419339b768862ff73.jpg",
+      "file_path": "3/630912d6a71a8c3419339b768862ff73.jpg",
+      "file_size_bytes": 95496,
+      "sha256": "fc485afd2def4334cf37b5bf99794220d70c1af2a46a49056f5b18a64d80bd33",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 720,
+      "height_px": 1228,
+      "aspect_ratio": 0.59,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "6324611e7e45fac8c9bcd9359a0917d6.jpg",
+      "file_path": "3/6324611e7e45fac8c9bcd9359a0917d6.jpg",
+      "file_size_bytes": 131830,
+      "sha256": "5adef1d160d28af82437bcf076d497ca5d47396ec62a498c6000c22452a1cd6d",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 735,
+      "height_px": 1035,
+      "aspect_ratio": 0.71,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "70607f869fb7db58226ecd20e74f185d.jpg",
+      "file_path": "3/70607f869fb7db58226ecd20e74f185d.jpg",
+      "file_size_bytes": 164671,
+      "sha256": "dd3a2d18b6b7f7cfe671813d53c356195360526bb659fc50dc2c0e709d45a7ed",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 937,
+      "height_px": 1703,
+      "aspect_ratio": 0.55,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "771112c6507910567d5f673fc1171c2c.jpg",
+      "file_path": "3/771112c6507910567d5f673fc1171c2c.jpg",
+      "file_size_bytes": 193830,
+      "sha256": "e73cff3a477595c692a7afac306f85e43cbb0160d2848bd64fae8393ec3b2845",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 1024,
+      "height_px": 1536,
+      "aspect_ratio": 0.67,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "7aa31691a29583df2029d7468a33e969.jpg",
+      "file_path": "3/7aa31691a29583df2029d7468a33e969.jpg",
+      "file_size_bytes": 102380,
+      "sha256": "8b146a7ad711068d78c0ae766f735a2bac1897f3481d2e6eee79f0c786fd07a4",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 736,
+      "height_px": 913,
+      "aspect_ratio": 0.81,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "7cca6aefc5b3b1ad2d05cb2aada41dc2.jpg",
+      "file_path": "3/7cca6aefc5b3b1ad2d05cb2aada41dc2.jpg",
+      "file_size_bytes": 95158,
+      "sha256": "8a556f0b3f6d1eca25b9e653820cca78534da43536824194795a35615e7fe955",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 720,
+      "height_px": 1279,
+      "aspect_ratio": 0.56,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "8467c497f605cf3a3096c78b0fd67118.jpg",
+      "file_path": "3/8467c497f605cf3a3096c78b0fd67118.jpg",
+      "file_size_bytes": 128673,
+      "sha256": "b3ba5b61e396de16de41df7dd5b2f3978ed5b8a844de5a3c6aa7f6c820c2f2fd",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 675,
+      "height_px": 1200,
+      "aspect_ratio": 0.56,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "88b4f0cbc89f50a8273953dc6208ff5d.jpg",
+      "file_path": "3/88b4f0cbc89f50a8273953dc6208ff5d.jpg",
+      "file_size_bytes": 154515,
+      "sha256": "db2f48f67d71cb74b966fe70259a18b4176b44ea44475884076bd38f94b05b19",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 1080,
+      "height_px": 1996,
+      "aspect_ratio": 0.54,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "88fd24157ef6251ce7bb6acb925c9226.jpg",
+      "file_path": "3/88fd24157ef6251ce7bb6acb925c9226.jpg",
+      "file_size_bytes": 135519,
+      "sha256": "ed4a4f81f466b05a4a0e9b3898a4a5e9f23ba8d8b688fe621a2477fe73f1523f",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 675,
+      "height_px": 1200,
+      "aspect_ratio": 0.56,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "9d33538b8b7a007ec839ee1bbbf6c5ce.jpg",
+      "file_path": "3/9d33538b8b7a007ec839ee1bbbf6c5ce.jpg",
+      "file_size_bytes": 113397,
+      "sha256": "0327f8c341da4798fbf20d08e3e14416a008ebe41426d1703522b96c698e786d",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 736,
+      "height_px": 1104,
+      "aspect_ratio": 0.67,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "a1f70a4d3a348ad2518588da4f8a7c2d.jpg",
+      "file_path": "3/a1f70a4d3a348ad2518588da4f8a7c2d.jpg",
+      "file_size_bytes": 106864,
+      "sha256": "77e1c698172c2e20786f4b0bd5debb591d374aef1a2e883ed853b13d47bbe202",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 736,
+      "height_px": 1308,
+      "aspect_ratio": 0.56,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "a2bf463f5ad9b218fc386818caa84b43.jpg",
+      "file_path": "3/a2bf463f5ad9b218fc386818caa84b43.jpg",
+      "file_size_bytes": 355648,
+      "sha256": "e1bddf07ef2ab008f6e4ac3ae018d97ac60e67317cc7272e9350a69cf7c8b435",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 1199,
+      "height_px": 2204,
+      "aspect_ratio": 0.54,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "a734308e08a45e436e2e52be7709bd4a.jpg",
+      "file_path": "3/a734308e08a45e436e2e52be7709bd4a.jpg",
+      "file_size_bytes": 93022,
+      "sha256": "b5189ccfeb37894879357c3cd2524623b8ef0565092e91420fcc5644401160af",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 680,
+      "height_px": 962,
+      "aspect_ratio": 0.71,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "ad2a6e1615603f20ba396a477186bad5.jpg",
+      "file_path": "3/ad2a6e1615603f20ba396a477186bad5.jpg",
+      "file_size_bytes": 131692,
+      "sha256": "91c0bc946e3784fc79f5a97a5512e8469d9572aa074633a5838205857fe57d87",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 720,
+      "height_px": 1155,
+      "aspect_ratio": 0.62,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "b0ae02dc015df83a36f70f85093dcd02.jpg",
+      "file_path": "3/b0ae02dc015df83a36f70f85093dcd02.jpg",
+      "file_size_bytes": 102180,
+      "sha256": "be3ab42464374eb006ac005cf1e6bfc09ccd789900cf13f7fa17cd940de93335",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 675,
+      "height_px": 1009,
+      "aspect_ratio": 0.67,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "bfbaf64433f924258955cbee8b39f31d.jpg",
+      "file_path": "3/bfbaf64433f924258955cbee8b39f31d.jpg",
+      "file_size_bytes": 207920,
+      "sha256": "3b6510b2cfbb77cb0b7cb6e9e5e33b4ba6cc0ad06fb15fa5103e97c471d40b49",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 1200,
+      "height_px": 1739,
+      "aspect_ratio": 0.69,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "c98d7f0585f44dd0ab36a207c919f4f8.jpg",
+      "file_path": "3/c98d7f0585f44dd0ab36a207c919f4f8.jpg",
+      "file_size_bytes": 148103,
+      "sha256": "736434e0600c7de1d9a758efec197bb85630752a4821517247cf7be6a5fa0e78",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 736,
+      "height_px": 1104,
+      "aspect_ratio": 0.67,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "d4dbb158482db8ad4fc08fbbb2d72a12.jpg",
+      "file_path": "3/d4dbb158482db8ad4fc08fbbb2d72a12.jpg",
+      "file_size_bytes": 77910,
+      "sha256": "7d322aebd452a14a6e53f432bca2d32f5fce01873160c87629d63723a99e3ca8",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 768,
+      "height_px": 1037,
+      "aspect_ratio": 0.74,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "download (1).png",
+      "file_path": "3/download (1).png",
+      "file_size_bytes": 1393358,
+      "sha256": "049162fe39d03bd47a3ba45cd7e5c409493bb888fa96aac82fbbcab3ebc42eb3",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 1152,
+      "height_px": 2048,
+      "aspect_ratio": 0.56,
+      "color_mode": "RGBA",
+      "format": "PNG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "download.png",
+      "file_path": "3/download.png",
+      "file_size_bytes": 1572,
+      "sha256": "8617e027d9070bad2f37098c59e09dd1818d6af11bcef176ac1ec1cd5e3fc0a2",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 300,
+      "height_px": 150,
+      "aspect_ratio": 2.0,
+      "color_mode": "RGBA",
+      "format": "PNG",
+      "is_multi_sheet": true,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "e8051d5b6059b5296cfd8fc31cc4a8d5.jpg",
+      "file_path": "3/e8051d5b6059b5296cfd8fc31cc4a8d5.jpg",
+      "file_size_bytes": 90133,
+      "sha256": "35f7a5354af65175f240b46ed0f0cc032f371a047db67cbbb28f1d5bdf873ad2",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 600,
+      "height_px": 900,
+      "aspect_ratio": 0.67,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "f341cfff2eebc088be8396c794b7b1cf.jpg",
+      "file_path": "3/f341cfff2eebc088be8396c794b7b1cf.jpg",
+      "file_size_bytes": 92725,
+      "sha256": "47e06b9c5558a1d0a537d13dfc4e1e9f9037c2662801153624b71f2ed97ec8d2",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 570,
+      "height_px": 917,
+      "aspect_ratio": 0.62,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "3",
+      "file_name": "f8f76de3c2ab3ab18fb1b32c341d7d42.jpg",
+      "file_path": "3/f8f76de3c2ab3ab18fb1b32c341d7d42.jpg",
+      "file_size_bytes": 152556,
+      "sha256": "a34e287a0ffef87817c8dacdb7660fc9e01df9e5583c0472aeeaf35a50b7fbbe",
+      "is_valid": true,
+      "inferred_plot_size": "3 Marla (20' x 35')",
+      "width_px": 736,
+      "height_px": 1308,
+      "aspect_ratio": 0.56,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "195e61769696aa144d1388a68ef92cc9.jpg",
+      "file_path": "5/195e61769696aa144d1388a68ef92cc9.jpg",
+      "file_size_bytes": 93123,
+      "sha256": "b30e9c930a5da24abc7c0cac15c85a295edc4cca3e7ad3026060124d790c61c4",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 736,
+      "height_px": 989,
+      "aspect_ratio": 0.74,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "1dfd85587a24e04e1e93659ba35f33cb.jpg",
+      "file_path": "5/1dfd85587a24e04e1e93659ba35f33cb.jpg",
+      "file_size_bytes": 120314,
+      "sha256": "24baf3af6e16cf99b6e2e8ff0cc61c2092fcbe1c3993f5f62902d37229cd2edc",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 640,
+      "height_px": 1136,
+      "aspect_ratio": 0.56,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "20fdc637f61dfa36c54e249634e14d0b.jpg",
+      "file_path": "5/20fdc637f61dfa36c54e249634e14d0b.jpg",
+      "file_size_bytes": 109937,
+      "sha256": "42502ba4f6294e30c9d9fe6e6293ed81c2e6cb548bdfa286c32b3946e28f0e44",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 609,
+      "height_px": 1155,
+      "aspect_ratio": 0.53,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "29c1ef134d62f2cc577bab5626a20c1c.jpg",
+      "file_path": "5/29c1ef134d62f2cc577bab5626a20c1c.jpg",
+      "file_size_bytes": 156217,
+      "sha256": "2242d45cb14bdfd11f092c452770148eda8aa4a396bb20df3f94c94be1db7ec0",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 736,
+      "height_px": 1036,
+      "aspect_ratio": 0.71,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "2ea42ee155c5b71b0b4b676ac963c7fb.jpg",
+      "file_path": "5/2ea42ee155c5b71b0b4b676ac963c7fb.jpg",
+      "file_size_bytes": 75712,
+      "sha256": "aba065ae6ace8cd05c18a00956c935597507cc68e0dd76ca3a90ff4af3a08a33",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 724,
+      "height_px": 1024,
+      "aspect_ratio": 0.71,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "47ba31eeaca9848298775f65d6fa234f.jpg",
+      "file_path": "5/47ba31eeaca9848298775f65d6fa234f.jpg",
+      "file_size_bytes": 79726,
+      "sha256": "c9ab384f677b3496f466fe19a693e32a735b00e6228a279733949e1057417a36",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 640,
+      "height_px": 1138,
+      "aspect_ratio": 0.56,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "4820b52582970f30b0498f3a123221b7.jpg",
+      "file_path": "5/4820b52582970f30b0498f3a123221b7.jpg",
+      "file_size_bytes": 144804,
+      "sha256": "7dc8fb700eb438038cab28844d8afc131b93eb90e0e00d2adc1d4cfe432021d0",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 896,
+      "height_px": 1171,
+      "aspect_ratio": 0.77,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "4e23a185bf796b4cb5f666f1fe51793b.jpg",
+      "file_path": "5/4e23a185bf796b4cb5f666f1fe51793b.jpg",
+      "file_size_bytes": 105452,
+      "sha256": "db12724ad537be59eb44dedff6bc887e658151981cd893a7d769188ca23eda90",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 654,
+      "height_px": 1121,
+      "aspect_ratio": 0.58,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "56307c4b63202b4e854b8a8798eede62.jpg",
+      "file_path": "5/56307c4b63202b4e854b8a8798eede62.jpg",
+      "file_size_bytes": 109281,
+      "sha256": "3ea31c57e59b0728e8915513bee794e45b5b9146ab4707d2777a3246b13a4edf",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 705,
+      "height_px": 1186,
+      "aspect_ratio": 0.59,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "56734469ec2d1b6642d46f696542f158 (1).jpg",
+      "file_path": "5/56734469ec2d1b6642d46f696542f158 (1).jpg",
+      "file_size_bytes": 72990,
+      "sha256": "9364eaa7d83b0aa5a9976d5955f3fe99967a974a9ba8089d3cdc78f8eb7510c9",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 736,
+      "height_px": 920,
+      "aspect_ratio": 0.8,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "56734469ec2d1b6642d46f696542f158.jpg",
+      "file_path": "5/56734469ec2d1b6642d46f696542f158.jpg",
+      "file_size_bytes": 72990,
+      "sha256": "9364eaa7d83b0aa5a9976d5955f3fe99967a974a9ba8089d3cdc78f8eb7510c9",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 736,
+      "height_px": 920,
+      "aspect_ratio": 0.8,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "57642ab86df23f4c3c16dc532812a4a2.jpg",
+      "file_path": "5/57642ab86df23f4c3c16dc532812a4a2.jpg",
+      "file_size_bytes": 113708,
+      "sha256": "943ea3cc7f9010e5c1efef8321d3e464c0aea5c4c07a4d062e2606daa7fb82b2",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 661,
+      "height_px": 1161,
+      "aspect_ratio": 0.57,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "5d2a41d1f18ef4aabe419ffdd8443c8c.jpg",
+      "file_path": "5/5d2a41d1f18ef4aabe419ffdd8443c8c.jpg",
+      "file_size_bytes": 130401,
+      "sha256": "294e2997c2ed057c3b56775f0dcc30b093a7dced701ed71f93377892a5606ee3",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 807,
+      "height_px": 1366,
+      "aspect_ratio": 0.59,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "62d5c958516588e9756a20568ad5f365.jpg",
+      "file_path": "5/62d5c958516588e9756a20568ad5f365.jpg",
+      "file_size_bytes": 156716,
+      "sha256": "376163f24cd5c8e9d10d53a687d6e4881957747abce866d984462a86ada81218",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 669,
+      "height_px": 1228,
+      "aspect_ratio": 0.54,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "6389b9829fd3b6095ea57e5e526f724d.jpg",
+      "file_path": "5/6389b9829fd3b6095ea57e5e526f724d.jpg",
+      "file_size_bytes": 175635,
+      "sha256": "debaf5f5f1b958505623340c539f4f0ebdd91ff51fceb34eb6c3ff9fab8afbeb",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 705,
+      "height_px": 1410,
+      "aspect_ratio": 0.5,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "643bd799e1b8feac702983866d63e084.jpg",
+      "file_path": "5/643bd799e1b8feac702983866d63e084.jpg",
+      "file_size_bytes": 95458,
+      "sha256": "c0913f56a066e9275b4d4393e122f129df8ec2d6739f6009f55ecb5822fc7e7a",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 541,
+      "height_px": 933,
+      "aspect_ratio": 0.58,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "68811eb3e4fb65ca97fdbeec5b8a27fe.jpg",
+      "file_path": "5/68811eb3e4fb65ca97fdbeec5b8a27fe.jpg",
+      "file_size_bytes": 118362,
+      "sha256": "af12d54406872039ae2522329ca7fb393c30a0142e10bbc8337baaebf8c455a2",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 645,
+      "height_px": 1227,
+      "aspect_ratio": 0.53,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "6d1719539d9569da58b03763b265a793.jpg",
+      "file_path": "5/6d1719539d9569da58b03763b265a793.jpg",
+      "file_size_bytes": 71306,
+      "sha256": "2908590a71f6d5606a2960d4205a93414b2835aceb3261756f2cfa05de7ec9c3",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 627,
+      "height_px": 898,
+      "aspect_ratio": 0.7,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "7b67c5d57c1c1846f67fcc526e8f47c6.jpg",
+      "file_path": "5/7b67c5d57c1c1846f67fcc526e8f47c6.jpg",
+      "file_size_bytes": 143052,
+      "sha256": "f19d5a49b58918e27473d4f90c9eb224e122809ed3b6883b648ff87453c51752",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 736,
+      "height_px": 1082,
+      "aspect_ratio": 0.68,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "80923498a1d85d4769b05cb49a0896ad.jpg",
+      "file_path": "5/80923498a1d85d4769b05cb49a0896ad.jpg",
+      "file_size_bytes": 177645,
+      "sha256": "019fe4cdd1309a5dbd10353675c08c285f853817a688e786344c745283cbe287",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 736,
+      "height_px": 1300,
+      "aspect_ratio": 0.57,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "830d33e21f6dd6af89a7807d5b114530.jpg",
+      "file_path": "5/830d33e21f6dd6af89a7807d5b114530.jpg",
+      "file_size_bytes": 49964,
+      "sha256": "f79bb127ef29052e6677063e1d68d0b155af922a2ee4bb53fb70a32ea45821f2",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 430,
+      "height_px": 630,
+      "aspect_ratio": 0.68,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "937e6f5d68c405e58aa805fe45782a8d.jpg",
+      "file_path": "5/937e6f5d68c405e58aa805fe45782a8d.jpg",
+      "file_size_bytes": 121756,
+      "sha256": "e5f353a6c742a86fd2405cc729702cf26b335876e3409f09b6180d63ff26196b",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 720,
+      "height_px": 1280,
+      "aspect_ratio": 0.56,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "9820be58ccd9fbb901a9c1dc5c1f302f.jpg",
+      "file_path": "5/9820be58ccd9fbb901a9c1dc5c1f302f.jpg",
+      "file_size_bytes": 138559,
+      "sha256": "b47efaf421fbf0de752beade9e107e312ffe021ca8207410d4a40856cd33ce7e",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 736,
+      "height_px": 1104,
+      "aspect_ratio": 0.67,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "9a134d49d66ca4a4d3c5aa4df027957f.jpg",
+      "file_path": "5/9a134d49d66ca4a4d3c5aa4df027957f.jpg",
+      "file_size_bytes": 122007,
+      "sha256": "f8bcef2387dc334c4ea9069ffb4900a96981e563a93c26e97ad1fb8812115ce2",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 935,
+      "height_px": 1419,
+      "aspect_ratio": 0.66,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "9ad5d0e23666bfb681998b5f8e9e1f7d.jpg",
+      "file_path": "5/9ad5d0e23666bfb681998b5f8e9e1f7d.jpg",
+      "file_size_bytes": 188016,
+      "sha256": "9b6890af50adb649bd83401f0f6c81a24b3815fa5a1513c31056cba8a8536350",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 736,
+      "height_px": 1385,
+      "aspect_ratio": 0.53,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "a07abad857205eee632c9dc62578b518.jpg",
+      "file_path": "5/a07abad857205eee632c9dc62578b518.jpg",
+      "file_size_bytes": 134001,
+      "sha256": "674967df2ee2f10d598fe13701741553cc204ac10ec3a3a3cbef1971ec954298",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 717,
+      "height_px": 1132,
+      "aspect_ratio": 0.63,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "a40831320a67bd584783e08e8cab540c.jpg",
+      "file_path": "5/a40831320a67bd584783e08e8cab540c.jpg",
+      "file_size_bytes": 84609,
+      "sha256": "7d9294cebfd2965b17937bae5aaebc594dd6b5bc8132ec8fb2ef0157eec9e997",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 640,
+      "height_px": 672,
+      "aspect_ratio": 0.95,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "aa9c5eee83ff1531817b84397713a47d.jpg",
+      "file_path": "5/aa9c5eee83ff1531817b84397713a47d.jpg",
+      "file_size_bytes": 131134,
+      "sha256": "bde2e94bd4e6bb3b5d3d3510c528bc6a228c9961698446db7abd0b19325364c0",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 564,
+      "height_px": 1011,
+      "aspect_ratio": 0.56,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "ade450ae46b9d04bd9e7f292893d47a6.jpg",
+      "file_path": "5/ade450ae46b9d04bd9e7f292893d47a6.jpg",
+      "file_size_bytes": 127365,
+      "sha256": "528c2bd6537ac034a1d5f1f88b33e352e042a1159a204b968083a7a8c6a4ee6f",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 657,
+      "height_px": 1168,
+      "aspect_ratio": 0.56,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "adec1a346b99ba2096ee670abeaace78.jpg",
+      "file_path": "5/adec1a346b99ba2096ee670abeaace78.jpg",
+      "file_size_bytes": 133437,
+      "sha256": "b4ed57edfb90ae48c817898f68dc23c35610676962ea7fdad7c850704b023874",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 600,
+      "height_px": 987,
+      "aspect_ratio": 0.61,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "c63409bec4ea96b726a9ce5aec3d0f58.jpg",
+      "file_path": "5/c63409bec4ea96b726a9ce5aec3d0f58.jpg",
+      "file_size_bytes": 120478,
+      "sha256": "4c776fb705b98b8ed1f755afec0096aa2f2b828b7b0e105d38c0f8d40e69bb72",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 736,
+      "height_px": 1062,
+      "aspect_ratio": 0.69,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "c718ae280899447757c8e9c2aad42095.jpg",
+      "file_path": "5/c718ae280899447757c8e9c2aad42095.jpg",
+      "file_size_bytes": 95041,
+      "sha256": "5372cd278a07d3bc17371b69b3498bf3e76a6891f4c91de6eb7073da1a6f2a53",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 736,
+      "height_px": 1146,
+      "aspect_ratio": 0.64,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "cd8718dddd2ed15d1c334f1663577d4f.jpg",
+      "file_path": "5/cd8718dddd2ed15d1c334f1663577d4f.jpg",
+      "file_size_bytes": 115694,
+      "sha256": "771ebe699d06f86bbb47dc65bc3b45dacf716c19b6105b98fa25e5c69dcedd04",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 945,
+      "height_px": 1656,
+      "aspect_ratio": 0.57,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "d14d42fc06343f35ab940e9ee05dc9f4.jpg",
+      "file_path": "5/d14d42fc06343f35ab940e9ee05dc9f4.jpg",
+      "file_size_bytes": 80875,
+      "sha256": "8135d6b5928551e24536ae803af6f6db57ab9f54726cc084c56c064d5de67172",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 736,
+      "height_px": 952,
+      "aspect_ratio": 0.77,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "d2de957ad48c7984e1575cedde4013d4.jpg",
+      "file_path": "5/d2de957ad48c7984e1575cedde4013d4.jpg",
+      "file_size_bytes": 80319,
+      "sha256": "638fbb92c34b2049f611e84ef5aa639537494baf354efe754486d2380af1aa66",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 720,
+      "height_px": 1018,
+      "aspect_ratio": 0.71,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "dd45a2887797efa0627282b44f07bae8.jpg",
+      "file_path": "5/dd45a2887797efa0627282b44f07bae8.jpg",
+      "file_size_bytes": 72732,
+      "sha256": "a8f53f9e2712964516145dafd119135af5b666beca4130196d1a5be657e1f693",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 640,
+      "height_px": 1136,
+      "aspect_ratio": 0.56,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "e4194c2f147c2b8da18c80580298530d.jpg",
+      "file_path": "5/e4194c2f147c2b8da18c80580298530d.jpg",
+      "file_size_bytes": 132223,
+      "sha256": "e2aecaef5febf0e6af934e7e6196eede517197f4c8ab313d3c076f7dcc502bb5",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 686,
+      "height_px": 1188,
+      "aspect_ratio": 0.58,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "ef3c5ad7686f9eef14e2665644fb9d21.jpg",
+      "file_path": "5/ef3c5ad7686f9eef14e2665644fb9d21.jpg",
+      "file_size_bytes": 142933,
+      "sha256": "daad960f3d952f03e3b96cc174cb975c4464daed6cace32254468ffa9d349432",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 775,
+      "height_px": 1360,
+      "aspect_ratio": 0.57,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "fa8bccde5c0a0d3574eb2735c39a6264.jpg",
+      "file_path": "5/fa8bccde5c0a0d3574eb2735c39a6264.jpg",
+      "file_size_bytes": 98055,
+      "sha256": "05422f381484132dcec6e7c5b0aef5b2711e6d91bb5108830e7b242b83f243c7",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 620,
+      "height_px": 1176,
+      "aspect_ratio": 0.53,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "fcf2004f46c00eb7761b835248492768.jpg",
+      "file_path": "5/fcf2004f46c00eb7761b835248492768.jpg",
+      "file_size_bytes": 118297,
+      "sha256": "70268e63907515fa12ddf37148fd006dc325b82898e6d144c7e6e5d58b9fdd43",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 736,
+      "height_px": 1153,
+      "aspect_ratio": 0.64,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "5",
+      "file_name": "ffeaa4733a93af8b9230c56882b1ec04.jpg",
+      "file_path": "5/ffeaa4733a93af8b9230c56882b1ec04.jpg",
+      "file_size_bytes": 123696,
+      "sha256": "52f5d0bf00dfb10620208567048606ce0e04684784f920d1ca7f8c79d6215c67",
+      "is_valid": true,
+      "inferred_plot_size": "5 Marla (25' x 45')",
+      "width_px": 735,
+      "height_px": 1197,
+      "aspect_ratio": 0.61,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "0162fa659d7392157fc0854ef058f419.jpg",
+      "file_path": "7/0162fa659d7392157fc0854ef058f419.jpg",
+      "file_size_bytes": 335587,
+      "sha256": "3fe9c29c7b46df5591c411e1bc7391b5239a6edd2c7b54cf7928d54fcacca66d",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 1200,
+      "height_px": 1697,
+      "aspect_ratio": 0.71,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "01d47a008ad8498cf8bc3f78cfc87765.jpg",
+      "file_path": "7/01d47a008ad8498cf8bc3f78cfc87765.jpg",
+      "file_size_bytes": 80596,
+      "sha256": "4a3f4e8d064cda3627e22d39b114e6ad1e36ba30eb2971ae652f453e1b47a6e9",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 532,
+      "height_px": 865,
+      "aspect_ratio": 0.62,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "04e5b61da28ac80c0551ecece7813618.jpg",
+      "file_path": "7/04e5b61da28ac80c0551ecece7813618.jpg",
+      "file_size_bytes": 96842,
+      "sha256": "15f5060d64fccdda9a1bb17b2f431498757cdfbf9b4928abe63a941688df283c",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 720,
+      "height_px": 1280,
+      "aspect_ratio": 0.56,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "06039b29355a1a549fa1df3ae4853bbb.jpg",
+      "file_path": "7/06039b29355a1a549fa1df3ae4853bbb.jpg",
+      "file_size_bytes": 133677,
+      "sha256": "0d45b87a0885f51fd6fbdd487186bc33a94fd0d2cd324f8ae14c904de23ce58c",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 719,
+      "height_px": 1069,
+      "aspect_ratio": 0.67,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "0f6eee7a69348cc86e2a304bb945cef6.jpg",
+      "file_path": "7/0f6eee7a69348cc86e2a304bb945cef6.jpg",
+      "file_size_bytes": 120352,
+      "sha256": "aee1c5a22a55974ae010943b6edc97e8e74d971079c7babbfcb225eaf2d1fd6b",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 720,
+      "height_px": 1219,
+      "aspect_ratio": 0.59,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "1652325a12a334043c1915e179d0c968.jpg",
+      "file_path": "7/1652325a12a334043c1915e179d0c968.jpg",
+      "file_size_bytes": 75072,
+      "sha256": "10e92911da1f7da5e05f8923fbfad2a5baa0e727dd83c5d3f866fec0b3452894",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 640,
+      "height_px": 800,
+      "aspect_ratio": 0.8,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "169f889d2765aec7024fdea981049482.jpg",
+      "file_path": "7/169f889d2765aec7024fdea981049482.jpg",
+      "file_size_bytes": 74992,
+      "sha256": "6c47c71275b28b9601693baf03b3d6bd7fcaad29e00aab854ce7cf8d304e0673",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 544,
+      "height_px": 960,
+      "aspect_ratio": 0.57,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "1bde12fea7ccdd1c38649c9f82617c6e.jpg",
+      "file_path": "7/1bde12fea7ccdd1c38649c9f82617c6e.jpg",
+      "file_size_bytes": 119970,
+      "sha256": "43d5e2b4a9b3884f39af533c4259d1357eb6397329f361df8eaa3c121958e14e",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 735,
+      "height_px": 874,
+      "aspect_ratio": 0.84,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "2074e5e187b96cabd2b602003ff5f003.jpg",
+      "file_path": "7/2074e5e187b96cabd2b602003ff5f003.jpg",
+      "file_size_bytes": 76201,
+      "sha256": "9e83f6a069e0eb4d67eafca120137fa03217d0c2dd16f10bd41105d76ab6128c",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 720,
+      "height_px": 919,
+      "aspect_ratio": 0.78,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "23026147e546ab5090a238f05ad0d223.jpg",
+      "file_path": "7/23026147e546ab5090a238f05ad0d223.jpg",
+      "file_size_bytes": 141139,
+      "sha256": "98619fe82a5a57240be24fb585a36d3ecc4efed92610f18ce36bd55e88e131af",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 768,
+      "height_px": 1206,
+      "aspect_ratio": 0.64,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "2d1db9db5e5271b768a784c33616801f.jpg",
+      "file_path": "7/2d1db9db5e5271b768a784c33616801f.jpg",
+      "file_size_bytes": 125797,
+      "sha256": "7e93da78f8f522413ea088d55562c3c0627b7be37c1dd32f55011f0078c5557e",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 736,
+      "height_px": 1209,
+      "aspect_ratio": 0.61,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "4adaf5dd471e2914a49b147244bff661.jpg",
+      "file_path": "7/4adaf5dd471e2914a49b147244bff661.jpg",
+      "file_size_bytes": 219980,
+      "sha256": "5a6bb5405e75942c625c9ab1064311416263478d3c71a3de61fd9c740e009d61",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 1200,
+      "height_px": 2018,
+      "aspect_ratio": 0.59,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "56914aab30d80afd41516cd57a990236.jpg",
+      "file_path": "7/56914aab30d80afd41516cd57a990236.jpg",
+      "file_size_bytes": 108537,
+      "sha256": "9e1ba7b7a6de2105ea87e5f790c05648bb6d4e2ff96a40b2d653f6725fe80d91",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 792,
+      "height_px": 1277,
+      "aspect_ratio": 0.62,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "5a6db849f3f45afc72e07e51080c33d7.jpg",
+      "file_path": "7/5a6db849f3f45afc72e07e51080c33d7.jpg",
+      "file_size_bytes": 37882,
+      "sha256": "8b9078e7daa19ec087e2a1182d3fe67b27107699d8e2f32c8facf3e86b59dc78",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 345,
+      "height_px": 570,
+      "aspect_ratio": 0.61,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "5f3dc234d56a2f170caf0322f06df811.jpg",
+      "file_path": "7/5f3dc234d56a2f170caf0322f06df811.jpg",
+      "file_size_bytes": 184331,
+      "sha256": "80c46be3ba605c7c601954d6146fa34c7678ecc8e54bb11d7ce747df3456e50b",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 1200,
+      "height_px": 1500,
+      "aspect_ratio": 0.8,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "60851d20649c914cf4838590454ab4ca.jpg",
+      "file_path": "7/60851d20649c914cf4838590454ab4ca.jpg",
+      "file_size_bytes": 70828,
+      "sha256": "aab0c4f12d45d4a6bf9e1a1c49bb06f324e6ca7dc00bc61bfef54167de6cebe5",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 474,
+      "height_px": 827,
+      "aspect_ratio": 0.57,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "61cd77c79ea67d05192da243490ea1ee.jpg",
+      "file_path": "7/61cd77c79ea67d05192da243490ea1ee.jpg",
+      "file_size_bytes": 107698,
+      "sha256": "cf68da84b377292486bf36777acea5bc1301a751630df31729044c287ae25b79",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 540,
+      "height_px": 960,
+      "aspect_ratio": 0.56,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "632be2433924088b61ed44d12c17ae7e.jpg",
+      "file_path": "7/632be2433924088b61ed44d12c17ae7e.jpg",
+      "file_size_bytes": 149390,
+      "sha256": "c80addd1fac6486cd1cf49b6abe777043734dc98146104176b0aaa2500179322",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 736,
+      "height_px": 1307,
+      "aspect_ratio": 0.56,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "73dc283c967c137e626eb9697c0fb91c.jpg",
+      "file_path": "7/73dc283c967c137e626eb9697c0fb91c.jpg",
+      "file_size_bytes": 80112,
+      "sha256": "95a618de47b5e6efb26346c9995a76c55b1608c9ff6a7851f57182eaf90053bc",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 720,
+      "height_px": 1226,
+      "aspect_ratio": 0.59,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "758e205e54feb6a61dc64ecf9c328a6b.jpg",
+      "file_path": "7/758e205e54feb6a61dc64ecf9c328a6b.jpg",
+      "file_size_bytes": 95107,
+      "sha256": "cb974d47da372055d826b87ef6645a87d134efdd40bb859668ccd695f6ce7787",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 738,
+      "height_px": 1248,
+      "aspect_ratio": 0.59,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "7cb970a85173aade05d10ba173f152fb.jpg",
+      "file_path": "7/7cb970a85173aade05d10ba173f152fb.jpg",
+      "file_size_bytes": 60668,
+      "sha256": "93c269d38bb49a612442138c3e33f4c7fdfd2c1c66627743b91a26222b330ae9",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 497,
+      "height_px": 761,
+      "aspect_ratio": 0.65,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "7d1f48256f0177ff855cf07c9e928a89.jpg",
+      "file_path": "7/7d1f48256f0177ff855cf07c9e928a89.jpg",
+      "file_size_bytes": 98388,
+      "sha256": "00d941b8930fc3e2879ee8b685bfbc9dcf9c3bdbb60433ea5808f1f95daa15c9",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 736,
+      "height_px": 1274,
+      "aspect_ratio": 0.58,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "7eb0431d4385d22c8c1c9e271430b41d.jpg",
+      "file_path": "7/7eb0431d4385d22c8c1c9e271430b41d.jpg",
+      "file_size_bytes": 178954,
+      "sha256": "eca13ebe8deb6a05b022f66654ec0e69461635d343155394ce581412a68d20c2",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 1101,
+      "height_px": 1424,
+      "aspect_ratio": 0.77,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "7ed0333be4203c1e9e467f475be17718.jpg",
+      "file_path": "7/7ed0333be4203c1e9e467f475be17718.jpg",
+      "file_size_bytes": 113056,
+      "sha256": "33758c555039bb2fe9ba0d248f2fccd9296e37ee7d739e1c42943655326b6479",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 720,
+      "height_px": 1269,
+      "aspect_ratio": 0.57,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "85b4cd637142aceadb6ff3ed9920ab78.jpg",
+      "file_path": "7/85b4cd637142aceadb6ff3ed9920ab78.jpg",
+      "file_size_bytes": 111468,
+      "sha256": "5709ec4f7fddca065321a7d5e24f2f46fe44fb79b41b90a2aed9771d6cb27b2b",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 736,
+      "height_px": 1280,
+      "aspect_ratio": 0.57,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "8acb230d32676951d19381417d03c625.jpg",
+      "file_path": "7/8acb230d32676951d19381417d03c625.jpg",
+      "file_size_bytes": 92570,
+      "sha256": "112fc10cc889961f8a871805f3920b20503e3d927f82612a92bd23877fc315d2",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 685,
+      "height_px": 1185,
+      "aspect_ratio": 0.58,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "9084f6290210a19e33f4d0e9678b39f2.jpg",
+      "file_path": "7/9084f6290210a19e33f4d0e9678b39f2.jpg",
+      "file_size_bytes": 118992,
+      "sha256": "f349859e3cc0dfe39bc6eda4274834b1a9e75021094e968960c7228061cbfd64",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 736,
+      "height_px": 1175,
+      "aspect_ratio": 0.63,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "952369fd03ed6cdf153860ff0eb0e70c.jpg",
+      "file_path": "7/952369fd03ed6cdf153860ff0eb0e70c.jpg",
+      "file_size_bytes": 159819,
+      "sha256": "cc4a1af1232fa973816fd2607e21d72151c09a8296fe56e8a14def0966fcfdda",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 768,
+      "height_px": 1407,
+      "aspect_ratio": 0.55,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "96647312a1823b0ccc6f5b5cea45264c.jpg",
+      "file_path": "7/96647312a1823b0ccc6f5b5cea45264c.jpg",
+      "file_size_bytes": 84813,
+      "sha256": "53d6e1a091e3cd828ee379f481ed89ba1dfd284ae5a0b1ba004ddf1fd1ad4687",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 680,
+      "height_px": 963,
+      "aspect_ratio": 0.71,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "a8dbb3c7cbf0b17866ee8b082240cf32.jpg",
+      "file_path": "7/a8dbb3c7cbf0b17866ee8b082240cf32.jpg",
+      "file_size_bytes": 69051,
+      "sha256": "c50ce1162cc98e70597c28aa550df68b7bf562234eac5d9daeca94e4bafa43b7",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 612,
+      "height_px": 960,
+      "aspect_ratio": 0.64,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "ab131783dfef2d9bba76bef0c350e12d.jpg",
+      "file_path": "7/ab131783dfef2d9bba76bef0c350e12d.jpg",
+      "file_size_bytes": 93175,
+      "sha256": "53cc0b70976d25783fc7ae03322caa03f3275b84af722891c6adc6d315ef65dd",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 735,
+      "height_px": 1131,
+      "aspect_ratio": 0.65,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "af8546288d37f347a3f7d7ecbbb5fcc1.jpg",
+      "file_path": "7/af8546288d37f347a3f7d7ecbbb5fcc1.jpg",
+      "file_size_bytes": 92362,
+      "sha256": "effe37450ce3ff911a5e93cfb8a4fc23aa887272e766e6784729d07346e8f03a",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 735,
+      "height_px": 1103,
+      "aspect_ratio": 0.67,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "b0691f4fd83fad3bbd3c49adca823788.jpg",
+      "file_path": "7/b0691f4fd83fad3bbd3c49adca823788.jpg",
+      "file_size_bytes": 82139,
+      "sha256": "bcf5cfc0d78a21449a9fb178430f966daf4a428f73866a8f47a1e71a0c3ce27a",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 675,
+      "height_px": 769,
+      "aspect_ratio": 0.88,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "bb0e73dd1657c1cb730fa70352a20350.jpg",
+      "file_path": "7/bb0e73dd1657c1cb730fa70352a20350.jpg",
+      "file_size_bytes": 114860,
+      "sha256": "a96f4e0ff93206eb98850a9c5bd4374eb94b9847c7cccd3f96c9d04c15ff160f",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 720,
+      "height_px": 847,
+      "aspect_ratio": 0.85,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "c177ce86f2b16b925d7a430f614a848a.jpg",
+      "file_path": "7/c177ce86f2b16b925d7a430f614a848a.jpg",
+      "file_size_bytes": 63134,
+      "sha256": "80cb35f5a75ea90882acfb2c46b508dc1ce05191fea49ba8d525e3cc24056a7d",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 720,
+      "height_px": 837,
+      "aspect_ratio": 0.86,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "cd5b3e91c93547fc01b5f5b9c2faddc6.jpg",
+      "file_path": "7/cd5b3e91c93547fc01b5f5b9c2faddc6.jpg",
+      "file_size_bytes": 179471,
+      "sha256": "62411c940947dcd9b5cbc592b4c9aa26d2da006d25bb0a3afe48ded2fe04b9e8",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 942,
+      "height_px": 1551,
+      "aspect_ratio": 0.61,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "download (1).png",
+      "file_path": "7/download (1).png",
+      "file_size_bytes": 1403997,
+      "sha256": "4a5955fb3ec07e63dc51f5c2a85c5bf77d495987cbbea489ed585daaeb9fa188",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 1152,
+      "height_px": 2048,
+      "aspect_ratio": 0.56,
+      "color_mode": "RGBA",
+      "format": "PNG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "download (2).png",
+      "file_path": "7/download (2).png",
+      "file_size_bytes": 1808712,
+      "sha256": "3f050664b7278f643b9209e7bdfd409062766c94811b6f21ca6ad5c3eca3cc26",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 1152,
+      "height_px": 2048,
+      "aspect_ratio": 0.56,
+      "color_mode": "RGBA",
+      "format": "PNG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "download.png",
+      "file_path": "7/download.png",
+      "file_size_bytes": 1230539,
+      "sha256": "becca3a3c61c4c10de477535b329ec71f6b8b61ad5ac9f52590643b784a7af10",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 1152,
+      "height_px": 2048,
+      "aspect_ratio": 0.56,
+      "color_mode": "RGBA",
+      "format": "PNG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "ed77829428fb20012ee6bdd29de8873f.jpg",
+      "file_path": "7/ed77829428fb20012ee6bdd29de8873f.jpg",
+      "file_size_bytes": 63036,
+      "sha256": "c2f6765677e4b58659b6a7212284eff5f4f0af564590272950539696207ae6d3",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 501,
+      "height_px": 640,
+      "aspect_ratio": 0.78,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "f63ac252b49b86fd82e6da75c20e653a.jpg",
+      "file_path": "7/f63ac252b49b86fd82e6da75c20e653a.jpg",
+      "file_size_bytes": 295892,
+      "sha256": "7d38f44c4d14657347911e5a7e4106fd26d59de2334a58f07b9b9c331bbaf671",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 1080,
+      "height_px": 1802,
+      "aspect_ratio": 0.6,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "7",
+      "file_name": "f9d2c723c5ece0a2a4e50e789bb713b0.jpg",
+      "file_path": "7/f9d2c723c5ece0a2a4e50e789bb713b0.jpg",
+      "file_size_bytes": 58566,
+      "sha256": "224bdea807b64db7e8fd1c0d6cd55a8d87ccea90aa9eaf2766024c6a9fdea783",
+      "is_valid": true,
+      "inferred_plot_size": "7 Marla (30' x 55')",
+      "width_px": 640,
+      "height_px": 905,
+      "aspect_ratio": 0.71,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "052da9368c90d89e449dc37055603d7d.jpg",
+      "file_path": "10/052da9368c90d89e449dc37055603d7d.jpg",
+      "file_size_bytes": 42732,
+      "sha256": "b1ba0160d2c5ffcce0e663827a9050d0a0f54a14cb5b78ab59e8d31be0b812a3",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 474,
+      "height_px": 800,
+      "aspect_ratio": 0.59,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "060d13de5349461d2064392ce14217fc.jpg",
+      "file_path": "10/060d13de5349461d2064392ce14217fc.jpg",
+      "file_size_bytes": 140166,
+      "sha256": "857c933883799ae52033bcd897e50e9f0932199086f8b934c40dfbc430080823",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 736,
+      "height_px": 1308,
+      "aspect_ratio": 0.56,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "2064f9dd00f728258227a1045629be8f.jpg",
+      "file_path": "10/2064f9dd00f728258227a1045629be8f.jpg",
+      "file_size_bytes": 119285,
+      "sha256": "7285f476361f039f5e5fae2093d9d02283f48d003ca30ec74ee8ba784e1a0f7a",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 745,
+      "height_px": 1280,
+      "aspect_ratio": 0.58,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "26814652a4c8ad2f8d9272f08663e823.jpg",
+      "file_path": "10/26814652a4c8ad2f8d9272f08663e823.jpg",
+      "file_size_bytes": 249286,
+      "sha256": "b77e0b02ab51a0adea20594f648bd8a3e73786449b204bfbcf047c156f730344",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 1024,
+      "height_px": 1536,
+      "aspect_ratio": 0.67,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "30e52ed97103feac044bb49485e40da5.jpg",
+      "file_path": "10/30e52ed97103feac044bb49485e40da5.jpg",
+      "file_size_bytes": 115199,
+      "sha256": "9f8e5f8622f2dba793e002970a7211120293c26bcca9f9f5b046a7927566b530",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 880,
+      "height_px": 1525,
+      "aspect_ratio": 0.58,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "31f87a6a3109770522565fd7532e48b8.jpg",
+      "file_path": "10/31f87a6a3109770522565fd7532e48b8.jpg",
+      "file_size_bytes": 205841,
+      "sha256": "16186a0386405850883429c738025099534b9bdf553766c89993a580d00a7d44",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 1131,
+      "height_px": 1600,
+      "aspect_ratio": 0.71,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "36c25c2aa334607d73ec124ebe838329.jpg",
+      "file_path": "10/36c25c2aa334607d73ec124ebe838329.jpg",
+      "file_size_bytes": 123857,
+      "sha256": "758012422a4480bb8ec66c4fa3008dc2ee2e339ed84cb6949302592469c6d006",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 736,
+      "height_px": 1466,
+      "aspect_ratio": 0.5,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "37a0070e0f79ac2338bf803e41caa0d5.jpg",
+      "file_path": "10/37a0070e0f79ac2338bf803e41caa0d5.jpg",
+      "file_size_bytes": 121418,
+      "sha256": "725932b9fe0de835fa7211275348eb441a1e4b8f7064b6cf4fcd3a4ab32a4654",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 617,
+      "height_px": 1096,
+      "aspect_ratio": 0.56,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "3dd46b9a57d817703f8fbd60992cba19.jpg",
+      "file_path": "10/3dd46b9a57d817703f8fbd60992cba19.jpg",
+      "file_size_bytes": 99855,
+      "sha256": "b2040551fa11220e5f0c52cc9a4c9432cdd7ca5d2a465fea8906e6319b74fd14",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 735,
+      "height_px": 1174,
+      "aspect_ratio": 0.63,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "412d074e3cb6a1733fc43466004f3adb.jpg",
+      "file_path": "10/412d074e3cb6a1733fc43466004f3adb.jpg",
+      "file_size_bytes": 184874,
+      "sha256": "2f0f457e40db20ed3e5dc04b7cbf7b2213680ffb0dd1ea476cead7f076123a71",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 1199,
+      "height_px": 2142,
+      "aspect_ratio": 0.56,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "43c64ecf0b3a2087e060aaffacacf517.jpg",
+      "file_path": "10/43c64ecf0b3a2087e060aaffacacf517.jpg",
+      "file_size_bytes": 148037,
+      "sha256": "8ba9645eb1a273a659426e6e81d726b2da1011bda23ebac345a36ef0a03c1fae",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 843,
+      "height_px": 1407,
+      "aspect_ratio": 0.6,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "49db978c8cac36f27a7d2ddc2375b538.jpg",
+      "file_path": "10/49db978c8cac36f27a7d2ddc2375b538.jpg",
+      "file_size_bytes": 81545,
+      "sha256": "b8176c69af926f3d0de14b5a1abbd7318d6dd7d0598317ca5bbd5a66176a3b9c",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 607,
+      "height_px": 1074,
+      "aspect_ratio": 0.57,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "4eab6e9db38b31d6ea0c4b3eec575240.jpg",
+      "file_path": "10/4eab6e9db38b31d6ea0c4b3eec575240.jpg",
+      "file_size_bytes": 111146,
+      "sha256": "c50bcbffbfd363eb2b6eb966206fa301ac3b9821cff6df7ebaec1e249512263c",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 736,
+      "height_px": 949,
+      "aspect_ratio": 0.78,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "5d53b7f32586b0b769726a3e9e7c67d6.jpg",
+      "file_path": "10/5d53b7f32586b0b769726a3e9e7c67d6.jpg",
+      "file_size_bytes": 109550,
+      "sha256": "ea7d27c914e77865a90f63d3c2fc6270e642421a06f2a74ee2eb916e4c8a46ce",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 707,
+      "height_px": 1023,
+      "aspect_ratio": 0.69,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "660c56d57c30c57d2598ce074c644adf.jpg",
+      "file_path": "10/660c56d57c30c57d2598ce074c644adf.jpg",
+      "file_size_bytes": 38512,
+      "sha256": "ae74adc9611cce4ea720f42c8dbb84573ea69f5fa2a1812c14f0163683620211",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 362,
+      "height_px": 633,
+      "aspect_ratio": 0.57,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "68ae6cfbd0822cffd30c82acc11c4823.jpg",
+      "file_path": "10/68ae6cfbd0822cffd30c82acc11c4823.jpg",
+      "file_size_bytes": 103774,
+      "sha256": "a430249799f2a114dedaa4c4c6d7399f041f7624880b1e6cfb87e4d24e5d83a4",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 736,
+      "height_px": 961,
+      "aspect_ratio": 0.77,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "68ce22582ac0497c923cee14b9608f49.jpg",
+      "file_path": "10/68ce22582ac0497c923cee14b9608f49.jpg",
+      "file_size_bytes": 93990,
+      "sha256": "8d50e052f3956fd6b641bda373b1cb858379629ca7b1cdd58a4fe2a45690554e",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 672,
+      "height_px": 1195,
+      "aspect_ratio": 0.56,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "6a0b981cfe8407c963ab6686608d2cde.jpg",
+      "file_path": "10/6a0b981cfe8407c963ab6686608d2cde.jpg",
+      "file_size_bytes": 90883,
+      "sha256": "5502a5a2a9be46715962e2e40b36741a09810b7a617927db0104ee7b83adfdaa",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 564,
+      "height_px": 1025,
+      "aspect_ratio": 0.55,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "74492f6dff0e80759bf91b2c3546ccce.jpg",
+      "file_path": "10/74492f6dff0e80759bf91b2c3546ccce.jpg",
+      "file_size_bytes": 133600,
+      "sha256": "3ee9150ced68c4f2ed698504f1725ec2b6115ec22543443dde7a29720bbe8e3f",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 830,
+      "height_px": 1306,
+      "aspect_ratio": 0.64,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "7b8d09329d16531d380e7e180d67415f.jpg",
+      "file_path": "10/7b8d09329d16531d380e7e180d67415f.jpg",
+      "file_size_bytes": 98270,
+      "sha256": "76fe8ea32c5e60cc8e2c5351ec48f86e329b4b45d7ce60a5dc67cc3e67d4655e",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 720,
+      "height_px": 1280,
+      "aspect_ratio": 0.56,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "80c5dd5da72d29e6db9c125b4f1733f8.jpg",
+      "file_path": "10/80c5dd5da72d29e6db9c125b4f1733f8.jpg",
+      "file_size_bytes": 135053,
+      "sha256": "ca43261febc195af258f99e42ca11f5492dbc0d372376492ab5d4485952fb824",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 736,
+      "height_px": 1276,
+      "aspect_ratio": 0.58,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "89e44e5393ddf8894063024a48164887.jpg",
+      "file_path": "10/89e44e5393ddf8894063024a48164887.jpg",
+      "file_size_bytes": 123871,
+      "sha256": "f4c8ca82fc88cbbc6fd6bbeae2be58976d2dc57714da80e2f0005d8036d5369b",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 736,
+      "height_px": 1308,
+      "aspect_ratio": 0.56,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "9719e5d61dbc3fa3ab1923c3c171bd7f.jpg",
+      "file_path": "10/9719e5d61dbc3fa3ab1923c3c171bd7f.jpg",
+      "file_size_bytes": 85772,
+      "sha256": "1243624e375da1b4870bfc7a4666b49ad21ad022bff597a0b19ff77ddccd426f",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 780,
+      "height_px": 1024,
+      "aspect_ratio": 0.76,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "9c7a45382f610804ecca126e80a823b8.jpg",
+      "file_path": "10/9c7a45382f610804ecca126e80a823b8.jpg",
+      "file_size_bytes": 137250,
+      "sha256": "0bf5f62f40911352c884f92f2480ecc30ab35d39d043c2f0a8f9870aa22a1d66",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 960,
+      "height_px": 1423,
+      "aspect_ratio": 0.67,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "ab9d97575303a0088c17778ed67d474f.jpg",
+      "file_path": "10/ab9d97575303a0088c17778ed67d474f.jpg",
+      "file_size_bytes": 33027,
+      "sha256": "02757eb21e2929e7f7bf77531099807b30ea3d6cd32b597ec6e923a99c102816",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 340,
+      "height_px": 549,
+      "aspect_ratio": 0.62,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "af7ca10defaf7510e93d1f28b4ca839b.jpg",
+      "file_path": "10/af7ca10defaf7510e93d1f28b4ca839b.jpg",
+      "file_size_bytes": 42968,
+      "sha256": "eba905b6e3505660050e47f674089a8cbcdd2c9bf38e4a11788029895b2f316e",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 522,
+      "height_px": 535,
+      "aspect_ratio": 0.98,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "b0a5094ca9b81a85d10a5546a3ab7381.jpg",
+      "file_path": "10/b0a5094ca9b81a85d10a5546a3ab7381.jpg",
+      "file_size_bytes": 111602,
+      "sha256": "7f6def1a4634d574c4b8c6d227ce7c9aa231f5b928b3d22498c05543738c75f5",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 563,
+      "height_px": 1021,
+      "aspect_ratio": 0.55,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "b92d00fa47f1bd579f57f0ad15ea4319.jpg",
+      "file_path": "10/b92d00fa47f1bd579f57f0ad15ea4319.jpg",
+      "file_size_bytes": 180118,
+      "sha256": "68f216b2a3dc6c424975e3591f60c38a59a38282fb114191809216378423da42",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 867,
+      "height_px": 1266,
+      "aspect_ratio": 0.68,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "b957adec5a87a87aff175df9db2032dd.jpg",
+      "file_path": "10/b957adec5a87a87aff175df9db2032dd.jpg",
+      "file_size_bytes": 42389,
+      "sha256": "d857faf2d56fa4b1fb09b99afbf04ff5a0b5f1cf1ee155942f5984b0ab0e6865",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 345,
+      "height_px": 560,
+      "aspect_ratio": 0.62,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "c16e97a41b64f24d55214f9d0ef77f92.jpg",
+      "file_path": "10/c16e97a41b64f24d55214f9d0ef77f92.jpg",
+      "file_size_bytes": 116795,
+      "sha256": "3574d09a9c089df7377cac7926787335df5c549a2256727f7f41b668448c5dac",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 564,
+      "height_px": 1025,
+      "aspect_ratio": 0.55,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "c22ca84299eac96d55d7bf189a87493e.jpg",
+      "file_path": "10/c22ca84299eac96d55d7bf189a87493e.jpg",
+      "file_size_bytes": 95971,
+      "sha256": "73d85d1ca8d6b3165cca287c88ec652954f58615553340169b5ff6fca1b42280",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 600,
+      "height_px": 1033,
+      "aspect_ratio": 0.58,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "cb33831c86d1f16db29ad58bf9e926f3.jpg",
+      "file_path": "10/cb33831c86d1f16db29ad58bf9e926f3.jpg",
+      "file_size_bytes": 26941,
+      "sha256": "02e2cd48bb38fae624fe46434ececc52513b9fb2521481e043d669d8924920ce",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 236,
+      "height_px": 433,
+      "aspect_ratio": 0.55,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "dcb40330fc026cfbfec3f95441d09ca6.jpg",
+      "file_path": "10/dcb40330fc026cfbfec3f95441d09ca6.jpg",
+      "file_size_bytes": 60002,
+      "sha256": "2afb085a7927ad82baaba94e7ca3867a6987336750490687fac6a6ce417bd1d2",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 606,
+      "height_px": 1024,
+      "aspect_ratio": 0.59,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "download.png",
+      "file_path": "10/download.png",
+      "file_size_bytes": 1005715,
+      "sha256": "d2866096f041bdc9d94b316da8eb7d29e908949ee2344c5dcb7210f4f05ea083",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 1152,
+      "height_px": 2048,
+      "aspect_ratio": 0.56,
+      "color_mode": "RGBA",
+      "format": "PNG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "ee4309135f41eca62630264ecb16a220.jpg",
+      "file_path": "10/ee4309135f41eca62630264ecb16a220.jpg",
+      "file_size_bytes": 117488,
+      "sha256": "218e64f6d362da8ad736d640501b733a3b97020de3740de2a254f526a7488a4f",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 736,
+      "height_px": 1213,
+      "aspect_ratio": 0.61,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "ee8abc87ce99381ebc1d5e33556b2158.jpg",
+      "file_path": "10/ee8abc87ce99381ebc1d5e33556b2158.jpg",
+      "file_size_bytes": 125767,
+      "sha256": "caee42366103393175368e4b9887edf95c0392e3c3673a423717ea0ce276178b",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 750,
+      "height_px": 1125,
+      "aspect_ratio": 0.67,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "f5f8286b79f9fe312c37ab7c3f7a12e7.jpg",
+      "file_path": "10/f5f8286b79f9fe312c37ab7c3f7a12e7.jpg",
+      "file_size_bytes": 175119,
+      "sha256": "0cc9c5045d96f10f2bbb4a3f2b600540da4ba0a000d3e85e12e6c8e271282919",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 1038,
+      "height_px": 1705,
+      "aspect_ratio": 0.61,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    },
+    {
+      "category_label": "10",
+      "file_name": "feaab571700ad095d526296118e18217.jpg",
+      "file_path": "10/feaab571700ad095d526296118e18217.jpg",
+      "file_size_bytes": 157907,
+      "sha256": "ea58f6d436a8c6241019c4b5ea266e5ba11384cdc070911410115ea62d0b7958",
+      "is_valid": true,
+      "inferred_plot_size": "10 Marla (35' x 65')",
+      "width_px": 1200,
+      "height_px": 1697,
+      "aspect_ratio": 0.71,
+      "color_mode": "RGB",
+      "format": "JPEG",
+      "is_multi_sheet": false,
+      "confidence": 0.85
+    }
+  ]
+}

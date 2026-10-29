@@ -1,0 +1,323 @@
+{
+  "plan_id": "3_027",
+  "category": "3",
+  "source_image": "0adf5f25feca052f9968d0a9f42bd8eb.jpg",
+  "source_path": "3/0adf5f25feca052f9968d0a9f42bd8eb.jpg",
+  "plot": {
+    "inferred_type": "3 Marla (20' x 35')",
+    "frontage_ft": 20,
+    "depth_ft": 35,
+    "area_sqft": 700
+  },
+  "total_bedrooms": 2,
+  "total_bathrooms": 3,
+  "has_car_porch": true,
+  "has_stairs": true,
+  "has_open_to_sky": true,
+  "rooms": [
+    {
+      "room_id": "r_1",
+      "name": "Bedroom 1",
+      "category": "bedroom",
+      "dimensions_raw": "12'-1.5\"x12'-0\"",
+      "dimensions_meters": [
+        3.69,
+        3.66
+      ],
+      "area_m2": 13.51,
+      "spatial_zone": "rear_left",
+      "box_2d": [
+        140,
+        95,
+        385,
+        415
+      ],
+      "connected_to": [
+        "Lobby"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_2",
+      "name": "Bedroom 2",
+      "category": "bedroom",
+      "dimensions_raw": "12'-1.5\"x12'-0\"",
+      "dimensions_meters": [
+        3.69,
+        3.66
+      ],
+      "area_m2": 13.51,
+      "spatial_zone": "rear_right",
+      "box_2d": [
+        140,
+        606,
+        385,
+        930
+      ],
+      "connected_to": [
+        "Dining Lounge"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_3",
+      "name": "Toilet",
+      "category": "bathroom",
+      "dimensions_raw": "5'0\"X6'0\"",
+      "dimensions_meters": [
+        1.52,
+        1.83
+      ],
+      "area_m2": 2.78,
+      "spatial_zone": "rear_center",
+      "box_2d": [
+        238,
+        420,
+        393,
+        600
+      ],
+      "connected_to": [
+        "Dining Lounge"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_4",
+      "name": "Open to Sky",
+      "category": "outdoor",
+      "dimensions_raw": "4'6\"X5'6\"",
+      "dimensions_meters": [
+        1.37,
+        1.68
+      ],
+      "area_m2": 2.3,
+      "spatial_zone": "rear_center",
+      "box_2d": [
+        135,
+        435,
+        243,
+        580
+      ],
+      "connected_to": [],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_5",
+      "name": "Dining Lounge",
+      "category": "living",
+      "dimensions_raw": "14'-6\"x14'-6\"",
+      "dimensions_meters": [
+        4.42,
+        4.42
+      ],
+      "area_m2": 19.54,
+      "spatial_zone": "center",
+      "box_2d": [
+        395,
+        305,
+        634,
+        690
+      ],
+      "connected_to": [
+        "Drawing Room",
+        "Kitchen",
+        "Staircase",
+        "Lobby",
+        "Bedroom 2",
+        "Toilet"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_6",
+      "name": "Drawing Room",
+      "category": "living",
+      "dimensions_raw": "12'-6\"x12'-0\"",
+      "dimensions_meters": [
+        3.81,
+        3.66
+      ],
+      "area_m2": 13.94,
+      "spatial_zone": "front_left",
+      "box_2d": [
+        650,
+        95,
+        902,
+        325
+      ],
+      "connected_to": [
+        "Dining Lounge",
+        "Verandha"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_7",
+      "name": "Lobby",
+      "category": "circulation",
+      "dimensions_raw": "3'-3\" Width",
+      "dimensions_meters": [
+        1.0,
+        2.5
+      ],
+      "area_m2": 2.5,
+      "spatial_zone": "center_left",
+      "box_2d": [
+        414,
+        98,
+        480,
+        300
+      ],
+      "connected_to": [
+        "Dining Lounge",
+        "WC",
+        "Bath",
+        "Bedroom 1"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_8",
+      "name": "WC",
+      "category": "bathroom",
+      "dimensions_raw": "3'6\"X4'0\"",
+      "dimensions_meters": [
+        1.07,
+        1.22
+      ],
+      "area_m2": 1.31,
+      "spatial_zone": "center_left",
+      "box_2d": [
+        474,
+        105,
+        568,
+        305
+      ],
+      "connected_to": [
+        "Lobby"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_9",
+      "name": "Bath",
+      "category": "bathroom",
+      "dimensions_raw": "6'6\"X4'3\"",
+      "dimensions_meters": [
+        1.98,
+        1.3
+      ],
+      "area_m2": 2.57,
+      "spatial_zone": "center_left",
+      "box_2d": [
+        560,
+        100,
+        654,
+        305
+      ],
+      "connected_to": [
+        "Lobby"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_10",
+      "name": "Kitchen",
+      "category": "kitchen",
+      "dimensions_raw": "12'6\"x8'-0\"",
+      "dimensions_meters": [
+        3.81,
+        2.44
+      ],
+      "area_m2": 9.3,
+      "spatial_zone": "front_center",
+      "box_2d": [
+        638,
+        420,
+        831,
+        695
+      ],
+      "connected_to": [
+        "Dining Lounge",
+        "Verandha"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_11",
+      "name": "Staircase",
+      "category": "circulation",
+      "dimensions_raw": "7'0\" Width",
+      "dimensions_meters": [
+        2.13,
+        4.42
+      ],
+      "area_m2": 9.41,
+      "spatial_zone": "center_right",
+      "box_2d": [
+        385,
+        710,
+        567,
+        935
+      ],
+      "connected_to": [
+        "Dining Lounge",
+        "Car Porch"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_12",
+      "name": "Car Porch",
+      "category": "parking",
+      "dimensions_raw": "14'6\" Length",
+      "dimensions_meters": [
+        2.44,
+        4.42
+      ],
+      "area_m2": 10.78,
+      "spatial_zone": "front_right",
+      "box_2d": [
+        660,
+        705,
+        905,
+        930
+      ],
+      "connected_to": [
+        "Verandha",
+        "Staircase"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_13",
+      "name": "Verandha",
+      "category": "outdoor",
+      "dimensions_raw": "12'6\" Width",
+      "dimensions_meters": [
+        3.81,
+        1.2
+      ],
+      "area_m2": 4.57,
+      "spatial_zone": "front_center",
+      "box_2d": [
+        831,
+        415,
+        903,
+        715
+      ],
+      "connected_to": [
+        "Car Porch",
+        "Kitchen",
+        "Drawing Room"
+      ],
+      "status": "confirmed"
+    }
+  ],
+  "structural_notes": {
+    "staircase_location": "side",
+    "parking_capacity": "single_car",
+    "circulation_type": "central_lounge"
+  },
+  "annotation_status": "confirmed"
+}

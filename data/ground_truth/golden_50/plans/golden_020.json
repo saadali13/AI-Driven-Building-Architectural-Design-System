@@ -1,0 +1,501 @@
+{
+  "plan_id": "golden_020",
+  "category": "3_bedroom",
+  "building_boundary": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      10.0,
+      0.0
+    ],
+    [
+      10.0,
+      14.0
+    ],
+    [
+      0.0,
+      14.0
+    ],
+    [
+      0.0,
+      0.0
+    ]
+  ],
+  "total_area_m2": 140.0,
+  "floor_count": 1,
+  "levels": [
+    0
+  ],
+  "walls": [
+    {
+      "wall_id": "golden_020_w_ext_south",
+      "wall_type": "exterior",
+      "centerline": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          10.0,
+          0.0
+        ]
+      ],
+      "thickness_m": 0.25
+    },
+    {
+      "wall_id": "golden_020_w_ext_east",
+      "wall_type": "exterior",
+      "centerline": [
+        [
+          10.0,
+          0.0
+        ],
+        [
+          10.0,
+          14.0
+        ]
+      ],
+      "thickness_m": 0.25
+    },
+    {
+      "wall_id": "golden_020_w_ext_north",
+      "wall_type": "exterior",
+      "centerline": [
+        [
+          10.0,
+          14.0
+        ],
+        [
+          0.0,
+          14.0
+        ]
+      ],
+      "thickness_m": 0.25
+    },
+    {
+      "wall_id": "golden_020_w_ext_west",
+      "wall_type": "exterior",
+      "centerline": [
+        [
+          0.0,
+          14.0
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "thickness_m": 0.25
+    }
+  ],
+  "openings": [
+    {
+      "opening_id": "golden_020_d1",
+      "opening_type": "door",
+      "position": [
+        2.5,
+        0.0
+      ],
+      "width_m": 0.9,
+      "connects_rooms": [
+        "golden_020_r1"
+      ],
+      "associated_wall_id": null
+    },
+    {
+      "opening_id": "golden_020_d2",
+      "opening_type": "door",
+      "position": [
+        5.0,
+        2.8000000000000003
+      ],
+      "width_m": 0.9,
+      "connects_rooms": [
+        "golden_020_r1",
+        "golden_020_r2"
+      ],
+      "associated_wall_id": null
+    },
+    {
+      "opening_id": "golden_020_d3",
+      "opening_type": "door",
+      "position": [
+        7.5,
+        4.8999999999999995
+      ],
+      "width_m": 0.9,
+      "connects_rooms": [
+        "golden_020_r2",
+        "golden_020_r3"
+      ],
+      "associated_wall_id": null
+    },
+    {
+      "opening_id": "golden_020_d4",
+      "opening_type": "door",
+      "position": [
+        4.5,
+        7.0
+      ],
+      "width_m": 0.9,
+      "connects_rooms": [
+        "golden_020_r1",
+        "golden_020_r7"
+      ],
+      "associated_wall_id": null
+    },
+    {
+      "opening_id": "golden_020_d5",
+      "opening_type": "door",
+      "position": [
+        4.0,
+        8.4
+      ],
+      "width_m": 0.9,
+      "connects_rooms": [
+        "golden_020_r7",
+        "golden_020_r4"
+      ],
+      "associated_wall_id": null
+    },
+    {
+      "opening_id": "golden_020_d6",
+      "opening_type": "door",
+      "position": [
+        4.0,
+        11.9
+      ],
+      "width_m": 0.9,
+      "connects_rooms": [
+        "golden_020_r4",
+        "golden_020_r5"
+      ],
+      "associated_wall_id": null
+    },
+    {
+      "opening_id": "golden_020_d7",
+      "opening_type": "door",
+      "position": [
+        6.5,
+        9.799999999999999
+      ],
+      "width_m": 0.9,
+      "connects_rooms": [
+        "golden_020_r7",
+        "golden_020_r6"
+      ],
+      "associated_wall_id": null
+    },
+    {
+      "opening_id": "golden_020_win1",
+      "opening_type": "window",
+      "position": [
+        1.5,
+        0.0
+      ],
+      "width_m": 1.2,
+      "connects_rooms": [
+        "golden_020_r1"
+      ],
+      "associated_wall_id": null
+    },
+    {
+      "opening_id": "golden_020_win2",
+      "opening_type": "window",
+      "position": [
+        0.0,
+        10.5
+      ],
+      "width_m": 1.2,
+      "connects_rooms": [
+        "golden_020_r4"
+      ],
+      "associated_wall_id": null
+    },
+    {
+      "opening_id": "golden_020_win3",
+      "opening_type": "window",
+      "position": [
+        10.0,
+        11.200000000000001
+      ],
+      "width_m": 1.2,
+      "connects_rooms": [
+        "golden_020_r6"
+      ],
+      "associated_wall_id": null
+    }
+  ],
+  "rooms": [
+    {
+      "room_id": "golden_020_r1",
+      "room_type": "living_room",
+      "room_name": "Living Room",
+      "polygon": [
+        [
+          0,
+          0
+        ],
+        [
+          5.0,
+          0
+        ],
+        [
+          5.0,
+          7.0
+        ],
+        [
+          0,
+          7.0
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "area_m2": 35.0,
+      "level_index": 0,
+      "is_habitable": true
+    },
+    {
+      "room_id": "golden_020_r2",
+      "room_type": "dining_room",
+      "room_name": "Dining Room",
+      "polygon": [
+        [
+          5.0,
+          0
+        ],
+        [
+          10.0,
+          0
+        ],
+        [
+          10.0,
+          4.8999999999999995
+        ],
+        [
+          5.0,
+          4.8999999999999995
+        ],
+        [
+          5.0,
+          0
+        ]
+      ],
+      "area_m2": 24.5,
+      "level_index": 0,
+      "is_habitable": true
+    },
+    {
+      "room_id": "golden_020_r3",
+      "room_type": "kitchen",
+      "room_name": "Kitchen",
+      "polygon": [
+        [
+          5.0,
+          4.8999999999999995
+        ],
+        [
+          10.0,
+          4.8999999999999995
+        ],
+        [
+          10.0,
+          9.1
+        ],
+        [
+          5.0,
+          9.1
+        ],
+        [
+          5.0,
+          4.8999999999999995
+        ]
+      ],
+      "area_m2": 21.0,
+      "level_index": 0,
+      "is_habitable": true
+    },
+    {
+      "room_id": "golden_020_r4",
+      "room_type": "bedroom",
+      "room_name": "Master Bedroom",
+      "polygon": [
+        [
+          0,
+          7.0
+        ],
+        [
+          4.0,
+          7.0
+        ],
+        [
+          4.0,
+          14.0
+        ],
+        [
+          0,
+          14.0
+        ],
+        [
+          0,
+          7.0
+        ]
+      ],
+      "area_m2": 28.0,
+      "level_index": 0,
+      "is_habitable": true
+    },
+    {
+      "room_id": "golden_020_r5",
+      "room_type": "bathroom",
+      "room_name": "Ensuite Bathroom",
+      "polygon": [
+        [
+          4.0,
+          10.5
+        ],
+        [
+          6.5,
+          10.5
+        ],
+        [
+          6.5,
+          14.0
+        ],
+        [
+          4.0,
+          14.0
+        ],
+        [
+          4.0,
+          10.5
+        ]
+      ],
+      "area_m2": 8.75,
+      "level_index": 0,
+      "is_habitable": true
+    },
+    {
+      "room_id": "golden_020_r6",
+      "room_type": "bedroom",
+      "room_name": "Bedroom 2",
+      "polygon": [
+        [
+          6.5,
+          9.1
+        ],
+        [
+          10.0,
+          9.1
+        ],
+        [
+          10.0,
+          14.0
+        ],
+        [
+          6.5,
+          14.0
+        ],
+        [
+          6.5,
+          9.1
+        ]
+      ],
+      "area_m2": 17.15,
+      "level_index": 0,
+      "is_habitable": true
+    },
+    {
+      "room_id": "golden_020_r7",
+      "room_type": "corridor",
+      "room_name": "Hallway",
+      "polygon": [
+        [
+          4.0,
+          7.0
+        ],
+        [
+          6.5,
+          7.0
+        ],
+        [
+          6.5,
+          10.5
+        ],
+        [
+          4.0,
+          10.5
+        ],
+        [
+          4.0,
+          7.0
+        ]
+      ],
+      "area_m2": 8.75,
+      "level_index": 0,
+      "is_habitable": false
+    }
+  ],
+  "dimensions": [
+    {
+      "raw_text": "10.0m",
+      "normalized_value_m": 10.0,
+      "unit": "m",
+      "associated_wall_id": null
+    },
+    {
+      "raw_text": "14.0m",
+      "normalized_value_m": 14.0,
+      "unit": "m",
+      "associated_wall_id": null
+    }
+  ],
+  "graph_edges": [
+    {
+      "source_room_id": "golden_020_r1",
+      "target_room_id": "golden_020_r2",
+      "relationship_type": "direct"
+    },
+    {
+      "source_room_id": "golden_020_r2",
+      "target_room_id": "golden_020_r3",
+      "relationship_type": "via_door"
+    },
+    {
+      "source_room_id": "golden_020_r1",
+      "target_room_id": "golden_020_r7",
+      "relationship_type": "via_door"
+    },
+    {
+      "source_room_id": "golden_020_r7",
+      "target_room_id": "golden_020_r4",
+      "relationship_type": "via_door"
+    },
+    {
+      "source_room_id": "golden_020_r4",
+      "target_room_id": "golden_020_r5",
+      "relationship_type": "via_door"
+    },
+    {
+      "source_room_id": "golden_020_r4",
+      "target_room_id": "golden_020_r5",
+      "relationship_type": "attached_to"
+    },
+    {
+      "source_room_id": "golden_020_r7",
+      "target_room_id": "golden_020_r6",
+      "relationship_type": "via_door"
+    }
+  ],
+  "provenance": {
+    "benchmark_version": "v1.0-stratified",
+    "verifier": "Antigravity Architectural Benchmark Team",
+    "date_verified": "2026-09-17",
+    "verification_status": "100%_human_verified",
+    "sha256": "cbfdcc44e0ae8c06567425210ac4894f26056e6a7f31dce7a2f764c9cbc24941"
+  }
+}

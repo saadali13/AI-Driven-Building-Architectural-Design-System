@@ -1,0 +1,148 @@
+{
+  "description": "Representative Architectural Benchmark Regression Suite",
+  "groups": {
+    "small": {
+      "categories": [
+        "3",
+        "5"
+      ],
+      "representative_plans": [
+        {
+          "plan_id": "3_001",
+          "category": "3",
+          "image_path": "3/0adf5f25feca052f9968d0a9f42bd8eb.jpg",
+          "dimensions": "720x1042",
+          "inferred_plot": "3 Marla (20' x 35')",
+          "annotation_file": "benchmark\\small\\3_001.json"
+        },
+        {
+          "plan_id": "3_002",
+          "category": "3",
+          "image_path": "3/0d2f29cf25a408c7e552e39b91189b34.jpg",
+          "dimensions": "736x1104",
+          "inferred_plot": "3 Marla (20' x 35')",
+          "annotation_file": "benchmark\\small\\3_002.json"
+        },
+        {
+          "plan_id": "3_003",
+          "category": "3",
+          "image_path": "3/0f969b09633a07439acc75819fbd1506.jpg",
+          "dimensions": "972x1619",
+          "inferred_plot": "3 Marla (20' x 35')",
+          "annotation_file": "benchmark\\small\\3_003.json"
+        },
+        {
+          "plan_id": "5_001",
+          "category": "5",
+          "image_path": "5/195e61769696aa144d1388a68ef92cc9.jpg",
+          "dimensions": "736x989",
+          "inferred_plot": "5 Marla (25' x 45')",
+          "annotation_file": "benchmark\\small\\5_001.json"
+        },
+        {
+          "plan_id": "5_002",
+          "category": "5",
+          "image_path": "5/1dfd85587a24e04e1e93659ba35f33cb.jpg",
+          "dimensions": "640x1136",
+          "inferred_plot": "5 Marla (25' x 45')",
+          "annotation_file": "benchmark\\small\\5_002.json"
+        },
+        {
+          "plan_id": "5_003",
+          "category": "5",
+          "image_path": "5/20fdc637f61dfa36c54e249634e14d0b.jpg",
+          "dimensions": "609x1155",
+          "inferred_plot": "5 Marla (25' x 45')",
+          "annotation_file": "benchmark\\small\\5_003.json"
+        }
+      ]
+    },
+    "medium": {
+      "categories": [
+        "7",
+        "10"
+      ],
+      "representative_plans": [
+        {
+          "plan_id": "7_001",
+          "category": "7",
+          "image_path": "7/0162fa659d7392157fc0854ef058f419.jpg",
+          "dimensions": "1200x1697",
+          "inferred_plot": "7 Marla (30' x 55')",
+          "annotation_file": "benchmark\\medium\\7_001.json"
+        },
+        {
+          "plan_id": "7_002",
+          "category": "7",
+          "image_path": "7/01d47a008ad8498cf8bc3f78cfc87765.jpg",
+          "dimensions": "532x865",
+          "inferred_plot": "7 Marla (30' x 55')",
+          "annotation_file": "benchmark\\medium\\7_002.json"
+        },
+        {
+          "plan_id": "7_003",
+          "category": "7",
+          "image_path": "7/04e5b61da28ac80c0551ecece7813618.jpg",
+          "dimensions": "720x1280",
+          "inferred_plot": "7 Marla (30' x 55')",
+          "annotation_file": "benchmark\\medium\\7_003.json"
+        },
+        {
+          "plan_id": "10_001",
+          "category": "10",
+          "image_path": "10/052da9368c90d89e449dc37055603d7d.jpg",
+          "dimensions": "474x800",
+          "inferred_plot": "10 Marla (35' x 65')",
+          "annotation_file": "benchmark\\medium\\10_001.json"
+        },
+        {
+          "plan_id": "10_002",
+          "category": "10",
+          "image_path": "10/060d13de5349461d2064392ce14217fc.jpg",
+          "dimensions": "736x1308",
+          "inferred_plot": "10 Marla (35' x 65')",
+          "annotation_file": "benchmark\\medium\\10_002.json"
+        },
+        {
+          "plan_id": "10_003",
+          "category": "10",
+          "image_path": "10/2064f9dd00f728258227a1045629be8f.jpg",
+          "dimensions": "745x1280",
+          "inferred_plot": "10 Marla (35' x 65')",
+          "annotation_file": "benchmark\\medium\\10_003.json"
+        }
+      ]
+    },
+    "large": {
+      "categories": [
+        "1"
+      ],
+      "representative_plans": [
+        {
+          "plan_id": "1_001",
+          "category": "1",
+          "image_path": "1/00770eba64db20501bbd30bb21ce6aa5.jpg",
+          "dimensions": "877x1584",
+          "inferred_plot": "1 Kanal (50' x 90')",
+          "annotation_file": "benchmark\\large\\1_001.json"
+        },
+        {
+          "plan_id": "1_002",
+          "category": "1",
+          "image_path": "1/027c487cd8eb1a07ba644f292fd32e0c.jpg",
+          "dimensions": "800x1163",
+          "inferred_plot": "1 Kanal (50' x 90')",
+          "annotation_file": "benchmark\\large\\1_002.json"
+        },
+        {
+          "plan_id": "1_003",
+          "category": "1",
+          "image_path": "1/066fdb423d3141c8d88131702ce86c43.jpg",
+          "dimensions": "736x1306",
+          "inferred_plot": "1 Kanal (50' x 90')",
+          "annotation_file": "benchmark\\large\\1_003.json"
+        }
+      ]
+    }
+  }
+}

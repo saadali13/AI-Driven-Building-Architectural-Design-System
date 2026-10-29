@@ -1,0 +1,414 @@
+{
+  "benchmark_id": "golden_50_v1",
+  "total_plans": 50,
+  "stratification": {
+    "1-2_bedroom": 10,
+    "3_bedroom": 15,
+    "4+_bedroom": 10,
+    "irregular_l_shaped": 5,
+    "duplex_multi_floor": 5,
+    "unusual_commercial": 5
+  },
+  "plans": [
+    {
+      "plan_id": "golden_001",
+      "category": "1-2_bedroom",
+      "area_m2": 99.0,
+      "room_count": 4,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_001.json"
+    },
+    {
+      "plan_id": "golden_002",
+      "category": "1-2_bedroom",
+      "area_m2": 100.0,
+      "room_count": 4,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_002.json"
+    },
+    {
+      "plan_id": "golden_003",
+      "category": "1-2_bedroom",
+      "area_m2": 88.0,
+      "room_count": 4,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_003.json"
+    },
+    {
+      "plan_id": "golden_004",
+      "category": "1-2_bedroom",
+      "area_m2": 90.0,
+      "room_count": 4,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_004.json"
+    },
+    {
+      "plan_id": "golden_005",
+      "category": "1-2_bedroom",
+      "area_m2": 110.0,
+      "room_count": 4,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_005.json"
+    },
+    {
+      "plan_id": "golden_006",
+      "category": "1-2_bedroom",
+      "area_m2": 80.0,
+      "room_count": 4,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_006.json"
+    },
+    {
+      "plan_id": "golden_007",
+      "category": "1-2_bedroom",
+      "area_m2": 99.0,
+      "room_count": 4,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_007.json"
+    },
+    {
+      "plan_id": "golden_008",
+      "category": "1-2_bedroom",
+      "area_m2": 100.0,
+      "room_count": 4,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_008.json"
+    },
+    {
+      "plan_id": "golden_009",
+      "category": "1-2_bedroom",
+      "area_m2": 88.0,
+      "room_count": 4,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_009.json"
+    },
+    {
+      "plan_id": "golden_010",
+      "category": "1-2_bedroom",
+      "area_m2": 90.0,
+      "room_count": 4,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_010.json"
+    },
+    {
+      "plan_id": "golden_011",
+      "category": "3_bedroom",
+      "area_m2": 182.0,
+      "room_count": 7,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_011.json"
+    },
+    {
+      "plan_id": "golden_012",
+      "category": "3_bedroom",
+      "area_m2": 120.0,
+      "room_count": 7,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_012.json"
+    },
+    {
+      "plan_id": "golden_013",
+      "category": "3_bedroom",
+      "area_m2": 143.0,
+      "room_count": 7,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_013.json"
+    },
+    {
+      "plan_id": "golden_014",
+      "category": "3_bedroom",
+      "area_m2": 168.0,
+      "room_count": 7,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_014.json"
+    },
+    {
+      "plan_id": "golden_015",
+      "category": "3_bedroom",
+      "area_m2": 156.0,
+      "room_count": 7,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_015.json"
+    },
+    {
+      "plan_id": "golden_016",
+      "category": "3_bedroom",
+      "area_m2": 130.0,
+      "room_count": 7,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_016.json"
+    },
+    {
+      "plan_id": "golden_017",
+      "category": "3_bedroom",
+      "area_m2": 154.0,
+      "room_count": 7,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_017.json"
+    },
+    {
+      "plan_id": "golden_018",
+      "category": "3_bedroom",
+      "area_m2": 144.0,
+      "room_count": 7,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_018.json"
+    },
+    {
+      "plan_id": "golden_019",
+      "category": "3_bedroom",
+      "area_m2": 169.0,
+      "room_count": 7,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_019.json"
+    },
+    {
+      "plan_id": "golden_020",
+      "category": "3_bedroom",
+      "area_m2": 140.0,
+      "room_count": 7,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_020.json"
+    },
+    {
+      "plan_id": "golden_021",
+      "category": "3_bedroom",
+      "area_m2": 132.0,
+      "room_count": 7,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_021.json"
+    },
+    {
+      "plan_id": "golden_022",
+      "category": "3_bedroom",
+      "area_m2": 156.0,
+      "room_count": 7,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_022.json"
+    },
+    {
+      "plan_id": "golden_023",
+      "category": "3_bedroom",
+      "area_m2": 182.0,
+      "room_count": 7,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_023.json"
+    },
+    {
+      "plan_id": "golden_024",
+      "category": "3_bedroom",
+      "area_m2": 120.0,
+      "room_count": 7,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_024.json"
+    },
+    {
+      "plan_id": "golden_025",
+      "category": "3_bedroom",
+      "area_m2": 143.0,
+      "room_count": 7,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_025.json"
+    },
+    {
+      "plan_id": "golden_026",
+      "category": "4+_bedroom",
+      "area_m2": 238.0,
+      "room_count": 8,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_026.json"
+    },
+    {
+      "plan_id": "golden_027",
+      "category": "4+_bedroom",
+      "area_m2": 180.0,
+      "room_count": 8,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_027.json"
+    },
+    {
+      "plan_id": "golden_028",
+      "category": "4+_bedroom",
+      "area_m2": 208.0,
+      "room_count": 8,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_028.json"
+    },
+    {
+      "plan_id": "golden_029",
+      "category": "4+_bedroom",
+      "area_m2": 238.0,
+      "room_count": 8,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_029.json"
+    },
+    {
+      "plan_id": "golden_030",
+      "category": "4+_bedroom",
+      "area_m2": 180.0,
+      "room_count": 8,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_030.json"
+    },
+    {
+      "plan_id": "golden_031",
+      "category": "4+_bedroom",
+      "area_m2": 208.0,
+      "room_count": 8,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_031.json"
+    },
+    {
+      "plan_id": "golden_032",
+      "category": "4+_bedroom",
+      "area_m2": 238.0,
+      "room_count": 8,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_032.json"
+    },
+    {
+      "plan_id": "golden_033",
+      "category": "4+_bedroom",
+      "area_m2": 180.0,
+      "room_count": 8,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_033.json"
+    },
+    {
+      "plan_id": "golden_034",
+      "category": "4+_bedroom",
+      "area_m2": 208.0,
+      "room_count": 8,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_034.json"
+    },
+    {
+      "plan_id": "golden_035",
+      "category": "4+_bedroom",
+      "area_m2": 238.0,
+      "room_count": 8,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_035.json"
+    },
+    {
+      "plan_id": "golden_036",
+      "category": "irregular_l_shaped",
+      "area_m2": 196.0,
+      "room_count": 4,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_036.json"
+    },
+    {
+      "plan_id": "golden_037",
+      "category": "irregular_l_shaped",
+      "area_m2": 196.0,
+      "room_count": 4,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_037.json"
+    },
+    {
+      "plan_id": "golden_038",
+      "category": "irregular_l_shaped",
+      "area_m2": 196.0,
+      "room_count": 4,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_038.json"
+    },
+    {
+      "plan_id": "golden_039",
+      "category": "irregular_l_shaped",
+      "area_m2": 196.0,
+      "room_count": 4,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_039.json"
+    },
+    {
+      "plan_id": "golden_040",
+      "category": "irregular_l_shaped",
+      "area_m2": 196.0,
+      "room_count": 4,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_040.json"
+    },
+    {
+      "plan_id": "golden_041",
+      "category": "duplex_multi_floor",
+      "area_m2": 99.0,
+      "room_count": 5,
+      "floor_count": 2,
+      "path": "data/ground_truth/golden_50/plans/golden_041.json"
+    },
+    {
+      "plan_id": "golden_042",
+      "category": "duplex_multi_floor",
+      "area_m2": 99.0,
+      "room_count": 5,
+      "floor_count": 2,
+      "path": "data/ground_truth/golden_50/plans/golden_042.json"
+    },
+    {
+      "plan_id": "golden_043",
+      "category": "duplex_multi_floor",
+      "area_m2": 99.0,
+      "room_count": 5,
+      "floor_count": 2,
+      "path": "data/ground_truth/golden_50/plans/golden_043.json"
+    },
+    {
+      "plan_id": "golden_044",
+      "category": "duplex_multi_floor",
+      "area_m2": 99.0,
+      "room_count": 5,
+      "floor_count": 2,
+      "path": "data/ground_truth/golden_50/plans/golden_044.json"
+    },
+    {
+      "plan_id": "golden_045",
+      "category": "duplex_multi_floor",
+      "area_m2": 99.0,
+      "room_count": 5,
+      "floor_count": 2,
+      "path": "data/ground_truth/golden_50/plans/golden_045.json"
+    },
+    {
+      "plan_id": "golden_046",
+      "category": "unusual_commercial",
+      "area_m2": 112.0,
+      "room_count": 4,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_046.json"
+    },
+    {
+      "plan_id": "golden_047",
+      "category": "unusual_commercial",
+      "area_m2": 112.0,
+      "room_count": 4,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_047.json"
+    },
+    {
+      "plan_id": "golden_048",
+      "category": "unusual_commercial",
+      "area_m2": 112.0,
+      "room_count": 4,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_048.json"
+    },
+    {
+      "plan_id": "golden_049",
+      "category": "unusual_commercial",
+      "area_m2": 112.0,
+      "room_count": 4,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_049.json"
+    },
+    {
+      "plan_id": "golden_050",
+      "category": "unusual_commercial",
+      "area_m2": 112.0,
+      "room_count": 4,
+      "floor_count": 1,
+      "path": "data/ground_truth/golden_50/plans/golden_050.json"
+    }
+  ]
+}

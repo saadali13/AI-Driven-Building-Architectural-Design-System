@@ -1,0 +1,433 @@
+{
+  "plan_id": "7_108",
+  "category": "7",
+  "source_image": "0162fa659d7392157fc0854ef058f419.jpg",
+  "source_path": "7/0162fa659d7392157fc0854ef058f419.jpg",
+  "plot": {
+    "inferred_type": "7 Marla (30' x 55')",
+    "frontage_ft": 30,
+    "depth_ft": 55,
+    "area_sqft": 1650
+  },
+  "total_bedrooms": 3,
+  "total_bathrooms": 2,
+  "has_car_porch": true,
+  "has_stairs": true,
+  "has_open_to_sky": true,
+  "rooms": [
+    {
+      "room_id": "r_1",
+      "name": "Wash Area (Option 1)",
+      "category": "utility",
+      "dimensions_raw": "7'0\"X5'4\"",
+      "dimensions_meters": [
+        2.13,
+        1.63
+      ],
+      "area_m2": 3.47,
+      "spatial_zone": "rear_left",
+      "box_2d": [
+        100,
+        44,
+        153,
+        194
+      ],
+      "connected_to": [
+        "Kitchen"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_2",
+      "name": "Bedroom 1 (Option 1)",
+      "category": "bedroom",
+      "dimensions_raw": "11'4\"X10'0\"",
+      "dimensions_meters": [
+        3.45,
+        3.05
+      ],
+      "area_m2": 10.52,
+      "spatial_zone": "rear_right",
+      "box_2d": [
+        100,
+        287,
+        226,
+        446
+      ],
+      "connected_to": [
+        "Hall",
+        "Toilet"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_3",
+      "name": "Kitchen (Option 1)",
+      "category": "kitchen",
+      "dimensions_raw": "7'0\"X13'0\"",
+      "dimensions_meters": [
+        2.13,
+        3.96
+      ],
+      "area_m2": 8.43,
+      "spatial_zone": "center_left",
+      "box_2d": [
+        183,
+        44,
+        388,
+        194
+      ],
+      "connected_to": [
+        "Wash Area",
+        "Hall"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_4",
+      "name": "Toilet 1 (Option 1)",
+      "category": "bathroom",
+      "dimensions_raw": "6'0\"X3'8\"",
+      "dimensions_meters": [
+        1.83,
+        1.12
+      ],
+      "area_m2": 2.05,
+      "spatial_zone": "rear_right",
+      "box_2d": [
+        260,
+        269,
+        323,
+        403
+      ],
+      "connected_to": [
+        "Bedroom 1"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_5",
+      "name": "Toilet 2 (Option 1)",
+      "category": "bathroom",
+      "dimensions_raw": "8'0\"X4'0\"",
+      "dimensions_meters": [
+        2.44,
+        1.22
+      ],
+      "area_m2": 2.98,
+      "spatial_zone": "center_right",
+      "box_2d": [
+        325,
+        269,
+        381,
+        439
+      ],
+      "connected_to": [
+        "Hall"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_6",
+      "name": "Bedroom 2 (Option 1)",
+      "category": "bedroom",
+      "dimensions_raw": "8'0\"X11'4\"",
+      "dimensions_meters": [
+        2.44,
+        3.45
+      ],
+      "area_m2": 8.42,
+      "spatial_zone": "center_right",
+      "box_2d": [
+        451,
+        303,
+        566,
+        439
+      ],
+      "connected_to": [
+        "Hall"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_7",
+      "name": "Hall (Option 1)",
+      "category": "living",
+      "dimensions_raw": "10'0\"X18'0\"",
+      "dimensions_meters": [
+        3.05,
+        5.49
+      ],
+      "area_m2": 16.74,
+      "spatial_zone": "center_left",
+      "box_2d": [
+        392,
+        44,
+        663,
+        265
+      ],
+      "connected_to": [
+        "Kitchen",
+        "Bedroom 1",
+        "Bedroom 2",
+        "Bedroom 3",
+        "Parking"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_8",
+      "name": "Bedroom 3 (Option 1)",
+      "category": "bedroom",
+      "dimensions_raw": "10'0\"X11'8\"",
+      "dimensions_meters": [
+        3.05,
+        3.56
+      ],
+      "area_m2": 10.86,
+      "spatial_zone": "front_left",
+      "box_2d": [
+        674,
+        44,
+        856,
+        262
+      ],
+      "connected_to": [
+        "Hall"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_9",
+      "name": "Parking (Option 1)",
+      "category": "parking",
+      "dimensions_raw": "8'4\"X16'0\"",
+      "dimensions_meters": [
+        2.54,
+        4.88
+      ],
+      "area_m2": 12.4,
+      "spatial_zone": "front_right",
+      "box_2d": [
+        571,
+        268,
+        858,
+        448
+      ],
+      "connected_to": [
+        "Hall"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_10",
+      "name": "Wash Area (Option 2)",
+      "category": "utility",
+      "dimensions_raw": "8'4\"X4'8\"",
+      "dimensions_meters": [
+        2.54,
+        1.42
+      ],
+      "area_m2": 3.61,
+      "spatial_zone": "rear_left",
+      "box_2d": [
+        100,
+        528,
+        153,
+        715
+      ],
+      "connected_to": [
+        "Kitchen"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_11",
+      "name": "Kitchen (Option 2)",
+      "category": "kitchen",
+      "dimensions_raw": "8'4\"X10'0\"",
+      "dimensions_meters": [
+        2.54,
+        3.05
+      ],
+      "area_m2": 7.75,
+      "spatial_zone": "rear_left",
+      "box_2d": [
+        163,
+        528,
+        284,
+        715
+      ],
+      "connected_to": [
+        "Wash Area",
+        "Hall"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_12",
+      "name": "Bedroom 1 (Option 2)",
+      "category": "bedroom",
+      "dimensions_raw": "10'4\"X9'8\"",
+      "dimensions_meters": [
+        3.15,
+        2.95
+      ],
+      "area_m2": 9.29,
+      "spatial_zone": "rear_right",
+      "box_2d": [
+        100,
+        781,
+        226,
+        944
+      ],
+      "connected_to": [
+        "Hall",
+        "Toilet 1"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_13",
+      "name": "Toilet 1 (Option 2)",
+      "category": "bathroom",
+      "dimensions_raw": "7'4\"X4'0\"",
+      "dimensions_meters": [
+        2.24,
+        1.22
+      ],
+      "area_m2": 2.73,
+      "spatial_zone": "center_right",
+      "box_2d": [
+        256,
+        715,
+        323,
+        884
+      ],
+      "connected_to": [
+        "Hall"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_14",
+      "name": "Bedroom 2 (Option 2)",
+      "category": "bedroom",
+      "dimensions_raw": "14'4\"X9'0\"",
+      "dimensions_meters": [
+        4.37,
+        2.74
+      ],
+      "area_m2": 11.97,
+      "spatial_zone": "center_right",
+      "box_2d": [
+        325,
+        747,
+        446,
+        944
+      ],
+      "connected_to": [
+        "Hall"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_15",
+      "name": "Hall (Option 2)",
+      "category": "living",
+      "dimensions_raw": "10'0\"X18'0\"",
+      "dimensions_meters": [
+        3.05,
+        5.49
+      ],
+      "area_m2": 16.74,
+      "spatial_zone": "center_left",
+      "box_2d": [
+        472,
+        541,
+        726,
+        757
+      ],
+      "connected_to": [
+        "Kitchen",
+        "Bedroom 1",
+        "Bedroom 2",
+        "Bedroom 3",
+        "Parking"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_16",
+      "name": "Bedroom 3 (Option 2)",
+      "category": "bedroom",
+      "dimensions_raw": "8'4\"X12'8\"",
+      "dimensions_meters": [
+        2.54,
+        3.86
+      ],
+      "area_m2": 9.8,
+      "spatial_zone": "center_right",
+      "box_2d": [
+        539,
+        810,
+        663,
+        944
+      ],
+      "connected_to": [
+        "Hall"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_17",
+      "name": "Toilet 2 (Option 2)",
+      "category": "bathroom",
+      "dimensions_raw": "3'4\"X6'8\"",
+      "dimensions_meters": [
+        1.02,
+        2.03
+      ],
+      "area_m2": 2.07,
+      "spatial_zone": "front_left",
+      "box_2d": [
+        747,
+        541,
+        856,
+        615
+      ],
+      "connected_to": [
+        "Hall"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_18",
+      "name": "Parking (Option 2)",
+      "category": "parking",
+      "dimensions_raw": "8'8\"X12'8\"",
+      "dimensions_meters": [
+        2.64,
+        3.86
+      ],
+      "area_m2": 10.19,
+      "spatial_zone": "front_right",
+      "box_2d": [
+        668,
+        775,
+        866,
+        954
+      ],
+      "connected_to": [
+        "Hall"
+      ],
+      "status": "confirmed"
+    }
+  ],
+  "structural_notes": {
+    "staircase_location": "porch",
+    "parking_capacity": "single_car",
+    "circulation_type": "central_lounge"
+  },
+  "annotation_status": "confirmed"
+}

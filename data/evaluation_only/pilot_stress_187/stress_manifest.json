@@ -1,0 +1,2714 @@
+{
+  "total_scanned": 187,
+  "clean_unique_count": 183,
+  "quarantined_exact_count": 2,
+  "quarantined_near_count": 2,
+  "quarantined_exact": [
+    {
+      "id": "1/dc63fcbef5792c11a0630cf42b1b279a (1).jpg",
+      "clone_of": "1/dc63fcbef5792c11a0630cf42b1b279a.jpg",
+      "quarantine_path": "data\\quarantine\\exact_duplicates\\1_dc63fcbef5792c11a0630cf42b1b279a (1).jpg"
+    },
+    {
+      "id": "5/56734469ec2d1b6642d46f696542f158 (1).jpg",
+      "clone_of": "5/56734469ec2d1b6642d46f696542f158.jpg",
+      "quarantine_path": "data\\quarantine\\exact_duplicates\\5_56734469ec2d1b6642d46f696542f158 (1).jpg"
+    }
+  ],
+  "quarantined_near": [
+    {
+      "id": "10/6a0b981cfe8407c963ab6686608d2cde.jpg",
+      "lower_res_clone_of": "3/70607f869fb7db58226ecd20e74f185d.jpg",
+      "quarantine_path": "data\\quarantine\\near_duplicates_downscaled\\10_6a0b981cfe8407c963ab6686608d2cde.jpg"
+    },
+    {
+      "id": "10/cb33831c86d1f16db29ad58bf9e926f3.jpg",
+      "lower_res_clone_of": "5/62d5c958516588e9756a20568ad5f365.jpg",
+      "quarantine_path": "data\\quarantine\\near_duplicates_downscaled\\10_cb33831c86d1f16db29ad58bf9e926f3.jpg"
+    }
+  ],
+  "stress_distribution": {
+    "low_resolution": 138,
+    "color_marketing_render": 66,
+    "monochrome_line_drawing": 66,
+    "high_texture_noise": 78,
+    "high_res_drawing": 80
+  },
+  "items": [
+    {
+      "image_id": "1_00770eba64db20501bbd30bb21ce6aa5.jpg",
+      "original_source": "1/00770eba64db20501bbd30bb21ce6aa5.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/1_00770eba64db20501bbd30bb21ce6aa5.jpg",
+      "width": 877,
+      "height": 1584,
+      "dhash": "3a287570722dcdda",
+      "color_variance": 9.32,
+      "texture_variance": 4505.3,
+      "stress_categories": [
+        "subtle_tint",
+        "high_texture_noise",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "1_027c487cd8eb1a07ba644f292fd32e0c.jpg",
+      "original_source": "1/027c487cd8eb1a07ba644f292fd32e0c.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/1_027c487cd8eb1a07ba644f292fd32e0c.jpg",
+      "width": 800,
+      "height": 1163,
+      "dhash": "0751337135195b7b",
+      "color_variance": 0.0,
+      "texture_variance": 8043.9,
+      "stress_categories": [
+        "monochrome_line_drawing",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "1_066fdb423d3141c8d88131702ce86c43.jpg",
+      "original_source": "1/066fdb423d3141c8d88131702ce86c43.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/1_066fdb423d3141c8d88131702ce86c43.jpg",
+      "width": 736,
+      "height": 1306,
+      "dhash": "c5ddf1d3cd95dced",
+      "color_variance": 5.75,
+      "texture_variance": 1907.7,
+      "stress_categories": [
+        "low_resolution",
+        "subtle_tint",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "1_0a921f345fb033e3b0dbf402e9f6b90c.jpg",
+      "original_source": "1/0a921f345fb033e3b0dbf402e9f6b90c.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/1_0a921f345fb033e3b0dbf402e9f6b90c.jpg",
+      "width": 483,
+      "height": 881,
+      "dhash": "6a14d52164339696",
+      "color_variance": 0.0,
+      "texture_variance": 4378.3,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "1_20ba328abca8292cbf644fa2f1aaf0d2.jpg",
+      "original_source": "1/20ba328abca8292cbf644fa2f1aaf0d2.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/1_20ba328abca8292cbf644fa2f1aaf0d2.jpg",
+      "width": 649,
+      "height": 1176,
+      "dhash": "69697151352d31c7",
+      "color_variance": 1.26,
+      "texture_variance": 11766.8,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "1_20f8dfbb9c1dd0dbccf4ae2a7cf53680.jpg",
+      "original_source": "1/20f8dfbb9c1dd0dbccf4ae2a7cf53680.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/1_20f8dfbb9c1dd0dbccf4ae2a7cf53680.jpg",
+      "width": 471,
+      "height": 726,
+      "dhash": "2dadedd3607a93b4",
+      "color_variance": 0.02,
+      "texture_variance": 7470.0,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "1_31c8ba8259f47372f5680f4e13ac2540.jpg",
+      "original_source": "1/31c8ba8259f47372f5680f4e13ac2540.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/1_31c8ba8259f47372f5680f4e13ac2540.jpg",
+      "width": 670,
+      "height": 1191,
+      "dhash": "23256d516d31d961",
+      "color_variance": 1.01,
+      "texture_variance": 10059.9,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "1_344dd5f88ce2e4f9dcf98ba99a838eaf.jpg",
+      "original_source": "1/344dd5f88ce2e4f9dcf98ba99a838eaf.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/1_344dd5f88ce2e4f9dcf98ba99a838eaf.jpg",
+      "width": 664,
+      "height": 1024,
+      "dhash": "f0e4f2d6b0b48419",
+      "color_variance": 0.01,
+      "texture_variance": 10556.5,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "1_348dc036a4d22b04bdd794ff0de1752c.jpg",
+      "original_source": "1/348dc036a4d22b04bdd794ff0de1752c.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/1_348dc036a4d22b04bdd794ff0de1752c.jpg",
+      "width": 900,
+      "height": 1034,
+      "dhash": "1a5677d14e573531",
+      "color_variance": 0.0,
+      "texture_variance": 4062.0,
+      "stress_categories": [
+        "monochrome_line_drawing",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "1_41847eb5f54a9509efa70c64ba29297d.jpg",
+      "original_source": "1/41847eb5f54a9509efa70c64ba29297d.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/1_41847eb5f54a9509efa70c64ba29297d.jpg",
+      "width": 516,
+      "height": 940,
+      "dhash": "ad189aa84beb92a2",
+      "color_variance": 0.84,
+      "texture_variance": 13534.1,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "1_5b541765ef090c505b5c0dc5a46933ae.jpg",
+      "original_source": "1/5b541765ef090c505b5c0dc5a46933ae.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/1_5b541765ef090c505b5c0dc5a46933ae.jpg",
+      "width": 564,
+      "height": 785,
+      "dhash": "4569533b7d65a5f0",
+      "color_variance": 0.0,
+      "texture_variance": 6854.3,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "1_6367c8c273d4b1d007fa03103612d22d.jpg",
+      "original_source": "1/6367c8c273d4b1d007fa03103612d22d.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/1_6367c8c273d4b1d007fa03103612d22d.jpg",
+      "width": 859,
+      "height": 1504,
+      "dhash": "6b496d191d15318d",
+      "color_variance": 2.54,
+      "texture_variance": 396.3,
+      "stress_categories": [
+        "subtle_tint",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "1_91b2c2a4d9d000431f6271dc95b4f161.jpg",
+      "original_source": "1/91b2c2a4d9d000431f6271dc95b4f161.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/1_91b2c2a4d9d000431f6271dc95b4f161.jpg",
+      "width": 1200,
+      "height": 1968,
+      "dhash": "c6d8d8e896d6ccda",
+      "color_variance": 28.94,
+      "texture_variance": 263.8,
+      "stress_categories": [
+        "color_marketing_render",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "1_97abaa88d5f21c3240c969b10eb99341.jpg",
+      "original_source": "1/97abaa88d5f21c3240c969b10eb99341.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/1_97abaa88d5f21c3240c969b10eb99341.jpg",
+      "width": 1080,
+      "height": 1516,
+      "dhash": "50527270e1695874",
+      "color_variance": 4.72,
+      "texture_variance": 8139.1,
+      "stress_categories": [
+        "subtle_tint",
+        "high_texture_noise",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "1_ad9deb5ed9c20f5a5549d01ecd65910a.jpg",
+      "original_source": "1/ad9deb5ed9c20f5a5549d01ecd65910a.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/1_ad9deb5ed9c20f5a5549d01ecd65910a.jpg",
+      "width": 736,
+      "height": 1301,
+      "dhash": "69b2b692b2bab275",
+      "color_variance": 26.15,
+      "texture_variance": 1965.3,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "1_b73b07da003283f412a40e57a31f2148.jpg",
+      "original_source": "1/b73b07da003283f412a40e57a31f2148.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/1_b73b07da003283f412a40e57a31f2148.jpg",
+      "width": 1170,
+      "height": 1387,
+      "dhash": "d3d2e2f1ab92b216",
+      "color_variance": 0.0,
+      "texture_variance": 599.1,
+      "stress_categories": [
+        "monochrome_line_drawing",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "1_bbdffd190faab6edff7a5cee357a9d17.jpg",
+      "original_source": "1/bbdffd190faab6edff7a5cee357a9d17.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/1_bbdffd190faab6edff7a5cee357a9d17.jpg",
+      "width": 1080,
+      "height": 1753,
+      "dhash": "1a565331173d73e5",
+      "color_variance": 13.79,
+      "texture_variance": 1590.0,
+      "stress_categories": [
+        "color_marketing_render",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "1_bcb8f171cdca4416bb203d2206dff66f.jpg",
+      "original_source": "1/bcb8f171cdca4416bb203d2206dff66f.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/1_bcb8f171cdca4416bb203d2206dff66f.jpg",
+      "width": 736,
+      "height": 1303,
+      "dhash": "65a6aa92aaaaaa65",
+      "color_variance": 25.98,
+      "texture_variance": 1943.9,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "1_d9bbe3743996485fb1a50711fe5b8262.jpg",
+      "original_source": "1/d9bbe3743996485fb1a50711fe5b8262.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/1_d9bbe3743996485fb1a50711fe5b8262.jpg",
+      "width": 1200,
+      "height": 2361,
+      "dhash": "88c6cc3ab2dada60",
+      "color_variance": 0.0,
+      "texture_variance": 3348.9,
+      "stress_categories": [
+        "monochrome_line_drawing",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "1_dc63fcbef5792c11a0630cf42b1b279a.jpg",
+      "original_source": "1/dc63fcbef5792c11a0630cf42b1b279a.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/1_dc63fcbef5792c11a0630cf42b1b279a.jpg",
+      "width": 557,
+      "height": 800,
+      "dhash": "474dcdba8da5f3b4",
+      "color_variance": 0.0,
+      "texture_variance": 5958.3,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "1_download (1).png",
+      "original_source": "1/download (1).png",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/1_download (1).png",
+      "width": 1152,
+      "height": 2048,
+      "dhash": "174d4d5999a90974",
+      "color_variance": 0.0,
+      "texture_variance": 1028.8,
+      "stress_categories": [
+        "monochrome_line_drawing",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "1_download.png",
+      "original_source": "1/download.png",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/1_download.png",
+      "width": 1152,
+      "height": 2048,
+      "dhash": "965733351d39e785",
+      "color_variance": 12.75,
+      "texture_variance": 468.7,
+      "stress_categories": [
+        "color_marketing_render",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "1_e2e18820b596a3e330b98f9ac4e364bc.jpg",
+      "original_source": "1/e2e18820b596a3e330b98f9ac4e364bc.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/1_e2e18820b596a3e330b98f9ac4e364bc.jpg",
+      "width": 550,
+      "height": 903,
+      "dhash": "513117331335794f",
+      "color_variance": 0.0,
+      "texture_variance": 9954.3,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "1_ea4c139c31fdefa9e5b7a50490d4f8bf.jpg",
+      "original_source": "1/ea4c139c31fdefa9e5b7a50490d4f8bf.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/1_ea4c139c31fdefa9e5b7a50490d4f8bf.jpg",
+      "width": 735,
+      "height": 979,
+      "dhash": "3365791b391b193b",
+      "color_variance": 0.0,
+      "texture_variance": 6748.3,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "1_eae412f07bd795c6c50aa8dae34c86b6.jpg",
+      "original_source": "1/eae412f07bd795c6c50aa8dae34c86b6.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/1_eae412f07bd795c6c50aa8dae34c86b6.jpg",
+      "width": 450,
+      "height": 758,
+      "dhash": "b299b133bfad85d5",
+      "color_variance": 0.0,
+      "texture_variance": 4596.7,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "3_0adf5f25feca052f9968d0a9f42bd8eb.jpg",
+      "original_source": "3/0adf5f25feca052f9968d0a9f42bd8eb.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_0adf5f25feca052f9968d0a9f42bd8eb.jpg",
+      "width": 720,
+      "height": 1042,
+      "dhash": "b649cd7b31755371",
+      "color_variance": 19.11,
+      "texture_variance": 2218.8,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render"
+      ]
+    },
+    {
+      "image_id": "3_0d2f29cf25a408c7e552e39b91189b34.jpg",
+      "original_source": "3/0d2f29cf25a408c7e552e39b91189b34.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_0d2f29cf25a408c7e552e39b91189b34.jpg",
+      "width": 736,
+      "height": 1104,
+      "dhash": "696d6971650d6767",
+      "color_variance": 17.01,
+      "texture_variance": 612.7,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render"
+      ]
+    },
+    {
+      "image_id": "3_0f969b09633a07439acc75819fbd1506.jpg",
+      "original_source": "3/0f969b09633a07439acc75819fbd1506.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_0f969b09633a07439acc75819fbd1506.jpg",
+      "width": 972,
+      "height": 1619,
+      "dhash": "c6d6d646663617d6",
+      "color_variance": 18.9,
+      "texture_variance": 2689.5,
+      "stress_categories": [
+        "color_marketing_render",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "3_118c3a69f01310f3bd515ba2a9109e41.jpg",
+      "original_source": "3/118c3a69f01310f3bd515ba2a9109e41.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_118c3a69f01310f3bd515ba2a9109e41.jpg",
+      "width": 735,
+      "height": 1145,
+      "dhash": "359dd9d9d9212d25",
+      "color_variance": 26.65,
+      "texture_variance": 992.8,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render"
+      ]
+    },
+    {
+      "image_id": "3_136245892d121c74b3a7cf6063c928e6.jpg",
+      "original_source": "3/136245892d121c74b3a7cf6063c928e6.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_136245892d121c74b3a7cf6063c928e6.jpg",
+      "width": 588,
+      "height": 931,
+      "dhash": "5915333111714d35",
+      "color_variance": 14.36,
+      "texture_variance": 3040.3,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render"
+      ]
+    },
+    {
+      "image_id": "3_1b14e27c276a847be7f0d5694be2c57d.jpg",
+      "original_source": "3/1b14e27c276a847be7f0d5694be2c57d.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_1b14e27c276a847be7f0d5694be2c57d.jpg",
+      "width": 1080,
+      "height": 2160,
+      "dhash": "54545072684a4857",
+      "color_variance": 4.64,
+      "texture_variance": 1018.0,
+      "stress_categories": [
+        "subtle_tint",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "3_2107f8b0ce6b3d5bb924afabecc63e87.jpg",
+      "original_source": "3/2107f8b0ce6b3d5bb924afabecc63e87.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_2107f8b0ce6b3d5bb924afabecc63e87.jpg",
+      "width": 736,
+      "height": 1169,
+      "dhash": "6969253349634b39",
+      "color_variance": 49.08,
+      "texture_variance": 1099.7,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render"
+      ]
+    },
+    {
+      "image_id": "3_2aefdd3e925ee9337c96c8c8ecc3e32f.jpg",
+      "original_source": "3/2aefdd3e925ee9337c96c8c8ecc3e32f.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_2aefdd3e925ee9337c96c8c8ecc3e32f.jpg",
+      "width": 540,
+      "height": 960,
+      "dhash": "6acc4d7061d5d460",
+      "color_variance": 10.68,
+      "texture_variance": 4227.7,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "3_332f77d7159e62a4b4c8ac89543bb94c.jpg",
+      "original_source": "3/332f77d7159e62a4b4c8ac89543bb94c.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_332f77d7159e62a4b4c8ac89543bb94c.jpg",
+      "width": 676,
+      "height": 1200,
+      "dhash": "5f59193b7171377d",
+      "color_variance": 28.98,
+      "texture_variance": 1567.9,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "3_3398a39340324048f64931162c7dbca0.jpg",
+      "original_source": "3/3398a39340324048f64931162c7dbca0.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_3398a39340324048f64931162c7dbca0.jpg",
+      "width": 675,
+      "height": 1200,
+      "dhash": "495d59535555736f",
+      "color_variance": 17.18,
+      "texture_variance": 1053.8,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "3_344ae6af69aeab2aef0c20c6e97ee50f.jpg",
+      "original_source": "3/344ae6af69aeab2aef0c20c6e97ee50f.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_344ae6af69aeab2aef0c20c6e97ee50f.jpg",
+      "width": 676,
+      "height": 1119,
+      "dhash": "ccccd26551d73653",
+      "color_variance": 13.32,
+      "texture_variance": 2357.4,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render"
+      ]
+    },
+    {
+      "image_id": "3_42f6d1b8ba5350e5dc17d0eb5b6a4e1e.jpg",
+      "original_source": "3/42f6d1b8ba5350e5dc17d0eb5b6a4e1e.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_42f6d1b8ba5350e5dc17d0eb5b6a4e1e.jpg",
+      "width": 736,
+      "height": 1308,
+      "dhash": "4d7379494971714d",
+      "color_variance": 32.92,
+      "texture_variance": 587.4,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "3_4f3655f8abc77ad4446ea4f1c1b38779.jpg",
+      "original_source": "3/4f3655f8abc77ad4446ea4f1c1b38779.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_4f3655f8abc77ad4446ea4f1c1b38779.jpg",
+      "width": 736,
+      "height": 1104,
+      "dhash": "2745476119595bce",
+      "color_variance": 13.78,
+      "texture_variance": 3824.3,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render"
+      ]
+    },
+    {
+      "image_id": "3_51ccd1f32dc512a057c404b60f687893.jpg",
+      "original_source": "3/51ccd1f32dc512a057c404b60f687893.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_51ccd1f32dc512a057c404b60f687893.jpg",
+      "width": 1080,
+      "height": 1620,
+      "dhash": "969659684ad29a8c",
+      "color_variance": 25.63,
+      "texture_variance": 734.0,
+      "stress_categories": [
+        "color_marketing_render",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "3_5580b528a4346f1214b84d7d9e2df65c.jpg",
+      "original_source": "3/5580b528a4346f1214b84d7d9e2df65c.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_5580b528a4346f1214b84d7d9e2df65c.jpg",
+      "width": 563,
+      "height": 1017,
+      "dhash": "2d4d3b532125794b",
+      "color_variance": 0.7,
+      "texture_variance": 5875.6,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "3_5d19b4b83e36512fd37809345a8236eb.jpg",
+      "original_source": "3/5d19b4b83e36512fd37809345a8236eb.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_5d19b4b83e36512fd37809345a8236eb.jpg",
+      "width": 1024,
+      "height": 1536,
+      "dhash": "6b6b4b35236d2753",
+      "color_variance": 17.05,
+      "texture_variance": 4129.1,
+      "stress_categories": [
+        "color_marketing_render",
+        "high_texture_noise",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "3_60988e8b43bca6b0e86ff5d6c85aac01.jpg",
+      "original_source": "3/60988e8b43bca6b0e86ff5d6c85aac01.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_60988e8b43bca6b0e86ff5d6c85aac01.jpg",
+      "width": 736,
+      "height": 1104,
+      "dhash": "113131115c737333",
+      "color_variance": 29.22,
+      "texture_variance": 2765.2,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render"
+      ]
+    },
+    {
+      "image_id": "3_630912d6a71a8c3419339b768862ff73.jpg",
+      "original_source": "3/630912d6a71a8c3419339b768862ff73.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_630912d6a71a8c3419339b768862ff73.jpg",
+      "width": 720,
+      "height": 1228,
+      "dhash": "49595535756d6541",
+      "color_variance": 0.0,
+      "texture_variance": 3024.1,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "3_6324611e7e45fac8c9bcd9359a0917d6.jpg",
+      "original_source": "3/6324611e7e45fac8c9bcd9359a0917d6.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_6324611e7e45fac8c9bcd9359a0917d6.jpg",
+      "width": 735,
+      "height": 1035,
+      "dhash": "bcfcb4d8b0b4d0f3",
+      "color_variance": 32.76,
+      "texture_variance": 1325.1,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render"
+      ]
+    },
+    {
+      "image_id": "3_70607f869fb7db58226ecd20e74f185d.jpg",
+      "original_source": "3/70607f869fb7db58226ecd20e74f185d.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_70607f869fb7db58226ecd20e74f185d.jpg",
+      "width": 937,
+      "height": 1703,
+      "dhash": "7174556525256527",
+      "color_variance": 5.49,
+      "texture_variance": 3253.9,
+      "stress_categories": [
+        "subtle_tint",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "3_771112c6507910567d5f673fc1171c2c.jpg",
+      "original_source": "3/771112c6507910567d5f673fc1171c2c.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_771112c6507910567d5f673fc1171c2c.jpg",
+      "width": 1024,
+      "height": 1536,
+      "dhash": "195a526642525667",
+      "color_variance": 8.6,
+      "texture_variance": 3799.2,
+      "stress_categories": [
+        "subtle_tint",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "3_7aa31691a29583df2029d7468a33e969.jpg",
+      "original_source": "3/7aa31691a29583df2029d7468a33e969.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_7aa31691a29583df2029d7468a33e969.jpg",
+      "width": 736,
+      "height": 913,
+      "dhash": "6c8da1b8b8b93131",
+      "color_variance": 65.21,
+      "texture_variance": 1111.0,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render"
+      ]
+    },
+    {
+      "image_id": "3_7cca6aefc5b3b1ad2d05cb2aada41dc2.jpg",
+      "original_source": "3/7cca6aefc5b3b1ad2d05cb2aada41dc2.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_7cca6aefc5b3b1ad2d05cb2aada41dc2.jpg",
+      "width": 720,
+      "height": 1279,
+      "dhash": "2549555555595549",
+      "color_variance": 4.99,
+      "texture_variance": 4940.2,
+      "stress_categories": [
+        "low_resolution",
+        "subtle_tint",
+        "high_texture_noise",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "3_8467c497f605cf3a3096c78b0fd67118.jpg",
+      "original_source": "3/8467c497f605cf3a3096c78b0fd67118.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_8467c497f605cf3a3096c78b0fd67118.jpg",
+      "width": 675,
+      "height": 1200,
+      "dhash": "5d1d493575353135",
+      "color_variance": 22.12,
+      "texture_variance": 2497.7,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "3_88b4f0cbc89f50a8273953dc6208ff5d.jpg",
+      "original_source": "3/88b4f0cbc89f50a8273953dc6208ff5d.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_88b4f0cbc89f50a8273953dc6208ff5d.jpg",
+      "width": 1080,
+      "height": 1996,
+      "dhash": "4d5551534569494d",
+      "color_variance": 0.24,
+      "texture_variance": 2240.7,
+      "stress_categories": [
+        "monochrome_line_drawing",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "3_88fd24157ef6251ce7bb6acb925c9226.jpg",
+      "original_source": "3/88fd24157ef6251ce7bb6acb925c9226.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_88fd24157ef6251ce7bb6acb925c9226.jpg",
+      "width": 675,
+      "height": 1200,
+      "dhash": "5d5555757573537d",
+      "color_variance": 37.5,
+      "texture_variance": 5007.7,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render",
+        "high_texture_noise",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "3_9d33538b8b7a007ec839ee1bbbf6c5ce.jpg",
+      "original_source": "3/9d33538b8b7a007ec839ee1bbbf6c5ce.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_9d33538b8b7a007ec839ee1bbbf6c5ce.jpg",
+      "width": 736,
+      "height": 1104,
+      "dhash": "cf35250a28392525",
+      "color_variance": 1.03,
+      "texture_variance": 5566.9,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "3_a1f70a4d3a348ad2518588da4f8a7c2d.jpg",
+      "original_source": "3/a1f70a4d3a348ad2518588da4f8a7c2d.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_a1f70a4d3a348ad2518588da4f8a7c2d.jpg",
+      "width": 736,
+      "height": 1308,
+      "dhash": "0d6d296575337363",
+      "color_variance": 24.45,
+      "texture_variance": 403.8,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "3_a2bf463f5ad9b218fc386818caa84b43.jpg",
+      "original_source": "3/a2bf463f5ad9b218fc386818caa84b43.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_a2bf463f5ad9b218fc386818caa84b43.jpg",
+      "width": 1199,
+      "height": 2204,
+      "dhash": "7575155153596161",
+      "color_variance": 21.62,
+      "texture_variance": 1190.6,
+      "stress_categories": [
+        "color_marketing_render",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "3_a734308e08a45e436e2e52be7709bd4a.jpg",
+      "original_source": "3/a734308e08a45e436e2e52be7709bd4a.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_a734308e08a45e436e2e52be7709bd4a.jpg",
+      "width": 680,
+      "height": 962,
+      "dhash": "277353737569698e",
+      "color_variance": 40.94,
+      "texture_variance": 4597.0,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "3_ad2a6e1615603f20ba396a477186bad5.jpg",
+      "original_source": "3/ad2a6e1615603f20ba396a477186bad5.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_ad2a6e1615603f20ba396a477186bad5.jpg",
+      "width": 720,
+      "height": 1155,
+      "dhash": "6d2d482231b21549",
+      "color_variance": 21.37,
+      "texture_variance": 2425.4,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render"
+      ]
+    },
+    {
+      "image_id": "3_b0ae02dc015df83a36f70f85093dcd02.jpg",
+      "original_source": "3/b0ae02dc015df83a36f70f85093dcd02.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_b0ae02dc015df83a36f70f85093dcd02.jpg",
+      "width": 675,
+      "height": 1009,
+      "dhash": "6d6d5b5bb9d9cd4d",
+      "color_variance": 42.27,
+      "texture_variance": 1644.8,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render"
+      ]
+    },
+    {
+      "image_id": "3_bfbaf64433f924258955cbee8b39f31d.jpg",
+      "original_source": "3/bfbaf64433f924258955cbee8b39f31d.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_bfbaf64433f924258955cbee8b39f31d.jpg",
+      "width": 1200,
+      "height": 1739,
+      "dhash": "696d2d6551393b5b",
+      "color_variance": 13.26,
+      "texture_variance": 157.5,
+      "stress_categories": [
+        "color_marketing_render",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "3_c98d7f0585f44dd0ab36a207c919f4f8.jpg",
+      "original_source": "3/c98d7f0585f44dd0ab36a207c919f4f8.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_c98d7f0585f44dd0ab36a207c919f4f8.jpg",
+      "width": 736,
+      "height": 1104,
+      "dhash": "a55153f1d19da5c5",
+      "color_variance": 45.62,
+      "texture_variance": 1101.8,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render"
+      ]
+    },
+    {
+      "image_id": "3_d4dbb158482db8ad4fc08fbbb2d72a12.jpg",
+      "original_source": "3/d4dbb158482db8ad4fc08fbbb2d72a12.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_d4dbb158482db8ad4fc08fbbb2d72a12.jpg",
+      "width": 768,
+      "height": 1037,
+      "dhash": "072624316265654b",
+      "color_variance": 10.33,
+      "texture_variance": 922.1,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render"
+      ]
+    },
+    {
+      "image_id": "3_download (1).png",
+      "original_source": "3/download (1).png",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_download (1).png",
+      "width": 1152,
+      "height": 2048,
+      "dhash": "174c4c5dde69691c",
+      "color_variance": 8.27,
+      "texture_variance": 431.1,
+      "stress_categories": [
+        "subtle_tint",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "3_download.png",
+      "original_source": "3/download.png",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_download.png",
+      "width": 300,
+      "height": 150,
+      "dhash": "0000000000000000",
+      "color_variance": 0.0,
+      "texture_variance": 0.0,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing"
+      ]
+    },
+    {
+      "image_id": "3_e8051d5b6059b5296cfd8fc31cc4a8d5.jpg",
+      "original_source": "3/e8051d5b6059b5296cfd8fc31cc4a8d5.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_e8051d5b6059b5296cfd8fc31cc4a8d5.jpg",
+      "width": 600,
+      "height": 900,
+      "dhash": "68a893d52da53476",
+      "color_variance": 47.98,
+      "texture_variance": 1229.8,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render"
+      ]
+    },
+    {
+      "image_id": "3_f341cfff2eebc088be8396c794b7b1cf.jpg",
+      "original_source": "3/f341cfff2eebc088be8396c794b7b1cf.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_f341cfff2eebc088be8396c794b7b1cf.jpg",
+      "width": 570,
+      "height": 917,
+      "dhash": "246c686870687c35",
+      "color_variance": 15.92,
+      "texture_variance": 1946.5,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render"
+      ]
+    },
+    {
+      "image_id": "3_f8f76de3c2ab3ab18fb1b32c341d7d42.jpg",
+      "original_source": "3/f8f76de3c2ab3ab18fb1b32c341d7d42.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/3_f8f76de3c2ab3ab18fb1b32c341d7d42.jpg",
+      "width": 736,
+      "height": 1308,
+      "dhash": "494869615073635f",
+      "color_variance": 19.51,
+      "texture_variance": 1371.3,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "5_195e61769696aa144d1388a68ef92cc9.jpg",
+      "original_source": "5/195e61769696aa144d1388a68ef92cc9.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_195e61769696aa144d1388a68ef92cc9.jpg",
+      "width": 736,
+      "height": 989,
+      "dhash": "4f4c6d7449493673",
+      "color_variance": 2.17,
+      "texture_variance": 2002.0,
+      "stress_categories": [
+        "low_resolution",
+        "subtle_tint"
+      ]
+    },
+    {
+      "image_id": "5_1dfd85587a24e04e1e93659ba35f33cb.jpg",
+      "original_source": "5/1dfd85587a24e04e1e93659ba35f33cb.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_1dfd85587a24e04e1e93659ba35f33cb.jpg",
+      "width": 640,
+      "height": 1136,
+      "dhash": "5151657571735b07",
+      "color_variance": 17.28,
+      "texture_variance": 3725.9,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render"
+      ]
+    },
+    {
+      "image_id": "5_20fdc637f61dfa36c54e249634e14d0b.jpg",
+      "original_source": "5/20fdc637f61dfa36c54e249634e14d0b.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_20fdc637f61dfa36c54e249634e14d0b.jpg",
+      "width": 609,
+      "height": 1155,
+      "dhash": "7563734b9bb979b3",
+      "color_variance": 0.85,
+      "texture_variance": 3016.2,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing"
+      ]
+    },
+    {
+      "image_id": "5_29c1ef134d62f2cc577bab5626a20c1c.jpg",
+      "original_source": "5/29c1ef134d62f2cc577bab5626a20c1c.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_29c1ef134d62f2cc577bab5626a20c1c.jpg",
+      "width": 736,
+      "height": 1036,
+      "dhash": "35e94973354d5979",
+      "color_variance": 28.08,
+      "texture_variance": 2116.9,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render"
+      ]
+    },
+    {
+      "image_id": "5_2ea42ee155c5b71b0b4b676ac963c7fb.jpg",
+      "original_source": "5/2ea42ee155c5b71b0b4b676ac963c7fb.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_2ea42ee155c5b71b0b4b676ac963c7fb.jpg",
+      "width": 724,
+      "height": 1024,
+      "dhash": "43a5592535596d31",
+      "color_variance": 9.51,
+      "texture_variance": 1768.5,
+      "stress_categories": [
+        "low_resolution",
+        "subtle_tint"
+      ]
+    },
+    {
+      "image_id": "5_47ba31eeaca9848298775f65d6fa234f.jpg",
+      "original_source": "5/47ba31eeaca9848298775f65d6fa234f.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_47ba31eeaca9848298775f65d6fa234f.jpg",
+      "width": 640,
+      "height": 1138,
+      "dhash": "3794d95a78712383",
+      "color_variance": 28.01,
+      "texture_variance": 534.3,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render"
+      ]
+    },
+    {
+      "image_id": "5_4820b52582970f30b0498f3a123221b7.jpg",
+      "original_source": "5/4820b52582970f30b0498f3a123221b7.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_4820b52582970f30b0498f3a123221b7.jpg",
+      "width": 896,
+      "height": 1171,
+      "dhash": "355d515355544555",
+      "color_variance": 23.22,
+      "texture_variance": 1230.9,
+      "stress_categories": [
+        "color_marketing_render"
+      ]
+    },
+    {
+      "image_id": "5_4e23a185bf796b4cb5f666f1fe51793b.jpg",
+      "original_source": "5/4e23a185bf796b4cb5f666f1fe51793b.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_4e23a185bf796b4cb5f666f1fe51793b.jpg",
+      "width": 654,
+      "height": 1121,
+      "dhash": "4b6d67736b6d6d1a",
+      "color_variance": 1.73,
+      "texture_variance": 8081.8,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "5_56307c4b63202b4e854b8a8798eede62.jpg",
+      "original_source": "5/56307c4b63202b4e854b8a8798eede62.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_56307c4b63202b4e854b8a8798eede62.jpg",
+      "width": 705,
+      "height": 1186,
+      "dhash": "092571333e232209",
+      "color_variance": 0.89,
+      "texture_variance": 9423.5,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "5_56734469ec2d1b6642d46f696542f158.jpg",
+      "original_source": "5/56734469ec2d1b6642d46f696542f158.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_56734469ec2d1b6642d46f696542f158.jpg",
+      "width": 736,
+      "height": 920,
+      "dhash": "2b172931178e8c39",
+      "color_variance": 2.02,
+      "texture_variance": 1889.8,
+      "stress_categories": [
+        "low_resolution",
+        "subtle_tint"
+      ]
+    },
+    {
+      "image_id": "5_57642ab86df23f4c3c16dc532812a4a2.jpg",
+      "original_source": "5/57642ab86df23f4c3c16dc532812a4a2.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_57642ab86df23f4c3c16dc532812a4a2.jpg",
+      "width": 661,
+      "height": 1161,
+      "dhash": "2d5d5533332de4a4",
+      "color_variance": 1.0,
+      "texture_variance": 10465.0,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "5_5d2a41d1f18ef4aabe419ffdd8443c8c.jpg",
+      "original_source": "5/5d2a41d1f18ef4aabe419ffdd8443c8c.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_5d2a41d1f18ef4aabe419ffdd8443c8c.jpg",
+      "width": 807,
+      "height": 1366,
+      "dhash": "2d6758696561254f",
+      "color_variance": 5.89,
+      "texture_variance": 4213.1,
+      "stress_categories": [
+        "subtle_tint",
+        "high_texture_noise",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "5_62d5c958516588e9756a20568ad5f365.jpg",
+      "original_source": "5/62d5c958516588e9756a20568ad5f365.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_62d5c958516588e9756a20568ad5f365.jpg",
+      "width": 669,
+      "height": 1228,
+      "dhash": "4b4964757569b85a",
+      "color_variance": 0.89,
+      "texture_variance": 12934.8,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_texture_noise",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "5_6389b9829fd3b6095ea57e5e526f724d.jpg",
+      "original_source": "5/6389b9829fd3b6095ea57e5e526f724d.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_6389b9829fd3b6095ea57e5e526f724d.jpg",
+      "width": 705,
+      "height": 1410,
+      "dhash": "aaaae8b3f2e86b63",
+      "color_variance": 20.56,
+      "texture_variance": 2441.3,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "5_643bd799e1b8feac702983866d63e084.jpg",
+      "original_source": "5/643bd799e1b8feac702983866d63e084.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_643bd799e1b8feac702983866d63e084.jpg",
+      "width": 541,
+      "height": 933,
+      "dhash": "3959656965633735",
+      "color_variance": 15.15,
+      "texture_variance": 2868.8,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render"
+      ]
+    },
+    {
+      "image_id": "5_68811eb3e4fb65ca97fdbeec5b8a27fe.jpg",
+      "original_source": "5/68811eb3e4fb65ca97fdbeec5b8a27fe.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_68811eb3e4fb65ca97fdbeec5b8a27fe.jpg",
+      "width": 645,
+      "height": 1227,
+      "dhash": "cdb33332c9c9294d",
+      "color_variance": 7.61,
+      "texture_variance": 7022.3,
+      "stress_categories": [
+        "low_resolution",
+        "subtle_tint",
+        "high_texture_noise",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "5_6d1719539d9569da58b03763b265a793.jpg",
+      "original_source": "5/6d1719539d9569da58b03763b265a793.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_6d1719539d9569da58b03763b265a793.jpg",
+      "width": 627,
+      "height": 898,
+      "dhash": "5b5b53232b535987",
+      "color_variance": 2.87,
+      "texture_variance": 7303.8,
+      "stress_categories": [
+        "low_resolution",
+        "subtle_tint",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "5_7b67c5d57c1c1846f67fcc526e8f47c6.jpg",
+      "original_source": "5/7b67c5d57c1c1846f67fcc526e8f47c6.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_7b67c5d57c1c1846f67fcc526e8f47c6.jpg",
+      "width": 736,
+      "height": 1082,
+      "dhash": "5b33adcdf3d37575",
+      "color_variance": 26.66,
+      "texture_variance": 1353.1,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render"
+      ]
+    },
+    {
+      "image_id": "5_80923498a1d85d4769b05cb49a0896ad.jpg",
+      "original_source": "5/80923498a1d85d4769b05cb49a0896ad.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_80923498a1d85d4769b05cb49a0896ad.jpg",
+      "width": 736,
+      "height": 1300,
+      "dhash": "6d54985076715451",
+      "color_variance": 32.01,
+      "texture_variance": 1783.6,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "5_830d33e21f6dd6af89a7807d5b114530.jpg",
+      "original_source": "5/830d33e21f6dd6af89a7807d5b114530.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_830d33e21f6dd6af89a7807d5b114530.jpg",
+      "width": 430,
+      "height": 630,
+      "dhash": "3331ad4b63d3d30b",
+      "color_variance": 20.62,
+      "texture_variance": 1679.8,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render"
+      ]
+    },
+    {
+      "image_id": "5_937e6f5d68c405e58aa805fe45782a8d.jpg",
+      "original_source": "5/937e6f5d68c405e58aa805fe45782a8d.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_937e6f5d68c405e58aa805fe45782a8d.jpg",
+      "width": 720,
+      "height": 1280,
+      "dhash": "6c5517535071656c",
+      "color_variance": 20.93,
+      "texture_variance": 1367.0,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "5_9820be58ccd9fbb901a9c1dc5c1f302f.jpg",
+      "original_source": "5/9820be58ccd9fbb901a9c1dc5c1f302f.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_9820be58ccd9fbb901a9c1dc5c1f302f.jpg",
+      "width": 736,
+      "height": 1104,
+      "dhash": "b4b4e0e8e8d4d4b0",
+      "color_variance": 49.48,
+      "texture_variance": 1118.4,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render"
+      ]
+    },
+    {
+      "image_id": "5_9a134d49d66ca4a4d3c5aa4df027957f.jpg",
+      "original_source": "5/9a134d49d66ca4a4d3c5aa4df027957f.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_9a134d49d66ca4a4d3c5aa4df027957f.jpg",
+      "width": 935,
+      "height": 1419,
+      "dhash": "4b4b6373712b3369",
+      "color_variance": 1.95,
+      "texture_variance": 4290.1,
+      "stress_categories": [
+        "monochrome_line_drawing",
+        "high_texture_noise",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "5_9ad5d0e23666bfb681998b5f8e9e1f7d.jpg",
+      "original_source": "5/9ad5d0e23666bfb681998b5f8e9e1f7d.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_9ad5d0e23666bfb681998b5f8e9e1f7d.jpg",
+      "width": 736,
+      "height": 1385,
+      "dhash": "05353629311e1263",
+      "color_variance": 0.05,
+      "texture_variance": 8435.9,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_texture_noise",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "5_a07abad857205eee632c9dc62578b518.jpg",
+      "original_source": "5/a07abad857205eee632c9dc62578b518.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_a07abad857205eee632c9dc62578b518.jpg",
+      "width": 717,
+      "height": 1132,
+      "dhash": "2f0f6fe3b52e670b",
+      "color_variance": 25.01,
+      "texture_variance": 1539.4,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render"
+      ]
+    },
+    {
+      "image_id": "5_a40831320a67bd584783e08e8cab540c.jpg",
+      "original_source": "5/a40831320a67bd584783e08e8cab540c.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_a40831320a67bd584783e08e8cab540c.jpg",
+      "width": 640,
+      "height": 672,
+      "dhash": "4f1f3569cb87070f",
+      "color_variance": 0.47,
+      "texture_variance": 5759.6,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "5_aa9c5eee83ff1531817b84397713a47d.jpg",
+      "original_source": "5/aa9c5eee83ff1531817b84397713a47d.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_aa9c5eee83ff1531817b84397713a47d.jpg",
+      "width": 564,
+      "height": 1011,
+      "dhash": "2862247668743457",
+      "color_variance": 0.83,
+      "texture_variance": 12126.3,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "5_ade450ae46b9d04bd9e7f292893d47a6.jpg",
+      "original_source": "5/ade450ae46b9d04bd9e7f292893d47a6.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_ade450ae46b9d04bd9e7f292893d47a6.jpg",
+      "width": 657,
+      "height": 1168,
+      "dhash": "273551716525d281",
+      "color_variance": 2.28,
+      "texture_variance": 11136.1,
+      "stress_categories": [
+        "low_resolution",
+        "subtle_tint",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "5_adec1a346b99ba2096ee670abeaace78.jpg",
+      "original_source": "5/adec1a346b99ba2096ee670abeaace78.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_adec1a346b99ba2096ee670abeaace78.jpg",
+      "width": 600,
+      "height": 987,
+      "dhash": "ccece4d4f4d4c5cb",
+      "color_variance": 21.12,
+      "texture_variance": 3010.8,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render"
+      ]
+    },
+    {
+      "image_id": "5_c63409bec4ea96b726a9ce5aec3d0f58.jpg",
+      "original_source": "5/c63409bec4ea96b726a9ce5aec3d0f58.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_c63409bec4ea96b726a9ce5aec3d0f58.jpg",
+      "width": 736,
+      "height": 1062,
+      "dhash": "3a4a4c3161686c25",
+      "color_variance": 0.0,
+      "texture_variance": 10064.5,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "5_c718ae280899447757c8e9c2aad42095.jpg",
+      "original_source": "5/c718ae280899447757c8e9c2aad42095.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_c718ae280899447757c8e9c2aad42095.jpg",
+      "width": 736,
+      "height": 1146,
+      "dhash": "334d7b7b69435343",
+      "color_variance": 5.48,
+      "texture_variance": 2832.9,
+      "stress_categories": [
+        "low_resolution",
+        "subtle_tint"
+      ]
+    },
+    {
+      "image_id": "5_cd8718dddd2ed15d1c334f1663577d4f.jpg",
+      "original_source": "5/cd8718dddd2ed15d1c334f1663577d4f.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_cd8718dddd2ed15d1c334f1663577d4f.jpg",
+      "width": 945,
+      "height": 1656,
+      "dhash": "8caef6b6b5859eb6",
+      "color_variance": 0.0,
+      "texture_variance": 825.8,
+      "stress_categories": [
+        "monochrome_line_drawing",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "5_d14d42fc06343f35ab940e9ee05dc9f4.jpg",
+      "original_source": "5/d14d42fc06343f35ab940e9ee05dc9f4.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_d14d42fc06343f35ab940e9ee05dc9f4.jpg",
+      "width": 736,
+      "height": 952,
+      "dhash": "49933369d5952f1c",
+      "color_variance": 2.46,
+      "texture_variance": 3328.4,
+      "stress_categories": [
+        "low_resolution",
+        "subtle_tint"
+      ]
+    },
+    {
+      "image_id": "5_d2de957ad48c7984e1575cedde4013d4.jpg",
+      "original_source": "5/d2de957ad48c7984e1575cedde4013d4.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_d2de957ad48c7984e1575cedde4013d4.jpg",
+      "width": 720,
+      "height": 1018,
+      "dhash": "2929493131354545",
+      "color_variance": 1.14,
+      "texture_variance": 4154.6,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "5_dd45a2887797efa0627282b44f07bae8.jpg",
+      "original_source": "5/dd45a2887797efa0627282b44f07bae8.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_dd45a2887797efa0627282b44f07bae8.jpg",
+      "width": 640,
+      "height": 1136,
+      "dhash": "5ad2c0e8a4a8ecc3",
+      "color_variance": 27.16,
+      "texture_variance": 689.5,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render"
+      ]
+    },
+    {
+      "image_id": "5_e4194c2f147c2b8da18c80580298530d.jpg",
+      "original_source": "5/e4194c2f147c2b8da18c80580298530d.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_e4194c2f147c2b8da18c80580298530d.jpg",
+      "width": 686,
+      "height": 1188,
+      "dhash": "3d351557692d1259",
+      "color_variance": 0.98,
+      "texture_variance": 10289.5,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "5_ef3c5ad7686f9eef14e2665644fb9d21.jpg",
+      "original_source": "5/ef3c5ad7686f9eef14e2665644fb9d21.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_ef3c5ad7686f9eef14e2665644fb9d21.jpg",
+      "width": 775,
+      "height": 1360,
+      "dhash": "4b4f515358505d4b",
+      "color_variance": 5.75,
+      "texture_variance": 5100.6,
+      "stress_categories": [
+        "low_resolution",
+        "subtle_tint",
+        "high_texture_noise",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "5_fa8bccde5c0a0d3574eb2735c39a6264.jpg",
+      "original_source": "5/fa8bccde5c0a0d3574eb2735c39a6264.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_fa8bccde5c0a0d3574eb2735c39a6264.jpg",
+      "width": 620,
+      "height": 1176,
+      "dhash": "0d311555536525e4",
+      "color_variance": 0.97,
+      "texture_variance": 8915.9,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "5_fcf2004f46c00eb7761b835248492768.jpg",
+      "original_source": "5/fcf2004f46c00eb7761b835248492768.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_fcf2004f46c00eb7761b835248492768.jpg",
+      "width": 736,
+      "height": 1153,
+      "dhash": "9486f25396d4c699",
+      "color_variance": 16.05,
+      "texture_variance": 3638.5,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render"
+      ]
+    },
+    {
+      "image_id": "5_ffeaa4733a93af8b9230c56882b1ec04.jpg",
+      "original_source": "5/ffeaa4733a93af8b9230c56882b1ec04.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/5_ffeaa4733a93af8b9230c56882b1ec04.jpg",
+      "width": 735,
+      "height": 1197,
+      "dhash": "7123ce4971218533",
+      "color_variance": 32.23,
+      "texture_variance": 941.1,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render"
+      ]
+    },
+    {
+      "image_id": "7_0162fa659d7392157fc0854ef058f419.jpg",
+      "original_source": "7/0162fa659d7392157fc0854ef058f419.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_0162fa659d7392157fc0854ef058f419.jpg",
+      "width": 1200,
+      "height": 1697,
+      "dhash": "39c8988ca8cce473",
+      "color_variance": 18.32,
+      "texture_variance": 8743.2,
+      "stress_categories": [
+        "color_marketing_render",
+        "high_texture_noise",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "7_01d47a008ad8498cf8bc3f78cfc87765.jpg",
+      "original_source": "7/01d47a008ad8498cf8bc3f78cfc87765.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_01d47a008ad8498cf8bc3f78cfc87765.jpg",
+      "width": 532,
+      "height": 865,
+      "dhash": "44cc4cd4545470e1",
+      "color_variance": 4.31,
+      "texture_variance": 5358.5,
+      "stress_categories": [
+        "low_resolution",
+        "subtle_tint",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "7_04e5b61da28ac80c0551ecece7813618.jpg",
+      "original_source": "7/04e5b61da28ac80c0551ecece7813618.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_04e5b61da28ac80c0551ecece7813618.jpg",
+      "width": 720,
+      "height": 1280,
+      "dhash": "252652305c645919",
+      "color_variance": 15.37,
+      "texture_variance": 1654.4,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "7_06039b29355a1a549fa1df3ae4853bbb.jpg",
+      "original_source": "7/06039b29355a1a549fa1df3ae4853bbb.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_06039b29355a1a549fa1df3ae4853bbb.jpg",
+      "width": 719,
+      "height": 1069,
+      "dhash": "ccc89392b199c8cc",
+      "color_variance": 22.15,
+      "texture_variance": 5749.6,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "7_0f6eee7a69348cc86e2a304bb945cef6.jpg",
+      "original_source": "7/0f6eee7a69348cc86e2a304bb945cef6.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_0f6eee7a69348cc86e2a304bb945cef6.jpg",
+      "width": 720,
+      "height": 1219,
+      "dhash": "7024f4585454f4a0",
+      "color_variance": 26.74,
+      "texture_variance": 1819.8,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "7_1652325a12a334043c1915e179d0c968.jpg",
+      "original_source": "7/1652325a12a334043c1915e179d0c968.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_1652325a12a334043c1915e179d0c968.jpg",
+      "width": 640,
+      "height": 800,
+      "dhash": "19662c4c6d2a5823",
+      "color_variance": 1.74,
+      "texture_variance": 4725.4,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "7_169f889d2765aec7024fdea981049482.jpg",
+      "original_source": "7/169f889d2765aec7024fdea981049482.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_169f889d2765aec7024fdea981049482.jpg",
+      "width": 544,
+      "height": 960,
+      "dhash": "cf19515531316169",
+      "color_variance": 6.81,
+      "texture_variance": 3762.6,
+      "stress_categories": [
+        "low_resolution",
+        "subtle_tint"
+      ]
+    },
+    {
+      "image_id": "7_1bde12fea7ccdd1c38649c9f82617c6e.jpg",
+      "original_source": "7/1bde12fea7ccdd1c38649c9f82617c6e.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_1bde12fea7ccdd1c38649c9f82617c6e.jpg",
+      "width": 735,
+      "height": 874,
+      "dhash": "09c25999db49dd27",
+      "color_variance": 26.22,
+      "texture_variance": 6758.0,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "7_2074e5e187b96cabd2b602003ff5f003.jpg",
+      "original_source": "7/2074e5e187b96cabd2b602003ff5f003.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_2074e5e187b96cabd2b602003ff5f003.jpg",
+      "width": 720,
+      "height": 919,
+      "dhash": "a6aa287a68a6dcdc",
+      "color_variance": 0.22,
+      "texture_variance": 5220.2,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "7_23026147e546ab5090a238f05ad0d223.jpg",
+      "original_source": "7/23026147e546ab5090a238f05ad0d223.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_23026147e546ab5090a238f05ad0d223.jpg",
+      "width": 768,
+      "height": 1206,
+      "dhash": "4b4b7575315354a4",
+      "color_variance": 11.45,
+      "texture_variance": 4929.2,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render",
+        "high_texture_noise",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "7_2d1db9db5e5271b768a784c33616801f.jpg",
+      "original_source": "7/2d1db9db5e5271b768a784c33616801f.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_2d1db9db5e5271b768a784c33616801f.jpg",
+      "width": 736,
+      "height": 1209,
+      "dhash": "6565596549e87a14",
+      "color_variance": 19.97,
+      "texture_variance": 1931.7,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "7_4adaf5dd471e2914a49b147244bff661.jpg",
+      "original_source": "7/4adaf5dd471e2914a49b147244bff661.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_4adaf5dd471e2914a49b147244bff661.jpg",
+      "width": 1200,
+      "height": 2018,
+      "dhash": "0b2b2b1b33233b4d",
+      "color_variance": 5.99,
+      "texture_variance": 1682.0,
+      "stress_categories": [
+        "subtle_tint",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "7_56914aab30d80afd41516cd57a990236.jpg",
+      "original_source": "7/56914aab30d80afd41516cd57a990236.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_56914aab30d80afd41516cd57a990236.jpg",
+      "width": 792,
+      "height": 1277,
+      "dhash": "73dc5864d86c6c6c",
+      "color_variance": 7.49,
+      "texture_variance": 3517.8,
+      "stress_categories": [
+        "low_resolution",
+        "subtle_tint",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "7_5a6db849f3f45afc72e07e51080c33d7.jpg",
+      "original_source": "7/5a6db849f3f45afc72e07e51080c33d7.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_5a6db849f3f45afc72e07e51080c33d7.jpg",
+      "width": 345,
+      "height": 570,
+      "dhash": "4d6d3159656d6832",
+      "color_variance": 5.37,
+      "texture_variance": 5515.5,
+      "stress_categories": [
+        "low_resolution",
+        "subtle_tint",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "7_5f3dc234d56a2f170caf0322f06df811.jpg",
+      "original_source": "7/5f3dc234d56a2f170caf0322f06df811.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_5f3dc234d56a2f170caf0322f06df811.jpg",
+      "width": 1200,
+      "height": 1500,
+      "dhash": "37232519332b2327",
+      "color_variance": 0.0,
+      "texture_variance": 12212.3,
+      "stress_categories": [
+        "monochrome_line_drawing",
+        "high_texture_noise",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "7_60851d20649c914cf4838590454ab4ca.jpg",
+      "original_source": "7/60851d20649c914cf4838590454ab4ca.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_60851d20649c914cf4838590454ab4ca.jpg",
+      "width": 474,
+      "height": 827,
+      "dhash": "2d49696165673d96",
+      "color_variance": 9.31,
+      "texture_variance": 10124.9,
+      "stress_categories": [
+        "low_resolution",
+        "subtle_tint",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "7_61cd77c79ea67d05192da243490ea1ee.jpg",
+      "original_source": "7/61cd77c79ea67d05192da243490ea1ee.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_61cd77c79ea67d05192da243490ea1ee.jpg",
+      "width": 540,
+      "height": 960,
+      "dhash": "565453527a3a5a64",
+      "color_variance": 23.6,
+      "texture_variance": 4719.6,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "7_632be2433924088b61ed44d12c17ae7e.jpg",
+      "original_source": "7/632be2433924088b61ed44d12c17ae7e.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_632be2433924088b61ed44d12c17ae7e.jpg",
+      "width": 736,
+      "height": 1307,
+      "dhash": "5949697175514945",
+      "color_variance": 11.84,
+      "texture_variance": 4694.4,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render",
+        "high_texture_noise",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "7_73dc283c967c137e626eb9697c0fb91c.jpg",
+      "original_source": "7/73dc283c967c137e626eb9697c0fb91c.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_73dc283c967c137e626eb9697c0fb91c.jpg",
+      "width": 720,
+      "height": 1226,
+      "dhash": "b5dc48f2f0cada48",
+      "color_variance": 4.28,
+      "texture_variance": 2123.7,
+      "stress_categories": [
+        "low_resolution",
+        "subtle_tint",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "7_758e205e54feb6a61dc64ecf9c328a6b.jpg",
+      "original_source": "7/758e205e54feb6a61dc64ecf9c328a6b.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_758e205e54feb6a61dc64ecf9c328a6b.jpg",
+      "width": 738,
+      "height": 1248,
+      "dhash": "15554843530b5507",
+      "color_variance": 5.69,
+      "texture_variance": 3496.9,
+      "stress_categories": [
+        "low_resolution",
+        "subtle_tint",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "7_7cb970a85173aade05d10ba173f152fb.jpg",
+      "original_source": "7/7cb970a85173aade05d10ba173f152fb.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_7cb970a85173aade05d10ba173f152fb.jpg",
+      "width": 497,
+      "height": 761,
+      "dhash": "179c58503559194d",
+      "color_variance": 0.34,
+      "texture_variance": 12184.0,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "7_7d1f48256f0177ff855cf07c9e928a89.jpg",
+      "original_source": "7/7d1f48256f0177ff855cf07c9e928a89.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_7d1f48256f0177ff855cf07c9e928a89.jpg",
+      "width": 736,
+      "height": 1274,
+      "dhash": "192b2b6521497b0b",
+      "color_variance": 5.56,
+      "texture_variance": 3232.7,
+      "stress_categories": [
+        "low_resolution",
+        "subtle_tint",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "7_7eb0431d4385d22c8c1c9e271430b41d.jpg",
+      "original_source": "7/7eb0431d4385d22c8c1c9e271430b41d.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_7eb0431d4385d22c8c1c9e271430b41d.jpg",
+      "width": 1101,
+      "height": 1424,
+      "dhash": "5367547273616b1d",
+      "color_variance": 0.91,
+      "texture_variance": 7764.6,
+      "stress_categories": [
+        "monochrome_line_drawing",
+        "high_texture_noise",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "7_7ed0333be4203c1e9e467f475be17718.jpg",
+      "original_source": "7/7ed0333be4203c1e9e467f475be17718.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_7ed0333be4203c1e9e467f475be17718.jpg",
+      "width": 720,
+      "height": 1269,
+      "dhash": "3735695969696816",
+      "color_variance": 3.66,
+      "texture_variance": 5199.2,
+      "stress_categories": [
+        "low_resolution",
+        "subtle_tint",
+        "high_texture_noise",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "7_85b4cd637142aceadb6ff3ed9920ab78.jpg",
+      "original_source": "7/85b4cd637142aceadb6ff3ed9920ab78.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_85b4cd637142aceadb6ff3ed9920ab78.jpg",
+      "width": 736,
+      "height": 1280,
+      "dhash": "a73549554969a8d6",
+      "color_variance": 2.16,
+      "texture_variance": 3570.6,
+      "stress_categories": [
+        "low_resolution",
+        "subtle_tint",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "7_8acb230d32676951d19381417d03c625.jpg",
+      "original_source": "7/8acb230d32676951d19381417d03c625.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_8acb230d32676951d19381417d03c625.jpg",
+      "width": 685,
+      "height": 1185,
+      "dhash": "4e6c56737464626c",
+      "color_variance": 4.69,
+      "texture_variance": 4039.1,
+      "stress_categories": [
+        "low_resolution",
+        "subtle_tint",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "7_9084f6290210a19e33f4d0e9678b39f2.jpg",
+      "original_source": "7/9084f6290210a19e33f4d0e9678b39f2.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_9084f6290210a19e33f4d0e9678b39f2.jpg",
+      "width": 736,
+      "height": 1175,
+      "dhash": "0b67574b47c7634d",
+      "color_variance": 8.29,
+      "texture_variance": 4219.5,
+      "stress_categories": [
+        "low_resolution",
+        "subtle_tint",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "7_952369fd03ed6cdf153860ff0eb0e70c.jpg",
+      "original_source": "7/952369fd03ed6cdf153860ff0eb0e70c.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_952369fd03ed6cdf153860ff0eb0e70c.jpg",
+      "width": 768,
+      "height": 1407,
+      "dhash": "4d49716949212327",
+      "color_variance": 6.33,
+      "texture_variance": 6941.1,
+      "stress_categories": [
+        "low_resolution",
+        "subtle_tint",
+        "high_texture_noise",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "7_96647312a1823b0ccc6f5b5cea45264c.jpg",
+      "original_source": "7/96647312a1823b0ccc6f5b5cea45264c.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_96647312a1823b0ccc6f5b5cea45264c.jpg",
+      "width": 680,
+      "height": 963,
+      "dhash": "99d06c6468729a9a",
+      "color_variance": 0.0,
+      "texture_variance": 4838.2,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "7_a8dbb3c7cbf0b17866ee8b082240cf32.jpg",
+      "original_source": "7/a8dbb3c7cbf0b17866ee8b082240cf32.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_a8dbb3c7cbf0b17866ee8b082240cf32.jpg",
+      "width": 612,
+      "height": 960,
+      "dhash": "0f617165655c7063",
+      "color_variance": 4.76,
+      "texture_variance": 2799.6,
+      "stress_categories": [
+        "low_resolution",
+        "subtle_tint"
+      ]
+    },
+    {
+      "image_id": "7_ab131783dfef2d9bba76bef0c350e12d.jpg",
+      "original_source": "7/ab131783dfef2d9bba76bef0c350e12d.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_ab131783dfef2d9bba76bef0c350e12d.jpg",
+      "width": 735,
+      "height": 1131,
+      "dhash": "67672d3963c7790f",
+      "color_variance": 1.89,
+      "texture_variance": 3999.8,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing"
+      ]
+    },
+    {
+      "image_id": "7_af8546288d37f347a3f7d7ecbbb5fcc1.jpg",
+      "original_source": "7/af8546288d37f347a3f7d7ecbbb5fcc1.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_af8546288d37f347a3f7d7ecbbb5fcc1.jpg",
+      "width": 735,
+      "height": 1103,
+      "dhash": "964d4d4d4d4d3d27",
+      "color_variance": 12.87,
+      "texture_variance": 2114.1,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render"
+      ]
+    },
+    {
+      "image_id": "7_b0691f4fd83fad3bbd3c49adca823788.jpg",
+      "original_source": "7/b0691f4fd83fad3bbd3c49adca823788.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_b0691f4fd83fad3bbd3c49adca823788.jpg",
+      "width": 675,
+      "height": 769,
+      "dhash": "69d97069b6c57914",
+      "color_variance": 0.01,
+      "texture_variance": 7366.2,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "7_bb0e73dd1657c1cb730fa70352a20350.jpg",
+      "original_source": "7/bb0e73dd1657c1cb730fa70352a20350.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_bb0e73dd1657c1cb730fa70352a20350.jpg",
+      "width": 720,
+      "height": 847,
+      "dhash": "335615d4d4953233",
+      "color_variance": 2.58,
+      "texture_variance": 2514.3,
+      "stress_categories": [
+        "low_resolution",
+        "subtle_tint"
+      ]
+    },
+    {
+      "image_id": "7_c177ce86f2b16b925d7a430f614a848a.jpg",
+      "original_source": "7/c177ce86f2b16b925d7a430f614a848a.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_c177ce86f2b16b925d7a430f614a848a.jpg",
+      "width": 720,
+      "height": 837,
+      "dhash": "359521e3e0719373",
+      "color_variance": 3.27,
+      "texture_variance": 3588.4,
+      "stress_categories": [
+        "low_resolution",
+        "subtle_tint"
+      ]
+    },
+    {
+      "image_id": "7_cd5b3e91c93547fc01b5f5b9c2faddc6.jpg",
+      "original_source": "7/cd5b3e91c93547fc01b5f5b9c2faddc6.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_cd5b3e91c93547fc01b5f5b9c2faddc6.jpg",
+      "width": 942,
+      "height": 1551,
+      "dhash": "1117b37777714b5a",
+      "color_variance": 0.0,
+      "texture_variance": 10461.9,
+      "stress_categories": [
+        "monochrome_line_drawing",
+        "high_texture_noise",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "7_download (1).png",
+      "original_source": "7/download (1).png",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_download (1).png",
+      "width": 1152,
+      "height": 2048,
+      "dhash": "63252931614b3b79",
+      "color_variance": 3.63,
+      "texture_variance": 292.0,
+      "stress_categories": [
+        "subtle_tint",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "7_download (2).png",
+      "original_source": "7/download (2).png",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_download (2).png",
+      "width": 1152,
+      "height": 2048,
+      "dhash": "344c4c705464e03a",
+      "color_variance": 4.25,
+      "texture_variance": 686.1,
+      "stress_categories": [
+        "subtle_tint",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "7_download.png",
+      "original_source": "7/download.png",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_download.png",
+      "width": 1152,
+      "height": 2048,
+      "dhash": "6d6931656129ada7",
+      "color_variance": 1.22,
+      "texture_variance": 1150.0,
+      "stress_categories": [
+        "monochrome_line_drawing",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "7_ed77829428fb20012ee6bdd29de8873f.jpg",
+      "original_source": "7/ed77829428fb20012ee6bdd29de8873f.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_ed77829428fb20012ee6bdd29de8873f.jpg",
+      "width": 501,
+      "height": 640,
+      "dhash": "acaecc5ccce4ae3b",
+      "color_variance": 11.38,
+      "texture_variance": 18049.9,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "7_f63ac252b49b86fd82e6da75c20e653a.jpg",
+      "original_source": "7/f63ac252b49b86fd82e6da75c20e653a.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_f63ac252b49b86fd82e6da75c20e653a.jpg",
+      "width": 1080,
+      "height": 1802,
+      "dhash": "51696939314949b6",
+      "color_variance": 0.18,
+      "texture_variance": 11380.7,
+      "stress_categories": [
+        "monochrome_line_drawing",
+        "high_texture_noise",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "7_f9d2c723c5ece0a2a4e50e789bb713b0.jpg",
+      "original_source": "7/f9d2c723c5ece0a2a4e50e789bb713b0.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/7_f9d2c723c5ece0a2a4e50e789bb713b0.jpg",
+      "width": 640,
+      "height": 905,
+      "dhash": "2c4464542d644c4d",
+      "color_variance": 4.28,
+      "texture_variance": 3003.3,
+      "stress_categories": [
+        "low_resolution",
+        "subtle_tint"
+      ]
+    },
+    {
+      "image_id": "10_052da9368c90d89e449dc37055603d7d.jpg",
+      "original_source": "10/052da9368c90d89e449dc37055603d7d.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_052da9368c90d89e449dc37055603d7d.jpg",
+      "width": 474,
+      "height": 800,
+      "dhash": "610531716b594d03",
+      "color_variance": 0.01,
+      "texture_variance": 5496.2,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "10_060d13de5349461d2064392ce14217fc.jpg",
+      "original_source": "10/060d13de5349461d2064392ce14217fc.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_060d13de5349461d2064392ce14217fc.jpg",
+      "width": 736,
+      "height": 1308,
+      "dhash": "6755493123316d1c",
+      "color_variance": 2.97,
+      "texture_variance": 2653.1,
+      "stress_categories": [
+        "low_resolution",
+        "subtle_tint",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "10_2064f9dd00f728258227a1045629be8f.jpg",
+      "original_source": "10/2064f9dd00f728258227a1045629be8f.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_2064f9dd00f728258227a1045629be8f.jpg",
+      "width": 745,
+      "height": 1280,
+      "dhash": "4d481753736a6c35",
+      "color_variance": 5.66,
+      "texture_variance": 4092.1,
+      "stress_categories": [
+        "low_resolution",
+        "subtle_tint",
+        "high_texture_noise",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "10_26814652a4c8ad2f8d9272f08663e823.jpg",
+      "original_source": "10/26814652a4c8ad2f8d9272f08663e823.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_26814652a4c8ad2f8d9272f08663e823.jpg",
+      "width": 1024,
+      "height": 1536,
+      "dhash": "d95129e569514f99",
+      "color_variance": 0.66,
+      "texture_variance": 9204.6,
+      "stress_categories": [
+        "monochrome_line_drawing",
+        "high_texture_noise",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "10_30e52ed97103feac044bb49485e40da5.jpg",
+      "original_source": "10/30e52ed97103feac044bb49485e40da5.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_30e52ed97103feac044bb49485e40da5.jpg",
+      "width": 880,
+      "height": 1525,
+      "dhash": "2f9991334955442d",
+      "color_variance": 12.55,
+      "texture_variance": 3969.3,
+      "stress_categories": [
+        "color_marketing_render",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "10_31f87a6a3109770522565fd7532e48b8.jpg",
+      "original_source": "10/31f87a6a3109770522565fd7532e48b8.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_31f87a6a3109770522565fd7532e48b8.jpg",
+      "width": 1131,
+      "height": 1600,
+      "dhash": "0b53637b736b5973",
+      "color_variance": 0.17,
+      "texture_variance": 9355.0,
+      "stress_categories": [
+        "monochrome_line_drawing",
+        "high_texture_noise",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "10_36c25c2aa334607d73ec124ebe838329.jpg",
+      "original_source": "10/36c25c2aa334607d73ec124ebe838329.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_36c25c2aa334607d73ec124ebe838329.jpg",
+      "width": 736,
+      "height": 1466,
+      "dhash": "69486260cc4c6c65",
+      "color_variance": 0.42,
+      "texture_variance": 4242.6,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_texture_noise",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "10_37a0070e0f79ac2338bf803e41caa0d5.jpg",
+      "original_source": "10/37a0070e0f79ac2338bf803e41caa0d5.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_37a0070e0f79ac2338bf803e41caa0d5.jpg",
+      "width": 617,
+      "height": 1096,
+      "dhash": "aa26342c3cb4b4b4",
+      "color_variance": 1.42,
+      "texture_variance": 2354.9,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing"
+      ]
+    },
+    {
+      "image_id": "10_3dd46b9a57d817703f8fbd60992cba19.jpg",
+      "original_source": "10/3dd46b9a57d817703f8fbd60992cba19.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_3dd46b9a57d817703f8fbd60992cba19.jpg",
+      "width": 735,
+      "height": 1174,
+      "dhash": "456d355561454d2d",
+      "color_variance": 0.25,
+      "texture_variance": 3771.5,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing"
+      ]
+    },
+    {
+      "image_id": "10_412d074e3cb6a1733fc43466004f3adb.jpg",
+      "original_source": "10/412d074e3cb6a1733fc43466004f3adb.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_412d074e3cb6a1733fc43466004f3adb.jpg",
+      "width": 1199,
+      "height": 2142,
+      "dhash": "2d25115955452d53",
+      "color_variance": 0.87,
+      "texture_variance": 2722.9,
+      "stress_categories": [
+        "monochrome_line_drawing",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "10_43c64ecf0b3a2087e060aaffacacf517.jpg",
+      "original_source": "10/43c64ecf0b3a2087e060aaffacacf517.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_43c64ecf0b3a2087e060aaffacacf517.jpg",
+      "width": 843,
+      "height": 1407,
+      "dhash": "9bd23a6ad2564e55",
+      "color_variance": 6.02,
+      "texture_variance": 5276.3,
+      "stress_categories": [
+        "subtle_tint",
+        "high_texture_noise",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "10_49db978c8cac36f27a7d2ddc2375b538.jpg",
+      "original_source": "10/49db978c8cac36f27a7d2ddc2375b538.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_49db978c8cac36f27a7d2ddc2375b538.jpg",
+      "width": 607,
+      "height": 1074,
+      "dhash": "21359d3929a58585",
+      "color_variance": 3.66,
+      "texture_variance": 6047.8,
+      "stress_categories": [
+        "low_resolution",
+        "subtle_tint",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "10_4eab6e9db38b31d6ea0c4b3eec575240.jpg",
+      "original_source": "10/4eab6e9db38b31d6ea0c4b3eec575240.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_4eab6e9db38b31d6ea0c4b3eec575240.jpg",
+      "width": 736,
+      "height": 949,
+      "dhash": "99e156ead29684c8",
+      "color_variance": 23.28,
+      "texture_variance": 4075.5,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "10_5d53b7f32586b0b769726a3e9e7c67d6.jpg",
+      "original_source": "10/5d53b7f32586b0b769726a3e9e7c67d6.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_5d53b7f32586b0b769726a3e9e7c67d6.jpg",
+      "width": 707,
+      "height": 1023,
+      "dhash": "f0d8d674b876b49d",
+      "color_variance": 18.37,
+      "texture_variance": 2350.0,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render"
+      ]
+    },
+    {
+      "image_id": "10_660c56d57c30c57d2598ce074c644adf.jpg",
+      "original_source": "10/660c56d57c30c57d2598ce074c644adf.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_660c56d57c30c57d2598ce074c644adf.jpg",
+      "width": 362,
+      "height": 633,
+      "dhash": "37576b34330dcdf2",
+      "color_variance": 0.0,
+      "texture_variance": 2456.3,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing"
+      ]
+    },
+    {
+      "image_id": "10_68ae6cfbd0822cffd30c82acc11c4823.jpg",
+      "original_source": "10/68ae6cfbd0822cffd30c82acc11c4823.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_68ae6cfbd0822cffd30c82acc11c4823.jpg",
+      "width": 736,
+      "height": 961,
+      "dhash": "4bb784c1e0238b8e",
+      "color_variance": 0.14,
+      "texture_variance": 2402.1,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing"
+      ]
+    },
+    {
+      "image_id": "10_68ce22582ac0497c923cee14b9608f49.jpg",
+      "original_source": "10/68ce22582ac0497c923cee14b9608f49.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_68ce22582ac0497c923cee14b9608f49.jpg",
+      "width": 672,
+      "height": 1195,
+      "dhash": "4dcb9525ad232123",
+      "color_variance": 0.47,
+      "texture_variance": 3991.3,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing"
+      ]
+    },
+    {
+      "image_id": "10_74492f6dff0e80759bf91b2c3546ccce.jpg",
+      "original_source": "10/74492f6dff0e80759bf91b2c3546ccce.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_74492f6dff0e80759bf91b2c3546ccce.jpg",
+      "width": 830,
+      "height": 1306,
+      "dhash": "3d2d2939756d395d",
+      "color_variance": 6.25,
+      "texture_variance": 3466.5,
+      "stress_categories": [
+        "subtle_tint",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "10_7b8d09329d16531d380e7e180d67415f.jpg",
+      "original_source": "10/7b8d09329d16531d380e7e180d67415f.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_7b8d09329d16531d380e7e180d67415f.jpg",
+      "width": 720,
+      "height": 1280,
+      "dhash": "0f4923572733436c",
+      "color_variance": 0.19,
+      "texture_variance": 2999.6,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "10_80c5dd5da72d29e6db9c125b4f1733f8.jpg",
+      "original_source": "10/80c5dd5da72d29e6db9c125b4f1733f8.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_80c5dd5da72d29e6db9c125b4f1733f8.jpg",
+      "width": 736,
+      "height": 1276,
+      "dhash": "4c653515632113d8",
+      "color_variance": 7.54,
+      "texture_variance": 2526.8,
+      "stress_categories": [
+        "low_resolution",
+        "subtle_tint",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "10_89e44e5393ddf8894063024a48164887.jpg",
+      "original_source": "10/89e44e5393ddf8894063024a48164887.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_89e44e5393ddf8894063024a48164887.jpg",
+      "width": 736,
+      "height": 1308,
+      "dhash": "c9c9f5f4b191c34b",
+      "color_variance": 2.79,
+      "texture_variance": 3316.7,
+      "stress_categories": [
+        "low_resolution",
+        "subtle_tint",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "10_9719e5d61dbc3fa3ab1923c3c171bd7f.jpg",
+      "original_source": "10/9719e5d61dbc3fa3ab1923c3c171bd7f.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_9719e5d61dbc3fa3ab1923c3c171bd7f.jpg",
+      "width": 780,
+      "height": 1024,
+      "dhash": "194953415563293b",
+      "color_variance": 0.0,
+      "texture_variance": 2959.9,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing"
+      ]
+    },
+    {
+      "image_id": "10_9c7a45382f610804ecca126e80a823b8.jpg",
+      "original_source": "10/9c7a45382f610804ecca126e80a823b8.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_9c7a45382f610804ecca126e80a823b8.jpg",
+      "width": 960,
+      "height": 1423,
+      "dhash": "2d1b1915313b1763",
+      "color_variance": 2.86,
+      "texture_variance": 1187.9,
+      "stress_categories": [
+        "subtle_tint",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "10_ab9d97575303a0088c17778ed67d474f.jpg",
+      "original_source": "10/ab9d97575303a0088c17778ed67d474f.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_ab9d97575303a0088c17778ed67d474f.jpg",
+      "width": 340,
+      "height": 549,
+      "dhash": "7565753439417474",
+      "color_variance": 0.58,
+      "texture_variance": 11683.6,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "10_af7ca10defaf7510e93d1f28b4ca839b.jpg",
+      "original_source": "10/af7ca10defaf7510e93d1f28b4ca839b.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_af7ca10defaf7510e93d1f28b4ca839b.jpg",
+      "width": 522,
+      "height": 535,
+      "dhash": "72b29c92504c4dc9",
+      "color_variance": 0.03,
+      "texture_variance": 1077.2,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing"
+      ]
+    },
+    {
+      "image_id": "10_b0a5094ca9b81a85d10a5546a3ab7381.jpg",
+      "original_source": "10/b0a5094ca9b81a85d10a5546a3ab7381.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_b0a5094ca9b81a85d10a5546a3ab7381.jpg",
+      "width": 563,
+      "height": 1021,
+      "dhash": "69693151352db527",
+      "color_variance": 1.77,
+      "texture_variance": 8025.3,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "10_b92d00fa47f1bd579f57f0ad15ea4319.jpg",
+      "original_source": "10/b92d00fa47f1bd579f57f0ad15ea4319.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_b92d00fa47f1bd579f57f0ad15ea4319.jpg",
+      "width": 867,
+      "height": 1266,
+      "dhash": "bba99895b5113f5d",
+      "color_variance": 6.56,
+      "texture_variance": 5911.8,
+      "stress_categories": [
+        "subtle_tint",
+        "high_texture_noise",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "10_b957adec5a87a87aff175df9db2032dd.jpg",
+      "original_source": "10/b957adec5a87a87aff175df9db2032dd.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_b957adec5a87a87aff175df9db2032dd.jpg",
+      "width": 345,
+      "height": 560,
+      "dhash": "29155d7175354e40",
+      "color_variance": 0.0,
+      "texture_variance": 6950.1,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "10_c16e97a41b64f24d55214f9d0ef77f92.jpg",
+      "original_source": "10/c16e97a41b64f24d55214f9d0ef77f92.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_c16e97a41b64f24d55214f9d0ef77f92.jpg",
+      "width": 564,
+      "height": 1025,
+      "dhash": "633118533021ecd8",
+      "color_variance": 11.05,
+      "texture_variance": 6235.8,
+      "stress_categories": [
+        "low_resolution",
+        "color_marketing_render",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "10_c22ca84299eac96d55d7bf189a87493e.jpg",
+      "original_source": "10/c22ca84299eac96d55d7bf189a87493e.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_c22ca84299eac96d55d7bf189a87493e.jpg",
+      "width": 600,
+      "height": 1033,
+      "dhash": "4f4960756569ad5a",
+      "color_variance": 0.82,
+      "texture_variance": 5416.8,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing",
+        "high_texture_noise"
+      ]
+    },
+    {
+      "image_id": "10_dcb40330fc026cfbfec3f95441d09ca6.jpg",
+      "original_source": "10/dcb40330fc026cfbfec3f95441d09ca6.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_dcb40330fc026cfbfec3f95441d09ca6.jpg",
+      "width": 606,
+      "height": 1024,
+      "dhash": "615531716b595d43",
+      "color_variance": 0.0,
+      "texture_variance": 2679.8,
+      "stress_categories": [
+        "low_resolution",
+        "monochrome_line_drawing"
+      ]
+    },
+    {
+      "image_id": "10_download.png",
+      "original_source": "10/download.png",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_download.png",
+      "width": 1152,
+      "height": 2048,
+      "dhash": "4b51655161495d71",
+      "color_variance": 0.2,
+      "texture_variance": 1112.2,
+      "stress_categories": [
+        "monochrome_line_drawing",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "10_ee4309135f41eca62630264ecb16a220.jpg",
+      "original_source": "10/ee4309135f41eca62630264ecb16a220.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_ee4309135f41eca62630264ecb16a220.jpg",
+      "width": 736,
+      "height": 1213,
+      "dhash": "0329614e2121671c",
+      "color_variance": 2.92,
+      "texture_variance": 7496.9,
+      "stress_categories": [
+        "low_resolution",
+        "subtle_tint",
+        "high_texture_noise",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "10_ee8abc87ce99381ebc1d5e33556b2158.jpg",
+      "original_source": "10/ee8abc87ce99381ebc1d5e33556b2158.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_ee8abc87ce99381ebc1d5e33556b2158.jpg",
+      "width": 750,
+      "height": 1125,
+      "dhash": "1317331337198109",
+      "color_variance": 7.74,
+      "texture_variance": 2857.7,
+      "stress_categories": [
+        "low_resolution",
+        "subtle_tint"
+      ]
+    },
+    {
+      "image_id": "10_f5f8286b79f9fe312c37ab7c3f7a12e7.jpg",
+      "original_source": "10/f5f8286b79f9fe312c37ab7c3f7a12e7.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_f5f8286b79f9fe312c37ab7c3f7a12e7.jpg",
+      "width": 1038,
+      "height": 1705,
+      "dhash": "1b1a5c4178184f75",
+      "color_variance": 6.04,
+      "texture_variance": 9094.7,
+      "stress_categories": [
+        "subtle_tint",
+        "high_texture_noise",
+        "high_res_drawing"
+      ]
+    },
+    {
+      "image_id": "10_feaab571700ad095d526296118e18217.jpg",
+      "original_source": "10/feaab571700ad095d526296118e18217.jpg",
+      "clean_path": "data/evaluation_only/pilot_stress_187/images/10_feaab571700ad095d526296118e18217.jpg",
+      "width": 1200,
+      "height": 1697,
+      "dhash": "4b2731156919464c",
+      "color_variance": 1.14,
+      "texture_variance": 3181.3,
+      "stress_categories": [
+        "monochrome_line_drawing",
+        "high_res_drawing"
+      ]
+    }
+  ]
+}

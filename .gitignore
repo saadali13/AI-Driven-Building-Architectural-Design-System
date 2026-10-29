@@ -1,0 +1,36 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Caches and tests
+.pytest_cache/
+.coverage
+htmlcov/
+*.log
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Large binaries, CAD/3D heavy archives and backups
+*.zip
+*.tar.gz
+*.skp
+*.blend1
+output/
+scratch/*.tmp
+"furniture ,car,stairs/"
+furniture*
+
+# Node dependencies
+node_modules/
+npm-debug.log*
+
+# OS metadata
+.DS_Store
+Thumbs.db
+Desktop.ini

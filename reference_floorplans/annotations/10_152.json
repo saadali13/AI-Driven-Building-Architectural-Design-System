@@ -1,0 +1,22 @@
+{
+  "plan_id": "10_152",
+  "category": "10",
+  "source_image": "2064f9dd00f728258227a1045629be8f.jpg",
+  "source_path": "10/2064f9dd00f728258227a1045629be8f.jpg",
+  "plot": {
+    "inferred_type": "10 Marla (35' x 65')",
+    "frontage_ft": null,
+    "depth_ft": null,
+    "area_sqft": null
+  },
+  "resolution": "745x1280",
+  "aspect_ratio": 0.58,
+  "is_multi_sheet": false,
+  "rooms": [],
+  "doors": [],
+  "windows": [],
+  "stairs": [],
+  "exterior_spaces": [],
+  "adjacency_graph": [],
+  "annotation_status": "catalog_indexed"
+}

@@ -1,0 +1,22 @@
+{
+  "plan_id": "1_020",
+  "category": "1",
+  "source_image": "dc63fcbef5792c11a0630cf42b1b279a (1).jpg",
+  "source_path": "1/dc63fcbef5792c11a0630cf42b1b279a (1).jpg",
+  "plot": {
+    "inferred_type": "1 Kanal (50' x 90')",
+    "frontage_ft": null,
+    "depth_ft": null,
+    "area_sqft": null
+  },
+  "resolution": "557x800",
+  "aspect_ratio": 0.7,
+  "is_multi_sheet": false,
+  "rooms": [],
+  "doors": [],
+  "windows": [],
+  "stairs": [],
+  "exterior_spaces": [],
+  "adjacency_graph": [],
+  "annotation_status": "catalog_indexed"
+}

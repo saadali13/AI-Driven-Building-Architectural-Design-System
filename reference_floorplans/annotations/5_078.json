@@ -1,0 +1,22 @@
+{
+  "plan_id": "5_078",
+  "category": "5",
+  "source_image": "57642ab86df23f4c3c16dc532812a4a2.jpg",
+  "source_path": "5/57642ab86df23f4c3c16dc532812a4a2.jpg",
+  "plot": {
+    "inferred_type": "5 Marla (25' x 45')",
+    "frontage_ft": null,
+    "depth_ft": null,
+    "area_sqft": null
+  },
+  "resolution": "661x1161",
+  "aspect_ratio": 0.57,
+  "is_multi_sheet": false,
+  "rooms": [],
+  "doors": [],
+  "windows": [],
+  "stairs": [],
+  "exterior_spaces": [],
+  "adjacency_graph": [],
+  "annotation_status": "catalog_indexed"
+}

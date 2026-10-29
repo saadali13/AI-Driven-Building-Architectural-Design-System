@@ -1,0 +1,347 @@
+{
+  "plan_id": "1_001",
+  "category": "1",
+  "source_image": "00770eba64db20501bbd30bb21ce6aa5.jpg",
+  "source_path": "1/00770eba64db20501bbd30bb21ce6aa5.jpg",
+  "plot": {
+    "inferred_type": "1 Kanal (50' x 90')",
+    "frontage_ft": 50,
+    "depth_ft": 90,
+    "area_sqft": 4500
+  },
+  "total_bedrooms": 2,
+  "total_bathrooms": 4,
+  "has_car_porch": true,
+  "has_stairs": true,
+  "has_open_to_sky": true,
+  "rooms": [
+    {
+      "room_id": "r_1",
+      "name": "Porch",
+      "category": "parking",
+      "dimensions_raw": "19'-10\"x14'-3\"",
+      "dimensions_meters": [
+        6.05,
+        4.34
+      ],
+      "area_m2": 26.26,
+      "spatial_zone": "front_left",
+      "box_2d": [
+        640,
+        77,
+        810,
+        524
+      ],
+      "connected_to": [
+        "Stair Lobby",
+        "Powder Bath",
+        "Drawing"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_2",
+      "name": "Powder Bath (PDR)",
+      "category": "bathroom",
+      "dimensions_raw": "4'-0\"x7'-7\u00bd\"",
+      "dimensions_meters": [
+        1.22,
+        2.32
+      ],
+      "area_m2": 2.83,
+      "spatial_zone": "front_center",
+      "box_2d": [
+        665,
+        439,
+        788,
+        528
+      ],
+      "connected_to": [
+        "Porch"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_3",
+      "name": "Drawing",
+      "category": "living",
+      "dimensions_raw": "18'-6\"x14'-0\"",
+      "dimensions_meters": [
+        5.64,
+        4.27
+      ],
+      "area_m2": 24.08,
+      "spatial_zone": "front_right",
+      "box_2d": [
+        635,
+        532,
+        792,
+        888
+      ],
+      "connected_to": [
+        "Porch",
+        "Dining"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_4",
+      "name": "Lawn",
+      "category": "outdoor",
+      "dimensions_raw": "15'-9\" WIDE",
+      "dimensions_meters": [
+        4.8,
+        0.0
+      ],
+      "area_m2": null,
+      "spatial_zone": "front_right",
+      "box_2d": [
+        800,
+        528,
+        960,
+        918
+      ],
+      "connected_to": [
+        "Porch"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_5",
+      "name": "Dining",
+      "category": "dining",
+      "dimensions_raw": "15'-0\"x12'-1\u00bd\"",
+      "dimensions_meters": [
+        4.57,
+        3.69
+      ],
+      "area_m2": 16.86,
+      "spatial_zone": "center_right",
+      "box_2d": [
+        520,
+        580,
+        635,
+        888
+      ],
+      "connected_to": [
+        "Drawing",
+        "Lounge"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_6",
+      "name": "Stair Lobby",
+      "category": "circulation",
+      "dimensions_raw": "22'-0\"x11'-3\"",
+      "dimensions_meters": [
+        6.71,
+        3.43
+      ],
+      "area_m2": 23.02,
+      "spatial_zone": "center_left",
+      "box_2d": [
+        521,
+        153,
+        650,
+        510
+      ],
+      "connected_to": [
+        "Porch",
+        "Kitchen",
+        "Lounge"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_7",
+      "name": "Kitchen",
+      "category": "kitchen",
+      "dimensions_raw": "15'-0\"x11'-6\"",
+      "dimensions_meters": [
+        4.57,
+        3.51
+      ],
+      "area_m2": 16.04,
+      "spatial_zone": "center_left",
+      "box_2d": [
+        393,
+        161,
+        519,
+        456
+      ],
+      "connected_to": [
+        "Stair Lobby",
+        "S.Kit"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_8",
+      "name": "S.Kit",
+      "category": "kitchen",
+      "dimensions_raw": "9'-0\"x6'-0\"",
+      "dimensions_meters": [
+        2.74,
+        1.83
+      ],
+      "area_m2": 5.01,
+      "spatial_zone": "center_left",
+      "box_2d": [
+        325,
+        161,
+        393,
+        345
+      ],
+      "connected_to": [
+        "Kitchen"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_9",
+      "name": "Lounge",
+      "category": "living",
+      "dimensions_raw": "22'-0\"x16'-6\"",
+      "dimensions_meters": [
+        6.71,
+        5.03
+      ],
+      "area_m2": 33.75,
+      "spatial_zone": "center_right",
+      "box_2d": [
+        330,
+        580,
+        510,
+        888
+      ],
+      "connected_to": [
+        "Stair Lobby",
+        "Dining",
+        "Master Bedroom",
+        "Bedroom",
+        "D/Bath (M.Bed)"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_10",
+      "name": "Bedroom",
+      "category": "bedroom",
+      "dimensions_raw": "17'-0\"x15'-6\"",
+      "dimensions_meters": [
+        5.18,
+        4.72
+      ],
+      "area_m2": 24.45,
+      "spatial_zone": "rear_left",
+      "box_2d": [
+        155,
+        155,
+        325,
+        495
+      ],
+      "connected_to": [
+        "Lounge",
+        "D/Bath (Bed)"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_11",
+      "name": "D/Bath (Bed)",
+      "category": "bathroom",
+      "dimensions_raw": "10'-3\"x9'-0\"",
+      "dimensions_meters": [
+        3.12,
+        2.74
+      ],
+      "area_m2": 8.55,
+      "spatial_zone": "rear_center",
+      "box_2d": [
+        80,
+        230,
+        155,
+        495
+      ],
+      "connected_to": [
+        "Bedroom",
+        "Bath"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_12",
+      "name": "Bath",
+      "category": "bathroom",
+      "dimensions_raw": "3'-0\"x7'-0\"",
+      "dimensions_meters": [
+        0.91,
+        2.13
+      ],
+      "area_m2": 1.94,
+      "spatial_zone": "rear_left",
+      "box_2d": [
+        80,
+        155,
+        155,
+        230
+      ],
+      "connected_to": [
+        "D/Bath (Bed)"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_13",
+      "name": "Master Bedroom",
+      "category": "bedroom",
+      "dimensions_raw": "20'-0\"x14'-0\"",
+      "dimensions_meters": [
+        6.1,
+        4.27
+      ],
+      "area_m2": 26.05,
+      "spatial_zone": "rear_right",
+      "box_2d": [
+        80,
+        502,
+        233,
+        893
+      ],
+      "connected_to": [
+        "Lounge",
+        "D/Bath (M.Bed)"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_14",
+      "name": "D/Bath (M.Bed)",
+      "category": "bathroom",
+      "dimensions_raw": "15'-0\"x8'-6\"",
+      "dimensions_meters": [
+        4.57,
+        2.59
+      ],
+      "area_m2": 11.84,
+      "spatial_zone": "rear_right",
+      "box_2d": [
+        233,
+        588,
+        332,
+        888
+      ],
+      "connected_to": [
+        "Master Bedroom"
+      ],
+      "status": "confirmed"
+    }
+  ],
+  "structural_notes": {
+    "staircase_location": "side",
+    "parking_capacity": "double_car",
+    "circulation_type": "central_lounge"
+  },
+  "annotation_status": "confirmed"
+}

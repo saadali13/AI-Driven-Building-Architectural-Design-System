@@ -1,0 +1,291 @@
+{
+  "project_title": "3 Bedroom Contemporary Residence Floor Plan",
+  "plot_archetype": "5 Marla",
+  "dimensions_overall": "10.5m x 15.8m",
+  "total_bedrooms": 3,
+  "total_bathrooms": 3,
+  "has_car_porch": false,
+  "has_stairs": true,
+  "has_open_to_sky": true,
+  "rooms": [
+    {
+      "room_id": "r_1",
+      "name": "Sitout",
+      "category": "outdoor",
+      "dimensions_raw": "3300 x 1500",
+      "dimensions_meters": [
+        3.3,
+        1.5
+      ],
+      "spatial_zone": "front_right",
+      "box_2d": [
+        827,
+        546,
+        930,
+        870
+      ],
+      "connected_to": [
+        "Living"
+      ]
+    },
+    {
+      "room_id": "r_2",
+      "name": "Living",
+      "category": "living",
+      "dimensions_raw": "3300 x 3000",
+      "dimensions_meters": [
+        3.3,
+        3.0
+      ],
+      "spatial_zone": "front_right",
+      "box_2d": [
+        625,
+        550,
+        830,
+        865
+      ],
+      "connected_to": [
+        "Sitout",
+        "Dining"
+      ]
+    },
+    {
+      "room_id": "r_3",
+      "name": "Dining",
+      "category": "dining",
+      "dimensions_raw": "3500 x 3100",
+      "dimensions_meters": [
+        3.5,
+        3.1
+      ],
+      "spatial_zone": "center",
+      "box_2d": [
+        458,
+        439,
+        642,
+        735
+      ],
+      "connected_to": [
+        "Living",
+        "Kitchen",
+        "Bedroom 1",
+        "Bedroom 2",
+        "Bedroom 3",
+        "Wash",
+        "External Court Yard"
+      ]
+    },
+    {
+      "room_id": "r_4",
+      "name": "Bedroom 1",
+      "category": "bedroom",
+      "dimensions_raw": "3000 x 3300",
+      "dimensions_meters": [
+        3.0,
+        3.3
+      ],
+      "spatial_zone": "front_left",
+      "box_2d": [
+        647,
+        175,
+        882,
+        513
+      ],
+      "connected_to": [
+        "Dining",
+        "Toilet 1"
+      ]
+    },
+    {
+      "room_id": "r_5",
+      "name": "Toilet 1",
+      "category": "bathroom",
+      "dimensions_raw": "1500 x 2100",
+      "dimensions_meters": [
+        1.5,
+        2.1
+      ],
+      "spatial_zone": "front_left",
+      "box_2d": [
+        772,
+        98,
+        922,
+        252
+      ],
+      "connected_to": [
+        "Bedroom 1"
+      ]
+    },
+    {
+      "room_id": "r_6",
+      "name": "Bedroom 2",
+      "category": "bedroom",
+      "dimensions_raw": "3300 x 3100",
+      "dimensions_meters": [
+        3.3,
+        3.1
+      ],
+      "spatial_zone": "center_left",
+      "box_2d": [
+        443,
+        85,
+        654,
+        430
+      ],
+      "connected_to": [
+        "Dining"
+      ]
+    },
+    {
+      "room_id": "r_7",
+      "name": "Kitchen",
+      "category": "kitchen",
+      "dimensions_raw": "3600 x 3000",
+      "dimensions_meters": [
+        3.6,
+        3.0
+      ],
+      "spatial_zone": "center_left",
+      "box_2d": [
+        233,
+        187,
+        439,
+        518
+      ],
+      "connected_to": [
+        "Dining",
+        "Workarea"
+      ]
+    },
+    {
+      "room_id": "r_8",
+      "name": "Workarea",
+      "category": "utility",
+      "dimensions_raw": "3600 x 2000",
+      "dimensions_meters": [
+        3.6,
+        2.0
+      ],
+      "spatial_zone": "rear_left",
+      "box_2d": [
+        45,
+        237,
+        235,
+        530
+      ],
+      "connected_to": [
+        "Kitchen"
+      ]
+    },
+    {
+      "room_id": "r_9",
+      "name": "Bedroom 3",
+      "category": "bedroom",
+      "dimensions_raw": "3300 x 3600",
+      "dimensions_meters": [
+        3.3,
+        3.6
+      ],
+      "spatial_zone": "rear_right",
+      "box_2d": [
+        162,
+        546,
+        404,
+        866
+      ],
+      "connected_to": [
+        "Dining",
+        "Toilet 3"
+      ]
+    },
+    {
+      "room_id": "r_10",
+      "name": "Toilet 3",
+      "category": "bathroom",
+      "dimensions_raw": "2200 x 1530",
+      "dimensions_meters": [
+        2.2,
+        1.53
+      ],
+      "spatial_zone": "rear_center",
+      "box_2d": [
+        56,
+        545,
+        166,
+        768
+      ],
+      "connected_to": [
+        "Bedroom 3"
+      ]
+    },
+    {
+      "room_id": "r_11",
+      "name": "Wash",
+      "category": "circulation",
+      "dimensions_raw": "Wash",
+      "dimensions_meters": [
+        1.2,
+        1.0
+      ],
+      "spatial_zone": "center_right",
+      "box_2d": [
+        415,
+        755,
+        516,
+        836
+      ],
+      "connected_to": [
+        "Dining",
+        "Common Toilet"
+      ]
+    },
+    {
+      "room_id": "r_12",
+      "name": "Common Toilet",
+      "category": "bathroom",
+      "dimensions_raw": "1200 x 1500",
+      "dimensions_meters": [
+        1.2,
+        1.5
+      ],
+      "spatial_zone": "center_right",
+      "box_2d": [
+        413,
+        828,
+        514,
+        960
+      ],
+      "connected_to": [
+        "Wash"
+      ]
+    },
+    {
+      "room_id": "r_13",
+      "name": "External Court Yard",
+      "category": "outdoor",
+      "dimensions_raw": "External Court Yard",
+      "dimensions_meters": [
+        2.1,
+        1.6
+      ],
+      "spatial_zone": "center_right",
+      "box_2d": [
+        519,
+        770,
+        616,
+        977
+      ],
+      "connected_to": [
+        "Dining"
+      ]
+    }
+  ],
+  "structural_notes": {
+    "staircase_location": "rear",
+    "parking_capacity": "none",
+    "circulation_type": "central_lounge"
+  },
+  "source_image": "027c487cd8eb1a07ba644f292fd32e0c.jpg",
+  "source_path": "1/027c487cd8eb1a07ba644f292fd32e0c.jpg",
+  "folder_category": "1"
+}

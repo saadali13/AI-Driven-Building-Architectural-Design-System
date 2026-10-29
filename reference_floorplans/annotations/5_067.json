@@ -1,0 +1,438 @@
+{
+  "plan_id": "5_067",
+  "category": "5",
+  "source_image": "195e61769696aa144d1388a68ef92cc9.jpg",
+  "source_path": "5/195e61769696aa144d1388a68ef92cc9.jpg",
+  "plot": {
+    "inferred_type": "5 Marla (25' x 45')",
+    "frontage_ft": 25,
+    "depth_ft": 45,
+    "area_sqft": 1125
+  },
+  "total_bedrooms": 2,
+  "total_bathrooms": 3,
+  "has_car_porch": true,
+  "has_stairs": true,
+  "has_open_to_sky": true,
+  "rooms": [
+    {
+      "room_id": "r_1",
+      "name": "Parking",
+      "category": "parking",
+      "dimensions_raw": "16'0\" x 16'0\"",
+      "dimensions_meters": [
+        4.88,
+        4.88
+      ],
+      "area_m2": 23.81,
+      "spatial_zone": "front_left",
+      "box_2d": [
+        688,
+        137,
+        915,
+        404
+      ],
+      "connected_to": [
+        "Gardening",
+        "Kitchen"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_2",
+      "name": "Gardening",
+      "category": "outdoor",
+      "dimensions_raw": "N/A",
+      "dimensions_meters": [
+        7.3,
+        4.88
+      ],
+      "area_m2": 35.62,
+      "spatial_zone": "front_center",
+      "box_2d": [
+        688,
+        404,
+        915,
+        750
+      ],
+      "connected_to": [
+        "Parking",
+        "Walkway",
+        "Sitout",
+        "Foyer"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_3",
+      "name": "Sitout",
+      "category": "outdoor",
+      "dimensions_raw": "8'0\" x 5'9\"",
+      "dimensions_meters": [
+        2.44,
+        1.75
+      ],
+      "area_m2": 4.27,
+      "spatial_zone": "front_right",
+      "box_2d": [
+        612,
+        747,
+        690,
+        893
+      ],
+      "connected_to": [
+        "Foyer",
+        "Gardening"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_4",
+      "name": "Foyer",
+      "category": "circulation",
+      "dimensions_raw": "11'3\" x 12'0\"",
+      "dimensions_meters": [
+        3.43,
+        3.66
+      ],
+      "area_m2": 12.55,
+      "spatial_zone": "front_center",
+      "box_2d": [
+        517,
+        529,
+        688,
+        747
+      ],
+      "connected_to": [
+        "Sitout",
+        "Living",
+        "Store",
+        "Study Room"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_5",
+      "name": "Store",
+      "category": "utility",
+      "dimensions_raw": "6'6\" x 6'0\"",
+      "dimensions_meters": [
+        1.98,
+        1.83
+      ],
+      "area_m2": 3.62,
+      "spatial_zone": "center",
+      "box_2d": [
+        597,
+        396,
+        688,
+        529
+      ],
+      "connected_to": [
+        "Foyer"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_6",
+      "name": "Pooja",
+      "category": "utility",
+      "dimensions_raw": "6'6\" x 5'6\"",
+      "dimensions_meters": [
+        1.98,
+        1.68
+      ],
+      "area_m2": 3.33,
+      "spatial_zone": "center",
+      "box_2d": [
+        517,
+        396,
+        597,
+        529
+      ],
+      "connected_to": [
+        "Dining"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_7",
+      "name": "Study Room",
+      "category": "living",
+      "dimensions_raw": "8'0\" x 6'3\"",
+      "dimensions_meters": [
+        2.44,
+        1.91
+      ],
+      "area_m2": 4.66,
+      "spatial_zone": "center_right",
+      "box_2d": [
+        517,
+        747,
+        612,
+        893
+      ],
+      "connected_to": [
+        "Foyer"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_8",
+      "name": "Kitchen",
+      "category": "kitchen",
+      "dimensions_raw": "13'0\" x 12'0\"",
+      "dimensions_meters": [
+        3.96,
+        3.66
+      ],
+      "area_m2": 14.49,
+      "spatial_zone": "center_left",
+      "box_2d": [
+        517,
+        148,
+        688,
+        396
+      ],
+      "connected_to": [
+        "Utility",
+        "Dining"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_9",
+      "name": "Utility",
+      "category": "utility",
+      "dimensions_raw": "10'0\" x 12'9\"",
+      "dimensions_meters": [
+        3.05,
+        3.89
+      ],
+      "area_m2": 11.86,
+      "spatial_zone": "center_left",
+      "box_2d": [
+        517,
+        65,
+        688,
+        148
+      ],
+      "connected_to": [
+        "Kitchen"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_10",
+      "name": "Dining",
+      "category": "dining",
+      "dimensions_raw": "7'9\" x 10'0\"",
+      "dimensions_meters": [
+        2.36,
+        3.05
+      ],
+      "area_m2": 7.2,
+      "spatial_zone": "center_left",
+      "box_2d": [
+        320,
+        148,
+        517,
+        437
+      ],
+      "connected_to": [
+        "Kitchen",
+        "Living",
+        "Pooja",
+        "Common Toilet"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_11",
+      "name": "Common Toilet",
+      "category": "bathroom",
+      "dimensions_raw": "8'0\" x 4'0\"",
+      "dimensions_meters": [
+        2.44,
+        1.22
+      ],
+      "area_m2": 2.98,
+      "spatial_zone": "center_left",
+      "box_2d": [
+        265,
+        148,
+        320,
+        370
+      ],
+      "connected_to": [
+        "Dining"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_12",
+      "name": "Living",
+      "category": "living",
+      "dimensions_raw": "20'0\" x 18'6\"",
+      "dimensions_meters": [
+        6.1,
+        5.64
+      ],
+      "area_m2": 34.4,
+      "spatial_zone": "center_right",
+      "box_2d": [
+        265,
+        437,
+        517,
+        893
+      ],
+      "connected_to": [
+        "Foyer",
+        "Dining",
+        "Bedroom 2"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_13",
+      "name": "Bedroom 1",
+      "category": "bedroom",
+      "dimensions_raw": "16'0\" x 12'0\"",
+      "dimensions_meters": [
+        4.88,
+        3.66
+      ],
+      "area_m2": 17.86,
+      "spatial_zone": "rear_left",
+      "box_2d": [
+        95,
+        148,
+        265,
+        437
+      ],
+      "connected_to": [
+        "Dressing",
+        "Dining"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_14",
+      "name": "Dressing",
+      "category": "utility",
+      "dimensions_raw": "4'9\" x 4'6\"",
+      "dimensions_meters": [
+        1.45,
+        1.37
+      ],
+      "area_m2": 1.99,
+      "spatial_zone": "rear_center",
+      "box_2d": [
+        203,
+        437,
+        265,
+        550
+      ],
+      "connected_to": [
+        "Bedroom 1",
+        "Attached Toilet 1"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_15",
+      "name": "Attached Toilet 1",
+      "category": "bathroom",
+      "dimensions_raw": "4'9\" x 7'0\"",
+      "dimensions_meters": [
+        1.45,
+        2.13
+      ],
+      "area_m2": 3.09,
+      "spatial_zone": "rear_center",
+      "box_2d": [
+        95,
+        437,
+        203,
+        550
+      ],
+      "connected_to": [
+        "Dressing"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_16",
+      "name": "Lift",
+      "category": "circulation",
+      "dimensions_raw": "5'0\" x 4'6\"",
+      "dimensions_meters": [
+        1.52,
+        1.37
+      ],
+      "area_m2": 2.08,
+      "spatial_zone": "rear_center",
+      "box_2d": [
+        203,
+        550,
+        265,
+        657
+      ],
+      "connected_to": [
+        "Living"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_17",
+      "name": "Attached Toilet 2",
+      "category": "bathroom",
+      "dimensions_raw": "5'0\" x 6'9\"",
+      "dimensions_meters": [
+        1.52,
+        2.06
+      ],
+      "area_m2": 3.13,
+      "spatial_zone": "rear_center",
+      "box_2d": [
+        95,
+        550,
+        203,
+        657
+      ],
+      "connected_to": [
+        "Bedroom 2"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_18",
+      "name": "Bedroom 2",
+      "category": "bedroom",
+      "dimensions_raw": "13'0\" x 12'0\"",
+      "dimensions_meters": [
+        3.96,
+        3.66
+      ],
+      "area_m2": 14.49,
+      "spatial_zone": "rear_right",
+      "box_2d": [
+        95,
+        657,
+        265,
+        893
+      ],
+      "connected_to": [
+        "Living",
+        "Attached Toilet 2"
+      ],
+      "status": "confirmed"
+    }
+  ],
+  "structural_notes": {
+    "staircase_location": "side",
+    "parking_capacity": "double_car",
+    "circulation_type": "central_lounge"
+  },
+  "annotation_status": "confirmed"
+}

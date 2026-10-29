@@ -1,0 +1,128 @@
+[
+  {
+    "image_path": "1/00770eba64db20501bbd30bb21ce6aa5.jpg",
+    "resolution": "877x1584",
+    "wall_contours": 341,
+    "room_candidates": 3,
+    "ocr_text_count": 42,
+    "dimensions_detected": [
+      "3'0 x7'-0",
+      "10-3\"x9-0'",
+      "20'-0*14-0\"",
+      "17'-0\"x15'-6\"",
+      "15'-0\"x8\"-6\""
+    ],
+    "rooms_detected": [
+      "BATH",
+      "DIBATH",
+      "MBED",
+      "BED",
+      "DIBATH"
+    ],
+    "ocr_sample": [
+      "Lo",
+      "BATH",
+      "DIBATH",
+      "3'0 x7'-0",
+      "10-3\"x9-0'",
+      "MBED"
+    ]
+  },
+  {
+    "image_path": "1/download.png",
+    "resolution": "1152x2048",
+    "wall_contours": 725,
+    "room_candidates": 1,
+    "ocr_text_count": 33,
+    "dimensions_detected": [
+      "TXc6\"",
+      "674Xiz 6\"",
+      "7-0\" WIDE"
+    ],
+    "rooms_detected": [
+      "BATH",
+      "BED",
+      "( BED",
+      "PORCH"
+    ],
+    "ocr_sample": [
+      "50",
+      "OPENBACK PASS;",
+      "BAT",
+      "IOXo",
+      "DRESS",
+      "BATH"
+    ]
+  },
+  {
+    "image_path": "10/cb33831c86d1f16db29ad58bf9e926f3.jpg",
+    "resolution": "236x433",
+    "wall_contours": 103,
+    "room_candidates": 1,
+    "ocr_text_count": 2,
+    "dimensions_detected": [],
+    "rooms_detected": [],
+    "ocr_sample": [
+      "Ground Floor",
+      "Plan"
+    ]
+  },
+  {
+    "image_path": "3/0adf5f25feca052f9968d0a9f42bd8eb.jpg",
+    "resolution": "720x1042",
+    "wall_contours": 319,
+    "room_candidates": 2,
+    "ocr_text_count": 31,
+    "dimensions_detected": [
+      "30'",
+      "4'6\"-",
+      "12'1.5\"=",
+      "4'6\"X5'6",
+      "5'0\"X6'0\""
+    ],
+    "rooms_detected": [
+      "BED",
+      "ROOM",
+      "BED",
+      "ROOM",
+      "WC"
+    ],
+    "ocr_sample": [
+      "80*402BHK BDHlusePlaDesigu",
+      "30'",
+      "4'6\"-",
+      "12'1.5\"=",
+      "OPEN",
+      "4'6\"X5'6"
+    ]
+  },
+  {
+    "image_path": "7/0162fa659d7392157fc0854ef058f419.jpg",
+    "resolution": "1200x1697",
+    "wall_contours": 830,
+    "room_candidates": 3,
+    "ocr_text_count": 56,
+    "dimensions_detected": [
+      "20\"",
+      "84\"X48\"",
+      "70\"X544\"",
+      "11'4\"X1OO\"",
+      "104\"X98\""
+    ],
+    "rooms_detected": [
+      "BEDROOM",
+      "BEDROOM",
+      "KITCHEN",
+      "KITCHEN",
+      "BEDROOM"
+    ],
+    "ocr_sample": [
+      "20\"",
+      "20",
+      "UHM",
+      "WASIAREA",
+      "WASH AREA",
+      "84\"X48\""
+    ]
+  }
+]

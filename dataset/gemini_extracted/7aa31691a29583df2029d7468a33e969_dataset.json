@@ -1,0 +1,293 @@
+{
+  "project_title": "Modern Two Bedroom House Plan with Car Porch",
+  "plot_archetype": "5 Marla",
+  "dimensions_overall": "35'x50'",
+  "total_bedrooms": 2,
+  "total_bathrooms": 3,
+  "has_car_porch": true,
+  "has_stairs": true,
+  "has_open_to_sky": false,
+  "rooms": [
+    {
+      "room_id": "r_1",
+      "name": "Bedroom",
+      "category": "bedroom",
+      "dimensions_raw": "16'-3\"x11'-0\"",
+      "dimensions_meters": [
+        4.95,
+        3.35
+      ],
+      "spatial_zone": "rear_left",
+      "box_2d": [
+        32,
+        79,
+        264,
+        488
+      ],
+      "connected_to": [
+        "Lobby",
+        "Bath"
+      ]
+    },
+    {
+      "room_id": "r_2",
+      "name": "Bedroom",
+      "category": "bedroom",
+      "dimensions_raw": "11'-0\"x16'-3\"",
+      "dimensions_meters": [
+        3.35,
+        4.95
+      ],
+      "spatial_zone": "rear_right",
+      "box_2d": [
+        32,
+        499,
+        386,
+        786
+      ],
+      "connected_to": [
+        "Hall",
+        "Dress"
+      ]
+    },
+    {
+      "room_id": "r_3",
+      "name": "Dress",
+      "category": "utility",
+      "dimensions_raw": "5'x4'",
+      "dimensions_meters": [
+        1.52,
+        1.22
+      ],
+      "spatial_zone": "rear_right",
+      "box_2d": [
+        32,
+        785,
+        126,
+        929
+      ],
+      "connected_to": [
+        "Bedroom",
+        "Toilet"
+      ]
+    },
+    {
+      "room_id": "r_4",
+      "name": "Toilet",
+      "category": "bathroom",
+      "dimensions_raw": "5'x7'",
+      "dimensions_meters": [
+        1.52,
+        2.13
+      ],
+      "spatial_zone": "rear_right",
+      "box_2d": [
+        117,
+        785,
+        276,
+        929
+      ],
+      "connected_to": [
+        "Dress"
+      ]
+    },
+    {
+      "room_id": "r_5",
+      "name": "Bath",
+      "category": "bathroom",
+      "dimensions_raw": "4'-0\"x6'-0\"",
+      "dimensions_meters": [
+        1.22,
+        1.83
+      ],
+      "spatial_zone": "center_left",
+      "box_2d": [
+        274,
+        178,
+        370,
+        350
+      ],
+      "connected_to": [
+        "Lobby"
+      ]
+    },
+    {
+      "room_id": "r_6",
+      "name": "Lobby",
+      "category": "circulation",
+      "dimensions_raw": "5'x5'",
+      "dimensions_meters": [
+        1.52,
+        1.52
+      ],
+      "spatial_zone": "center",
+      "box_2d": [
+        270,
+        347,
+        381,
+        486
+      ],
+      "connected_to": [
+        "Bedroom",
+        "Bath",
+        "Hall"
+      ]
+    },
+    {
+      "room_id": "r_7",
+      "name": "Hall",
+      "category": "living",
+      "dimensions_raw": "20'-3\"x11'-3\"",
+      "dimensions_meters": [
+        6.17,
+        3.43
+      ],
+      "spatial_zone": "center",
+      "box_2d": [
+        379,
+        185,
+        611,
+        712
+      ],
+      "connected_to": [
+        "Bedroom",
+        "Lobby",
+        "Kitchen",
+        "Drawing",
+        "Lobby_Entrance"
+      ]
+    },
+    {
+      "room_id": "r_8",
+      "name": "Kitchen",
+      "category": "kitchen",
+      "dimensions_raw": "8'-0\"x11'-0\"",
+      "dimensions_meters": [
+        2.44,
+        3.35
+      ],
+      "spatial_zone": "center_right",
+      "box_2d": [
+        379,
+        715,
+        603,
+        929
+      ],
+      "connected_to": [
+        "Hall"
+      ]
+    },
+    {
+      "room_id": "r_9",
+      "name": "Toilet",
+      "category": "bathroom",
+      "dimensions_raw": "4'x5'",
+      "dimensions_meters": [
+        1.22,
+        1.52
+      ],
+      "spatial_zone": "center_left",
+      "box_2d": [
+        477,
+        79,
+        606,
+        175
+      ],
+      "connected_to": [
+        "Drawing"
+      ]
+    },
+    {
+      "room_id": "r_10",
+      "name": "Drawing",
+      "category": "living",
+      "dimensions_raw": "11'-0\"x15'-3\"",
+      "dimensions_meters": [
+        3.35,
+        4.65
+      ],
+      "spatial_zone": "front_left",
+      "box_2d": [
+        610,
+        77,
+        925,
+        380
+      ],
+      "connected_to": [
+        "Hall",
+        "Toilet",
+        "Passage"
+      ]
+    },
+    {
+      "room_id": "r_11",
+      "name": "Lobby",
+      "category": "circulation",
+      "dimensions_raw": "5'x5'",
+      "dimensions_meters": [
+        1.52,
+        1.52
+      ],
+      "spatial_zone": "front_right",
+      "box_2d": [
+        591,
+        563,
+        726,
+        706
+      ],
+      "connected_to": [
+        "Hall",
+        "Car Porch"
+      ]
+    },
+    {
+      "room_id": "r_12",
+      "name": "Car Porch",
+      "category": "parking",
+      "dimensions_raw": "Estimated 10'x15'",
+      "dimensions_meters": [
+        3.05,
+        4.57
+      ],
+      "spatial_zone": "front_right",
+      "box_2d": [
+        607,
+        713,
+        931,
+        929
+      ],
+      "connected_to": [
+        "Lobby",
+        "Passage"
+      ]
+    },
+    {
+      "room_id": "r_13",
+      "name": "Passage",
+      "category": "circulation",
+      "dimensions_raw": "4'",
+      "dimensions_meters": [
+        1.22,
+        4.5
+      ],
+      "spatial_zone": "front_center",
+      "box_2d": [
+        828,
+        375,
+        931,
+        715
+      ],
+      "connected_to": [
+        "Drawing",
+        "Car Porch"
+      ]
+    }
+  ],
+  "structural_notes": {
+    "staircase_location": "central",
+    "parking_capacity": "single_car",
+    "circulation_type": "central_lounge"
+  },
+  "source_image": "7aa31691a29583df2029d7468a33e969.jpg",
+  "source_path": "3/7aa31691a29583df2029d7468a33e969.jpg"
+}

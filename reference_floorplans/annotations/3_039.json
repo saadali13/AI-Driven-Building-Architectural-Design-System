@@ -1,0 +1,22 @@
+{
+  "plan_id": "3_039",
+  "category": "3",
+  "source_image": "4f3655f8abc77ad4446ea4f1c1b38779.jpg",
+  "source_path": "3/4f3655f8abc77ad4446ea4f1c1b38779.jpg",
+  "plot": {
+    "inferred_type": "3 Marla (20' x 35')",
+    "frontage_ft": null,
+    "depth_ft": null,
+    "area_sqft": null
+  },
+  "resolution": "736x1104",
+  "aspect_ratio": 0.67,
+  "is_multi_sheet": false,
+  "rooms": [],
+  "doors": [],
+  "windows": [],
+  "stairs": [],
+  "exterior_spaces": [],
+  "adjacency_graph": [],
+  "annotation_status": "catalog_indexed"
+}

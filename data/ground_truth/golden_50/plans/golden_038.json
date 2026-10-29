@@ -1,0 +1,317 @@
+{
+  "plan_id": "golden_038",
+  "category": "irregular_l_shaped",
+  "building_boundary": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      14.0,
+      0.0
+    ],
+    [
+      14.0,
+      14.0
+    ],
+    [
+      0.0,
+      14.0
+    ],
+    [
+      0.0,
+      0.0
+    ]
+  ],
+  "total_area_m2": 196.0,
+  "floor_count": 1,
+  "levels": [
+    0
+  ],
+  "walls": [
+    {
+      "wall_id": "golden_038_w_ext_south",
+      "wall_type": "exterior",
+      "centerline": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          14.0,
+          0.0
+        ]
+      ],
+      "thickness_m": 0.25
+    },
+    {
+      "wall_id": "golden_038_w_ext_east",
+      "wall_type": "exterior",
+      "centerline": [
+        [
+          14.0,
+          0.0
+        ],
+        [
+          14.0,
+          14.0
+        ]
+      ],
+      "thickness_m": 0.25
+    },
+    {
+      "wall_id": "golden_038_w_ext_north",
+      "wall_type": "exterior",
+      "centerline": [
+        [
+          14.0,
+          14.0
+        ],
+        [
+          0.0,
+          14.0
+        ]
+      ],
+      "thickness_m": 0.25
+    },
+    {
+      "wall_id": "golden_038_w_ext_west",
+      "wall_type": "exterior",
+      "centerline": [
+        [
+          0.0,
+          14.0
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "thickness_m": 0.25
+    }
+  ],
+  "openings": [
+    {
+      "opening_id": "golden_038_d1",
+      "opening_type": "door",
+      "position": [
+        2.8000000000000003,
+        0.0
+      ],
+      "width_m": 0.9,
+      "connects_rooms": [
+        "golden_038_r1"
+      ],
+      "associated_wall_id": null
+    },
+    {
+      "opening_id": "golden_038_d2",
+      "opening_type": "door",
+      "position": [
+        5.6000000000000005,
+        2.8000000000000003
+      ],
+      "width_m": 0.9,
+      "connects_rooms": [
+        "golden_038_r1",
+        "golden_038_r2"
+      ],
+      "associated_wall_id": null
+    },
+    {
+      "opening_id": "golden_038_d3",
+      "opening_type": "door",
+      "position": [
+        5.6000000000000005,
+        7.0
+      ],
+      "width_m": 0.9,
+      "connects_rooms": [
+        "golden_038_r1",
+        "golden_038_r3"
+      ],
+      "associated_wall_id": null
+    },
+    {
+      "opening_id": "golden_038_d4",
+      "opening_type": "door",
+      "position": [
+        2.8000000000000003,
+        8.4
+      ],
+      "width_m": 0.9,
+      "connects_rooms": [
+        "golden_038_r1",
+        "golden_038_r4"
+      ],
+      "associated_wall_id": null
+    },
+    {
+      "opening_id": "golden_038_w1",
+      "opening_type": "window",
+      "position": [
+        0.0,
+        4.2
+      ],
+      "width_m": 1.2,
+      "connects_rooms": [
+        "golden_038_r1"
+      ],
+      "associated_wall_id": null
+    }
+  ],
+  "rooms": [
+    {
+      "room_id": "golden_038_r1",
+      "room_type": "living_room",
+      "room_name": "Living Wing",
+      "polygon": [
+        [
+          0,
+          0
+        ],
+        [
+          5.6000000000000005,
+          0
+        ],
+        [
+          5.6000000000000005,
+          8.4
+        ],
+        [
+          0,
+          8.4
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "area_m2": 47.04,
+      "level_index": 0,
+      "is_habitable": true
+    },
+    {
+      "room_id": "golden_038_r2",
+      "room_type": "kitchen",
+      "room_name": "Kitchen & Dining",
+      "polygon": [
+        [
+          5.6000000000000005,
+          0
+        ],
+        [
+          14.0,
+          0
+        ],
+        [
+          14.0,
+          5.6000000000000005
+        ],
+        [
+          5.6000000000000005,
+          5.6000000000000005
+        ],
+        [
+          5.6000000000000005,
+          0
+        ]
+      ],
+      "area_m2": 47.04,
+      "level_index": 0,
+      "is_habitable": true
+    },
+    {
+      "room_id": "golden_038_r3",
+      "room_type": "balcony",
+      "room_name": "Central Courtyard",
+      "polygon": [
+        [
+          5.6000000000000005,
+          5.6000000000000005
+        ],
+        [
+          8.4,
+          5.6000000000000005
+        ],
+        [
+          8.4,
+          8.4
+        ],
+        [
+          5.6000000000000005,
+          8.4
+        ],
+        [
+          5.6000000000000005,
+          5.6000000000000005
+        ]
+      ],
+      "area_m2": 7.84,
+      "level_index": 0,
+      "is_habitable": false
+    },
+    {
+      "room_id": "golden_038_r4",
+      "room_type": "bedroom",
+      "room_name": "Bedroom Wing",
+      "polygon": [
+        [
+          0,
+          8.4
+        ],
+        [
+          14.0,
+          8.4
+        ],
+        [
+          14.0,
+          14.0
+        ],
+        [
+          0,
+          14.0
+        ],
+        [
+          0,
+          8.4
+        ]
+      ],
+      "area_m2": 78.4,
+      "level_index": 0,
+      "is_habitable": true
+    }
+  ],
+  "dimensions": [
+    {
+      "raw_text": "14.0m",
+      "normalized_value_m": 14.0,
+      "unit": "m",
+      "associated_wall_id": null
+    }
+  ],
+  "graph_edges": [
+    {
+      "source_room_id": "golden_038_r1",
+      "target_room_id": "golden_038_r2",
+      "relationship_type": "via_door"
+    },
+    {
+      "source_room_id": "golden_038_r1",
+      "target_room_id": "golden_038_r3",
+      "relationship_type": "opens_into"
+    },
+    {
+      "source_room_id": "golden_038_r1",
+      "target_room_id": "golden_038_r4",
+      "relationship_type": "via_door"
+    }
+  ],
+  "provenance": {
+    "benchmark_version": "v1.0-stratified",
+    "verifier": "Antigravity Architectural Benchmark Team",
+    "date_verified": "2026-09-17",
+    "verification_status": "100%_human_verified",
+    "sha256": "c7915e942ab5c52b48d6f26a92b57c74011fc545c86c4a4e634359a3bf5d6a42"
+  }
+}

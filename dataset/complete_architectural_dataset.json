@@ -1,0 +1,2286 @@
+{
+  "dataset_name": "Antigravity Architectural Master Dataset",
+  "description": "Complete ground-truth floor plan dataset with dimensional, topological, and spatial bounding boxes (box_2d)",
+  "folders_covered": [
+    "1",
+    "3",
+    "5",
+    "7",
+    "10"
+  ],
+  "total_plans": 7,
+  "plans": [
+    {
+      "project_title": "Ground Floor Plan (50' x 90')",
+      "plot_archetype": "1 Kanal",
+      "dimensions_overall": "50'x90'",
+      "total_bedrooms": 2,
+      "total_bathrooms": 4,
+      "has_car_porch": true,
+      "has_stairs": true,
+      "has_open_to_sky": true,
+      "rooms": [
+        {
+          "room_id": "r_1",
+          "name": "Porch",
+          "category": "parking",
+          "dimensions_raw": "19'-10\"x14'-3\"",
+          "dimensions_meters": [
+            6.05,
+            4.34
+          ],
+          "spatial_zone": "front_left",
+          "box_2d": [
+            640,
+            77,
+            810,
+            524
+          ],
+          "connected_to": [
+            "Stair Lobby",
+            "Powder Bath",
+            "Drawing"
+          ]
+        },
+        {
+          "room_id": "r_2",
+          "name": "Powder Bath (PDR)",
+          "category": "bathroom",
+          "dimensions_raw": "4'-0\"x7'-7\u00bd\"",
+          "dimensions_meters": [
+            1.22,
+            2.32
+          ],
+          "spatial_zone": "front_center",
+          "box_2d": [
+            665,
+            439,
+            788,
+            528
+          ],
+          "connected_to": [
+            "Porch"
+          ]
+        },
+        {
+          "room_id": "r_3",
+          "name": "Drawing",
+          "category": "living",
+          "dimensions_raw": "18'-6\"x14'-0\"",
+          "dimensions_meters": [
+            5.64,
+            4.27
+          ],
+          "spatial_zone": "front_right",
+          "box_2d": [
+            635,
+            532,
+            792,
+            888
+          ],
+          "connected_to": [
+            "Porch",
+            "Dining"
+          ]
+        },
+        {
+          "room_id": "r_4",
+          "name": "Lawn",
+          "category": "outdoor",
+          "dimensions_raw": "15'-9\" WIDE",
+          "dimensions_meters": [
+            4.8,
+            0.0
+          ],
+          "spatial_zone": "front_right",
+          "box_2d": [
+            800,
+            528,
+            960,
+            918
+          ],
+          "connected_to": [
+            "Porch"
+          ]
+        },
+        {
+          "room_id": "r_5",
+          "name": "Dining",
+          "category": "dining",
+          "dimensions_raw": "15'-0\"x12'-1\u00bd\"",
+          "dimensions_meters": [
+            4.57,
+            3.69
+          ],
+          "spatial_zone": "center_right",
+          "box_2d": [
+            520,
+            580,
+            635,
+            888
+          ],
+          "connected_to": [
+            "Drawing",
+            "Lounge"
+          ]
+        },
+        {
+          "room_id": "r_6",
+          "name": "Stair Lobby",
+          "category": "circulation",
+          "dimensions_raw": "22'-0\"x11'-3\"",
+          "dimensions_meters": [
+            6.71,
+            3.43
+          ],
+          "spatial_zone": "center_left",
+          "box_2d": [
+            521,
+            153,
+            650,
+            510
+          ],
+          "connected_to": [
+            "Porch",
+            "Kitchen",
+            "Lounge"
+          ]
+        },
+        {
+          "room_id": "r_7",
+          "name": "Kitchen",
+          "category": "kitchen",
+          "dimensions_raw": "15'-0\"x11'-6\"",
+          "dimensions_meters": [
+            4.57,
+            3.51
+          ],
+          "spatial_zone": "center_left",
+          "box_2d": [
+            393,
+            161,
+            519,
+            456
+          ],
+          "connected_to": [
+            "Stair Lobby",
+            "S.Kit"
+          ]
+        },
+        {
+          "room_id": "r_8",
+          "name": "S.Kit",
+          "category": "kitchen",
+          "dimensions_raw": "9'-0\"x6'-0\"",
+          "dimensions_meters": [
+            2.74,
+            1.83
+          ],
+          "spatial_zone": "center_left",
+          "box_2d": [
+            325,
+            161,
+            393,
+            345
+          ],
+          "connected_to": [
+            "Kitchen"
+          ]
+        },
+        {
+          "room_id": "r_9",
+          "name": "Lounge",
+          "category": "living",
+          "dimensions_raw": "22'-0\"x16'-6\"",
+          "dimensions_meters": [
+            6.71,
+            5.03
+          ],
+          "spatial_zone": "center_right",
+          "box_2d": [
+            330,
+            580,
+            510,
+            888
+          ],
+          "connected_to": [
+            "Stair Lobby",
+            "Dining",
+            "Master Bedroom",
+            "Bedroom",
+            "D/Bath (M.Bed)"
+          ]
+        },
+        {
+          "room_id": "r_10",
+          "name": "Bedroom",
+          "category": "bedroom",
+          "dimensions_raw": "17'-0\"x15'-6\"",
+          "dimensions_meters": [
+            5.18,
+            4.72
+          ],
+          "spatial_zone": "rear_left",
+          "box_2d": [
+            155,
+            155,
+            325,
+            495
+          ],
+          "connected_to": [
+            "Lounge",
+            "D/Bath (Bed)"
+          ]
+        },
+        {
+          "room_id": "r_11",
+          "name": "D/Bath (Bed)",
+          "category": "bathroom",
+          "dimensions_raw": "10'-3\"x9'-0\"",
+          "dimensions_meters": [
+            3.12,
+            2.74
+          ],
+          "spatial_zone": "rear_center",
+          "box_2d": [
+            80,
+            230,
+            155,
+            495
+          ],
+          "connected_to": [
+            "Bedroom",
+            "Bath"
+          ]
+        },
+        {
+          "room_id": "r_12",
+          "name": "Bath",
+          "category": "bathroom",
+          "dimensions_raw": "3'-0\"x7'-0\"",
+          "dimensions_meters": [
+            0.91,
+            2.13
+          ],
+          "spatial_zone": "rear_left",
+          "box_2d": [
+            80,
+            155,
+            155,
+            230
+          ],
+          "connected_to": [
+            "D/Bath (Bed)"
+          ]
+        },
+        {
+          "room_id": "r_13",
+          "name": "Master Bedroom",
+          "category": "bedroom",
+          "dimensions_raw": "20'-0\"x14'-0\"",
+          "dimensions_meters": [
+            6.1,
+            4.27
+          ],
+          "spatial_zone": "rear_right",
+          "box_2d": [
+            80,
+            502,
+            233,
+            893
+          ],
+          "connected_to": [
+            "Lounge",
+            "D/Bath (M.Bed)"
+          ]
+        },
+        {
+          "room_id": "r_14",
+          "name": "D/Bath (M.Bed)",
+          "category": "bathroom",
+          "dimensions_raw": "15'-0\"x8'-6\"",
+          "dimensions_meters": [
+            4.57,
+            2.59
+          ],
+          "spatial_zone": "rear_right",
+          "box_2d": [
+            233,
+            588,
+            332,
+            888
+          ],
+          "connected_to": [
+            "Master Bedroom"
+          ]
+        }
+      ],
+      "structural_notes": {
+        "staircase_location": "side",
+        "parking_capacity": "double_car",
+        "circulation_type": "central_lounge"
+      },
+      "source_image": "00770eba64db20501bbd30bb21ce6aa5.jpg",
+      "source_path": "1/00770eba64db20501bbd30bb21ce6aa5.jpg",
+      "folder_category": "1"
+    },
+    {
+      "project_title": "3 Bedroom Contemporary Residence Floor Plan",
+      "plot_archetype": "5 Marla",
+      "dimensions_overall": "10.5m x 15.8m",
+      "total_bedrooms": 3,
+      "total_bathrooms": 3,
+      "has_car_porch": false,
+      "has_stairs": true,
+      "has_open_to_sky": true,
+      "rooms": [
+        {
+          "room_id": "r_1",
+          "name": "Sitout",
+          "category": "outdoor",
+          "dimensions_raw": "3300 x 1500",
+          "dimensions_meters": [
+            3.3,
+            1.5
+          ],
+          "spatial_zone": "front_right",
+          "box_2d": [
+            827,
+            546,
+            930,
+            870
+          ],
+          "connected_to": [
+            "Living"
+          ]
+        },
+        {
+          "room_id": "r_2",
+          "name": "Living",
+          "category": "living",
+          "dimensions_raw": "3300 x 3000",
+          "dimensions_meters": [
+            3.3,
+            3.0
+          ],
+          "spatial_zone": "front_right",
+          "box_2d": [
+            625,
+            550,
+            830,
+            865
+          ],
+          "connected_to": [
+            "Sitout",
+            "Dining"
+          ]
+        },
+        {
+          "room_id": "r_3",
+          "name": "Dining",
+          "category": "dining",
+          "dimensions_raw": "3500 x 3100",
+          "dimensions_meters": [
+            3.5,
+            3.1
+          ],
+          "spatial_zone": "center",
+          "box_2d": [
+            458,
+            439,
+            642,
+            735
+          ],
+          "connected_to": [
+            "Living",
+            "Kitchen",
+            "Bedroom 1",
+            "Bedroom 2",
+            "Bedroom 3",
+            "Wash",
+            "External Court Yard"
+          ]
+        },
+        {
+          "room_id": "r_4",
+          "name": "Bedroom 1",
+          "category": "bedroom",
+          "dimensions_raw": "3000 x 3300",
+          "dimensions_meters": [
+            3.0,
+            3.3
+          ],
+          "spatial_zone": "front_left",
+          "box_2d": [
+            647,
+            175,
+            882,
+            513
+          ],
+          "connected_to": [
+            "Dining",
+            "Toilet 1"
+          ]
+        },
+        {
+          "room_id": "r_5",
+          "name": "Toilet 1",
+          "category": "bathroom",
+          "dimensions_raw": "1500 x 2100",
+          "dimensions_meters": [
+            1.5,
+            2.1
+          ],
+          "spatial_zone": "front_left",
+          "box_2d": [
+            772,
+            98,
+            922,
+            252
+          ],
+          "connected_to": [
+            "Bedroom 1"
+          ]
+        },
+        {
+          "room_id": "r_6",
+          "name": "Bedroom 2",
+          "category": "bedroom",
+          "dimensions_raw": "3300 x 3100",
+          "dimensions_meters": [
+            3.3,
+            3.1
+          ],
+          "spatial_zone": "center_left",
+          "box_2d": [
+            443,
+            85,
+            654,
+            430
+          ],
+          "connected_to": [
+            "Dining"
+          ]
+        },
+        {
+          "room_id": "r_7",
+          "name": "Kitchen",
+          "category": "kitchen",
+          "dimensions_raw": "3600 x 3000",
+          "dimensions_meters": [
+            3.6,
+            3.0
+          ],
+          "spatial_zone": "center_left",
+          "box_2d": [
+            233,
+            187,
+            439,
+            518
+          ],
+          "connected_to": [
+            "Dining",
+            "Workarea"
+          ]
+        },
+        {
+          "room_id": "r_8",
+          "name": "Workarea",
+          "category": "utility",
+          "dimensions_raw": "3600 x 2000",
+          "dimensions_meters": [
+            3.6,
+            2.0
+          ],
+          "spatial_zone": "rear_left",
+          "box_2d": [
+            45,
+            237,
+            235,
+            530
+          ],
+          "connected_to": [
+            "Kitchen"
+          ]
+        },
+        {
+          "room_id": "r_9",
+          "name": "Bedroom 3",
+          "category": "bedroom",
+          "dimensions_raw": "3300 x 3600",
+          "dimensions_meters": [
+            3.3,
+            3.6
+          ],
+          "spatial_zone": "rear_right",
+          "box_2d": [
+            162,
+            546,
+            404,
+            866
+          ],
+          "connected_to": [
+            "Dining",
+            "Toilet 3"
+          ]
+        },
+        {
+          "room_id": "r_10",
+          "name": "Toilet 3",
+          "category": "bathroom",
+          "dimensions_raw": "2200 x 1530",
+          "dimensions_meters": [
+            2.2,
+            1.53
+          ],
+          "spatial_zone": "rear_center",
+          "box_2d": [
+            56,
+            545,
+            166,
+            768
+          ],
+          "connected_to": [
+            "Bedroom 3"
+          ]
+        },
+        {
+          "room_id": "r_11",
+          "name": "Wash",
+          "category": "circulation",
+          "dimensions_raw": "Wash",
+          "dimensions_meters": [
+            1.2,
+            1.0
+          ],
+          "spatial_zone": "center_right",
+          "box_2d": [
+            415,
+            755,
+            516,
+            836
+          ],
+          "connected_to": [
+            "Dining",
+            "Common Toilet"
+          ]
+        },
+        {
+          "room_id": "r_12",
+          "name": "Common Toilet",
+          "category": "bathroom",
+          "dimensions_raw": "1200 x 1500",
+          "dimensions_meters": [
+            1.2,
+            1.5
+          ],
+          "spatial_zone": "center_right",
+          "box_2d": [
+            413,
+            828,
+            514,
+            960
+          ],
+          "connected_to": [
+            "Wash"
+          ]
+        },
+        {
+          "room_id": "r_13",
+          "name": "External Court Yard",
+          "category": "outdoor",
+          "dimensions_raw": "External Court Yard",
+          "dimensions_meters": [
+            2.1,
+            1.6
+          ],
+          "spatial_zone": "center_right",
+          "box_2d": [
+            519,
+            770,
+            616,
+            977
+          ],
+          "connected_to": [
+            "Dining"
+          ]
+        }
+      ],
+      "structural_notes": {
+        "staircase_location": "rear",
+        "parking_capacity": "none",
+        "circulation_type": "central_lounge"
+      },
+      "source_image": "027c487cd8eb1a07ba644f292fd32e0c.jpg",
+      "source_path": "1/027c487cd8eb1a07ba644f292fd32e0c.jpg",
+      "folder_category": "1"
+    },
+    {
+      "project_title": "30'x40' 2BHK 3D House Plan Design",
+      "plot_archetype": "5 Marla",
+      "dimensions_overall": "30'x40'",
+      "total_bedrooms": 2,
+      "total_bathrooms": 3,
+      "has_car_porch": true,
+      "has_stairs": true,
+      "has_open_to_sky": true,
+      "rooms": [
+        {
+          "room_id": "r_1",
+          "name": "Bedroom 1",
+          "category": "bedroom",
+          "dimensions_raw": "12'-1.5\"x12'-0\"",
+          "dimensions_meters": [
+            3.69,
+            3.66
+          ],
+          "spatial_zone": "rear_left",
+          "box_2d": [
+            140,
+            95,
+            385,
+            415
+          ],
+          "connected_to": [
+            "Lobby"
+          ]
+        },
+        {
+          "room_id": "r_2",
+          "name": "Bedroom 2",
+          "category": "bedroom",
+          "dimensions_raw": "12'-1.5\"x12'-0\"",
+          "dimensions_meters": [
+            3.69,
+            3.66
+          ],
+          "spatial_zone": "rear_right",
+          "box_2d": [
+            140,
+            606,
+            385,
+            930
+          ],
+          "connected_to": [
+            "Dining Lounge"
+          ]
+        },
+        {
+          "room_id": "r_3",
+          "name": "Toilet",
+          "category": "bathroom",
+          "dimensions_raw": "5'0\"X6'0\"",
+          "dimensions_meters": [
+            1.52,
+            1.83
+          ],
+          "spatial_zone": "rear_center",
+          "box_2d": [
+            238,
+            420,
+            393,
+            600
+          ],
+          "connected_to": [
+            "Dining Lounge"
+          ]
+        },
+        {
+          "room_id": "r_4",
+          "name": "Open to Sky",
+          "category": "outdoor",
+          "dimensions_raw": "4'6\"X5'6\"",
+          "dimensions_meters": [
+            1.37,
+            1.68
+          ],
+          "spatial_zone": "rear_center",
+          "box_2d": [
+            135,
+            435,
+            243,
+            580
+          ],
+          "connected_to": []
+        },
+        {
+          "room_id": "r_5",
+          "name": "Dining Lounge",
+          "category": "living",
+          "dimensions_raw": "14'-6\"x14'-6\"",
+          "dimensions_meters": [
+            4.42,
+            4.42
+          ],
+          "spatial_zone": "center",
+          "box_2d": [
+            395,
+            305,
+            634,
+            690
+          ],
+          "connected_to": [
+            "Drawing Room",
+            "Kitchen",
+            "Staircase",
+            "Lobby",
+            "Bedroom 2",
+            "Toilet"
+          ]
+        },
+        {
+          "room_id": "r_6",
+          "name": "Drawing Room",
+          "category": "living",
+          "dimensions_raw": "12'-6\"x12'-0\"",
+          "dimensions_meters": [
+            3.81,
+            3.66
+          ],
+          "spatial_zone": "front_left",
+          "box_2d": [
+            650,
+            95,
+            902,
+            325
+          ],
+          "connected_to": [
+            "Dining Lounge",
+            "Verandha"
+          ]
+        },
+        {
+          "room_id": "r_7",
+          "name": "Lobby",
+          "category": "circulation",
+          "dimensions_raw": "3'-3\" Width",
+          "dimensions_meters": [
+            1.0,
+            2.5
+          ],
+          "spatial_zone": "center_left",
+          "box_2d": [
+            414,
+            98,
+            480,
+            300
+          ],
+          "connected_to": [
+            "Dining Lounge",
+            "WC",
+            "Bath",
+            "Bedroom 1"
+          ]
+        },
+        {
+          "room_id": "r_8",
+          "name": "WC",
+          "category": "bathroom",
+          "dimensions_raw": "3'6\"X4'0\"",
+          "dimensions_meters": [
+            1.07,
+            1.22
+          ],
+          "spatial_zone": "center_left",
+          "box_2d": [
+            474,
+            105,
+            568,
+            305
+          ],
+          "connected_to": [
+            "Lobby"
+          ]
+        },
+        {
+          "room_id": "r_9",
+          "name": "Bath",
+          "category": "bathroom",
+          "dimensions_raw": "6'6\"X4'3\"",
+          "dimensions_meters": [
+            1.98,
+            1.3
+          ],
+          "spatial_zone": "center_left",
+          "box_2d": [
+            560,
+            100,
+            654,
+            305
+          ],
+          "connected_to": [
+            "Lobby"
+          ]
+        },
+        {
+          "room_id": "r_10",
+          "name": "Kitchen",
+          "category": "kitchen",
+          "dimensions_raw": "12'6\"x8'-0\"",
+          "dimensions_meters": [
+            3.81,
+            2.44
+          ],
+          "spatial_zone": "front_center",
+          "box_2d": [
+            638,
+            420,
+            831,
+            695
+          ],
+          "connected_to": [
+            "Dining Lounge",
+            "Verandha"
+          ]
+        },
+        {
+          "room_id": "r_11",
+          "name": "Staircase",
+          "category": "circulation",
+          "dimensions_raw": "7'0\" Width",
+          "dimensions_meters": [
+            2.13,
+            4.42
+          ],
+          "spatial_zone": "center_right",
+          "box_2d": [
+            385,
+            710,
+            567,
+            935
+          ],
+          "connected_to": [
+            "Dining Lounge",
+            "Car Porch"
+          ]
+        },
+        {
+          "room_id": "r_12",
+          "name": "Car Porch",
+          "category": "parking",
+          "dimensions_raw": "14'6\" Length",
+          "dimensions_meters": [
+            2.44,
+            4.42
+          ],
+          "spatial_zone": "front_right",
+          "box_2d": [
+            660,
+            705,
+            905,
+            930
+          ],
+          "connected_to": [
+            "Verandha",
+            "Staircase"
+          ]
+        },
+        {
+          "room_id": "r_13",
+          "name": "Verandha",
+          "category": "outdoor",
+          "dimensions_raw": "12'6\" Width",
+          "dimensions_meters": [
+            3.81,
+            1.2
+          ],
+          "spatial_zone": "front_center",
+          "box_2d": [
+            831,
+            415,
+            903,
+            715
+          ],
+          "connected_to": [
+            "Car Porch",
+            "Kitchen",
+            "Drawing Room"
+          ]
+        }
+      ],
+      "structural_notes": {
+        "staircase_location": "side",
+        "parking_capacity": "single_car",
+        "circulation_type": "central_lounge"
+      },
+      "source_image": "0adf5f25feca052f9968d0a9f42bd8eb.jpg",
+      "source_path": "3/0adf5f25feca052f9968d0a9f42bd8eb.jpg",
+      "folder_category": "3"
+    },
+    {
+      "project_title": "Modern Two Bedroom House Plan with Car Porch",
+      "plot_archetype": "5 Marla",
+      "dimensions_overall": "35'x50'",
+      "total_bedrooms": 2,
+      "total_bathrooms": 3,
+      "has_car_porch": true,
+      "has_stairs": true,
+      "has_open_to_sky": false,
+      "rooms": [
+        {
+          "room_id": "r_1",
+          "name": "Bedroom",
+          "category": "bedroom",
+          "dimensions_raw": "16'-3\"x11'-0\"",
+          "dimensions_meters": [
+            4.95,
+            3.35
+          ],
+          "spatial_zone": "rear_left",
+          "box_2d": [
+            32,
+            79,
+            264,
+            488
+          ],
+          "connected_to": [
+            "Lobby",
+            "Bath"
+          ]
+        },
+        {
+          "room_id": "r_2",
+          "name": "Bedroom",
+          "category": "bedroom",
+          "dimensions_raw": "11'-0\"x16'-3\"",
+          "dimensions_meters": [
+            3.35,
+            4.95
+          ],
+          "spatial_zone": "rear_right",
+          "box_2d": [
+            32,
+            499,
+            386,
+            786
+          ],
+          "connected_to": [
+            "Hall",
+            "Dress"
+          ]
+        },
+        {
+          "room_id": "r_3",
+          "name": "Dress",
+          "category": "utility",
+          "dimensions_raw": "5'x4'",
+          "dimensions_meters": [
+            1.52,
+            1.22
+          ],
+          "spatial_zone": "rear_right",
+          "box_2d": [
+            32,
+            785,
+            126,
+            929
+          ],
+          "connected_to": [
+            "Bedroom",
+            "Toilet"
+          ]
+        },
+        {
+          "room_id": "r_4",
+          "name": "Toilet",
+          "category": "bathroom",
+          "dimensions_raw": "5'x7'",
+          "dimensions_meters": [
+            1.52,
+            2.13
+          ],
+          "spatial_zone": "rear_right",
+          "box_2d": [
+            117,
+            785,
+            276,
+            929
+          ],
+          "connected_to": [
+            "Dress"
+          ]
+        },
+        {
+          "room_id": "r_5",
+          "name": "Bath",
+          "category": "bathroom",
+          "dimensions_raw": "4'-0\"x6'-0\"",
+          "dimensions_meters": [
+            1.22,
+            1.83
+          ],
+          "spatial_zone": "center_left",
+          "box_2d": [
+            274,
+            178,
+            370,
+            350
+          ],
+          "connected_to": [
+            "Lobby"
+          ]
+        },
+        {
+          "room_id": "r_6",
+          "name": "Lobby",
+          "category": "circulation",
+          "dimensions_raw": "5'x5'",
+          "dimensions_meters": [
+            1.52,
+            1.52
+          ],
+          "spatial_zone": "center",
+          "box_2d": [
+            270,
+            347,
+            381,
+            486
+          ],
+          "connected_to": [
+            "Bedroom",
+            "Bath",
+            "Hall"
+          ]
+        },
+        {
+          "room_id": "r_7",
+          "name": "Hall",
+          "category": "living",
+          "dimensions_raw": "20'-3\"x11'-3\"",
+          "dimensions_meters": [
+            6.17,
+            3.43
+          ],
+          "spatial_zone": "center",
+          "box_2d": [
+            379,
+            185,
+            611,
+            712
+          ],
+          "connected_to": [
+            "Bedroom",
+            "Lobby",
+            "Kitchen",
+            "Drawing",
+            "Lobby_Entrance"
+          ]
+        },
+        {
+          "room_id": "r_8",
+          "name": "Kitchen",
+          "category": "kitchen",
+          "dimensions_raw": "8'-0\"x11'-0\"",
+          "dimensions_meters": [
+            2.44,
+            3.35
+          ],
+          "spatial_zone": "center_right",
+          "box_2d": [
+            379,
+            715,
+            603,
+            929
+          ],
+          "connected_to": [
+            "Hall"
+          ]
+        },
+        {
+          "room_id": "r_9",
+          "name": "Toilet",
+          "category": "bathroom",
+          "dimensions_raw": "4'x5'",
+          "dimensions_meters": [
+            1.22,
+            1.52
+          ],
+          "spatial_zone": "center_left",
+          "box_2d": [
+            477,
+            79,
+            606,
+            175
+          ],
+          "connected_to": [
+            "Drawing"
+          ]
+        },
+        {
+          "room_id": "r_10",
+          "name": "Drawing",
+          "category": "living",
+          "dimensions_raw": "11'-0\"x15'-3\"",
+          "dimensions_meters": [
+            3.35,
+            4.65
+          ],
+          "spatial_zone": "front_left",
+          "box_2d": [
+            610,
+            77,
+            925,
+            380
+          ],
+          "connected_to": [
+            "Hall",
+            "Toilet",
+            "Passage"
+          ]
+        },
+        {
+          "room_id": "r_11",
+          "name": "Lobby",
+          "category": "circulation",
+          "dimensions_raw": "5'x5'",
+          "dimensions_meters": [
+            1.52,
+            1.52
+          ],
+          "spatial_zone": "front_right",
+          "box_2d": [
+            591,
+            563,
+            726,
+            706
+          ],
+          "connected_to": [
+            "Hall",
+            "Car Porch"
+          ]
+        },
+        {
+          "room_id": "r_12",
+          "name": "Car Porch",
+          "category": "parking",
+          "dimensions_raw": "Estimated 10'x15'",
+          "dimensions_meters": [
+            3.05,
+            4.57
+          ],
+          "spatial_zone": "front_right",
+          "box_2d": [
+            607,
+            713,
+            931,
+            929
+          ],
+          "connected_to": [
+            "Lobby",
+            "Passage"
+          ]
+        },
+        {
+          "room_id": "r_13",
+          "name": "Passage",
+          "category": "circulation",
+          "dimensions_raw": "4'",
+          "dimensions_meters": [
+            1.22,
+            4.5
+          ],
+          "spatial_zone": "front_center",
+          "box_2d": [
+            828,
+            375,
+            931,
+            715
+          ],
+          "connected_to": [
+            "Drawing",
+            "Car Porch"
+          ]
+        }
+      ],
+      "structural_notes": {
+        "staircase_location": "central",
+        "parking_capacity": "single_car",
+        "circulation_type": "central_lounge"
+      },
+      "source_image": "7aa31691a29583df2029d7468a33e969.jpg",
+      "source_path": "3/7aa31691a29583df2029d7468a33e969.jpg"
+    },
+    {
+      "project_title": "East Facing Ground Floor Plan",
+      "plot_archetype": "12-14 Marla (50' x 66')",
+      "dimensions_overall": "50' x 66'",
+      "total_bedrooms": 2,
+      "total_bathrooms": 3,
+      "has_car_porch": true,
+      "has_stairs": true,
+      "has_open_to_sky": true,
+      "rooms": [
+        {
+          "room_id": "r_1",
+          "name": "Parking",
+          "category": "parking",
+          "dimensions_raw": "16'0\" x 16'0\"",
+          "dimensions_meters": [
+            4.88,
+            4.88
+          ],
+          "spatial_zone": "front_left",
+          "box_2d": [
+            688,
+            137,
+            915,
+            404
+          ],
+          "connected_to": [
+            "Gardening",
+            "Kitchen"
+          ]
+        },
+        {
+          "room_id": "r_2",
+          "name": "Gardening",
+          "category": "outdoor",
+          "dimensions_raw": "N/A",
+          "dimensions_meters": [
+            7.3,
+            4.88
+          ],
+          "spatial_zone": "front_center",
+          "box_2d": [
+            688,
+            404,
+            915,
+            750
+          ],
+          "connected_to": [
+            "Parking",
+            "Walkway",
+            "Sitout",
+            "Foyer"
+          ]
+        },
+        {
+          "room_id": "r_3",
+          "name": "Sitout",
+          "category": "outdoor",
+          "dimensions_raw": "8'0\" x 5'9\"",
+          "dimensions_meters": [
+            2.44,
+            1.75
+          ],
+          "spatial_zone": "front_right",
+          "box_2d": [
+            612,
+            747,
+            690,
+            893
+          ],
+          "connected_to": [
+            "Foyer",
+            "Gardening"
+          ]
+        },
+        {
+          "room_id": "r_4",
+          "name": "Foyer",
+          "category": "circulation",
+          "dimensions_raw": "11'3\" x 12'0\"",
+          "dimensions_meters": [
+            3.43,
+            3.66
+          ],
+          "spatial_zone": "front_center",
+          "box_2d": [
+            517,
+            529,
+            688,
+            747
+          ],
+          "connected_to": [
+            "Sitout",
+            "Living",
+            "Store",
+            "Study Room"
+          ]
+        },
+        {
+          "room_id": "r_5",
+          "name": "Store",
+          "category": "utility",
+          "dimensions_raw": "6'6\" x 6'0\"",
+          "dimensions_meters": [
+            1.98,
+            1.83
+          ],
+          "spatial_zone": "center",
+          "box_2d": [
+            597,
+            396,
+            688,
+            529
+          ],
+          "connected_to": [
+            "Foyer"
+          ]
+        },
+        {
+          "room_id": "r_6",
+          "name": "Pooja",
+          "category": "utility",
+          "dimensions_raw": "6'6\" x 5'6\"",
+          "dimensions_meters": [
+            1.98,
+            1.68
+          ],
+          "spatial_zone": "center",
+          "box_2d": [
+            517,
+            396,
+            597,
+            529
+          ],
+          "connected_to": [
+            "Dining"
+          ]
+        },
+        {
+          "room_id": "r_7",
+          "name": "Study Room",
+          "category": "living",
+          "dimensions_raw": "8'0\" x 6'3\"",
+          "dimensions_meters": [
+            2.44,
+            1.91
+          ],
+          "spatial_zone": "center_right",
+          "box_2d": [
+            517,
+            747,
+            612,
+            893
+          ],
+          "connected_to": [
+            "Foyer"
+          ]
+        },
+        {
+          "room_id": "r_8",
+          "name": "Kitchen",
+          "category": "kitchen",
+          "dimensions_raw": "13'0\" x 12'0\"",
+          "dimensions_meters": [
+            3.96,
+            3.66
+          ],
+          "spatial_zone": "center_left",
+          "box_2d": [
+            517,
+            148,
+            688,
+            396
+          ],
+          "connected_to": [
+            "Utility",
+            "Dining"
+          ]
+        },
+        {
+          "room_id": "r_9",
+          "name": "Utility",
+          "category": "utility",
+          "dimensions_raw": "10'0\" x 12'9\"",
+          "dimensions_meters": [
+            3.05,
+            3.89
+          ],
+          "spatial_zone": "center_left",
+          "box_2d": [
+            517,
+            65,
+            688,
+            148
+          ],
+          "connected_to": [
+            "Kitchen"
+          ]
+        },
+        {
+          "room_id": "r_10",
+          "name": "Dining",
+          "category": "dining",
+          "dimensions_raw": "7'9\" x 10'0\"",
+          "dimensions_meters": [
+            2.36,
+            3.05
+          ],
+          "spatial_zone": "center_left",
+          "box_2d": [
+            320,
+            148,
+            517,
+            437
+          ],
+          "connected_to": [
+            "Kitchen",
+            "Living",
+            "Pooja",
+            "Common Toilet"
+          ]
+        },
+        {
+          "room_id": "r_11",
+          "name": "Common Toilet",
+          "category": "bathroom",
+          "dimensions_raw": "8'0\" x 4'0\"",
+          "dimensions_meters": [
+            2.44,
+            1.22
+          ],
+          "spatial_zone": "center_left",
+          "box_2d": [
+            265,
+            148,
+            320,
+            370
+          ],
+          "connected_to": [
+            "Dining"
+          ]
+        },
+        {
+          "room_id": "r_12",
+          "name": "Living",
+          "category": "living",
+          "dimensions_raw": "20'0\" x 18'6\"",
+          "dimensions_meters": [
+            6.1,
+            5.64
+          ],
+          "spatial_zone": "center_right",
+          "box_2d": [
+            265,
+            437,
+            517,
+            893
+          ],
+          "connected_to": [
+            "Foyer",
+            "Dining",
+            "Bedroom 2"
+          ]
+        },
+        {
+          "room_id": "r_13",
+          "name": "Bedroom 1",
+          "category": "bedroom",
+          "dimensions_raw": "16'0\" x 12'0\"",
+          "dimensions_meters": [
+            4.88,
+            3.66
+          ],
+          "spatial_zone": "rear_left",
+          "box_2d": [
+            95,
+            148,
+            265,
+            437
+          ],
+          "connected_to": [
+            "Dressing",
+            "Dining"
+          ]
+        },
+        {
+          "room_id": "r_14",
+          "name": "Dressing",
+          "category": "utility",
+          "dimensions_raw": "4'9\" x 4'6\"",
+          "dimensions_meters": [
+            1.45,
+            1.37
+          ],
+          "spatial_zone": "rear_center",
+          "box_2d": [
+            203,
+            437,
+            265,
+            550
+          ],
+          "connected_to": [
+            "Bedroom 1",
+            "Attached Toilet 1"
+          ]
+        },
+        {
+          "room_id": "r_15",
+          "name": "Attached Toilet 1",
+          "category": "bathroom",
+          "dimensions_raw": "4'9\" x 7'0\"",
+          "dimensions_meters": [
+            1.45,
+            2.13
+          ],
+          "spatial_zone": "rear_center",
+          "box_2d": [
+            95,
+            437,
+            203,
+            550
+          ],
+          "connected_to": [
+            "Dressing"
+          ]
+        },
+        {
+          "room_id": "r_16",
+          "name": "Lift",
+          "category": "circulation",
+          "dimensions_raw": "5'0\" x 4'6\"",
+          "dimensions_meters": [
+            1.52,
+            1.37
+          ],
+          "spatial_zone": "rear_center",
+          "box_2d": [
+            203,
+            550,
+            265,
+            657
+          ],
+          "connected_to": [
+            "Living"
+          ]
+        },
+        {
+          "room_id": "r_17",
+          "name": "Attached Toilet 2",
+          "category": "bathroom",
+          "dimensions_raw": "5'0\" x 6'9\"",
+          "dimensions_meters": [
+            1.52,
+            2.06
+          ],
+          "spatial_zone": "rear_center",
+          "box_2d": [
+            95,
+            550,
+            203,
+            657
+          ],
+          "connected_to": [
+            "Bedroom 2"
+          ]
+        },
+        {
+          "room_id": "r_18",
+          "name": "Bedroom 2",
+          "category": "bedroom",
+          "dimensions_raw": "13'0\" x 12'0\"",
+          "dimensions_meters": [
+            3.96,
+            3.66
+          ],
+          "spatial_zone": "rear_right",
+          "box_2d": [
+            95,
+            657,
+            265,
+            893
+          ],
+          "connected_to": [
+            "Living",
+            "Attached Toilet 2"
+          ]
+        }
+      ],
+      "structural_notes": {
+        "staircase_location": "side",
+        "parking_capacity": "double_car",
+        "circulation_type": "central_lounge"
+      },
+      "source_image": "195e61769696aa144d1388a68ef92cc9.jpg",
+      "source_path": "5/195e61769696aa144d1388a68ef92cc9.jpg",
+      "folder_category": "5"
+    },
+    {
+      "project_title": "20'x50' Ground Floor Plan Layout Options",
+      "plot_archetype": "5 Marla",
+      "dimensions_overall": "20'x50'",
+      "total_bedrooms": 3,
+      "total_bathrooms": 2,
+      "has_car_porch": true,
+      "has_stairs": true,
+      "has_open_to_sky": true,
+      "rooms": [
+        {
+          "room_id": "r_1",
+          "name": "Wash Area (Option 1)",
+          "category": "utility",
+          "dimensions_raw": "7'0\"X5'4\"",
+          "dimensions_meters": [
+            2.13,
+            1.63
+          ],
+          "spatial_zone": "rear_left",
+          "box_2d": [
+            100,
+            44,
+            153,
+            194
+          ],
+          "connected_to": [
+            "Kitchen"
+          ]
+        },
+        {
+          "room_id": "r_2",
+          "name": "Bedroom 1 (Option 1)",
+          "category": "bedroom",
+          "dimensions_raw": "11'4\"X10'0\"",
+          "dimensions_meters": [
+            3.45,
+            3.05
+          ],
+          "spatial_zone": "rear_right",
+          "box_2d": [
+            100,
+            287,
+            226,
+            446
+          ],
+          "connected_to": [
+            "Hall",
+            "Toilet"
+          ]
+        },
+        {
+          "room_id": "r_3",
+          "name": "Kitchen (Option 1)",
+          "category": "kitchen",
+          "dimensions_raw": "7'0\"X13'0\"",
+          "dimensions_meters": [
+            2.13,
+            3.96
+          ],
+          "spatial_zone": "center_left",
+          "box_2d": [
+            183,
+            44,
+            388,
+            194
+          ],
+          "connected_to": [
+            "Wash Area",
+            "Hall"
+          ]
+        },
+        {
+          "room_id": "r_4",
+          "name": "Toilet 1 (Option 1)",
+          "category": "bathroom",
+          "dimensions_raw": "6'0\"X3'8\"",
+          "dimensions_meters": [
+            1.83,
+            1.12
+          ],
+          "spatial_zone": "rear_right",
+          "box_2d": [
+            260,
+            269,
+            323,
+            403
+          ],
+          "connected_to": [
+            "Bedroom 1"
+          ]
+        },
+        {
+          "room_id": "r_5",
+          "name": "Toilet 2 (Option 1)",
+          "category": "bathroom",
+          "dimensions_raw": "8'0\"X4'0\"",
+          "dimensions_meters": [
+            2.44,
+            1.22
+          ],
+          "spatial_zone": "center_right",
+          "box_2d": [
+            325,
+            269,
+            381,
+            439
+          ],
+          "connected_to": [
+            "Hall"
+          ]
+        },
+        {
+          "room_id": "r_6",
+          "name": "Bedroom 2 (Option 1)",
+          "category": "bedroom",
+          "dimensions_raw": "8'0\"X11'4\"",
+          "dimensions_meters": [
+            2.44,
+            3.45
+          ],
+          "spatial_zone": "center_right",
+          "box_2d": [
+            451,
+            303,
+            566,
+            439
+          ],
+          "connected_to": [
+            "Hall"
+          ]
+        },
+        {
+          "room_id": "r_7",
+          "name": "Hall (Option 1)",
+          "category": "living",
+          "dimensions_raw": "10'0\"X18'0\"",
+          "dimensions_meters": [
+            3.05,
+            5.49
+          ],
+          "spatial_zone": "center_left",
+          "box_2d": [
+            392,
+            44,
+            663,
+            265
+          ],
+          "connected_to": [
+            "Kitchen",
+            "Bedroom 1",
+            "Bedroom 2",
+            "Bedroom 3",
+            "Parking"
+          ]
+        },
+        {
+          "room_id": "r_8",
+          "name": "Bedroom 3 (Option 1)",
+          "category": "bedroom",
+          "dimensions_raw": "10'0\"X11'8\"",
+          "dimensions_meters": [
+            3.05,
+            3.56
+          ],
+          "spatial_zone": "front_left",
+          "box_2d": [
+            674,
+            44,
+            856,
+            262
+          ],
+          "connected_to": [
+            "Hall"
+          ]
+        },
+        {
+          "room_id": "r_9",
+          "name": "Parking (Option 1)",
+          "category": "parking",
+          "dimensions_raw": "8'4\"X16'0\"",
+          "dimensions_meters": [
+            2.54,
+            4.88
+          ],
+          "spatial_zone": "front_right",
+          "box_2d": [
+            571,
+            268,
+            858,
+            448
+          ],
+          "connected_to": [
+            "Hall"
+          ]
+        },
+        {
+          "room_id": "r_10",
+          "name": "Wash Area (Option 2)",
+          "category": "utility",
+          "dimensions_raw": "8'4\"X4'8\"",
+          "dimensions_meters": [
+            2.54,
+            1.42
+          ],
+          "spatial_zone": "rear_left",
+          "box_2d": [
+            100,
+            528,
+            153,
+            715
+          ],
+          "connected_to": [
+            "Kitchen"
+          ]
+        },
+        {
+          "room_id": "r_11",
+          "name": "Kitchen (Option 2)",
+          "category": "kitchen",
+          "dimensions_raw": "8'4\"X10'0\"",
+          "dimensions_meters": [
+            2.54,
+            3.05
+          ],
+          "spatial_zone": "rear_left",
+          "box_2d": [
+            163,
+            528,
+            284,
+            715
+          ],
+          "connected_to": [
+            "Wash Area",
+            "Hall"
+          ]
+        },
+        {
+          "room_id": "r_12",
+          "name": "Bedroom 1 (Option 2)",
+          "category": "bedroom",
+          "dimensions_raw": "10'4\"X9'8\"",
+          "dimensions_meters": [
+            3.15,
+            2.95
+          ],
+          "spatial_zone": "rear_right",
+          "box_2d": [
+            100,
+            781,
+            226,
+            944
+          ],
+          "connected_to": [
+            "Hall",
+            "Toilet 1"
+          ]
+        },
+        {
+          "room_id": "r_13",
+          "name": "Toilet 1 (Option 2)",
+          "category": "bathroom",
+          "dimensions_raw": "7'4\"X4'0\"",
+          "dimensions_meters": [
+            2.24,
+            1.22
+          ],
+          "spatial_zone": "center_right",
+          "box_2d": [
+            256,
+            715,
+            323,
+            884
+          ],
+          "connected_to": [
+            "Hall"
+          ]
+        },
+        {
+          "room_id": "r_14",
+          "name": "Bedroom 2 (Option 2)",
+          "category": "bedroom",
+          "dimensions_raw": "14'4\"X9'0\"",
+          "dimensions_meters": [
+            4.37,
+            2.74
+          ],
+          "spatial_zone": "center_right",
+          "box_2d": [
+            325,
+            747,
+            446,
+            944
+          ],
+          "connected_to": [
+            "Hall"
+          ]
+        },
+        {
+          "room_id": "r_15",
+          "name": "Hall (Option 2)",
+          "category": "living",
+          "dimensions_raw": "10'0\"X18'0\"",
+          "dimensions_meters": [
+            3.05,
+            5.49
+          ],
+          "spatial_zone": "center_left",
+          "box_2d": [
+            472,
+            541,
+            726,
+            757
+          ],
+          "connected_to": [
+            "Kitchen",
+            "Bedroom 1",
+            "Bedroom 2",
+            "Bedroom 3",
+            "Parking"
+          ]
+        },
+        {
+          "room_id": "r_16",
+          "name": "Bedroom 3 (Option 2)",
+          "category": "bedroom",
+          "dimensions_raw": "8'4\"X12'8\"",
+          "dimensions_meters": [
+            2.54,
+            3.86
+          ],
+          "spatial_zone": "center_right",
+          "box_2d": [
+            539,
+            810,
+            663,
+            944
+          ],
+          "connected_to": [
+            "Hall"
+          ]
+        },
+        {
+          "room_id": "r_17",
+          "name": "Toilet 2 (Option 2)",
+          "category": "bathroom",
+          "dimensions_raw": "3'4\"X6'8\"",
+          "dimensions_meters": [
+            1.02,
+            2.03
+          ],
+          "spatial_zone": "front_left",
+          "box_2d": [
+            747,
+            541,
+            856,
+            615
+          ],
+          "connected_to": [
+            "Hall"
+          ]
+        },
+        {
+          "room_id": "r_18",
+          "name": "Parking (Option 2)",
+          "category": "parking",
+          "dimensions_raw": "8'8\"X12'8\"",
+          "dimensions_meters": [
+            2.64,
+            3.86
+          ],
+          "spatial_zone": "front_right",
+          "box_2d": [
+            668,
+            775,
+            866,
+            954
+          ],
+          "connected_to": [
+            "Hall"
+          ]
+        }
+      ],
+      "structural_notes": {
+        "staircase_location": "porch",
+        "parking_capacity": "single_car",
+        "circulation_type": "central_lounge"
+      },
+      "source_image": "0162fa659d7392157fc0854ef058f419.jpg",
+      "source_path": "7/0162fa659d7392157fc0854ef058f419.jpg",
+      "folder_category": "7"
+    },
+    {
+      "project_title": "Alteration Ground Floor Plan",
+      "plot_archetype": "7 Marla",
+      "dimensions_overall": "30'x60'",
+      "total_bedrooms": 2,
+      "total_bathrooms": 3,
+      "has_car_porch": true,
+      "has_stairs": true,
+      "has_open_to_sky": true,
+      "rooms": [
+        {
+          "room_id": "r_1",
+          "name": "Bed Room 2",
+          "category": "bedroom",
+          "dimensions_raw": "11'7\"X13'0\"",
+          "dimensions_meters": [
+            3.53,
+            3.96
+          ],
+          "spatial_zone": "rear_left",
+          "box_2d": [
+            37,
+            171,
+            246,
+            465
+          ],
+          "connected_to": [
+            "Hall"
+          ]
+        },
+        {
+          "room_id": "r_2",
+          "name": "Bed Room 1",
+          "category": "bedroom",
+          "dimensions_raw": "11'11\"X12'10\"",
+          "dimensions_meters": [
+            3.63,
+            3.91
+          ],
+          "spatial_zone": "rear_center",
+          "box_2d": [
+            126,
+            483,
+            325,
+            787
+          ],
+          "connected_to": [
+            "Hall",
+            "Open Space",
+            "Toilet 1"
+          ]
+        },
+        {
+          "room_id": "r_3",
+          "name": "Open Space",
+          "category": "outdoor",
+          "dimensions_raw": "5'-4\" wide",
+          "dimensions_meters": [
+            1.63,
+            2.4
+          ],
+          "spatial_zone": "rear_center",
+          "box_2d": [
+            37,
+            483,
+            126,
+            787
+          ],
+          "connected_to": [
+            "Bed Room 1",
+            "Toilet 2"
+          ]
+        },
+        {
+          "room_id": "r_4",
+          "name": "Toilet 2",
+          "category": "bathroom",
+          "dimensions_raw": "3'10\"X7'0\"",
+          "dimensions_meters": [
+            1.17,
+            2.13
+          ],
+          "spatial_zone": "rear_right",
+          "box_2d": [
+            37,
+            799,
+            170,
+            915
+          ],
+          "connected_to": [
+            "Open Space"
+          ]
+        },
+        {
+          "room_id": "r_5",
+          "name": "Toilet 1",
+          "category": "bathroom",
+          "dimensions_raw": "4'2\"X7'0\"",
+          "dimensions_meters": [
+            1.27,
+            2.13
+          ],
+          "spatial_zone": "center_right",
+          "box_2d": [
+            214,
+            800,
+            318,
+            915
+          ],
+          "connected_to": [
+            "Bed Room 1"
+          ]
+        },
+        {
+          "room_id": "r_6",
+          "name": "Kitchen",
+          "category": "kitchen",
+          "dimensions_raw": "7'10\"X10'5\"",
+          "dimensions_meters": [
+            2.39,
+            3.18
+          ],
+          "spatial_zone": "center_left",
+          "box_2d": [
+            246,
+            171,
+            412,
+            388
+          ],
+          "connected_to": [
+            "Hall"
+          ]
+        },
+        {
+          "room_id": "r_7",
+          "name": "Store",
+          "category": "utility",
+          "dimensions_raw": "6'10\"X4'0\"",
+          "dimensions_meters": [
+            2.08,
+            1.22
+          ],
+          "spatial_zone": "center_right",
+          "box_2d": [
+            330,
+            602,
+            402,
+            787
+          ],
+          "connected_to": [
+            "Hall"
+          ]
+        },
+        {
+          "room_id": "r_8",
+          "name": "Hall",
+          "category": "living",
+          "dimensions_raw": "15'6\"X17'10\"",
+          "dimensions_meters": [
+            4.72,
+            5.44
+          ],
+          "spatial_zone": "center",
+          "box_2d": [
+            400,
+            273,
+            600,
+            670
+          ],
+          "connected_to": [
+            "Bed Room 2",
+            "Bed Room 1",
+            "Kitchen",
+            "Store",
+            "Drawing Room",
+            "Pooja",
+            "Bath"
+          ]
+        },
+        {
+          "room_id": "r_9",
+          "name": "Bath",
+          "category": "bathroom",
+          "dimensions_raw": "4'8\"X6'4\"",
+          "dimensions_meters": [
+            1.42,
+            1.93
+          ],
+          "spatial_zone": "center_right",
+          "box_2d": [
+            515,
+            670,
+            606,
+            803
+          ],
+          "connected_to": [
+            "Hall",
+            "Porch"
+          ]
+        },
+        {
+          "room_id": "r_10",
+          "name": "Pooja",
+          "category": "utility",
+          "dimensions_raw": "3'4\"X7'0\"",
+          "dimensions_meters": [
+            1.02,
+            2.13
+          ],
+          "spatial_zone": "center_left",
+          "box_2d": [
+            600,
+            171,
+            715,
+            258
+          ],
+          "connected_to": [
+            "Hall"
+          ]
+        },
+        {
+          "room_id": "r_11",
+          "name": "Drawing Room",
+          "category": "living",
+          "dimensions_raw": "10'6\"X11'0\"",
+          "dimensions_meters": [
+            3.2,
+            3.35
+          ],
+          "spatial_zone": "front_center",
+          "box_2d": [
+            600,
+            273,
+            784,
+            555
+          ],
+          "connected_to": [
+            "Hall",
+            "Porch"
+          ]
+        },
+        {
+          "room_id": "r_12",
+          "name": "Porch",
+          "category": "parking",
+          "dimensions_raw": "13'6\"X21'8\"",
+          "dimensions_meters": [
+            4.11,
+            6.6
+          ],
+          "spatial_zone": "front_right",
+          "box_2d": [
+            600,
+            540,
+            935,
+            915
+          ],
+          "connected_to": [
+            "Drawing Room",
+            "Lawn Area",
+            "Bath"
+          ]
+        },
+        {
+          "room_id": "r_13",
+          "name": "Lawn Area",
+          "category": "outdoor",
+          "dimensions_raw": "10' depth",
+          "dimensions_meters": [
+            3.05,
+            5.0
+          ],
+          "spatial_zone": "front_left",
+          "box_2d": [
+            784,
+            160,
+            935,
+            540
+          ],
+          "connected_to": [
+            "Porch"
+          ]
+        }
+      ],
+      "structural_notes": {
+        "staircase_location": "porch",
+        "parking_capacity": "single_car",
+        "circulation_type": "central_lounge"
+      },
+      "source_image": "052da9368c90d89e449dc37055603d7d.jpg",
+      "source_path": "10/052da9368c90d89e449dc37055603d7d.jpg",
+      "folder_category": "10"
+    }
+  ]
+}

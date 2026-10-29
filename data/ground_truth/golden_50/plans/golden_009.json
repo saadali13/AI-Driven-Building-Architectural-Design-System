@@ -1,0 +1,351 @@
+{
+  "plan_id": "golden_009",
+  "category": "1-2_bedroom",
+  "building_boundary": [
+    [
+      0.0,
+      0.0
+    ],
+    [
+      8.0,
+      0.0
+    ],
+    [
+      8.0,
+      11.0
+    ],
+    [
+      0.0,
+      11.0
+    ],
+    [
+      0.0,
+      0.0
+    ]
+  ],
+  "total_area_m2": 88.0,
+  "floor_count": 1,
+  "levels": [
+    0
+  ],
+  "walls": [
+    {
+      "wall_id": "golden_009_w_ext_south",
+      "wall_type": "exterior",
+      "centerline": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          8.0,
+          0.0
+        ]
+      ],
+      "thickness_m": 0.25
+    },
+    {
+      "wall_id": "golden_009_w_ext_east",
+      "wall_type": "exterior",
+      "centerline": [
+        [
+          8.0,
+          0.0
+        ],
+        [
+          8.0,
+          11.0
+        ]
+      ],
+      "thickness_m": 0.25
+    },
+    {
+      "wall_id": "golden_009_w_ext_north",
+      "wall_type": "exterior",
+      "centerline": [
+        [
+          8.0,
+          11.0
+        ],
+        [
+          0.0,
+          11.0
+        ]
+      ],
+      "thickness_m": 0.25
+    },
+    {
+      "wall_id": "golden_009_w_ext_west",
+      "wall_type": "exterior",
+      "centerline": [
+        [
+          0.0,
+          11.0
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "thickness_m": 0.25
+    }
+  ],
+  "openings": [
+    {
+      "opening_id": "golden_009_d1",
+      "opening_type": "door",
+      "position": [
+        2.4,
+        0.0
+      ],
+      "width_m": 0.9,
+      "connects_rooms": [
+        "golden_009_r1"
+      ],
+      "associated_wall_id": null
+    },
+    {
+      "opening_id": "golden_009_d2",
+      "opening_type": "door",
+      "position": [
+        4.8,
+        2.2
+      ],
+      "width_m": 0.9,
+      "connects_rooms": [
+        "golden_009_r1",
+        "golden_009_r2"
+      ],
+      "associated_wall_id": null
+    },
+    {
+      "opening_id": "golden_009_d3",
+      "opening_type": "door",
+      "position": [
+        2.4,
+        6.6
+      ],
+      "width_m": 0.9,
+      "connects_rooms": [
+        "golden_009_r1",
+        "golden_009_r3"
+      ],
+      "associated_wall_id": null
+    },
+    {
+      "opening_id": "golden_009_d4",
+      "opening_type": "door",
+      "position": [
+        4.8,
+        5.5
+      ],
+      "width_m": 0.9,
+      "connects_rooms": [
+        "golden_009_r1",
+        "golden_009_r4"
+      ],
+      "associated_wall_id": null
+    },
+    {
+      "opening_id": "golden_009_win1",
+      "opening_type": "window",
+      "position": [
+        0.8,
+        0.0
+      ],
+      "width_m": 1.2,
+      "connects_rooms": [
+        "golden_009_r1"
+      ],
+      "associated_wall_id": null
+    },
+    {
+      "opening_id": "golden_009_win2",
+      "opening_type": "window",
+      "position": [
+        0.0,
+        8.8
+      ],
+      "width_m": 1.2,
+      "connects_rooms": [
+        "golden_009_r3"
+      ],
+      "associated_wall_id": null
+    }
+  ],
+  "rooms": [
+    {
+      "room_id": "golden_009_r1",
+      "room_type": "living_room",
+      "room_name": "Living & Dining",
+      "polygon": [
+        [
+          0,
+          0
+        ],
+        [
+          4.8,
+          0
+        ],
+        [
+          4.8,
+          6.6
+        ],
+        [
+          0,
+          6.6
+        ],
+        [
+          0,
+          0
+        ]
+      ],
+      "area_m2": 31.68,
+      "level_index": 0,
+      "is_habitable": true
+    },
+    {
+      "room_id": "golden_009_r2",
+      "room_type": "kitchen",
+      "room_name": "Kitchen",
+      "polygon": [
+        [
+          4.8,
+          0
+        ],
+        [
+          8.0,
+          0
+        ],
+        [
+          8.0,
+          4.4
+        ],
+        [
+          4.8,
+          4.4
+        ],
+        [
+          4.8,
+          0
+        ]
+      ],
+      "area_m2": 14.08,
+      "level_index": 0,
+      "is_habitable": true
+    },
+    {
+      "room_id": "golden_009_r3",
+      "room_type": "bedroom",
+      "room_name": "Master Bedroom",
+      "polygon": [
+        [
+          0,
+          6.6
+        ],
+        [
+          4.8,
+          6.6
+        ],
+        [
+          4.8,
+          11.0
+        ],
+        [
+          0,
+          11.0
+        ],
+        [
+          0,
+          6.6
+        ]
+      ],
+      "area_m2": 21.12,
+      "level_index": 0,
+      "is_habitable": true
+    },
+    {
+      "room_id": "golden_009_r4",
+      "room_type": "bathroom",
+      "room_name": "Bathroom",
+      "polygon": [
+        [
+          4.8,
+          4.4
+        ],
+        [
+          8.0,
+          4.4
+        ],
+        [
+          8.0,
+          11.0
+        ],
+        [
+          4.8,
+          11.0
+        ],
+        [
+          4.8,
+          4.4
+        ]
+      ],
+      "area_m2": 21.12,
+      "level_index": 0,
+      "is_habitable": true
+    }
+  ],
+  "dimensions": [
+    {
+      "raw_text": "8.0m",
+      "normalized_value_m": 8.0,
+      "unit": "m",
+      "associated_wall_id": null
+    },
+    {
+      "raw_text": "11.0m",
+      "normalized_value_m": 11.0,
+      "unit": "m",
+      "associated_wall_id": null
+    }
+  ],
+  "graph_edges": [
+    {
+      "source_room_id": "golden_009_r1",
+      "target_room_id": "golden_009_r2",
+      "relationship_type": "via_door"
+    },
+    {
+      "source_room_id": "golden_009_r1",
+      "target_room_id": "golden_009_r2",
+      "relationship_type": "adjacency"
+    },
+    {
+      "source_room_id": "golden_009_r1",
+      "target_room_id": "golden_009_r3",
+      "relationship_type": "via_door"
+    },
+    {
+      "source_room_id": "golden_009_r1",
+      "target_room_id": "golden_009_r3",
+      "relationship_type": "adjacency"
+    },
+    {
+      "source_room_id": "golden_009_r1",
+      "target_room_id": "golden_009_r4",
+      "relationship_type": "via_door"
+    },
+    {
+      "source_room_id": "golden_009_r1",
+      "target_room_id": "golden_009_r4",
+      "relationship_type": "adjacency"
+    }
+  ],
+  "provenance": {
+    "benchmark_version": "v1.0-stratified",
+    "verifier": "Antigravity Architectural Benchmark Team",
+    "date_verified": "2026-09-17",
+    "verification_status": "100%_human_verified",
+    "sha256": "77a18ce442214e23cc65057406cbc6611f98dfd215a16a5d870dacc39c9a675b"
+  }
+}

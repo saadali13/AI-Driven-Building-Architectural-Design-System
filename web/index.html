@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Driven Building Architectural Design System | Archi-AI Studio</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Three.js from CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header class="app-header">
+    <div class="brand-group">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2">
+          <path d="M3 21h18M5 21V5a2 2 0 012-2h10a2 2 0 012 2v16M9 9h6M9 13h6M9 17h6" />
+        </svg>
+      </div>
+      <div>
+        <div class="brand-title">ARCHI-AI STUDIO</div>
+        <div class="brand-sub">AI-Driven Building Architectural Design System</div>
+      </div>
+      <span class="badge badge-pulse">v2.4 Production</span>
+    </div>
+
+    <div class="header-actions">
+      <button class="btn btn-secondary" id="btnOpenTemplates" title="Browse Architectural Templates">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+        Templates Library
+      </button>
+
+      <button class="btn btn-secondary" id="btnOpenProjects" title="View Saved Projects">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+        Saved Projects (<span id="savedProjectsCount">0</span>)
+      </button>
+
+      <button class="btn btn-primary" id="btnOpenExport" title="Export Floor Plan and 3D Model">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+        Export Design
+      </button>
+
+      <div class="user-profile-trigger" id="btnOpenAccount" title="Account & Preferences">
+        <div class="avatar-circle" id="userAvatar">SA</div>
+        <div class="user-info-text">
+          <span class="user-name" id="displayUserName">Saad Ali</span>
+          <span class="user-role" id="displayUserRole">Lead Architect</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Application Layout -->
+  <main class="app-layout">
+    <!-- Left Sidebar: Dual Input Modality (NLP Prompt / Form-based) -->
+    <aside class="sidebar-panel">
+      <div class="input-mode-tabs">
+        <button class="tab-btn active" id="tabModeNLP">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+          NLP Prompt
+        </button>
+        <button class="tab-btn" id="tabModeForm">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          Architect Studio Form
+        </button>
+      </div>
+
+      <!-- Container: NLP Prompt Mode -->
+      <div class="input-tab-content active" id="containerNLP">
+        <div class="field-group">
+          <label class="field-label" for="nlpPromptInput">Natural Language Architectural Prompt</label>
+          <div class="textarea-wrapper">
+            <textarea id="nlpPromptInput" rows="4" placeholder="e.g. 5 Marla Spanish luxury villa 25x45 with 4 bedrooms, drawing room, open courtyard, double car porch, rooftop terrace..."></textarea>
+            <div class="prompt-parser-badges" id="parsedBadges">
+              <span class="badge badge-cyan" id="badgePlot">Plot: 5 Marla (25'x45')</span>
+              <span class="badge badge-amber" id="badgeStyle">Style: Spanish</span>
+              <span class="badge badge-emerald" id="badgeFloors">Floors: 2 (G+1)</span>
+              <span class="badge badge-purple" id="badgeBeds">4 Bedrooms</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="prompt-chips-label">Quick Prompt Inspirations:</div>
+        <div class="prompt-chips-list">
+          <button class="chip-btn" data-prompt="5 Marla Spanish Hacienda Villa 25x45 with 4 bedrooms, drawing room, courtyard, and car porch">🏛️ 5 Marla Spanish Villa</button>
+          <button class="chip-btn" data-prompt="3 Marla Modern compact house 20x34 with 3 bedrooms, open kitchen, and rooftop terrace">🏙️ 3 Marla Modern Compact</button>
+          <button class="chip-btn" data-prompt="10 Marla Luxury Executive Residence 35x65 with 5 bedrooms, 2-car porch, servant quarter, and lawn">👑 10 Marla Luxury Estate</button>
+          <button class="chip-btn" data-prompt="7 Marla Contemporary duplex 30x55 with double-height lounge and 4 bedrooms">✨ 7 Marla Modern Duplex</button>
+          <button class="chip-btn" data-prompt="Corner plot house 32x50 with 4 bedrooms, splayed corner entry, and dual frontage">📐 Corner Plot Dual Access</button>
+        </div>
+      </div>
+
+      <!-- Container: Form-based Studio Mode -->
+      <div class="input-tab-content" id="containerForm">
+        <!-- Plot Dimensions -->
+        <div class="form-section-title">1. Site & Plot Dimensions</div>
+        <div class="form-row-2">
+          <div class="field-group">
+            <label class="field-label" for="formPlotWidth">Frontage (Width)</label>
+            <div class="input-unit-wrapper">
+              <input type="number" id="formPlotWidth" value="25" min="15" max="150" step="1">
+              <span class="unit-tag">ft</span>
+            </div>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="formPlotLength">Depth (Length)</label>
+            <div class="input-unit-wrapper">
+              <input type="number" id="formPlotLength" value="45" min="20" max="250" step="1">
+              <span class="unit-tag">ft</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row-2">
+          <div class="field-group">
+            <label class="field-label" for="formSiteShape">Site Geometry</label>
+            <select id="formSiteShape" class="select-input">
+              <option value="rectangular">Rectangular Regular</option>
+              <option value="corner_plot">Corner Plot (Chamfer Splay)</option>
+              <option value="lshape">L-Shape Courtyard</option>
+              <option value="triangle">Triangular Infill</option>
+              <option value="trapezoid">Trapezoidal Irregular</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="formPlotCategory">Plot Category</label>
+            <select id="formPlotCategory" class="select-input">
+              <option value="3_marla">3 Marla (~680 sq ft)</option>
+              <option value="5_marla" selected>5 Marla (~1125 sq ft)</option>
+              <option value="7_marla">7 Marla (~1650 sq ft)</option>
+              <option value="10_marla">10 Marla (~2250 sq ft)</option>
+              <option value="1_kanal">1 Kanal (~4500 sq ft)</option>
+              <option value="custom">Custom Dimensions</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Building Program -->
+        <div class="form-section-title">2. Architectural Program & Storeys</div>
+        <div class="form-row-3">
+          <div class="field-group">
+            <label class="field-label" for="formFloors">Storeys / Floors</label>
+            <select id="formFloors" class="select-input">
+              <option value="1">1 (Ground Only)</option>
+              <option value="2" selected>2 (G + 1 Duplex)</option>
+              <option value="3">3 (G + 1 + Penthouse)</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="formBedrooms">Bedrooms</label>
+            <input type="number" id="formBedrooms" value="4" min="1" max="8">
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="formBathrooms">Bathrooms</label>
+            <input type="number" id="formBathrooms" value="4" min="1" max="8">
+          </div>
+        </div>
+
+        <!-- Style & Finishes -->
+        <div class="form-section-title">3. Style & Construction Tier</div>
+        <div class="form-row-2">
+          <div class="field-group">
+            <label class="field-label" for="formArchStyle">Architectural Style</label>
+            <select id="formArchStyle" class="select-input">
+              <option value="spanish" selected>Spanish Revival / Andalusian</option>
+              <option value="modern">Ultra-Modern Minimalist</option>
+              <option value="contemporary">Contemporary Duplex</option>
+              <option value="classical">Classical / Victorian</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="formBudgetTier">Construction Tier</label>
+            <select id="formBudgetTier" class="select-input">
+              <option value="economy">Economy Standard</option>
+              <option value="standard" selected>Standard Premium</option>
+              <option value="premium">Executive Luxury</option>
+              <option value="luxury">Ultra-Luxury Presidential</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Statutory Setbacks -->
+        <div class="form-section-title">4. Statutory Setbacks (DHA/LDA Code)</div>
+        <div class="form-row-3">
+          <div class="field-group">
+            <label class="field-label" for="formSetbackFront">Front Setback</label>
+            <div class="input-unit-wrapper"><input type="number" id="formSetbackFront" value="5" step="0.5"><span class="unit-tag">ft</span></div>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="formSetbackRear">Rear Setback</label>
+            <div class="input-unit-wrapper"><input type="number" id="formSetbackRear" value="4" step="0.5"><span class="unit-tag">ft</span></div>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="formSetbackSide">Side Setback</label>
+            <div class="input-unit-wrapper"><input type="number" id="formSetbackSide" value="0" step="0.5"><span class="unit-tag">ft</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Generation Action Buttons -->
+      <div class="action-footer">
+        <button class="btn btn-hero" id="btnGenerate">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <span id="btnGenerateText">Generate Floor Plan & 3D</span>
+        </button>
+
+        <div class="secondary-actions-row">
+          <button class="btn btn-secondary btn-full" id="btnRegenerate" title="Generate an alternative architectural layout variation">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+            Regenerate Layout
+          </button>
+          <button class="btn btn-secondary" id="btnSaveCurrentProject" title="Save this design to your account portfolio">
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            Save Design
+          </button>
+        </div>
+      </div>
+
+      <!-- Project Quick Stats Card -->
+      <div class="project-quick-card">
+        <div class="quick-title" id="statProjectTitle">5 Marla Spanish Villa (25'x45')</div>
+        <div class="quick-grid">
+          <div>
+            <span class="quick-lbl">Covered Area</span>
+            <span class="quick-val" id="statCoveredArea">2,100 sq ft</span>
+          </div>
+          <div>
+            <span class="quick-lbl">Est. Budget</span>
+            <span class="quick-val text-amber" id="statEstBudget">₨ 1.26 Crore</span>
+          </div>
+          <div>
+            <span class="quick-lbl">Floors / Storeys</span>
+            <span class="quick-val" id="statFloorsCount">2 Storeys (G+1)</span>
+          </div>
+          <div>
+            <span class="quick-lbl">Quality Gate</span>
+            <span class="quick-val text-emerald" id="statQualityGate">100% Compliant</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Center/Right: Interactive 4-View Workbenches -->
+    <section class="workbench-section">
+      <!-- Workbench Tabs -->
+      <div class="workbench-header">
+        <div class="view-tabs">
+          <button class="view-tab active" data-target="view2d">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+            2D Floor Plan Blueprint
+          </button>
+          <button class="view-tab" data-target="view3d">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+            3D Interactive Model
+          </button>
+          <button class="view-tab" data-target="viewElevation">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M5 21V9l7-6 7 6v12M9 14h6v7H9z"/></svg>
+            Front Elevation & Facade
+          </button>
+          <button class="view-tab" data-target="viewCost">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+            Cost Estimation (BOQ)
+          </button>
+        </div>
+
+        <div class="workbench-quick-tools" id="workbenchControls">
+          <!-- Floor Selector (for 2D Blueprint) -->
+          <div class="floor-selector-group" id="floorSelectorGroup">
+            <span class="control-lbl">Level:</span>
+            <button class="btn-lvl active" data-floor="0">Ground Floor</button>
+            <button class="btn-lvl" data-floor="1">First Floor</button>
+            <button class="btn-lvl" data-floor="2" id="btnFloor2">Rooftop</button>
+          </div>
+
+          <!-- 3D Controls (shown when 3D tab active) -->
+          <div class="three-d-controls hidden" id="threeDControls">
+            <button class="btn btn-xs" id="btnCameraIso">Isometric</button>
+            <button class="btn btn-xs" id="btnCameraFront">Front</button>
+            <button class="btn btn-xs" id="btnCameraTop">Top</button>
+            <button class="btn btn-xs" id="btnToggleExploded">Exploded View</button>
+            <button class="btn btn-xs" id="btnToggleRoof">Cutaway Roof</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- View 1: 2D Floor Plan Blueprint Canvas -->
+      <div class="workbench-canvas-container active" id="view2d">
+        <div class="blueprint-canvas-wrapper" id="blueprintViewport">
+          <svg id="blueprintSvg" class="blueprint-svg" viewBox="0 0 900 1100">
+            <!-- Dynamically populated SVG blueprint -->
+          </svg>
+        </div>
+
+        <!-- Layer Toggles HUD -->
+        <div class="canvas-floating-hud">
+          <div class="hud-title">Blueprint Layers</div>
+          <label class="hud-check"><input type="checkbox" id="layerWalls" checked> Exterior & Interior Walls</label>
+          <label class="hud-check"><input type="checkbox" id="layerDoors" checked> Doors & Swing Arcs</label>
+          <label class="hud-check"><input type="checkbox" id="layerWindows" checked> Glazing Windows</label>
+          <label class="hud-check"><input type="checkbox" id="layerFurniture" checked> Furniture Layout</label>
+          <label class="hud-check"><input type="checkbox" id="layerDims" checked> Dimension Strings</label>
+          <label class="hud-check"><input type="checkbox" id="layerLabels" checked> Room Tags & Areas</label>
+          <div class="hud-divider"></div>
+          <div class="hud-zoom-row">
+            <button class="btn btn-icon" id="btnZoomIn" title="Zoom In">+</button>
+            <button class="btn btn-icon" id="btnZoomOut" title="Zoom Out">-</button>
+            <button class="btn btn-icon" id="btnZoomReset" title="Reset Fit">Fit</button>
+          </div>
+        </div>
+
+        <!-- Room Schedule Breakdown Table -->
+        <div class="room-schedule-panel" id="roomSchedulePanel">
+          <div class="schedule-header">
+            <span>Room Schedule Breakdown (<span id="scheduleFloorName">Ground Floor</span>)</span>
+            <button class="btn-text" id="toggleScheduleTable">Collapse</button>
+          </div>
+          <div class="schedule-table-wrap">
+            <table class="schedule-table">
+              <thead>
+                <tr>
+                  <th>Room Name</th>
+                  <th>Category</th>
+                  <th>Dimensions (W x L)</th>
+                  <th>Net Area (Sq Ft)</th>
+                  <th>Natural Light</th>
+                </tr>
+              </thead>
+              <tbody id="roomScheduleBody">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- View 2: Interactive 3D Model Studio -->
+      <div class="workbench-canvas-container" id="view3d">
+        <div id="threeDContainer" class="three-d-container">
+          <!-- Three.js WebGL canvas injected here -->
+        </div>
+        <div class="three-d-overlay-info">
+          <div class="three-d-title" id="threeDModelTitle">Interactive 3D Solid Model</div>
+          <div class="three-d-sub">Controls: Left Click to Orbit • Right Click to Pan • Scroll to Zoom</div>
+          <div class="three-d-badges">
+            <span class="badge badge-cyan" id="badge3dStyle">Spanish Terracotta Tiles</span>
+            <span class="badge badge-amber" id="badge3dFloors">2 Storeys Extrusion</span>
+            <span class="badge badge-emerald">Cycles Procedural Nodes</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- View 3: Front Elevation & Facade Evaluation -->
+      <div class="workbench-canvas-container" id="viewElevation">
+        <div class="elevation-split-view">
+          <!-- Left: Facade Architectural Drawing -->
+          <div class="elevation-drawing-box">
+            <div class="elevation-title-bar">
+              <span>ARCHITECTURAL FRONT ELEVATION DRAWING</span>
+              <span class="badge badge-cyan" id="elevationStyleTag">Spanish Revival Facade</span>
+            </div>
+            <div class="elevation-svg-wrap">
+              <svg id="elevationSvg" class="elevation-svg" viewBox="0 0 800 650">
+                <!-- Dynamically populated elevation -->
+              </svg>
+            </div>
+          </div>
+
+          <!-- Right: Facade Evaluation Panel -->
+          <div class="elevation-evaluation-box">
+            <div class="eval-card-header">Facade Design Evaluation Matrix</div>
+
+            <div class="eval-metrics-grid">
+              <div class="metric-item">
+                <div class="metric-val text-cyan" id="evalSymmetry">92%</div>
+                <div class="metric-lbl">Aesthetic Symmetry Index</div>
+              </div>
+              <div class="metric-item">
+                <div class="metric-val text-amber" id="evalGoldenRatio">1.618</div>
+                <div class="metric-lbl">Golden Ratio Adherence</div>
+              </div>
+              <div class="metric-item">
+                <div class="metric-val text-emerald" id="evalVentilation">22%</div>
+                <div class="metric-lbl">Glazing / Aperture Ratio</div>
+              </div>
+              <div class="metric-item">
+                <div class="metric-val text-purple" id="evalCurbAppeal">96 / 100</div>
+                <div class="metric-lbl">Curb Appeal Score</div>
+              </div>
+            </div>
+
+            <div class="eval-section-title">Exterior Finish & Material Palette:</div>
+            <ul class="eval-specs-list" id="evalSpecsList">
+              <li><strong>Roof Finish:</strong> Semicircular Terracotta Barrel Tiles with Eaves Cornice</li>
+              <li><strong>Wall Finish:</strong> Textured Antique Stucco with Travertine Accents</li>
+              <li><strong>Fenestration:</strong> Arched Roman Windows with Thermally Broken Timber Frames</li>
+              <li><strong>Railings:</strong> Handcrafted Ornate Wrought-Iron Balustrades</li>
+              <li><strong>Entrance Gate:</strong> Solid Cedar Wood Door with Rustic Iron Studs</li>
+            </ul>
+
+            <div class="eval-section-title">Solar Shading & Climate Response:</div>
+            <div class="eval-climate-box">
+              <p>Passive solar overhangs provide <strong>65% summer heat gain mitigation</strong> on south/west facing glazing while admitting low-angle winter sunlight.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- View 4: Comprehensive Cost Estimation (BOQ) -->
+      <div class="workbench-canvas-container" id="viewCost">
+        <div class="cost-dashboard">
+          <!-- Summary Banner -->
+          <div class="cost-summary-banner">
+            <div class="cost-kpi">
+              <div class="kpi-lbl">Total Estimated Project Cost</div>
+              <div class="kpi-val text-amber" id="boqGrandTotal">₨ 12,600,000</div>
+              <div class="kpi-sub">Includes 7.5% contingency buffer</div>
+            </div>
+            <div class="cost-kpi">
+              <div class="kpi-lbl">Rate per Covered Sq Ft</div>
+              <div class="kpi-val text-cyan" id="boqRatePerSqft">₨ 6,000 / sq ft</div>
+              <div class="kpi-sub" id="boqTierDisplay">Standard Premium Tier</div>
+            </div>
+            <div class="cost-kpi">
+              <div class="kpi-lbl">Total Covered Area</div>
+              <div class="kpi-val text-emerald" id="boqCoveredArea">2,100 sq ft</div>
+              <div class="kpi-sub" id="boqFloorsDisplay">2 Storeys (Ground + First)</div>
+            </div>
+            <div class="cost-kpi">
+              <div class="kpi-lbl">Construction Timeline</div>
+              <div class="kpi-val text-purple" id="boqTimeline">7 Months</div>
+              <div class="kpi-sub">Turnkey Handover Schedule</div>
+            </div>
+          </div>
+
+          <!-- Currency & Tier Bar -->
+          <div class="cost-tier-bar">
+            <div class="tier-selector">
+              <span>Select Construction Quality Tier:</span>
+              <button class="btn-tier" data-tier="economy">Economy</button>
+              <button class="btn-tier active" data-tier="standard">Standard</button>
+              <button class="btn-tier" data-tier="premium">Executive</button>
+              <button class="btn-tier" data-tier="luxury">Ultra-Luxury</button>
+            </div>
+            <button class="btn btn-secondary btn-sm" id="btnExportBOQ">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+              Export BOQ (CSV)
+            </button>
+          </div>
+
+          <!-- Material Tables Grid -->
+          <div class="boq-tables-grid">
+            <!-- Grey Structure Table -->
+            <div class="boq-table-card">
+              <div class="card-table-title">
+                <span>Phase 1: Grey Structure Material Breakdown</span>
+                <span class="text-amber" id="boqGreyTotalCost">₨ 6,930,000</span>
+              </div>
+              <table class="boq-table">
+                <thead>
+                  <tr>
+                    <th>Item Description</th>
+                    <th>Estimated Quantity</th>
+                    <th>Cost Share</th>
+                  </tr>
+                </thead>
+                <tbody id="boqGreyTableBody">
+                  <!-- Dynamically populated -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Finishing Table -->
+            <div class="boq-table-card">
+              <div class="card-table-title">
+                <span>Phase 2: Architectural Finishing Breakdown</span>
+                <span class="text-cyan" id="boqFinishingTotalCost">₨ 5,670,000</span>
+              </div>
+              <table class="boq-table">
+                <thead>
+                  <tr>
+                    <th>Finishing Component</th>
+                    <th>Specification / Scope</th>
+                    <th>Cost Share</th>
+                  </tr>
+                </thead>
+                <tbody id="boqFinishingTableBody">
+                  <!-- Dynamically populated -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Milestone Payment Schedule -->
+          <div class="boq-milestones-card">
+            <div class="card-table-title">Contractor Milestone Payment Schedule</div>
+            <div class="milestones-steps" id="boqMilestonesList">
+              <!-- Dynamically populated milestone steps -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL: Export Suite -->
+  <div class="modal-backdrop" id="modalExport">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div class="modal-title">Export Architectural Package</div>
+        <button class="modal-close" id="btnCloseExport">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc">Select desired CAD, vector, or 3D formats to export your generated building design:</p>
+
+        <div class="export-options-grid">
+          <!-- Option 1: AutoCAD DXF -->
+          <div class="export-card" id="exportOptDXF">
+            <div class="export-icon text-cyan">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="export-name">AutoCAD DXF (.dxf)</div>
+            <div class="export-info">AIA Layered Standards (A-WALL, A-DOOR, A-WIND, A-DIMS) compatible with AutoCAD, Revit, Civil3D.</div>
+            <button class="btn btn-secondary btn-sm" id="btnDownloadDXF">Download DXF</button>
+          </div>
+
+          <!-- Option 2: Vector SVG -->
+          <div class="export-card" id="exportOptSVG">
+            <div class="export-icon text-amber">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l2 2 4-4"/></svg>
+            </div>
+            <div class="export-name">Vector Sheet (.svg)</div>
+            <div class="export-info">Infinitely scalable vector presentation sheet with title blocks, room areas, and architectural scale bars.</div>
+            <button class="btn btn-secondary btn-sm" id="btnDownloadSVG">Download SVG</button>
+          </div>
+
+          <!-- Option 3: Architectural PDF -->
+          <div class="export-card" id="exportOptPDF">
+            <div class="export-icon text-emerald">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/></svg>
+            </div>
+            <div class="export-name">Presentation PDF (.pdf)</div>
+            <div class="export-info">Print-ready Arch D (24"x36") 300 DPI high-definition blueprint sheet ready for municipal submission.</div>
+            <button class="btn btn-secondary btn-sm" id="btnDownloadPDF">Print / Save PDF</button>
+          </div>
+
+          <!-- Option 4: Blender 3D Model -->
+          <div class="export-card" id="exportOptBlend">
+            <div class="export-icon text-purple">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg>
+            </div>
+            <div class="export-name">Blender 3D (.blend / .py)</div>
+            <div class="export-info">Procedural 3D solid model with boolean void cutters, materials, sunlight rigs for Blender 5.1 Cycles rendering.</div>
+            <button class="btn btn-secondary btn-sm" id="btnDownloadBlend">Generate .blend</button>
+          </div>
+
+          <!-- Option 5: 3D OBJ Mesh -->
+          <div class="export-card" id="exportOptOBJ">
+            <div class="export-icon text-cyan">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+            </div>
+            <div class="export-name">Wavefront 3D (.obj)</div>
+            <div class="export-info">Standard textured 3D mesh model ready for SketchUp, 3ds Max, Maya, Rhino, or Unreal Engine.</div>
+            <button class="btn btn-secondary btn-sm" id="btnDownloadOBJ">Download .obj</button>
+          </div>
+
+          <!-- Option 6: Cost Estimation CSV -->
+          <div class="export-card" id="exportOptBOQ">
+            <div class="export-icon text-emerald">
+              <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+            </div>
+            <div class="export-name">Bill of Quantities (.csv)</div>
+            <div class="export-info">Itemized spreadsheet with cement, steel, bricks, finishes, unit rates, and contractor milestone schedule.</div>
+            <button class="btn btn-secondary btn-sm" id="btnDownloadBOQModal">Download CSV</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Architectural Templates Library -->
+  <div class="modal-backdrop" id="modalTemplates">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-header">
+        <div class="modal-title">Pre-Engineered Architectural Templates</div>
+        <button class="modal-close" id="btnCloseTemplates">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc">Select a vetted architectural design template to instantly load floor plan, 3D model, and cost estimations:</p>
+        <div class="templates-grid" id="templatesGrid">
+          <!-- Dynamically populated templates -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Saved Projects Portfolio -->
+  <div class="modal-backdrop" id="modalProjects">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-header">
+        <div class="modal-title">Saved Design Portfolio & History</div>
+        <button class="modal-close" id="btnCloseProjects">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="saved-projects-list" id="savedProjectsList">
+          <!-- Dynamically populated saved projects -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Account & Preferences -->
+  <div class="modal-backdrop" id="modalAccount">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div class="modal-title">Account & System Preferences</div>
+        <button class="modal-close" id="btnCloseAccount">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="field-group">
+          <label class="field-label" for="settingUserName">Full Name</label>
+          <input type="text" id="settingUserName" value="Saad Ali">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="settingUserEmail">Email Address</label>
+          <input type="email" id="settingUserEmail" value="saadaliqureshi117@gmail.com">
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="settingUserRole">Professional Role</label>
+          <select id="settingUserRole" class="select-input">
+            <option value="Lead Architect" selected>Lead Principal Architect</option>
+            <option value="Residential Homeowner">Residential Homeowner / Client</option>
+            <option value="Civil Contractor">Civil Contractor / Builder</option>
+            <option value="Real Estate Developer">Real Estate Developer</option>
+          </select>
+        </div>
+        <div class="form-row-2">
+          <div class="field-group">
+            <label class="field-label" for="settingUnits">Measurement Units</label>
+            <select id="settingUnits" class="select-input">
+              <option value="imperial" selected>Imperial (Feet / Inches / Sq Ft)</option>
+              <option value="metric">Metric (Meters / m²)</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="settingCurrency">Preferred Currency</label>
+            <select id="settingCurrency" class="select-input">
+              <option value="PKR" selected>PKR (₨ Pakistani Rupee)</option>
+              <option value="USD">USD ($ US Dollar)</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer-actions">
+          <button class="btn btn-primary btn-full" id="btnSavePreferences">Save Preferences</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Application Logic -->
+  <script src="app.js"></script>
+</body>
+</html>

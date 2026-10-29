@@ -1,0 +1,324 @@
+{
+  "plan_id": "10_150",
+  "category": "10",
+  "source_image": "052da9368c90d89e449dc37055603d7d.jpg",
+  "source_path": "10/052da9368c90d89e449dc37055603d7d.jpg",
+  "plot": {
+    "inferred_type": "10 Marla (35' x 65')",
+    "frontage_ft": 35,
+    "depth_ft": 65,
+    "area_sqft": 2275
+  },
+  "total_bedrooms": 2,
+  "total_bathrooms": 3,
+  "has_car_porch": true,
+  "has_stairs": true,
+  "has_open_to_sky": true,
+  "rooms": [
+    {
+      "room_id": "r_1",
+      "name": "Bed Room 2",
+      "category": "bedroom",
+      "dimensions_raw": "11'7\"X13'0\"",
+      "dimensions_meters": [
+        3.53,
+        3.96
+      ],
+      "area_m2": 13.98,
+      "spatial_zone": "rear_left",
+      "box_2d": [
+        37,
+        171,
+        246,
+        465
+      ],
+      "connected_to": [
+        "Hall"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_2",
+      "name": "Bed Room 1",
+      "category": "bedroom",
+      "dimensions_raw": "11'11\"X12'10\"",
+      "dimensions_meters": [
+        3.63,
+        3.91
+      ],
+      "area_m2": 14.19,
+      "spatial_zone": "rear_center",
+      "box_2d": [
+        126,
+        483,
+        325,
+        787
+      ],
+      "connected_to": [
+        "Hall",
+        "Open Space",
+        "Toilet 1"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_3",
+      "name": "Open Space",
+      "category": "outdoor",
+      "dimensions_raw": "5'-4\" wide",
+      "dimensions_meters": [
+        1.63,
+        2.4
+      ],
+      "area_m2": 3.91,
+      "spatial_zone": "rear_center",
+      "box_2d": [
+        37,
+        483,
+        126,
+        787
+      ],
+      "connected_to": [
+        "Bed Room 1",
+        "Toilet 2"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_4",
+      "name": "Toilet 2",
+      "category": "bathroom",
+      "dimensions_raw": "3'10\"X7'0\"",
+      "dimensions_meters": [
+        1.17,
+        2.13
+      ],
+      "area_m2": 2.49,
+      "spatial_zone": "rear_right",
+      "box_2d": [
+        37,
+        799,
+        170,
+        915
+      ],
+      "connected_to": [
+        "Open Space"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_5",
+      "name": "Toilet 1",
+      "category": "bathroom",
+      "dimensions_raw": "4'2\"X7'0\"",
+      "dimensions_meters": [
+        1.27,
+        2.13
+      ],
+      "area_m2": 2.71,
+      "spatial_zone": "center_right",
+      "box_2d": [
+        214,
+        800,
+        318,
+        915
+      ],
+      "connected_to": [
+        "Bed Room 1"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_6",
+      "name": "Kitchen",
+      "category": "kitchen",
+      "dimensions_raw": "7'10\"X10'5\"",
+      "dimensions_meters": [
+        2.39,
+        3.18
+      ],
+      "area_m2": 7.6,
+      "spatial_zone": "center_left",
+      "box_2d": [
+        246,
+        171,
+        412,
+        388
+      ],
+      "connected_to": [
+        "Hall"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_7",
+      "name": "Store",
+      "category": "utility",
+      "dimensions_raw": "6'10\"X4'0\"",
+      "dimensions_meters": [
+        2.08,
+        1.22
+      ],
+      "area_m2": 2.54,
+      "spatial_zone": "center_right",
+      "box_2d": [
+        330,
+        602,
+        402,
+        787
+      ],
+      "connected_to": [
+        "Hall"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_8",
+      "name": "Hall",
+      "category": "living",
+      "dimensions_raw": "15'6\"X17'10\"",
+      "dimensions_meters": [
+        4.72,
+        5.44
+      ],
+      "area_m2": 25.68,
+      "spatial_zone": "center",
+      "box_2d": [
+        400,
+        273,
+        600,
+        670
+      ],
+      "connected_to": [
+        "Bed Room 2",
+        "Bed Room 1",
+        "Kitchen",
+        "Store",
+        "Drawing Room",
+        "Pooja",
+        "Bath"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_9",
+      "name": "Bath",
+      "category": "bathroom",
+      "dimensions_raw": "4'8\"X6'4\"",
+      "dimensions_meters": [
+        1.42,
+        1.93
+      ],
+      "area_m2": 2.74,
+      "spatial_zone": "center_right",
+      "box_2d": [
+        515,
+        670,
+        606,
+        803
+      ],
+      "connected_to": [
+        "Hall",
+        "Porch"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_10",
+      "name": "Pooja",
+      "category": "utility",
+      "dimensions_raw": "3'4\"X7'0\"",
+      "dimensions_meters": [
+        1.02,
+        2.13
+      ],
+      "area_m2": 2.17,
+      "spatial_zone": "center_left",
+      "box_2d": [
+        600,
+        171,
+        715,
+        258
+      ],
+      "connected_to": [
+        "Hall"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_11",
+      "name": "Drawing Room",
+      "category": "living",
+      "dimensions_raw": "10'6\"X11'0\"",
+      "dimensions_meters": [
+        3.2,
+        3.35
+      ],
+      "area_m2": 10.72,
+      "spatial_zone": "front_center",
+      "box_2d": [
+        600,
+        273,
+        784,
+        555
+      ],
+      "connected_to": [
+        "Hall",
+        "Porch"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_12",
+      "name": "Porch",
+      "category": "parking",
+      "dimensions_raw": "13'6\"X21'8\"",
+      "dimensions_meters": [
+        4.11,
+        6.6
+      ],
+      "area_m2": 27.13,
+      "spatial_zone": "front_right",
+      "box_2d": [
+        600,
+        540,
+        935,
+        915
+      ],
+      "connected_to": [
+        "Drawing Room",
+        "Lawn Area",
+        "Bath"
+      ],
+      "status": "confirmed"
+    },
+    {
+      "room_id": "r_13",
+      "name": "Lawn Area",
+      "category": "outdoor",
+      "dimensions_raw": "10' depth",
+      "dimensions_meters": [
+        3.05,
+        5.0
+      ],
+      "area_m2": 15.25,
+      "spatial_zone": "front_left",
+      "box_2d": [
+        784,
+        160,
+        935,
+        540
+      ],
+      "connected_to": [
+        "Porch"
+      ],
+      "status": "confirmed"
+    }
+  ],
+  "structural_notes": {
+    "staircase_location": "porch",
+    "parking_capacity": "single_car",
+    "circulation_type": "central_lounge"
+  },
+  "annotation_status": "confirmed"
+}
