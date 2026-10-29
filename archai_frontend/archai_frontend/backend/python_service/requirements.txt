@@ -1,0 +1,9 @@
+fastapi>=0.110.0
+uvicorn>=0.28.0
+sentence-transformers>=2.5.0
+chromadb>=0.4.24
+pydantic>=2.6.0
+numpy>=1.26.0
+torch>=2.2.0
+pyotp>=2.9.0
+qrcode[pil]>=7.4.2

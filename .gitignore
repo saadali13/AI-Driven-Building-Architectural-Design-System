@@ -1,36 +1,246 @@
-# Byte-compiled / optimized / DLL files
+# =============================================================================
+# AI-Driven Building Architectural Design System — .gitignore
+# Covers: Python, Node.js, React, TypeScript, Vite, Blender, CAD, OS metadata
+# =============================================================================
+
+# ---------------------------------------------------------------------------
+# SECURITY — NEVER COMMIT SECRETS OR CREDENTIALS
+# ---------------------------------------------------------------------------
+.env
+.env.local
+.env.development
+.env.production
+.env.staging
+.env.test
+.env.*
+!.env.example          # ONLY the safe example template is allowed
+
+# ---------------------------------------------------------------------------
+# PYTHON — COMPILED, CACHE, VIRTUAL ENVIRONMENTS
+# ---------------------------------------------------------------------------
 __pycache__/
 *.py[cod]
 *$py.class
+*.pyo
+*.pyd
+*.pyw
+*.so
+*.dylib
 
-# Caches and tests
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+.Python
+Lib/
+Scripts/
+Include/
+pyvenv.cfg
+
+# Eggs / distributions
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+var/
+sdist/
+develop-eggs/
+.installed.cfg
+lib/
+lib64/
+
+# Unit test / coverage
 .pytest_cache/
 .coverage
+.coverage.*
 htmlcov/
-*.log
+.tox/
+.nox/
+coverage.xml
+*.cover
+*.py,cover
+nosetests.xml
+test-results/
 
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
+# Mypy / type checkers
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
 
-# Large binaries, CAD/3D heavy archives and backups
-*.zip
-*.tar.gz
-*.skp
-*.blend1
-output/
-scratch/*.tmp
-"furniture ,car,stairs/"
-furniture*
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
 
-# Node dependencies
+# ---------------------------------------------------------------------------
+# NODE.JS / REACT / TYPESCRIPT / VITE
+# ---------------------------------------------------------------------------
 node_modules/
 npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# OS metadata
+# Vite build outputs
+dist/
+dist-ssr/
+*.local
+frontend/dist/
+frontend/dist-ssr/
+
+# Vite internals
+.vite/
+.vite-temp/
+frontend/.vite/
+frontend/.vite-temp/
+
+# TypeScript compiled
+*.tsbuildinfo
+
+# ESLint / Oxlint cache
+.eslintcache
+.oxlintcache
+
+# ---------------------------------------------------------------------------
+# DATABASE — NEVER COMMIT DB FILES OR DUMPS
+# ---------------------------------------------------------------------------
+*.sqlite
+*.sqlite3
+*.db
+*.sql
+*.dump
+*.pgdump
+*.bak
+
+# ---------------------------------------------------------------------------
+# GENERATED OUTPUT — FLOOR PLANS, RENDERS, 3D MODELS (LARGE BINARIES)
+# ---------------------------------------------------------------------------
+output/
+outputs/
+reports/
+variation_experiments/
+variation_report/
+elevationwithfloorplan/
+benchmark/
+3d/
+
+# Generated image/render outputs
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.tiff
+*.webp
+
+# EXCEPT explicitly needed static UI assets (override below)
+!frontend/public/**/*.png
+!frontend/public/**/*.jpg
+!frontend/public/**/*.svg
+!frontend/src/assets/*.png
+!frontend/src/assets/*.svg
+
+# CAD and 3D generated outputs
+*.dxf
+*.dwg
+*.blend
+*.blend1
+*.obj
+*.mtl
+*.stl
+*.fbx
+*.ply
+*.3ds
+*.skp
+
+# Archives (especially the 810MB archai_frontend.zip)
+*.zip
+*.tar.gz
+*.tar.bz2
+*.rar
+*.7z
+
+# ---------------------------------------------------------------------------
+# REFERENCE IMAGES / BENCHMARK DATASETS (LARGE)
+# ---------------------------------------------------------------------------
+# Numbered benchmark folders (raw reference plan images — 30MB)
+1/
+3/
+5/
+7/
+10/
+
+# But keep the dataset JSON index (small, essential for RAG)
+!dataset/dataset_index.json
+!dataset/schema/
+!reference_floorplan_benchmark.json
+
+# ---------------------------------------------------------------------------
+# SCRATCH / TEMPORARY DEVELOPMENT SCRIPTS
+# ---------------------------------------------------------------------------
+scratch/
+data/
+
+# ---------------------------------------------------------------------------
+# LOGS AND TEMPORARY FILES
+# ---------------------------------------------------------------------------
+*.log
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ---------------------------------------------------------------------------
+# LARGE GENERATED MEDIA (CV PIPELINE INTERMEDIATES)
+# ---------------------------------------------------------------------------
+cv_agent/__pycache__/
+vision/
+tools/
+
+# ---------------------------------------------------------------------------
+# OS METADATA
+# ---------------------------------------------------------------------------
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
 Desktop.ini
+$RECYCLE.BIN/
+
+# ---------------------------------------------------------------------------
+# IDE / EDITOR
+# ---------------------------------------------------------------------------
+.vscode/settings.json
+.vscode/launch.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Keep .vscode/extensions.json if it has project-level recommendations
+!.vscode/extensions.json
+
+# ---------------------------------------------------------------------------
+# FURNITURE AND SPECIAL FOLDERS WITH SPACES
+# ---------------------------------------------------------------------------
+"furniture ,car,stairs/"
+furniture*/
+
+# ---------------------------------------------------------------------------
+# MISC
+# ---------------------------------------------------------------------------
+archai_frontend.zip
+scratch_test_multi_scale.py

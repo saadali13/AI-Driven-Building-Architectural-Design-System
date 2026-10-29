@@ -1,0 +1,1697 @@
+{
+  "benchmark_name": "Antigravity Real Reference Floor Plan Benchmark",
+  "description": "Evaluation dataset of real architectural plans across 1, 3, 5, 7, 10 Marla categories",
+  "total_benchmark_plans": 187,
+  "categories_stratification": {
+    "1": 26,
+    "3": 40,
+    "5": 41,
+    "7": 42,
+    "10": 38
+  },
+  "plans": [
+    {
+      "plan_id": "1_001",
+      "category": "1",
+      "source_image": "00770eba64db20501bbd30bb21ce6aa5.jpg",
+      "status": "confirmed",
+      "plot_category": "1 Kanal (50' x 90')",
+      "aspect_ratio": 0.55,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "1_002",
+      "category": "1",
+      "source_image": "027c487cd8eb1a07ba644f292fd32e0c.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "1 Kanal (50' x 90')",
+      "aspect_ratio": 0.69,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "1_003",
+      "category": "1",
+      "source_image": "066fdb423d3141c8d88131702ce86c43.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "1 Kanal (50' x 90')",
+      "aspect_ratio": 0.56,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "1_004",
+      "category": "1",
+      "source_image": "0a921f345fb033e3b0dbf402e9f6b90c.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "1 Kanal (50' x 90')",
+      "aspect_ratio": 0.55,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "1_005",
+      "category": "1",
+      "source_image": "20ba328abca8292cbf644fa2f1aaf0d2.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "1 Kanal (50' x 90')",
+      "aspect_ratio": 0.55,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "1_006",
+      "category": "1",
+      "source_image": "20f8dfbb9c1dd0dbccf4ae2a7cf53680.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "1 Kanal (50' x 90')",
+      "aspect_ratio": 0.65,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "1_007",
+      "category": "1",
+      "source_image": "31c8ba8259f47372f5680f4e13ac2540.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "1 Kanal (50' x 90')",
+      "aspect_ratio": 0.56,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "1_008",
+      "category": "1",
+      "source_image": "344dd5f88ce2e4f9dcf98ba99a838eaf.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "1 Kanal (50' x 90')",
+      "aspect_ratio": 0.65,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "1_009",
+      "category": "1",
+      "source_image": "348dc036a4d22b04bdd794ff0de1752c.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "1 Kanal (50' x 90')",
+      "aspect_ratio": 0.87,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "1_010",
+      "category": "1",
+      "source_image": "41847eb5f54a9509efa70c64ba29297d.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "1 Kanal (50' x 90')",
+      "aspect_ratio": 0.55,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "1_011",
+      "category": "1",
+      "source_image": "5b541765ef090c505b5c0dc5a46933ae.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "1 Kanal (50' x 90')",
+      "aspect_ratio": 0.72,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "1_012",
+      "category": "1",
+      "source_image": "6367c8c273d4b1d007fa03103612d22d.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "1 Kanal (50' x 90')",
+      "aspect_ratio": 0.57,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "1_013",
+      "category": "1",
+      "source_image": "91b2c2a4d9d000431f6271dc95b4f161.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "1 Kanal (50' x 90')",
+      "aspect_ratio": 0.61,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "1_014",
+      "category": "1",
+      "source_image": "97abaa88d5f21c3240c969b10eb99341.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "1 Kanal (50' x 90')",
+      "aspect_ratio": 0.71,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "1_015",
+      "category": "1",
+      "source_image": "ad9deb5ed9c20f5a5549d01ecd65910a.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "1 Kanal (50' x 90')",
+      "aspect_ratio": 0.57,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "1_016",
+      "category": "1",
+      "source_image": "b73b07da003283f412a40e57a31f2148.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "1 Kanal (50' x 90')",
+      "aspect_ratio": 0.84,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "1_017",
+      "category": "1",
+      "source_image": "bbdffd190faab6edff7a5cee357a9d17.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "1 Kanal (50' x 90')",
+      "aspect_ratio": 0.62,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "1_018",
+      "category": "1",
+      "source_image": "bcb8f171cdca4416bb203d2206dff66f.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "1 Kanal (50' x 90')",
+      "aspect_ratio": 0.56,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "1_019",
+      "category": "1",
+      "source_image": "d9bbe3743996485fb1a50711fe5b8262.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "1 Kanal (50' x 90')",
+      "aspect_ratio": 0.51,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "1_020",
+      "category": "1",
+      "source_image": "dc63fcbef5792c11a0630cf42b1b279a (1).jpg",
+      "status": "catalog_indexed",
+      "plot_category": "1 Kanal (50' x 90')",
+      "aspect_ratio": 0.7,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "1_021",
+      "category": "1",
+      "source_image": "dc63fcbef5792c11a0630cf42b1b279a.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "1 Kanal (50' x 90')",
+      "aspect_ratio": 0.7,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "1_022",
+      "category": "1",
+      "source_image": "download (1).png",
+      "status": "catalog_indexed",
+      "plot_category": "1 Kanal (50' x 90')",
+      "aspect_ratio": 0.56,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "1_023",
+      "category": "1",
+      "source_image": "download.png",
+      "status": "catalog_indexed",
+      "plot_category": "1 Kanal (50' x 90')",
+      "aspect_ratio": 0.56,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "1_024",
+      "category": "1",
+      "source_image": "e2e18820b596a3e330b98f9ac4e364bc.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "1 Kanal (50' x 90')",
+      "aspect_ratio": 0.61,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "1_025",
+      "category": "1",
+      "source_image": "ea4c139c31fdefa9e5b7a50490d4f8bf.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "1 Kanal (50' x 90')",
+      "aspect_ratio": 0.75,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "1_026",
+      "category": "1",
+      "source_image": "eae412f07bd795c6c50aa8dae34c86b6.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "1 Kanal (50' x 90')",
+      "aspect_ratio": 0.59,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_027",
+      "category": "3",
+      "source_image": "0adf5f25feca052f9968d0a9f42bd8eb.jpg",
+      "status": "confirmed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.69,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_028",
+      "category": "3",
+      "source_image": "0d2f29cf25a408c7e552e39b91189b34.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.67,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_029",
+      "category": "3",
+      "source_image": "0f969b09633a07439acc75819fbd1506.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.6,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_030",
+      "category": "3",
+      "source_image": "118c3a69f01310f3bd515ba2a9109e41.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.64,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_031",
+      "category": "3",
+      "source_image": "136245892d121c74b3a7cf6063c928e6.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.63,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_032",
+      "category": "3",
+      "source_image": "1b14e27c276a847be7f0d5694be2c57d.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.5,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_033",
+      "category": "3",
+      "source_image": "2107f8b0ce6b3d5bb924afabecc63e87.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.63,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_034",
+      "category": "3",
+      "source_image": "2aefdd3e925ee9337c96c8c8ecc3e32f.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.56,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_035",
+      "category": "3",
+      "source_image": "332f77d7159e62a4b4c8ac89543bb94c.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.56,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_036",
+      "category": "3",
+      "source_image": "3398a39340324048f64931162c7dbca0.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.56,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_037",
+      "category": "3",
+      "source_image": "344ae6af69aeab2aef0c20c6e97ee50f.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.6,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_038",
+      "category": "3",
+      "source_image": "42f6d1b8ba5350e5dc17d0eb5b6a4e1e.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.56,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_039",
+      "category": "3",
+      "source_image": "4f3655f8abc77ad4446ea4f1c1b38779.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.67,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_040",
+      "category": "3",
+      "source_image": "51ccd1f32dc512a057c404b60f687893.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.67,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_041",
+      "category": "3",
+      "source_image": "5580b528a4346f1214b84d7d9e2df65c.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.55,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_042",
+      "category": "3",
+      "source_image": "5d19b4b83e36512fd37809345a8236eb.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.67,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_043",
+      "category": "3",
+      "source_image": "60988e8b43bca6b0e86ff5d6c85aac01.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.67,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_044",
+      "category": "3",
+      "source_image": "630912d6a71a8c3419339b768862ff73.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.59,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_045",
+      "category": "3",
+      "source_image": "6324611e7e45fac8c9bcd9359a0917d6.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.71,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_046",
+      "category": "3",
+      "source_image": "70607f869fb7db58226ecd20e74f185d.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.55,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_047",
+      "category": "3",
+      "source_image": "771112c6507910567d5f673fc1171c2c.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.67,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_048",
+      "category": "3",
+      "source_image": "7aa31691a29583df2029d7468a33e969.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.81,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_049",
+      "category": "3",
+      "source_image": "7cca6aefc5b3b1ad2d05cb2aada41dc2.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.56,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_050",
+      "category": "3",
+      "source_image": "8467c497f605cf3a3096c78b0fd67118.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.56,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_051",
+      "category": "3",
+      "source_image": "88b4f0cbc89f50a8273953dc6208ff5d.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.54,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_052",
+      "category": "3",
+      "source_image": "88fd24157ef6251ce7bb6acb925c9226.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.56,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_053",
+      "category": "3",
+      "source_image": "9d33538b8b7a007ec839ee1bbbf6c5ce.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.67,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_054",
+      "category": "3",
+      "source_image": "a1f70a4d3a348ad2518588da4f8a7c2d.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.56,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_055",
+      "category": "3",
+      "source_image": "a2bf463f5ad9b218fc386818caa84b43.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.54,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_056",
+      "category": "3",
+      "source_image": "a734308e08a45e436e2e52be7709bd4a.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.71,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_057",
+      "category": "3",
+      "source_image": "ad2a6e1615603f20ba396a477186bad5.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.62,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_058",
+      "category": "3",
+      "source_image": "b0ae02dc015df83a36f70f85093dcd02.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.67,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_059",
+      "category": "3",
+      "source_image": "bfbaf64433f924258955cbee8b39f31d.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.69,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_060",
+      "category": "3",
+      "source_image": "c98d7f0585f44dd0ab36a207c919f4f8.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.67,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_061",
+      "category": "3",
+      "source_image": "d4dbb158482db8ad4fc08fbbb2d72a12.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.74,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_062",
+      "category": "3",
+      "source_image": "download (1).png",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.56,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_063",
+      "category": "3",
+      "source_image": "download.png",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 2.0,
+      "is_multi_sheet": true
+    },
+    {
+      "plan_id": "3_064",
+      "category": "3",
+      "source_image": "e8051d5b6059b5296cfd8fc31cc4a8d5.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.67,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_065",
+      "category": "3",
+      "source_image": "f341cfff2eebc088be8396c794b7b1cf.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.62,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "3_066",
+      "category": "3",
+      "source_image": "f8f76de3c2ab3ab18fb1b32c341d7d42.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "3 Marla (20' x 35')",
+      "aspect_ratio": 0.56,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_067",
+      "category": "5",
+      "source_image": "195e61769696aa144d1388a68ef92cc9.jpg",
+      "status": "confirmed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.74,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_068",
+      "category": "5",
+      "source_image": "1dfd85587a24e04e1e93659ba35f33cb.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.56,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_069",
+      "category": "5",
+      "source_image": "20fdc637f61dfa36c54e249634e14d0b.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.53,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_070",
+      "category": "5",
+      "source_image": "29c1ef134d62f2cc577bab5626a20c1c.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.71,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_071",
+      "category": "5",
+      "source_image": "2ea42ee155c5b71b0b4b676ac963c7fb.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.71,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_072",
+      "category": "5",
+      "source_image": "47ba31eeaca9848298775f65d6fa234f.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.56,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_073",
+      "category": "5",
+      "source_image": "4820b52582970f30b0498f3a123221b7.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.77,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_074",
+      "category": "5",
+      "source_image": "4e23a185bf796b4cb5f666f1fe51793b.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.58,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_075",
+      "category": "5",
+      "source_image": "56307c4b63202b4e854b8a8798eede62.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.59,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_076",
+      "category": "5",
+      "source_image": "56734469ec2d1b6642d46f696542f158 (1).jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.8,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_077",
+      "category": "5",
+      "source_image": "56734469ec2d1b6642d46f696542f158.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.8,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_078",
+      "category": "5",
+      "source_image": "57642ab86df23f4c3c16dc532812a4a2.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.57,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_079",
+      "category": "5",
+      "source_image": "5d2a41d1f18ef4aabe419ffdd8443c8c.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.59,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_080",
+      "category": "5",
+      "source_image": "62d5c958516588e9756a20568ad5f365.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.54,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_081",
+      "category": "5",
+      "source_image": "6389b9829fd3b6095ea57e5e526f724d.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.5,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_082",
+      "category": "5",
+      "source_image": "643bd799e1b8feac702983866d63e084.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.58,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_083",
+      "category": "5",
+      "source_image": "68811eb3e4fb65ca97fdbeec5b8a27fe.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.53,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_084",
+      "category": "5",
+      "source_image": "6d1719539d9569da58b03763b265a793.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.7,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_085",
+      "category": "5",
+      "source_image": "7b67c5d57c1c1846f67fcc526e8f47c6.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.68,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_086",
+      "category": "5",
+      "source_image": "80923498a1d85d4769b05cb49a0896ad.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.57,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_087",
+      "category": "5",
+      "source_image": "830d33e21f6dd6af89a7807d5b114530.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.68,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_088",
+      "category": "5",
+      "source_image": "937e6f5d68c405e58aa805fe45782a8d.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.56,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_089",
+      "category": "5",
+      "source_image": "9820be58ccd9fbb901a9c1dc5c1f302f.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.67,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_090",
+      "category": "5",
+      "source_image": "9a134d49d66ca4a4d3c5aa4df027957f.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.66,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_091",
+      "category": "5",
+      "source_image": "9ad5d0e23666bfb681998b5f8e9e1f7d.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.53,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_092",
+      "category": "5",
+      "source_image": "a07abad857205eee632c9dc62578b518.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.63,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_093",
+      "category": "5",
+      "source_image": "a40831320a67bd584783e08e8cab540c.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.95,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_094",
+      "category": "5",
+      "source_image": "aa9c5eee83ff1531817b84397713a47d.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.56,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_095",
+      "category": "5",
+      "source_image": "ade450ae46b9d04bd9e7f292893d47a6.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.56,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_096",
+      "category": "5",
+      "source_image": "adec1a346b99ba2096ee670abeaace78.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.61,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_097",
+      "category": "5",
+      "source_image": "c63409bec4ea96b726a9ce5aec3d0f58.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.69,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_098",
+      "category": "5",
+      "source_image": "c718ae280899447757c8e9c2aad42095.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.64,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_099",
+      "category": "5",
+      "source_image": "cd8718dddd2ed15d1c334f1663577d4f.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.57,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_100",
+      "category": "5",
+      "source_image": "d14d42fc06343f35ab940e9ee05dc9f4.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.77,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_101",
+      "category": "5",
+      "source_image": "d2de957ad48c7984e1575cedde4013d4.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.71,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_102",
+      "category": "5",
+      "source_image": "dd45a2887797efa0627282b44f07bae8.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.56,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_103",
+      "category": "5",
+      "source_image": "e4194c2f147c2b8da18c80580298530d.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.58,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_104",
+      "category": "5",
+      "source_image": "ef3c5ad7686f9eef14e2665644fb9d21.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.57,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_105",
+      "category": "5",
+      "source_image": "fa8bccde5c0a0d3574eb2735c39a6264.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.53,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_106",
+      "category": "5",
+      "source_image": "fcf2004f46c00eb7761b835248492768.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.64,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "5_107",
+      "category": "5",
+      "source_image": "ffeaa4733a93af8b9230c56882b1ec04.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "5 Marla (25' x 45')",
+      "aspect_ratio": 0.61,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_108",
+      "category": "7",
+      "source_image": "0162fa659d7392157fc0854ef058f419.jpg",
+      "status": "confirmed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.71,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_109",
+      "category": "7",
+      "source_image": "01d47a008ad8498cf8bc3f78cfc87765.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.62,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_110",
+      "category": "7",
+      "source_image": "04e5b61da28ac80c0551ecece7813618.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.56,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_111",
+      "category": "7",
+      "source_image": "06039b29355a1a549fa1df3ae4853bbb.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.67,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_112",
+      "category": "7",
+      "source_image": "0f6eee7a69348cc86e2a304bb945cef6.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.59,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_113",
+      "category": "7",
+      "source_image": "1652325a12a334043c1915e179d0c968.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.8,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_114",
+      "category": "7",
+      "source_image": "169f889d2765aec7024fdea981049482.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.57,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_115",
+      "category": "7",
+      "source_image": "1bde12fea7ccdd1c38649c9f82617c6e.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.84,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_116",
+      "category": "7",
+      "source_image": "2074e5e187b96cabd2b602003ff5f003.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.78,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_117",
+      "category": "7",
+      "source_image": "23026147e546ab5090a238f05ad0d223.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.64,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_118",
+      "category": "7",
+      "source_image": "2d1db9db5e5271b768a784c33616801f.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.61,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_119",
+      "category": "7",
+      "source_image": "4adaf5dd471e2914a49b147244bff661.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.59,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_120",
+      "category": "7",
+      "source_image": "56914aab30d80afd41516cd57a990236.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.62,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_121",
+      "category": "7",
+      "source_image": "5a6db849f3f45afc72e07e51080c33d7.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.61,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_122",
+      "category": "7",
+      "source_image": "5f3dc234d56a2f170caf0322f06df811.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.8,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_123",
+      "category": "7",
+      "source_image": "60851d20649c914cf4838590454ab4ca.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.57,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_124",
+      "category": "7",
+      "source_image": "61cd77c79ea67d05192da243490ea1ee.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.56,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_125",
+      "category": "7",
+      "source_image": "632be2433924088b61ed44d12c17ae7e.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.56,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_126",
+      "category": "7",
+      "source_image": "73dc283c967c137e626eb9697c0fb91c.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.59,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_127",
+      "category": "7",
+      "source_image": "758e205e54feb6a61dc64ecf9c328a6b.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.59,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_128",
+      "category": "7",
+      "source_image": "7cb970a85173aade05d10ba173f152fb.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.65,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_129",
+      "category": "7",
+      "source_image": "7d1f48256f0177ff855cf07c9e928a89.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.58,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_130",
+      "category": "7",
+      "source_image": "7eb0431d4385d22c8c1c9e271430b41d.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.77,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_131",
+      "category": "7",
+      "source_image": "7ed0333be4203c1e9e467f475be17718.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.57,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_132",
+      "category": "7",
+      "source_image": "85b4cd637142aceadb6ff3ed9920ab78.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.57,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_133",
+      "category": "7",
+      "source_image": "8acb230d32676951d19381417d03c625.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.58,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_134",
+      "category": "7",
+      "source_image": "9084f6290210a19e33f4d0e9678b39f2.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.63,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_135",
+      "category": "7",
+      "source_image": "952369fd03ed6cdf153860ff0eb0e70c.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.55,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_136",
+      "category": "7",
+      "source_image": "96647312a1823b0ccc6f5b5cea45264c.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.71,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_137",
+      "category": "7",
+      "source_image": "a8dbb3c7cbf0b17866ee8b082240cf32.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.64,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_138",
+      "category": "7",
+      "source_image": "ab131783dfef2d9bba76bef0c350e12d.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.65,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_139",
+      "category": "7",
+      "source_image": "af8546288d37f347a3f7d7ecbbb5fcc1.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.67,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_140",
+      "category": "7",
+      "source_image": "b0691f4fd83fad3bbd3c49adca823788.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.88,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_141",
+      "category": "7",
+      "source_image": "bb0e73dd1657c1cb730fa70352a20350.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.85,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_142",
+      "category": "7",
+      "source_image": "c177ce86f2b16b925d7a430f614a848a.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.86,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_143",
+      "category": "7",
+      "source_image": "cd5b3e91c93547fc01b5f5b9c2faddc6.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.61,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_144",
+      "category": "7",
+      "source_image": "download (1).png",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.56,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_145",
+      "category": "7",
+      "source_image": "download (2).png",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.56,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_146",
+      "category": "7",
+      "source_image": "download.png",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.56,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_147",
+      "category": "7",
+      "source_image": "ed77829428fb20012ee6bdd29de8873f.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.78,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_148",
+      "category": "7",
+      "source_image": "f63ac252b49b86fd82e6da75c20e653a.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.6,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "7_149",
+      "category": "7",
+      "source_image": "f9d2c723c5ece0a2a4e50e789bb713b0.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "7 Marla (30' x 55')",
+      "aspect_ratio": 0.71,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_150",
+      "category": "10",
+      "source_image": "052da9368c90d89e449dc37055603d7d.jpg",
+      "status": "confirmed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.59,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_151",
+      "category": "10",
+      "source_image": "060d13de5349461d2064392ce14217fc.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.56,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_152",
+      "category": "10",
+      "source_image": "2064f9dd00f728258227a1045629be8f.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.58,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_153",
+      "category": "10",
+      "source_image": "26814652a4c8ad2f8d9272f08663e823.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.67,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_154",
+      "category": "10",
+      "source_image": "30e52ed97103feac044bb49485e40da5.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.58,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_155",
+      "category": "10",
+      "source_image": "31f87a6a3109770522565fd7532e48b8.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.71,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_156",
+      "category": "10",
+      "source_image": "36c25c2aa334607d73ec124ebe838329.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.5,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_157",
+      "category": "10",
+      "source_image": "37a0070e0f79ac2338bf803e41caa0d5.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.56,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_158",
+      "category": "10",
+      "source_image": "3dd46b9a57d817703f8fbd60992cba19.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.63,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_159",
+      "category": "10",
+      "source_image": "412d074e3cb6a1733fc43466004f3adb.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.56,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_160",
+      "category": "10",
+      "source_image": "43c64ecf0b3a2087e060aaffacacf517.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.6,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_161",
+      "category": "10",
+      "source_image": "49db978c8cac36f27a7d2ddc2375b538.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.57,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_162",
+      "category": "10",
+      "source_image": "4eab6e9db38b31d6ea0c4b3eec575240.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.78,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_163",
+      "category": "10",
+      "source_image": "5d53b7f32586b0b769726a3e9e7c67d6.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.69,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_164",
+      "category": "10",
+      "source_image": "660c56d57c30c57d2598ce074c644adf.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.57,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_165",
+      "category": "10",
+      "source_image": "68ae6cfbd0822cffd30c82acc11c4823.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.77,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_166",
+      "category": "10",
+      "source_image": "68ce22582ac0497c923cee14b9608f49.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.56,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_167",
+      "category": "10",
+      "source_image": "6a0b981cfe8407c963ab6686608d2cde.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.55,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_168",
+      "category": "10",
+      "source_image": "74492f6dff0e80759bf91b2c3546ccce.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.64,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_169",
+      "category": "10",
+      "source_image": "7b8d09329d16531d380e7e180d67415f.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.56,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_170",
+      "category": "10",
+      "source_image": "80c5dd5da72d29e6db9c125b4f1733f8.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.58,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_171",
+      "category": "10",
+      "source_image": "89e44e5393ddf8894063024a48164887.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.56,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_172",
+      "category": "10",
+      "source_image": "9719e5d61dbc3fa3ab1923c3c171bd7f.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.76,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_173",
+      "category": "10",
+      "source_image": "9c7a45382f610804ecca126e80a823b8.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.67,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_174",
+      "category": "10",
+      "source_image": "ab9d97575303a0088c17778ed67d474f.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.62,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_175",
+      "category": "10",
+      "source_image": "af7ca10defaf7510e93d1f28b4ca839b.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.98,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_176",
+      "category": "10",
+      "source_image": "b0a5094ca9b81a85d10a5546a3ab7381.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.55,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_177",
+      "category": "10",
+      "source_image": "b92d00fa47f1bd579f57f0ad15ea4319.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.68,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_178",
+      "category": "10",
+      "source_image": "b957adec5a87a87aff175df9db2032dd.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.62,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_179",
+      "category": "10",
+      "source_image": "c16e97a41b64f24d55214f9d0ef77f92.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.55,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_180",
+      "category": "10",
+      "source_image": "c22ca84299eac96d55d7bf189a87493e.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.58,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_181",
+      "category": "10",
+      "source_image": "cb33831c86d1f16db29ad58bf9e926f3.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.55,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_182",
+      "category": "10",
+      "source_image": "dcb40330fc026cfbfec3f95441d09ca6.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.59,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_183",
+      "category": "10",
+      "source_image": "download.png",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.56,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_184",
+      "category": "10",
+      "source_image": "ee4309135f41eca62630264ecb16a220.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.61,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_185",
+      "category": "10",
+      "source_image": "ee8abc87ce99381ebc1d5e33556b2158.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.67,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_186",
+      "category": "10",
+      "source_image": "f5f8286b79f9fe312c37ab7c3f7a12e7.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.61,
+      "is_multi_sheet": false
+    },
+    {
+      "plan_id": "10_187",
+      "category": "10",
+      "source_image": "feaab571700ad095d526296118e18217.jpg",
+      "status": "catalog_indexed",
+      "plot_category": "10 Marla (35' x 65')",
+      "aspect_ratio": 0.71,
+      "is_multi_sheet": false
+    }
+  ]
+}

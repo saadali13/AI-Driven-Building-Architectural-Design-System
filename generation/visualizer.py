@@ -739,7 +739,8 @@ class FloorPlanVisualizer:
         is_vertical: bool = False,
         room_poly_pts: Optional[List] = None,
         is_sliding: bool = False,
-        is_cased_opening: bool = False
+        is_cased_opening: bool = False,
+        metadata: Optional[Dict[str, Any]] = None
     ):
         """Draws clean architectural 2D CAD door leaves (quarter-circle swing arcs, pocket doors, or open cased portals).
         
@@ -806,8 +807,11 @@ class FloorPlanVisualizer:
             return
 
         # 1. Determine swing direction (into room) and hinge jamb
-        swing_dir = 1
-        hinge_side = 0  # 0: left / bottom, 1: right / top
+        meta = metadata or {}
+        swing_dir = meta.get("swing_dir", 1)
+        hinge_side = meta.get("hinge_side", 0)  # 0: left / bottom, 1: right / top
+        if meta.get("is_sliding", False):
+            is_sliding = True
 
         if room_poly_pts and len(room_poly_pts) >= 3:
             try:
@@ -1299,7 +1303,8 @@ class FloorPlanVisualizer:
                     is_vertical=is_vertical_wall,
                     room_poly_pts=door_room_poly,
                     is_sliding=is_sliding_door,
-                    is_cased_opening=is_cased_opening
+                    is_cased_opening=is_cased_opening,
+                    metadata=op.metadata
                 )
             elif op.opening_type == "window":
                 hw = width / 2.0

@@ -80,7 +80,8 @@ def make_door(
     y: float,
     connects_rooms: List[str],
     width_m: float = 0.90,
-    level_index: int = 0
+    level_index: int = 0,
+    metadata: Optional[Dict[str, Any]] = None
 ) -> OpeningModel:
     """Creates a door opening with connectivity."""
     return OpeningModel(
@@ -91,7 +92,8 @@ def make_door(
         height_m=2.10,
         sill_height_m=0.0,
         connects_rooms=connects_rooms,
-        level_index=level_index
+        level_index=level_index,
+        metadata=metadata or {}
     )
 
 

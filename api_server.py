@@ -28,6 +28,9 @@ from generation.rag_solver import DatasetDrivenRAGSolver
 from generation.quality_gate import FloorPlanQualityGate
 from generation.visualizer import FloorPlanVisualizer
 from cad.dxf_generator import DXFGenerator
+from generation.floor_plan_to_elevation_mapper import FloorPlanToElevationMapper
+from generation.architectural_validator_engine import ArchitecturalValidatorEngine
+from generation.door_clearance_engine import DoorClearanceEngine
 
 # Ensure project root is in sys.path
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -574,8 +577,26 @@ class ProceduralArchitecturalEngine:
                     generated_images["all"] = f"{web_base}/{os.path.basename(comp_png)}"
                     generated_images["multiFloor"] = f"{web_base}/{os.path.basename(comp_png)}"
                     generated_images["presentation"] = f"{web_base}/{os.path.basename(comp_png)}"
+
+                # High-Fidelity 2D Technical Front Elevation mapped directly from floor plan
+                try:
+                    elev_filename = f"{project_id}_front_elevation_2d.png"
+                    elev_a_path = os.path.join(plan_out_dir, elev_filename)
+                    FloorPlanToElevationMapper.map_and_render_elevation(canonical_plan, elev_a_path, style=style, project_title=project_title)
+                    if os.path.exists(elev_a_path):
+                        generated_images["elevation"] = f"{web_base}/{elev_filename}"
+                except Exception as e_elev:
+                    print(f"[FloorPlanToElevationMapper Warning]: {e_elev}")
             except Exception as e_rend:
                 print(f"[FloorPlanVisualizer Warning]: {e_rend}")
+
+        # Comprehensive Architectural Validation & Quality Audit
+        audit_report = None
+        if canonical_plan:
+            try:
+                audit_report = ArchitecturalValidatorEngine.run_full_validation_audit(canonical_plan)
+            except Exception as e_aud:
+                print(f"[ArchitecturalValidatorEngine Warning]: {e_aud}")
 
         return {
             "project_id": project_id,
@@ -604,6 +625,9 @@ class ProceduralArchitecturalEngine:
             "three_d_model": three_d_model,
             "cost_estimation": boq,
             "quality_gate": quality_gate,
+            "architectural_audit": audit_report,
+            "interior_validation": audit_report.get("interior_validation") if audit_report else None,
+            "elevation_consistency": audit_report.get("elevation_consistency") if audit_report else None,
             "prompt_used": effective_prompt,
             "canonical_plan_id": canonical_plan.metadata.plan_id if canonical_plan else None
         }
@@ -656,17 +680,23 @@ class ProceduralArchitecturalEngine:
             res["has_match"] = True
 
         # Detect style
-        if "spanish" in t:
-            res["style"] = "spanish"
+        if any(k in t for k in ("spanish", "hacienda", "colonial", "mediterranean", "andalusian")):
+            res["style"] = "spanish_villa"
             res["has_match"] = True
-        elif "classical" in t or "victorian" in t:
-            res["style"] = "classical"
+        elif any(k in t for k in ("victorian", "heritage", "queen anne")):
+            res["style"] = "classic_victorian"
             res["has_match"] = True
-        elif "contemporary" in t:
-            res["style"] = "contemporary"
+        elif any(k in t for k in ("classical", "neoclassical", "palladian", "greek", "georgian")):
+            res["style"] = "classical_neoclassical"
             res["has_match"] = True
-        elif "minimalist" in t or "modern" in t:
-            res["style"] = "modern"
+        elif any(k in t for k in ("brutalist", "brutalism", "industrial", "concrete", "raw")):
+            res["style"] = "minimalist_brutalist"
+            res["has_match"] = True
+        elif any(k in t for k in ("scandinavian", "japandi", "nordic")):
+            res["style"] = "scandinavian_japandi"
+            res["has_match"] = True
+        elif any(k in t for k in ("contemporary", "modern", "minimalist")):
+            res["style"] = "modern_contemporary"
             res["has_match"] = True
 
         return res
