@@ -163,6 +163,22 @@ class ApiService {
   /**
    * Calculate BOQ cost estimation via backend
    */
+
+  /**
+   * Fetch live Pakistan construction material market rates using Gemini AI
+   */
+  async fetchGeminiMarketRates(apiKey: string, city?: string): Promise<{ success: boolean; source: string; city: string; rates: Record<string, number> }> {
+    const res = await fetch(`${this.baseUrl}/api/gemini/market-rates`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ api_key: apiKey, city: city || 'Islamabad / Lahore' }),
+    });
+    if (!res.ok) {
+      throw new Error(`Market rates fetch failed (HTTP ${res.status})`);
+    }
+    return await res.json();
+  }
+
   async calculateCost(params: {
     covered_area_sqft: number;
     floors: number;
@@ -170,6 +186,7 @@ class ApiService {
     bathrooms: number;
     budget_tier?: string;
     currency?: string;
+    custom_unit_prices?: Record<string, number>;
   }): Promise<any> {
     const res = await fetch(`${this.baseUrl}/api/cost-estimation`, {
       method: 'POST',

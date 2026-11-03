@@ -31,8 +31,12 @@ import {
   Plus,
   Download,
   History,
-  X
+  X,
+  Calculator,
+  Trash2,
+  Key
 } from 'lucide-react';
+import { CustomRoomSpec } from '../../types';
 import { useProjects } from '../../context/ProjectContext';
 import { useAuth } from '../../context/AuthContext';
 import { PlotPreset, ArchitecturalStyle, BuildingType, DesignAlternative, PakistaniSpecs } from '../../types';
@@ -75,6 +79,15 @@ export interface ParsedBrief {
   laundryRoom?: boolean;
   mumtyRooftopAccess?: boolean;
   courtyardVentilation?: boolean;
+  guardRoom?: boolean;
+  formalDining?: boolean;
+  doubleHeightFoyer?: boolean;
+  openKitchenIsland?: boolean;
+  homeOffice?: boolean;
+  walkInClosets?: boolean;
+  pantryStore?: boolean;
+  solarUtilityShaft?: boolean;
+  customRooms?: CustomRoomSpec[];
 }
 
 export function parsePromptToDesignBrief(prompt: string): ParsedBrief {
@@ -152,7 +165,7 @@ export function parsePromptToDesignBrief(prompt: string): ParsedBrief {
   } else if (text.match(/double\s*(?:storey|story|floor)|2\s*(?:storey|story|floor)|two\s*(?:storey|story|floor)|ground\s*\+\s*first/i)) {
     result.floors = 2;
   } else if (text.match(/triple\s*(?:storey|story|floor)|3\s*(?:storey|story|floor)|three\s*(?:storey|story|floor)|ground\s*\+\s*2/i)) {
-    result.floors = 3;
+    result.floors = 2; // Engine supports single & double storey; capped at 2
   }
 
   // 5. Architectural Style
@@ -227,6 +240,36 @@ export function parsePromptToDesignBrief(prompt: string): ParsedBrief {
     result.courtyardVentilation = true;
   }
 
+  // Extended Pakistani Features
+  if (text.match(/guard\s*room|security\s*room|gate\s*room/i)) {
+    result.guardRoom = true;
+  }
+
+  // Formal Features
+  if (text.match(/formal\s*dining|dining\s*hall|separate\s*dining/i)) {
+    result.formalDining = true;
+  }
+  if (text.match(/double\s*height|high\s*ceiling\s*foyer|grand\s*foyer/i)) {
+    result.doubleHeightFoyer = true;
+  }
+
+  // Modern / Foreign Features
+  if (text.match(/open\s*kitchen|island\s*kitchen|kitchen\s*island/i)) {
+    result.openKitchenIsland = true;
+  }
+  if (text.match(/home\s*office|study\s*room|study|workspace/i)) {
+    result.homeOffice = true;
+  }
+  if (text.match(/walk\s*in\s*closet|walk-in|dressing\s*room|wic/i)) {
+    result.walkInClosets = true;
+  }
+  if (text.match(/pantry|grocery\s*store|dry\s*store/i)) {
+    result.pantryStore = true;
+  }
+  if (text.match(/solar|utility\s*shaft|inverter/i)) {
+    result.solarUtilityShaft = true;
+  }
+
   return result;
 }
 
@@ -286,7 +329,21 @@ export function formatFormToPrompt(
   }
 
   if (pakistaniSpecs.mumtyRooftopAccess) {
-    features.push('and a rooftop terrace');
+    features.push('a rooftop terrace');
+  }
+
+  if (pakistaniSpecs.guardRoom) features.push('a security guard room');
+  if (pakistaniSpecs.formalDining) features.push('a formal dining room');
+  if (pakistaniSpecs.doubleHeightFoyer) features.push('a double-height entrance foyer');
+  if (pakistaniSpecs.openKitchenIsland) features.push('an open kitchen with island');
+  if (pakistaniSpecs.homeOffice) features.push('a dedicated home office/study');
+  if (pakistaniSpecs.walkInClosets) features.push('walk-in closets');
+  if (pakistaniSpecs.pantryStore) features.push('a kitchen pantry store');
+  if (pakistaniSpecs.solarUtilityShaft) features.push('a solar inverter shaft');
+  if (pakistaniSpecs.customRooms && pakistaniSpecs.customRooms.length > 0) {
+    pakistaniSpecs.customRooms.forEach((cr) => {
+      features.push(`a ${cr.name.toLowerCase()} (${cr.size})`);
+    });
   }
 
   return `${parts.join(' ')} with ${features.join(', ')}.`;
@@ -340,7 +397,50 @@ export const NewDesignPage: React.FC = () => {
     setbackFrontFt: 7.5,
     setbackRearFt: 5,
     setbackSidesFt: 0,
+    guardRoom: false,
+    formalDining: false,
+    doubleHeightFoyer: false,
+    openKitchenIsland: false,
+    homeOffice: false,
+    walkInClosets: false,
+    pantryStore: false,
+    solarUtilityShaft: false,
   });
+
+  const [customRooms, setCustomRooms] = useState<CustomRoomSpec[]>([]);
+  const [newRoomName, setNewRoomName] = useState('');
+  const [newRoomSize, setNewRoomSize] = useState('12x14 ft');
+  const [newRoomFloor, setNewRoomFloor] = useState<'Ground' | 'First'>('Ground');
+  const [masterBedSize, setMasterBedSize] = useState('14x16 ft (Executive)');
+  const [guestBedSize, setGuestBedSize] = useState('12x14 ft (Standard)');
+  const [isReviewEditing, setIsReviewEditing] = useState(false);
+
+  // Gemini Market Rates & Interactive BOQ State
+  const [geminiApiKey, setGeminiApiKey] = useState(() => {
+    try {
+      return sessionStorage.getItem('archai_gemini_key') || '';
+    } catch {
+      return '';
+    }
+  });
+  const [geminiCity, setGeminiCity] = useState('Islamabad / Lahore');
+  const [isFetchingGeminiRates, setIsFetchingGeminiRates] = useState(false);
+  const [rateSourceNotice, setRateSourceNotice] = useState('Verified 2026 Pakistan Construction Benchmark');
+  const [customUnitPrices, setCustomUnitPrices] = useState<Record<string, number>>({
+    cement_bag: 1450,
+    steel_ton: 275000,
+    brick_unit: 14.5,
+    sand_cft: 48,
+    crush_cft: 125,
+    labor_per_sqft: 450,
+    tiles_sqft: 350,
+    paint_sqft: 55,
+    door_unit: 35000,
+    window_unit: 28000,
+    bath_sanitary_unit: 65000,
+  });
+  const [boqData, setBoqData] = useState<any>(null);
+  const [isUpdatingBoq, setIsUpdatingBoq] = useState(false);
 
   const [budgetPriority, setBudgetPriority] = useState<'economical' | 'balanced' | 'luxury'>('balanced');
 
@@ -375,6 +475,14 @@ export const NewDesignPage: React.FC = () => {
       laundryRoom: parsed.laundryRoom !== undefined ? parsed.laundryRoom : prev.laundryRoom,
       mumtyRooftopAccess: parsed.mumtyRooftopAccess !== undefined ? parsed.mumtyRooftopAccess : prev.mumtyRooftopAccess,
       courtyardVentilation: parsed.courtyardVentilation !== undefined ? parsed.courtyardVentilation : prev.courtyardVentilation,
+      guardRoom: parsed.guardRoom !== undefined ? parsed.guardRoom : prev.guardRoom,
+      formalDining: parsed.formalDining !== undefined ? parsed.formalDining : prev.formalDining,
+      doubleHeightFoyer: parsed.doubleHeightFoyer !== undefined ? parsed.doubleHeightFoyer : prev.doubleHeightFoyer,
+      openKitchenIsland: parsed.openKitchenIsland !== undefined ? parsed.openKitchenIsland : prev.openKitchenIsland,
+      homeOffice: parsed.homeOffice !== undefined ? parsed.homeOffice : prev.homeOffice,
+      walkInClosets: parsed.walkInClosets !== undefined ? parsed.walkInClosets : prev.walkInClosets,
+      pantryStore: parsed.pantryStore !== undefined ? parsed.pantryStore : prev.pantryStore,
+      solarUtilityShaft: parsed.solarUtilityShaft !== undefined ? parsed.solarUtilityShaft : prev.solarUtilityShaft,
     }));
   }, [floors]);
 
@@ -460,7 +568,81 @@ export const NewDesignPage: React.FC = () => {
   const [synthesisError, setSynthesisError] = useState<string | null>(null);
 
   // Result display active tab
-  const [resultTab, setResultTab] = useState<'floor_plan' | 'elevation' | '3d_model' | 'audit'>('floor_plan');
+  const [resultTab, setResultTab] = useState<'floor_plan' | 'elevation' | '3d_model' | 'audit' | 'boq'>('floor_plan');
+
+  const handleFetchGeminiMarketRates = async (keyToUse = geminiApiKey, cityToUse = geminiCity) => {
+    setIsFetchingGeminiRates(true);
+    try {
+      const res = await apiService.fetchGeminiMarketRates(keyToUse, cityToUse);
+      if (res && res.rates) {
+        setCustomUnitPrices(res.rates);
+        setRateSourceNotice(res.source === 'gemini_live' ? `Live Gemini 1.5 Flash Rates (${res.city})` : `Verified Benchmark Rates (${res.city})`);
+        if (keyToUse) {
+          try { sessionStorage.setItem('archai_gemini_key', keyToUse); } catch {}
+        }
+        const area = Math.round(plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55));
+        const updatedBoq = await apiService.calculateCost({
+          covered_area_sqft: area,
+          floors,
+          bedrooms,
+          bathrooms,
+          budget_tier: budgetPriority,
+          currency: 'PKR',
+          custom_unit_prices: res.rates
+        });
+        setBoqData(updatedBoq);
+      }
+    } catch (e) {
+      console.error('Error fetching market rates:', e);
+    } finally {
+      setIsFetchingGeminiRates(false);
+    }
+  };
+
+  const handleUnitPriceChange = async (itemId: string, newRate: number) => {
+    const updated = { ...customUnitPrices, [itemId]: newRate };
+    setCustomUnitPrices(updated);
+    setIsUpdatingBoq(true);
+    try {
+      const area = Math.round(plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55));
+      const updatedBoq = await apiService.calculateCost({
+        covered_area_sqft: area,
+        floors,
+        bedrooms,
+        bathrooms,
+        budget_tier: budgetPriority,
+        currency: 'PKR',
+        custom_unit_prices: updated
+      });
+      setBoqData(updatedBoq);
+    } catch (e) {
+      console.warn('BOQ update warning:', e);
+    } finally {
+      setIsUpdatingBoq(false);
+    }
+  };
+
+  const handleAddCustomRoom = () => {
+    if (!newRoomName.trim()) return;
+    const room: CustomRoomSpec = {
+      id: `cr_${Date.now()}`,
+      name: newRoomName.trim(),
+      size: newRoomSize,
+      floor: newRoomFloor,
+    };
+    const updatedRooms = [...customRooms, room];
+    setCustomRooms(updatedRooms);
+    setPakistaniSpecs((prev) => ({ ...prev, customRooms: updatedRooms }));
+    setNewRoomName('');
+    syncFormToPrompt(plotPreset, plotWidthFt, plotLengthFt, floors, bedrooms, bathrooms, style, { ...pakistaniSpecs, customRooms: updatedRooms }, housingSociety);
+  };
+
+  const handleRemoveCustomRoom = (id: string) => {
+    const updatedRooms = customRooms.filter((r) => r.id !== id);
+    setCustomRooms(updatedRooms);
+    setPakistaniSpecs((prev) => ({ ...prev, customRooms: updatedRooms }));
+    syncFormToPrompt(plotPreset, plotWidthFt, plotLengthFt, floors, bedrooms, bathrooms, style, { ...pakistaniSpecs, customRooms: updatedRooms }, housingSociety);
+  };
   const [activeFloorView, setActiveFloorView] = useState<'ground' | 'first' | 'rooftop' | 'all'>('ground');
   const [renderMode, setRenderMode] = useState<'backend_png' | 'interactive_svg'>('backend_png');
 
@@ -521,19 +703,24 @@ export const NewDesignPage: React.FC = () => {
 
   const handlePresetSelect = (preset: PlotPreset) => {
     setPlotPreset(preset);
+    let nw = plotWidthFt;
+    let nl = plotLengthFt;
+    let nb = bedrooms;
+    let nbt = bathrooms;
     if (preset === '5_marla') {
-      setPlotWidthFt(25); setPlotLengthFt(45);
-      setBedrooms(3); setBathrooms(4);
+      nw = 25; nl = 45; nb = 3; nbt = 4;
     } else if (preset === '7_marla') {
-      setPlotWidthFt(30); setPlotLengthFt(52.5);
-      setBedrooms(4); setBathrooms(5);
+      nw = 30; nl = 52.5; nb = 4; nbt = 5;
     } else if (preset === '10_marla') {
-      setPlotWidthFt(35); setPlotLengthFt(65);
-      setBedrooms(4); setBathrooms(5);
+      nw = 35; nl = 65; nb = 4; nbt = 5;
     } else if (preset === '1_kanal') {
-      setPlotWidthFt(50); setPlotLengthFt(90);
-      setBedrooms(5); setBathrooms(6);
+      nw = 50; nl = 90; nb = 5; nbt = 6;
     }
+    setPlotWidthFt(nw);
+    setPlotLengthFt(nl);
+    setBedrooms(nb);
+    setBathrooms(nbt);
+    syncFormToPrompt(preset, nw, nl, floors, nb, nbt, style, pakistaniSpecs, housingSociety);
   };
 
   const PROMPT_EXAMPLES = [
@@ -1045,23 +1232,38 @@ export const NewDesignPage: React.FC = () => {
             </button>
           </div>
 
+          {/* Project Title Input */}
+          <div className="space-y-1">
+            <label className="text-xs font-bold text-[#202923] flex items-center justify-between">
+              <span>Project Title / Name</span>
+              <span className="text-[10px] text-[#68736C] font-normal">Identifies your design deliverables</span>
+            </label>
+            <input
+              type="text"
+              value={projectName}
+              onChange={(e) => setProjectName(e.target.value)}
+              placeholder="e.g. Modern Executive Villa, DHA Phase 6"
+              className="w-full bg-[#F7F7F2] border border-[#E2E7E1] rounded-xl px-3.5 py-2.5 text-xs text-[#202923] focus:outline-none focus:border-[#23483D] transition-colors"
+            />
+          </div>
+
           {/* Quick Plot & Style Preset Chips */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 rounded-2xl bg-[#F7F7F2] border border-[#E2E7E1] text-xs">
             <div>
               <label className="block text-[#202923] font-bold mb-1.5">Target Plot Size</label>
               <div className="flex flex-wrap gap-1.5">
-                {(['5_marla', '7_marla', '10_marla', '1_kanal'] as PlotPreset[]).map((p) => (
+                {(['5_marla', '7_marla', '10_marla', '1_kanal', 'custom'] as PlotPreset[]).map((p) => (
                   <button
                     key={p}
                     type="button"
                     onClick={() => handlePresetSelect(p)}
                     className={`px-2.5 py-1 rounded-lg font-medium transition-colors ${
                       plotPreset === p
-                        ? 'bg-[#23483D] text-white'
+                        ? 'bg-[#23483D] text-white shadow-xs'
                         : 'bg-white border border-[#E2E7E1] text-[#68736C] hover:text-[#202923]'
                     }`}
                   >
-                    {p.replace('_', ' ').toUpperCase()}
+                    {p === 'custom' ? 'CUSTOM' : p.replace('_', ' ').toUpperCase()}
                   </button>
                 ))}
               </div>
@@ -1070,7 +1272,7 @@ export const NewDesignPage: React.FC = () => {
             <div>
               <label className="block text-[#202923] font-bold mb-1.5">Number of Storeys</label>
               <div className="flex gap-1.5">
-                {[1, 2, 3].map((f) => (
+                {[1, 2].map((f) => (
                   <button
                     key={f}
                     type="button"
@@ -1084,7 +1286,7 @@ export const NewDesignPage: React.FC = () => {
                         : 'bg-white border border-[#E2E7E1] text-[#68736C] hover:text-[#202923]'
                     }`}
                   >
-                    {f} {f === 1 ? 'Single' : f === 2 ? 'Double' : 'Triple'}
+                    {f} {f === 1 ? 'Single' : 'Double'}
                   </button>
                 ))}
               </div>
@@ -1109,6 +1311,53 @@ export const NewDesignPage: React.FC = () => {
               </select>
             </div>
           </div>
+
+          {/* Custom Plot Dimension Inputs */}
+          {plotPreset === 'custom' && (
+            <div className="p-4 rounded-xl bg-white border-2 border-[#23483D]/40 space-y-3 animate-in fade-in">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold text-[#23483D] flex items-center gap-1.5">
+                  <Sliders className="h-3.5 w-3.5" />
+                  Custom Plot Boundary Dimensions
+                </span>
+                <span className="text-[11px] font-mono font-bold text-[#202923]">
+                  {calculatedAreaSqFt.toLocaleString()} sq ft ({calculatedMarla} Marla)
+                </span>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                <div>
+                  <label className="block text-[#68736C] font-semibold mb-1">Plot Front Width (ft)</label>
+                  <input
+                    type="number"
+                    min={15}
+                    max={150}
+                    value={plotWidthFt}
+                    onChange={(e) => {
+                      const w = Number(e.target.value);
+                      setPlotWidthFt(w);
+                      syncFormToPrompt('custom', w, plotLengthFt, floors, bedrooms, bathrooms, style, pakistaniSpecs, housingSociety);
+                    }}
+                    className="w-full bg-[#F7F7F2] border border-[#E2E7E1] rounded-xl px-3 py-2 font-mono font-bold text-[#202923] focus:outline-none focus:border-[#23483D]"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[#68736C] font-semibold mb-1">Plot Length / Depth (ft)</label>
+                  <input
+                    type="number"
+                    min={20}
+                    max={250}
+                    value={plotLengthFt}
+                    onChange={(e) => {
+                      const l = Number(e.target.value);
+                      setPlotLengthFt(l);
+                      syncFormToPrompt('custom', plotWidthFt, l, floors, bedrooms, bathrooms, style, pakistaniSpecs, housingSociety);
+                    }}
+                    className="w-full bg-[#F7F7F2] border border-[#E2E7E1] rounded-xl px-3 py-2 font-mono font-bold text-[#202923] focus:outline-none focus:border-[#23483D]"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Main Prompt Textarea */}
           <div className="space-y-2">
@@ -1152,7 +1401,7 @@ export const NewDesignPage: React.FC = () => {
           </div>
 
           {/* Live AI Spatial Extraction Card */}
-          <div className="p-4 rounded-2xl bg-[#EEF4F0]/60 border border-[#DCE7DE] space-y-2 text-xs">
+          <div className="p-4 rounded-2xl bg-[#EEF4F0]/70 border border-[#DCE7DE] space-y-2 text-xs">
             <span className="text-[11px] font-bold text-[#23483D] uppercase tracking-wider flex items-center gap-1.5">
               <CheckCircle2 className="h-3.5 w-3.5 text-[#23483D]" />
               Live AI Spatial Extraction Preview
@@ -1160,20 +1409,22 @@ export const NewDesignPage: React.FC = () => {
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1 text-[#202923]">
               <div>
                 <span className="text-[10px] text-[#68736C] block">Plot Category</span>
-                <span className="font-bold">{plotPreset.replace('_', ' ').toUpperCase()} ({plotWidthFt}&times;{plotLengthFt} ft)</span>
+                <span className="font-bold">
+                  {plotPreset === 'custom' ? 'CUSTOM PLOT' : plotPreset.replace('_', ' ').toUpperCase()} ({plotWidthFt}&times;{plotLengthFt} ft &bull; {calculatedMarla}M)
+                </span>
               </div>
               <div>
                 <span className="text-[10px] text-[#68736C] block">Covered Area</span>
-                <span className="font-bold font-mono">{calculatedAreaSqFt * (floors === 1 ? 0.75 : 1.55)} sq ft</span>
+                <span className="font-bold font-mono">{Math.round(calculatedAreaSqFt * (floors === 1 ? 0.75 : 1.55))} sq ft</span>
               </div>
               <div>
                 <span className="text-[10px] text-[#68736C] block">Room Schedule</span>
-                <span className="font-bold">{bedrooms} Beds &bull; {bathrooms} Baths</span>
+                <span className="font-bold">{bedrooms} Beds &bull; {bathrooms} Baths ({floors} Flr)</span>
               </div>
               <div>
                 <span className="text-[10px] text-[#68736C] block">Pakistani Specs</span>
-                <span className="font-bold text-[#23483D]">
-                  {pakistaniSpecs.carPorchCapacity}-Car Porch, {pakistaniSpecs.kitchenDirtyKitchenCombo ? 'Dirty Kitchen' : 'Standard Kitchen'}{pakistaniSpecs.drawingRoomSeparate ? ', Drawing Room' : ''}
+                <span className="font-bold text-[#23483D] truncate block">
+                  {pakistaniSpecs.carPorchCapacity}-Car Porch, {pakistaniSpecs.kitchenDirtyKitchenCombo ? 'Dirty Kitchen' : 'Std Kitchen'}{pakistaniSpecs.drawingRoomSeparate ? ', Drawing' : ''}
                 </span>
               </div>
             </div>
@@ -1198,94 +1449,259 @@ export const NewDesignPage: React.FC = () => {
         </div>
       )}
 
-      {/* STEP 3 (AI FLOW): REVIEW AI BRIEF */}
+      {/* STEP 3 (AI FLOW): REVIEW & EDIT AI BRIEF */}
       {creationMode === 'prompt' && currentStep === 3 && (
         <div className="bg-white border border-[#E2E7E1] rounded-2xl p-6 sm:p-10 shadow-xs space-y-6">
-          <div className="border-b border-[#E2E7E1] pb-5">
-            <h2 className="text-xl font-bold text-[#202923] font-heading">
-              Review AI Extracted Design Brief
-            </h2>
-            <p className="text-xs text-[#68736C] mt-1">
-              Verify the parsed architectural dimensions and spatial zoning before connecting to the backend to generate the floor plan, elevation, and 3D model.
-            </p>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#E2E7E1] pb-5">
+            <div>
+              <h2 className="text-xl font-bold text-[#202923] font-heading flex items-center gap-2">
+                <CheckCircle2 className="h-5 w-5 text-[#23483D]" />
+                Review & Customize Design Brief
+              </h2>
+              <p className="text-xs text-[#68736C] mt-1">
+                Verify or directly modify parameters before the engine synthesizes the floor plan, elevation, and 3D model.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setIsReviewEditing(!isReviewEditing)}
+              className="px-3.5 py-1.5 rounded-xl bg-[#EEF4F0] border border-[#DCE7DE] text-[#23483D] hover:bg-[#DCE7DE] text-xs font-semibold flex items-center gap-1.5 self-start sm:self-auto transition-colors"
+            >
+              <Edit3 className="h-3.5 w-3.5" />
+              <span>{isReviewEditing ? 'Lock Requirements' : 'Edit Requirements'}</span>
+            </button>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-xs">
-            <div className="p-5 rounded-2xl bg-[#F7F7F2] border border-[#E2E7E1] space-y-3">
+            {/* Plot & Structural Card */}
+            <div className="p-5 rounded-2xl bg-[#F7F7F2] border border-[#E2E7E1] space-y-4">
               <h3 className="font-bold text-[#202923] flex items-center gap-2">
                 <Building className="h-4 w-4 text-[#23483D]" />
-                Plot & Structural Parameters
+                Plot & Structural Dimensions
               </h3>
-              <div className="space-y-2 text-[#68736C]">
-                <div className="flex justify-between">
-                  <span>Plot Preset:</span>
-                  <strong className="text-[#202923]">{plotPreset.replace('_', ' ').toUpperCase()}</strong>
+              <div className="space-y-3">
+                <div className="flex justify-between items-center">
+                  <span className="text-[#68736C]">Project Title:</span>
+                  {isReviewEditing ? (
+                    <input
+                      type="text"
+                      value={projectName}
+                      onChange={(e) => setProjectName(e.target.value)}
+                      className="bg-white border border-[#E2E7E1] rounded-lg px-2 py-1 text-xs text-right font-medium text-[#202923]"
+                    />
+                  ) : (
+                    <strong className="text-[#202923]">{projectName}</strong>
+                  )}
                 </div>
-                <div className="flex justify-between">
-                  <span>Dimensions:</span>
-                  <strong className="text-[#202923] font-mono">{plotWidthFt} &times; {plotLengthFt} ft ({calculatedAreaSqFt} sq ft)</strong>
+
+                <div className="flex justify-between items-center">
+                  <span className="text-[#68736C]">Dimensions:</span>
+                  {isReviewEditing ? (
+                    <div className="flex items-center gap-1.5">
+                      <input
+                        type="number"
+                        value={plotWidthFt}
+                        onChange={(e) => {
+                          const w = Number(e.target.value);
+                          setPlotWidthFt(w);
+                          syncFormToPrompt(plotPreset, w, plotLengthFt, floors, bedrooms, bathrooms, style, pakistaniSpecs, housingSociety);
+                        }}
+                        className="w-16 bg-white border border-[#E2E7E1] rounded-lg px-2 py-1 text-xs font-mono font-bold text-center"
+                      />
+                      <span>&times;</span>
+                      <input
+                        type="number"
+                        value={plotLengthFt}
+                        onChange={(e) => {
+                          const l = Number(e.target.value);
+                          setPlotLengthFt(l);
+                          syncFormToPrompt(plotPreset, plotWidthFt, l, floors, bedrooms, bathrooms, style, pakistaniSpecs, housingSociety);
+                        }}
+                        className="w-16 bg-white border border-[#E2E7E1] rounded-lg px-2 py-1 text-xs font-mono font-bold text-center"
+                      />
+                      <span>ft</span>
+                    </div>
+                  ) : (
+                    <strong className="text-[#202923] font-mono">{plotWidthFt} &times; {plotLengthFt} ft ({calculatedAreaSqFt} sq ft &bull; {calculatedMarla}M)</strong>
+                  )}
                 </div>
-                <div className="flex justify-between">
-                  <span>Storeys:</span>
-                  <strong className="text-[#202923]">{floors} Storey ({floors === 1 ? 'Single' : 'Double'} Floor)</strong>
+
+                <div className="flex justify-between items-center">
+                  <span className="text-[#68736C]">Storeys:</span>
+                  {isReviewEditing ? (
+                    <div className="flex gap-1">
+                      {[1, 2].map((f) => (
+                        <button
+                          key={f}
+                          type="button"
+                          onClick={() => {
+                            setFloors(f);
+                            syncFormToPrompt(plotPreset, plotWidthFt, plotLengthFt, f, bedrooms, bathrooms, style, pakistaniSpecs, housingSociety);
+                          }}
+                          className={`px-2 py-0.5 rounded text-[11px] font-semibold ${floors === f ? 'bg-[#23483D] text-white' : 'bg-white border border-[#E2E7E1]'}`}
+                        >
+                          {f} {f === 1 ? 'Single' : 'Double'}
+                        </button>
+                      ))}
+                    </div>
+                  ) : (
+                    <strong className="text-[#202923]">{floors} Storey ({floors === 1 ? 'Single Floor' : 'Ground + 1st Floor'})</strong>
+                  )}
                 </div>
-                <div className="flex justify-between">
-                  <span>Architectural Style:</span>
-                  <strong className="text-[#202923]">{style}</strong>
+
+                <div className="flex justify-between items-center">
+                  <span className="text-[#68736C]">Architectural Style:</span>
+                  {isReviewEditing ? (
+                    <select
+                      value={style}
+                      onChange={(e) => {
+                        const s = e.target.value as ArchitecturalStyle;
+                        setStyle(s);
+                        syncFormToPrompt(plotPreset, plotWidthFt, plotLengthFt, floors, bedrooms, bathrooms, s, pakistaniSpecs, housingSociety);
+                      }}
+                      className="bg-white border border-[#E2E7E1] rounded-lg px-2 py-1 text-xs font-semibold"
+                    >
+                      <option value="Modern Contemporary">Modern Contemporary</option>
+                      <option value="Minimalist">Minimalist</option>
+                      <option value="Spanish Villa">Spanish Villa</option>
+                      <option value="Classical Estate">Classical Estate</option>
+                      <option value="Traditional Haveli">Traditional Haveli</option>
+                    </select>
+                  ) : (
+                    <strong className="text-[#202923]">{style}</strong>
+                  )}
                 </div>
               </div>
             </div>
 
-            <div className="p-5 rounded-2xl bg-[#F7F7F2] border border-[#E2E7E1] space-y-3">
+            {/* Rooms & Cultural Preferences Card */}
+            <div className="p-5 rounded-2xl bg-[#F7F7F2] border border-[#E2E7E1] space-y-4">
               <h3 className="font-bold text-[#202923] flex items-center gap-2">
                 <Home className="h-4 w-4 text-[#23483D]" />
                 Rooms & Cultural Preferences
               </h3>
-              <div className="space-y-2 text-[#68736C]">
-                <div className="flex justify-between">
-                  <span>Bedrooms & Baths:</span>
-                  <strong className="text-[#202923]">{bedrooms} Beds / {bathrooms} Baths</strong>
+              <div className="space-y-3">
+                <div className="flex justify-between items-center">
+                  <span className="text-[#68736C]">Bedrooms & Baths:</span>
+                  {isReviewEditing ? (
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="number"
+                        min={2}
+                        max={8}
+                        value={bedrooms}
+                        onChange={(e) => {
+                          const nb = Number(e.target.value);
+                          setBedrooms(nb);
+                          syncFormToPrompt(plotPreset, plotWidthFt, plotLengthFt, floors, nb, bathrooms, style, pakistaniSpecs, housingSociety);
+                        }}
+                        className="w-12 bg-white border border-[#E2E7E1] rounded-lg px-1.5 py-1 text-xs font-bold text-center"
+                      />
+                      <span>Beds</span>
+                      <input
+                        type="number"
+                        min={2}
+                        max={8}
+                        value={bathrooms}
+                        onChange={(e) => {
+                          const nbt = Number(e.target.value);
+                          setBathrooms(nbt);
+                          syncFormToPrompt(plotPreset, plotWidthFt, plotLengthFt, floors, bedrooms, nbt, style, pakistaniSpecs, housingSociety);
+                        }}
+                        className="w-12 bg-white border border-[#E2E7E1] rounded-lg px-1.5 py-1 text-xs font-bold text-center"
+                      />
+                      <span>Baths</span>
+                    </div>
+                  ) : (
+                    <strong className="text-[#202923]">{bedrooms} Beds / {bathrooms} Baths</strong>
+                  )}
                 </div>
-                <div className="flex justify-between">
-                  <span>Guest Drawing Room:</span>
-                  <strong className={pakistaniSpecs.drawingRoomSeparate ? "text-[#23483D]" : "text-[#68736C]"}>
-                    {pakistaniSpecs.drawingRoomSeparate
-                      ? (pakistaniSpecs.powderRoomNearEntrance ? "Separate with Guest Powder Bath" : "Separate Guest Drawing Room")
-                      : "Integrated Family Lounge"}
-                  </strong>
+
+                <div className="flex justify-between items-center">
+                  <span className="text-[#68736C]">Guest Drawing Room:</span>
+                  {isReviewEditing ? (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const updated = { ...pakistaniSpecs, drawingRoomSeparate: !pakistaniSpecs.drawingRoomSeparate };
+                        setPakistaniSpecs(updated);
+                        syncFormToPrompt(plotPreset, plotWidthFt, plotLengthFt, floors, bedrooms, bathrooms, style, updated, housingSociety);
+                      }}
+                      className={`px-2.5 py-1 rounded-lg text-xs font-semibold ${pakistaniSpecs.drawingRoomSeparate ? 'bg-[#23483D] text-white' : 'bg-white border border-[#E2E7E1]'}`}
+                    >
+                      {pakistaniSpecs.drawingRoomSeparate ? 'Separate Guest Drawing' : 'Open Family Lounge'}
+                    </button>
+                  ) : (
+                    <strong className={pakistaniSpecs.drawingRoomSeparate ? "text-[#23483D]" : "text-[#68736C]"}>
+                      {pakistaniSpecs.drawingRoomSeparate ? "Separate Guest Drawing" : "Integrated Lounge"}
+                    </strong>
+                  )}
                 </div>
-                <div className="flex justify-between">
-                  <span>Kitchen Layout:</span>
-                  <strong className={pakistaniSpecs.kitchenDirtyKitchenCombo ? "text-[#23483D]" : "text-[#68736C]"}>
-                    {pakistaniSpecs.kitchenDirtyKitchenCombo ? "Show Kitchen + Dirty Mess Kitchen" : "Standard Single Kitchen"}
-                  </strong>
+
+                <div className="flex justify-between items-center">
+                  <span className="text-[#68736C]">Kitchen Layout:</span>
+                  {isReviewEditing ? (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const updated = { ...pakistaniSpecs, kitchenDirtyKitchenCombo: !pakistaniSpecs.kitchenDirtyKitchenCombo };
+                        setPakistaniSpecs(updated);
+                        syncFormToPrompt(plotPreset, plotWidthFt, plotLengthFt, floors, bedrooms, bathrooms, style, updated, housingSociety);
+                      }}
+                      className={`px-2.5 py-1 rounded-lg text-xs font-semibold ${pakistaniSpecs.kitchenDirtyKitchenCombo ? 'bg-[#23483D] text-white' : 'bg-white border border-[#E2E7E1]'}`}
+                    >
+                      {pakistaniSpecs.kitchenDirtyKitchenCombo ? 'Show + Dirty Kitchen' : 'Standard Kitchen'}
+                    </button>
+                  ) : (
+                    <strong className={pakistaniSpecs.kitchenDirtyKitchenCombo ? "text-[#23483D]" : "text-[#68736C]"}>
+                      {pakistaniSpecs.kitchenDirtyKitchenCombo ? "Show + Dirty Kitchen" : "Standard Single"}
+                    </strong>
+                  )}
                 </div>
-                <div className="flex justify-between">
-                  <span>Car Porch:</span>
-                  <strong className="text-[#202923]">
-                    {pakistaniSpecs.carPorchCapacity > 0
-                      ? `Covered parking for ${pakistaniSpecs.carPorchCapacity} vehicle${pakistaniSpecs.carPorchCapacity > 1 ? 's' : ''}`
-                      : "Street Parking (No Porch)"}
-                  </strong>
+
+                <div className="flex justify-between items-center">
+                  <span className="text-[#68736C]">Car Porch Capacity:</span>
+                  {isReviewEditing ? (
+                    <div className="flex gap-1">
+                      {[1, 2, 3, 4].map((num) => (
+                        <button
+                          key={num}
+                          type="button"
+                          onClick={() => {
+                            const updated = { ...pakistaniSpecs, carPorchCapacity: num };
+                            setPakistaniSpecs(updated);
+                            syncFormToPrompt(plotPreset, plotWidthFt, plotLengthFt, floors, bedrooms, bathrooms, style, updated, housingSociety);
+                          }}
+                          className={`px-2 py-0.5 rounded text-[11px] font-bold ${pakistaniSpecs.carPorchCapacity === num ? 'bg-[#23483D] text-white' : 'bg-white border border-[#E2E7E1]'}`}
+                        >
+                          {num} Car
+                        </button>
+                      ))}
+                    </div>
+                  ) : (
+                    <strong className="text-[#202923]">
+                      {pakistaniSpecs.carPorchCapacity} Car{pakistaniSpecs.carPorchCapacity > 1 ? 's' : ''} Covered
+                    </strong>
+                  )}
                 </div>
-                <div className="flex justify-between">
-                  <span>Servant Quarter:</span>
-                  <strong className={pakistaniSpecs.servantQuarter ? "text-[#23483D]" : "text-[#68736C]"}>
-                    {pakistaniSpecs.servantQuarter ? "Included with Attached Bath" : "None"}
-                  </strong>
-                </div>
-                <div className="flex justify-between">
-                  <span>Ventilation & Roof:</span>
-                  <strong className="text-[#202923]">
-                    {pakistaniSpecs.courtyardVentilation ? "OTS Airwell / Courtyard" : "Standard"}{pakistaniSpecs.mumtyRooftopAccess ? " • Rooftop Mumty" : ""}
-                  </strong>
+
+                <div className="flex justify-between items-center">
+                  <span className="text-[#68736C]">Servant & Prayer:</span>
+                  <div className="flex gap-2">
+                    <span className={pakistaniSpecs.servantQuarter ? 'text-[#23483D] font-bold' : 'text-[#68736C]'}>
+                      {pakistaniSpecs.servantQuarter ? '✓ Servant Quarter' : ''}
+                    </span>
+                    <span className={pakistaniSpecs.prayerArea ? 'text-[#23483D] font-bold' : 'text-[#68736C]'}>
+                      {pakistaniSpecs.prayerArea ? '✓ Prayer Alcove' : ''}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Prompt Recap */}
-          <div className="p-4 rounded-xl bg-[#EEF4F0]/60 border border-[#DCE7DE] text-xs space-y-1">
+          <div className="p-4 rounded-xl bg-[#EEF4F0]/70 border border-[#DCE7DE] text-xs space-y-1">
             <span className="text-[11px] font-bold text-[#23483D]">Prompt to be Dispatched to ArchiCraft AI Spatial Engine:</span>
             <p className="text-[#202923] italic leading-relaxed">"{promptText}"</p>
           </div>
@@ -1296,7 +1712,7 @@ export const NewDesignPage: React.FC = () => {
               className="px-5 py-2.5 rounded-xl border border-[#E2E7E1] text-[#202923] hover:bg-[#F7F7F2] text-xs font-semibold flex items-center gap-1.5"
             >
               <ArrowLeft className="h-4 w-4" />
-              <span>Edit Prompt</span>
+              <span>Back to Prompt Studio</span>
             </button>
             <button
               onClick={() => handleStartGeneration()}
@@ -1326,7 +1742,7 @@ export const NewDesignPage: React.FC = () => {
             </p>
           </div>
 
-          {/* Project Name and Society */}
+          {/* Project Name and City */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-bold text-[#202923] mb-1.5">Project Title</label>
@@ -1334,16 +1750,17 @@ export const NewDesignPage: React.FC = () => {
                 type="text"
                 value={projectName}
                 onChange={(e) => setProjectName(e.target.value)}
+                placeholder="e.g. Dream Executive Residence"
                 className="w-full bg-[#F7F7F2] border border-[#E2E7E1] rounded-xl px-3.5 py-2.5 text-xs text-[#202923] focus:outline-none focus:border-[#23483D]"
               />
             </div>
             <div>
-              <label className="block text-xs font-bold text-[#202923] mb-1.5">Housing Authority / City</label>
+              <label className="block text-xs font-bold text-[#202923] mb-1.5">City</label>
               <input
                 type="text"
                 value={housingSociety}
                 onChange={(e) => setHousingSociety(e.target.value)}
-                placeholder="e.g. CDA Islamabad, LDA Lahore, DHA Phase 5"
+                placeholder="e.g. Islamabad, Lahore, Karachi, Rawalpindi"
                 className="w-full bg-[#F7F7F2] border border-[#E2E7E1] rounded-xl px-3.5 py-2.5 text-xs text-[#202923] focus:outline-none focus:border-[#23483D]"
               />
             </div>
@@ -1354,12 +1771,13 @@ export const NewDesignPage: React.FC = () => {
             <label className="block text-xs font-bold text-[#202923]">
               Select Standard Plot Preset (Pakistan)
             </label>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
               {[
                 { id: '5_marla', name: '5 Marla', dims: '25 &times; 45 ft', area: '1,125 sq ft' },
                 { id: '7_marla', name: '7 Marla', dims: '30 &times; 52.5 ft', area: '1,575 sq ft' },
                 { id: '10_marla', name: '10 Marla', dims: '35 &times; 65 ft', area: '2,275 sq ft' },
                 { id: '1_kanal', name: '1 Kanal', dims: '50 &times; 90 ft', area: '4,500 sq ft' },
+                { id: 'custom', name: 'Custom Plot', dims: 'Specify Front & Depth', area: 'Custom sq ft' },
               ].map((preset) => (
                 <div
                   key={preset.id}
@@ -1421,7 +1839,6 @@ export const NewDesignPage: React.FC = () => {
               >
                 <option value={1}>1 Storey (Ground Only)</option>
                 <option value={2}>2 Storeys (Ground + First Floor)</option>
-                <option value={3}>3 Storeys (Ground + 2 Floors)</option>
               </select>
             </div>
           </div>
@@ -1470,11 +1887,12 @@ export const NewDesignPage: React.FC = () => {
             </p>
           </div>
 
-          <div className="space-y-4">
-            {/* Rooms Counters */}
+          <div className="space-y-6">
+            {/* 1. Bedroom & Bathroom Schedule & Sizing */}
             <div className="p-5 rounded-2xl bg-[#F7F7F2] border border-[#E2E7E1] space-y-4">
-              <h3 className="text-xs font-bold text-[#202923] uppercase tracking-wider">
-                1. Bedroom & Bathroom Schedule
+              <h3 className="text-xs font-bold text-[#202923] uppercase tracking-wider flex items-center justify-between">
+                <span>1. Bedroom & Bathroom Schedule</span>
+                <span className="text-[10px] text-[#23483D] font-mono font-semibold">Configurable Spatial Distribution</span>
               </h3>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
                 <div>
@@ -1530,15 +1948,45 @@ export const NewDesignPage: React.FC = () => {
                   />
                 </div>
               </div>
+
+              {/* Bedroom Dimensions / Size Preferences */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-[#E2E7E1] text-xs">
+                <div>
+                  <label className="block text-[#68736C] font-semibold mb-1">Master Bedroom Size Preference</label>
+                  <select
+                    value={masterBedSize}
+                    onChange={(e) => setMasterBedSize(e.target.value)}
+                    className="w-full bg-white border border-[#E2E7E1] rounded-xl px-3 py-2 text-xs text-[#202923] font-semibold"
+                  >
+                    <option value="14x16 ft (Executive)">14 &times; 16 ft (Executive Suite)</option>
+                    <option value="16x18 ft (Royal Suite)">16 &times; 18 ft (Royal Presidential Suite)</option>
+                    <option value="13x15 ft (Standard)">13 &times; 15 ft (Standard Master)</option>
+                    <option value="12x14 ft (Compact)">12 &times; 14 ft (Compact Urban Master)</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-[#68736C] font-semibold mb-1">Guest / Normal Bedroom Size Preference</label>
+                  <select
+                    value={guestBedSize}
+                    onChange={(e) => setGuestBedSize(e.target.value)}
+                    className="w-full bg-white border border-[#E2E7E1] rounded-xl px-3 py-2 text-xs text-[#202923] font-semibold"
+                  >
+                    <option value="12x14 ft (Standard)">12 &times; 14 ft (Standard Bedroom)</option>
+                    <option value="13x15 ft (Spacious)">13 &times; 15 ft (Spacious Bedroom)</option>
+                    <option value="11x13 ft (Economy)">11 &times; 13 ft (Economy Bedroom)</option>
+                  </select>
+                </div>
+              </div>
             </div>
 
-            {/* Pakistani Cultural Residential Specifications */}
-            <div className="p-5 rounded-2xl bg-[#F7F7F2] border border-[#E2E7E1] space-y-4">
-              <h3 className="text-xs font-bold text-[#202923] uppercase tracking-wider">
-                2. Pakistani Residential Features
+            {/* 2. Pakistani Residential Features */}
+            <div className="p-5 rounded-2xl bg-[#F7F7F2] border border-[#E2E7E1] space-y-3">
+              <h3 className="text-xs font-bold text-[#202923] uppercase tracking-wider flex items-center justify-between">
+                <span>2. Pakistani Residential Features</span>
+                <span className="text-[10px] text-[#23483D] font-semibold">Local Cultural & Bylaw Standards</span>
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                <label className="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-[#E2E7E1] cursor-pointer">
+                <label className="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-[#E2E7E1] cursor-pointer hover:border-[#23483D] transition-colors">
                   <input
                     type="checkbox"
                     checked={pakistaniSpecs.drawingRoomSeparate}
@@ -1555,7 +2003,7 @@ export const NewDesignPage: React.FC = () => {
                   </div>
                 </label>
 
-                <label className="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-[#E2E7E1] cursor-pointer">
+                <label className="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-[#E2E7E1] cursor-pointer hover:border-[#23483D] transition-colors">
                   <input
                     type="checkbox"
                     checked={pakistaniSpecs.kitchenDirtyKitchenCombo}
@@ -1572,11 +2020,15 @@ export const NewDesignPage: React.FC = () => {
                   </div>
                 </label>
 
-                <label className="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-[#E2E7E1] cursor-pointer">
+                <label className="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-[#E2E7E1] cursor-pointer hover:border-[#23483D] transition-colors">
                   <input
                     type="checkbox"
                     checked={pakistaniSpecs.servantQuarter}
-                    onChange={(e) => setPakistaniSpecs({ ...pakistaniSpecs, servantQuarter: e.target.checked })}
+                    onChange={(e) => {
+                      const updated = { ...pakistaniSpecs, servantQuarter: e.target.checked };
+                      setPakistaniSpecs(updated);
+                      syncFormToPrompt(plotPreset, plotWidthFt, plotLengthFt, floors, bedrooms, bathrooms, style, updated, housingSociety);
+                    }}
                     className="rounded text-[#23483D] focus:ring-[#23483D]"
                   />
                   <div>
@@ -1585,11 +2037,15 @@ export const NewDesignPage: React.FC = () => {
                   </div>
                 </label>
 
-                <label className="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-[#E2E7E1] cursor-pointer">
+                <label className="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-[#E2E7E1] cursor-pointer hover:border-[#23483D] transition-colors">
                   <input
                     type="checkbox"
                     checked={pakistaniSpecs.prayerArea}
-                    onChange={(e) => setPakistaniSpecs({ ...pakistaniSpecs, prayerArea: e.target.checked })}
+                    onChange={(e) => {
+                      const updated = { ...pakistaniSpecs, prayerArea: e.target.checked };
+                      setPakistaniSpecs(updated);
+                      syncFormToPrompt(plotPreset, plotWidthFt, plotLengthFt, floors, bedrooms, bathrooms, style, updated, housingSociety);
+                    }}
                     className="rounded text-[#23483D] focus:ring-[#23483D]"
                   />
                   <div>
@@ -1597,32 +2053,322 @@ export const NewDesignPage: React.FC = () => {
                     <p className="text-[11px] text-[#68736C]">Qibla oriented quiet spiritual alcove</p>
                   </div>
                 </label>
+
+                <label className="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-[#E2E7E1] cursor-pointer hover:border-[#23483D] transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={!!pakistaniSpecs.guardRoom}
+                    onChange={(e) => {
+                      const updated = { ...pakistaniSpecs, guardRoom: e.target.checked };
+                      setPakistaniSpecs(updated);
+                      syncFormToPrompt(plotPreset, plotWidthFt, plotLengthFt, floors, bedrooms, bathrooms, style, updated, housingSociety);
+                    }}
+                    className="rounded text-[#23483D] focus:ring-[#23483D]"
+                  />
+                  <div>
+                    <p className="font-bold text-[#202923]">Security Guard Room</p>
+                    <p className="text-[11px] text-[#68736C]">Front entrance guard cabin & intercom post</p>
+                  </div>
+                </label>
+
+                <label className="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-[#E2E7E1] cursor-pointer hover:border-[#23483D] transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={pakistaniSpecs.mumtyRooftopAccess}
+                    onChange={(e) => {
+                      const updated = { ...pakistaniSpecs, mumtyRooftopAccess: e.target.checked };
+                      setPakistaniSpecs(updated);
+                      syncFormToPrompt(plotPreset, plotWidthFt, plotLengthFt, floors, bedrooms, bathrooms, style, updated, housingSociety);
+                    }}
+                    className="rounded text-[#23483D] focus:ring-[#23483D]"
+                  />
+                  <div>
+                    <p className="font-bold text-[#202923]">Rooftop Mumty & Terrace</p>
+                    <p className="text-[11px] text-[#68736C]">Weatherproof stair tower & rooftop party terrace</p>
+                  </div>
+                </label>
+
+                <label className="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-[#E2E7E1] cursor-pointer hover:border-[#23483D] transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={pakistaniSpecs.courtyardVentilation}
+                    onChange={(e) => {
+                      const updated = { ...pakistaniSpecs, courtyardVentilation: e.target.checked };
+                      setPakistaniSpecs(updated);
+                      syncFormToPrompt(plotPreset, plotWidthFt, plotLengthFt, floors, bedrooms, bathrooms, style, updated, housingSociety);
+                    }}
+                    className="rounded text-[#23483D] focus:ring-[#23483D]"
+                  />
+                  <div>
+                    <p className="font-bold text-[#202923]">Open-To-Sky (OTS) Lightwell</p>
+                    <p className="text-[11px] text-[#68736C]">Mandatory natural ventilation for inner core</p>
+                  </div>
+                </label>
               </div>
 
-              {/* Car Porch Capacity */}
+              {/* Car Porch Capacity (1, 2, 3, 4 cars) */}
               <div className="pt-2">
                 <label className="block text-xs font-bold text-[#202923] mb-1.5">
-                  Car Porch Capacity
+                  Car Porch Parking Capacity
                 </label>
-                <div className="flex gap-3">
-                  {[1, 2, 3].map((num) => (
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                  {[
+                    { num: 1, label: '1 Car (Sedan)' },
+                    { num: 2, label: '2 Cars (SUV / Sedan)' },
+                    { num: 3, label: '3 Cars (Multi-Vehicle)' },
+                    { num: 4, label: '4 Cars (Executive Garage)' },
+                  ].map((item) => (
                     <button
-                      key={num}
+                      key={item.num}
                       type="button"
                       onClick={() => {
-                        const updated = { ...pakistaniSpecs, carPorchCapacity: num };
+                        const updated = { ...pakistaniSpecs, carPorchCapacity: item.num };
                         setPakistaniSpecs(updated);
                         syncFormToPrompt(plotPreset, plotWidthFt, plotLengthFt, floors, bedrooms, bathrooms, style, updated, housingSociety);
                       }}
-                      className={`flex-1 py-2 rounded-xl text-xs font-semibold transition-colors ${
-                        pakistaniSpecs.carPorchCapacity === num
-                          ? 'bg-[#23483D] text-white'
-                          : 'bg-white border border-[#E2E7E1] text-[#68736C]'
+                      className={`py-2 rounded-xl text-xs font-semibold transition-colors ${
+                        pakistaniSpecs.carPorchCapacity === item.num
+                          ? 'bg-[#23483D] text-white shadow-xs'
+                          : 'bg-white border border-[#E2E7E1] text-[#68736C] hover:text-[#202923]'
                       }`}
                     >
-                      {num} {num === 1 ? 'Car (Sedan)' : `${num} Cars (SUV / Sedan)`}
+                      {item.label}
                     </button>
                   ))}
+                </div>
+              </div>
+            </div>
+
+            {/* 3. Formal Features */}
+            <div className="p-5 rounded-2xl bg-[#F7F7F2] border border-[#E2E7E1] space-y-3">
+              <h3 className="text-xs font-bold text-[#202923] uppercase tracking-wider flex items-center justify-between">
+                <span>3. Formal Architectural Features</span>
+                <span className="text-[10px] text-[#23483D] font-semibold">Prestige & Entertaining</span>
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                <label className="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-[#E2E7E1] cursor-pointer hover:border-[#23483D] transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={!!pakistaniSpecs.formalDining}
+                    onChange={(e) => {
+                      const updated = { ...pakistaniSpecs, formalDining: e.target.checked };
+                      setPakistaniSpecs(updated);
+                      syncFormToPrompt(plotPreset, plotWidthFt, plotLengthFt, floors, bedrooms, bathrooms, style, updated, housingSociety);
+                    }}
+                    className="rounded text-[#23483D] focus:ring-[#23483D]"
+                  />
+                  <div>
+                    <p className="font-bold text-[#202923]">Formal Dining Hall</p>
+                    <p className="text-[11px] text-[#68736C]">Direct dual access from drawing & kitchen</p>
+                  </div>
+                </label>
+
+                <label className="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-[#E2E7E1] cursor-pointer hover:border-[#23483D] transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={!!pakistaniSpecs.doubleHeightFoyer}
+                    onChange={(e) => {
+                      const updated = { ...pakistaniSpecs, doubleHeightFoyer: e.target.checked };
+                      setPakistaniSpecs(updated);
+                      syncFormToPrompt(plotPreset, plotWidthFt, plotLengthFt, floors, bedrooms, bathrooms, style, updated, housingSociety);
+                    }}
+                    className="rounded text-[#23483D] focus:ring-[#23483D]"
+                  />
+                  <div>
+                    <p className="font-bold text-[#202923]">Double-Height Foyer</p>
+                    <p className="text-[11px] text-[#68736C]">Grand ceiling volume at entrance lobby</p>
+                  </div>
+                </label>
+
+                <label className="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-[#E2E7E1] cursor-pointer hover:border-[#23483D] transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={pakistaniSpecs.powderRoomNearEntrance}
+                    onChange={(e) => {
+                      const updated = { ...pakistaniSpecs, powderRoomNearEntrance: e.target.checked };
+                      setPakistaniSpecs(updated);
+                      syncFormToPrompt(plotPreset, plotWidthFt, plotLengthFt, floors, bedrooms, bathrooms, style, updated, housingSociety);
+                    }}
+                    className="rounded text-[#23483D] focus:ring-[#23483D]"
+                  />
+                  <div>
+                    <p className="font-bold text-[#202923]">Guest Powder Room</p>
+                    <p className="text-[11px] text-[#68736C]">Dedicated half-bath near foyer</p>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            {/* 4. Foreign & Modern Luxury Features */}
+            <div className="p-5 rounded-2xl bg-[#F7F7F2] border border-[#E2E7E1] space-y-3">
+              <h3 className="text-xs font-bold text-[#202923] uppercase tracking-wider flex items-center justify-between">
+                <span>4. Foreign & Modern Luxury Features</span>
+                <span className="text-[10px] text-[#23483D] font-semibold">Contemporary Living</span>
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs">
+                <label className="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-[#E2E7E1] cursor-pointer hover:border-[#23483D] transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={!!pakistaniSpecs.openKitchenIsland}
+                    onChange={(e) => {
+                      const updated = { ...pakistaniSpecs, openKitchenIsland: e.target.checked };
+                      setPakistaniSpecs(updated);
+                      syncFormToPrompt(plotPreset, plotWidthFt, plotLengthFt, floors, bedrooms, bathrooms, style, updated, housingSociety);
+                    }}
+                    className="rounded text-[#23483D] focus:ring-[#23483D]"
+                  />
+                  <div>
+                    <p className="font-bold text-[#202923]">Open Kitchen with Island</p>
+                    <p className="text-[11px] text-[#68736C]">European island bar & modern cabinetry</p>
+                  </div>
+                </label>
+
+                <label className="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-[#E2E7E1] cursor-pointer hover:border-[#23483D] transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={!!pakistaniSpecs.homeOffice}
+                    onChange={(e) => {
+                      const updated = { ...pakistaniSpecs, homeOffice: e.target.checked };
+                      setPakistaniSpecs(updated);
+                      syncFormToPrompt(plotPreset, plotWidthFt, plotLengthFt, floors, bedrooms, bathrooms, style, updated, housingSociety);
+                    }}
+                    className="rounded text-[#23483D] focus:ring-[#23483D]"
+                  />
+                  <div>
+                    <p className="font-bold text-[#202923]">Home Office / Study</p>
+                    <p className="text-[11px] text-[#68736C]">Quiet work-from-home library room</p>
+                  </div>
+                </label>
+
+                <label className="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-[#E2E7E1] cursor-pointer hover:border-[#23483D] transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={!!pakistaniSpecs.walkInClosets}
+                    onChange={(e) => {
+                      const updated = { ...pakistaniSpecs, walkInClosets: e.target.checked };
+                      setPakistaniSpecs(updated);
+                      syncFormToPrompt(plotPreset, plotWidthFt, plotLengthFt, floors, bedrooms, bathrooms, style, updated, housingSociety);
+                    }}
+                    className="rounded text-[#23483D] focus:ring-[#23483D]"
+                  />
+                  <div>
+                    <p className="font-bold text-[#202923]">Walk-in Closets / Dressing</p>
+                    <p className="text-[11px] text-[#68736C]">Dedicated wardrobe zone in master suites</p>
+                  </div>
+                </label>
+
+                <label className="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-[#E2E7E1] cursor-pointer hover:border-[#23483D] transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={!!pakistaniSpecs.pantryStore}
+                    onChange={(e) => {
+                      const updated = { ...pakistaniSpecs, pantryStore: e.target.checked };
+                      setPakistaniSpecs(updated);
+                      syncFormToPrompt(plotPreset, plotWidthFt, plotLengthFt, floors, bedrooms, bathrooms, style, updated, housingSociety);
+                    }}
+                    className="rounded text-[#23483D] focus:ring-[#23483D]"
+                  />
+                  <div>
+                    <p className="font-bold text-[#202923]">Kitchen Pantry Store</p>
+                    <p className="text-[11px] text-[#68736C]">Walk-in dry food & appliance pantry</p>
+                  </div>
+                </label>
+
+                <label className="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-[#E2E7E1] cursor-pointer hover:border-[#23483D] transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={!!pakistaniSpecs.solarUtilityShaft}
+                    onChange={(e) => {
+                      const updated = { ...pakistaniSpecs, solarUtilityShaft: e.target.checked };
+                      setPakistaniSpecs(updated);
+                      syncFormToPrompt(plotPreset, plotWidthFt, plotLengthFt, floors, bedrooms, bathrooms, style, updated, housingSociety);
+                    }}
+                    className="rounded text-[#23483D] focus:ring-[#23483D]"
+                  />
+                  <div>
+                    <p className="font-bold text-[#202923]">Solar Inverter & Utility Shaft</p>
+                    <p className="text-[11px] text-[#68736C]">Dedicated renewable conduit & AC shaft</p>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            {/* 5. Custom Rooms Section */}
+            <div className="p-5 rounded-2xl bg-[#F7F7F2] border border-[#E2E7E1] space-y-4">
+              <h3 className="text-xs font-bold text-[#202923] uppercase tracking-wider flex items-center justify-between">
+                <span>5. Custom Rooms & Specialized Spaces</span>
+                <span className="text-[10px] text-[#23483D] font-semibold">{customRooms.length} Custom Room(s) Configured</span>
+              </h3>
+
+              {/* List of Added Custom Rooms */}
+              {customRooms.length > 0 && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
+                  {customRooms.map((room) => (
+                    <div
+                      key={room.id}
+                      className="p-3 rounded-xl bg-white border border-[#DCE7DE] flex items-center justify-between text-xs"
+                    >
+                      <div>
+                        <p className="font-bold text-[#202923]">{room.name}</p>
+                        <p className="text-[10px] text-[#68736C]">{room.size} &bull; {room.floor} Floor</p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveCustomRoom(room.id)}
+                        className="p-1 text-rose-500 hover:text-rose-700 hover:bg-rose-50 rounded-lg transition-colors"
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Add Custom Room Row */}
+              <div className="p-3.5 rounded-xl bg-white border border-[#E2E7E1] grid grid-cols-1 sm:grid-cols-4 gap-3 items-end text-xs">
+                <div>
+                  <label className="block text-[#68736C] mb-1 font-semibold">Room Name / Function</label>
+                  <input
+                    type="text"
+                    value={newRoomName}
+                    onChange={(e) => setNewRoomName(e.target.value)}
+                    placeholder="e.g. Gymnasium, Cinema, Library"
+                    className="w-full bg-[#F7F7F2] border border-[#E2E7E1] rounded-xl px-3 py-2 text-xs text-[#202923]"
+                  />
+                </div>
+                <div>
+                  <label className="block text-[#68736C] mb-1 font-semibold">Dimensions</label>
+                  <select
+                    value={newRoomSize}
+                    onChange={(e) => setNewRoomSize(e.target.value)}
+                    className="w-full bg-[#F7F7F2] border border-[#E2E7E1] rounded-xl px-3 py-2 text-xs text-[#202923]"
+                  >
+                    <option value="12x14 ft">12 &times; 14 ft (Standard)</option>
+                    <option value="14x16 ft">14 &times; 16 ft (Large)</option>
+                    <option value="16x20 ft">16 &times; 20 ft (Studio / Gym)</option>
+                    <option value="10x12 ft">10 &times; 12 ft (Compact)</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-[#68736C] mb-1 font-semibold">Floor Location</label>
+                  <select
+                    value={newRoomFloor}
+                    onChange={(e) => setNewRoomFloor(e.target.value as any)}
+                    className="w-full bg-[#F7F7F2] border border-[#E2E7E1] rounded-xl px-3 py-2 text-xs text-[#202923]"
+                  >
+                    <option value="Ground">Ground Floor</option>
+                    {floors >= 2 && <option value="First">First Floor</option>}
+                  </select>
+                </div>
+                <div>
+                  <button
+                    type="button"
+                    onClick={handleAddCustomRoom}
+                    className="w-full py-2 px-3 rounded-xl bg-[#23483D] hover:bg-[#1A372E] text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs"
+                  >
+                    <Plus className="h-4 w-4" />
+                    <span>Add Custom Room</span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -2460,6 +3206,18 @@ export const NewDesignPage: React.FC = () => {
               <Shield className="h-4 w-4" />
               <span>Senior Architect Audit</span>
             </button>
+
+            <button
+              onClick={() => setResultTab('boq')}
+              className={`px-4 py-2 rounded-xl font-bold transition-colors flex items-center gap-1.5 ${
+                resultTab === 'boq'
+                  ? 'bg-[#23483D] text-white shadow-xs'
+                  : 'bg-white border border-[#E2E7E1] text-[#68736C] hover:text-[#202923]'
+              }`}
+            >
+              <Calculator className="h-4 w-4" />
+              <span>Cost Estimation & Material BOQ</span>
+            </button>
           </div>
 
           {/* Main Visual Display & Specs Grid */}
@@ -2640,6 +3398,203 @@ export const NewDesignPage: React.FC = () => {
                   </div>
                 </div>
               )}
+
+              {/* TAB 5: INTERACTIVE COST ESTIMATION & MATERIAL BOQ */}
+              {resultTab === 'boq' && (
+                <div className="space-y-6 text-xs animate-in fade-in">
+                  <div className="border-b border-[#E2E7E1] pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div>
+                      <h3 className="font-bold text-[#202923] text-sm flex items-center gap-2">
+                        <Calculator className="h-4 w-4 text-[#23483D]" />
+                        Parametric Bill of Quantities (BOQ) & Material Pricing
+                      </h3>
+                      <p className="text-[11px] text-[#68736C]">
+                        Dynamically recalculate construction expenses by customizing individual material unit prices or fetching live market rates.
+                      </p>
+                    </div>
+                    <span className="px-2.5 py-1 rounded-lg bg-[#EEF4F0] text-[#23483D] font-mono font-bold text-[11px] self-start sm:self-auto">
+                      {rateSourceNotice}
+                    </span>
+                  </div>
+
+                  {/* Executive KPI Summary Cards */}
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    <div className="p-3.5 rounded-xl bg-[#F7F7F2] border border-[#E2E7E1] space-y-1">
+                      <span className="text-[10px] text-[#68736C] font-semibold block">Total Estimated Cost</span>
+                      <p className="text-base font-bold font-mono text-[#23483D]">
+                        {formatPKR(boqData?.grand_total || backendDesign?.boq?.grand_total || backendDesign?.boq?.total_cost_pkr || 24500000)}
+                      </p>
+                      <span className="text-[9px] text-[#8C9890]">Incl. 7.5% contingency</span>
+                    </div>
+
+                    <div className="p-3.5 rounded-xl bg-[#F7F7F2] border border-[#E2E7E1] space-y-1">
+                      <span className="text-[10px] text-[#68736C] font-semibold block">Rate per Sq Ft</span>
+                      <p className="text-base font-bold font-mono text-[#202923]">
+                        PKR {Math.round((boqData?.grand_total || backendDesign?.boq?.grand_total || 24500000) / Math.max(1, Math.round(calculatedAreaSqFt * (floors === 1 ? 0.75 : 1.55)))).toLocaleString()}
+                      </p>
+                      <span className="text-[9px] text-[#8C9890]">PKR / sq ft covered</span>
+                    </div>
+
+                    <div className="p-3.5 rounded-xl bg-[#F7F7F2] border border-[#E2E7E1] space-y-1">
+                      <span className="text-[10px] text-[#68736C] font-semibold block">Grey Structure</span>
+                      <p className="text-base font-bold font-mono text-[#202923]">
+                        {formatPKR(boqData?.grey_cost || backendDesign?.boq?.grey_cost || 14700000)}
+                      </p>
+                      <span className="text-[9px] text-[#8C9890]">~60% of total budget</span>
+                    </div>
+
+                    <div className="p-3.5 rounded-xl bg-[#F7F7F2] border border-[#E2E7E1] space-y-1">
+                      <span className="text-[10px] text-[#68736C] font-semibold block">Finishing Cost</span>
+                      <p className="text-base font-bold font-mono text-[#202923]">
+                        {formatPKR(boqData?.finishing_cost || backendDesign?.boq?.finishing_cost || 9800000)}
+                      </p>
+                      <span className="text-[9px] text-[#8C9890]">~40% of total budget</span>
+                    </div>
+                  </div>
+
+                  {/* Gemini AI Live Market Rate Assistant Card */}
+                  <div className="p-4 rounded-xl bg-gradient-to-r from-[#EEF4F0] to-[#E2EDE5] border border-[#C5D8C9] space-y-3">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                      <div className="flex items-center gap-2">
+                        <Key className="h-4 w-4 text-[#23483D]" />
+                        <span className="font-bold text-xs text-[#202923]">
+                          Live Pakistan Construction Market Rates via Google Gemini AI
+                        </span>
+                      </div>
+                      <span className="text-[10px] font-semibold text-[#23483D] bg-white/70 px-2 py-0.5 rounded-md border border-[#C5D8C9]">
+                        Real-Time Rate Query
+                      </span>
+                    </div>
+
+                    <p className="text-[11px] text-[#4A5D50] leading-relaxed">
+                      Enter your Gemini API Key to automatically pull current Pakistani material prices (cement, steel, bricks, aggregate) for your target city, or apply verified 2026 local benchmarks with one click.
+                    </p>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 items-end">
+                      <div>
+                        <label className="block text-[10px] font-bold text-[#23483D] mb-1">
+                          Gemini API Key (Optional)
+                        </label>
+                        <input
+                          type="password"
+                          value={geminiApiKey}
+                          onChange={(e) => setGeminiApiKey(e.target.value)}
+                          placeholder="Paste AIzaSy... API key"
+                          className="w-full bg-white border border-[#C5D8C9] rounded-xl px-3 py-2 text-xs font-mono text-[#202923] focus:outline-none focus:border-[#23483D]"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-[10px] font-bold text-[#23483D] mb-1">
+                          City for Pricing
+                        </label>
+                        <input
+                          type="text"
+                          value={geminiCity}
+                          onChange={(e) => setGeminiCity(e.target.value)}
+                          placeholder="e.g. Islamabad, Lahore, Karachi"
+                          className="w-full bg-white border border-[#C5D8C9] rounded-xl px-3 py-2 text-xs text-[#202923] focus:outline-none focus:border-[#23483D]"
+                        />
+                      </div>
+
+                      <div className="flex gap-2">
+                        <button
+                          type="button"
+                          onClick={() => handleFetchGeminiMarketRates(geminiApiKey, geminiCity)}
+                          disabled={isFetchingGeminiRates}
+                          className="flex-1 py-2 px-3 rounded-xl bg-[#23483D] hover:bg-[#1A372E] text-white font-bold text-xs flex items-center justify-center gap-1.5 shadow-xs transition-colors"
+                        >
+                          <Sparkles className="h-3.5 w-3.5 text-emerald-300" />
+                          <span>{isFetchingGeminiRates ? 'Fetching...' : 'Fetch Live Rates'}</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleFetchGeminiMarketRates('', geminiCity)}
+                          disabled={isFetchingGeminiRates}
+                          className="py-2 px-3 rounded-xl bg-white hover:bg-[#F7F7F2] text-[#23483D] border border-[#C5D8C9] font-semibold text-xs flex items-center gap-1 transition-colors"
+                        >
+                          <RefreshCw className="h-3 w-3" />
+                          <span>Benchmarks</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Interactive Material Rate Customizer Table */}
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="font-bold text-xs text-[#202923] uppercase tracking-wider flex items-center gap-1.5">
+                        <DollarSign className="h-3.5 w-3.5 text-[#23483D]" />
+                        Customize Individual Material Prices & Unit Rates:
+                      </span>
+                      {isUpdatingBoq && (
+                        <span className="text-[10px] font-mono text-[#23483D] animate-pulse">
+                          Recalculating BOQ...
+                        </span>
+                      )}
+                    </div>
+
+                    <div className="border border-[#E2E7E1] rounded-xl overflow-hidden shadow-2xs">
+                      <div className="overflow-x-auto">
+                        <table className="w-full text-left text-xs">
+                          <thead className="bg-[#F7F7F2] border-b border-[#E2E7E1] text-[#68736C] font-semibold">
+                            <tr>
+                              <th className="py-2.5 px-3">Material / Service</th>
+                              <th className="py-2.5 px-3">Category</th>
+                              <th className="py-2.5 px-3 text-right">Quantity</th>
+                              <th className="py-2.5 px-3 text-right">Unit Rate (PKR)</th>
+                              <th className="py-2.5 px-3 text-right">Line Total (PKR)</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-[#E2E7E1] bg-white">
+                            {[
+                              { id: 'cement_bag', name: 'Portland Cement (50kg bags)', cat: 'Grey', qty: Math.round(plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55) * 0.45).toLocaleString() + ' bags', defaultRate: 1450, calcTotal: (r: number) => Math.round(plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55) * 0.45 * r) },
+                              { id: 'steel_ton', name: 'Grade 60 Deformed Steel Rebar', cat: 'Grey', qty: (plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55) * 0.00385).toFixed(2) + ' tons', defaultRate: 275000, calcTotal: (r: number) => Math.round(plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55) * 0.00385 * r) },
+                              { id: 'brick_unit', name: 'Burnt Red Clay Bricks (Awwal)', cat: 'Grey', qty: Math.round(plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55) * 26.5).toLocaleString() + ' bricks', defaultRate: 14.5, calcTotal: (r: number) => Math.round(plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55) * 26.5 * r) },
+                              { id: 'sand_cft', name: 'Coarse Sand (Chenab / Ravi)', cat: 'Grey', qty: Math.round(plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55) * 2.75).toLocaleString() + ' cft', defaultRate: 48, calcTotal: (r: number) => Math.round(plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55) * 2.75 * r) },
+                              { id: 'crush_cft', name: 'Margalla Coarse Aggregate (Crush)', cat: 'Grey', qty: Math.round(plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55) * 1.85).toLocaleString() + ' cft', defaultRate: 125, calcTotal: (r: number) => Math.round(plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55) * 1.85 * r) },
+                              { id: 'labor_per_sqft', name: 'Civil Construction Labor & Shuttering', cat: 'Grey', qty: Math.round(plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55)).toLocaleString() + ' sq ft', defaultRate: 450, calcTotal: (r: number) => Math.round(plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55) * r) },
+                              { id: 'tiles_sqft', name: 'Porcelain / Marble Tile Flooring', cat: 'Finishing', qty: Math.round(plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55) * 0.85).toLocaleString() + ' sq ft', defaultRate: 350, calcTotal: (r: number) => Math.round(plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55) * 0.85 * r) },
+                              { id: 'paint_sqft', name: 'Interior Paint, Weather-shield & Putty', cat: 'Finishing', qty: Math.round(plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55) * 3.4).toLocaleString() + ' sq ft', defaultRate: 55, calcTotal: (r: number) => Math.round(plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55) * 3.4 * r) },
+                              { id: 'door_unit', name: 'Solid Wood Doors & Hardware', cat: 'Finishing', qty: `${bedrooms + bathrooms + 4} sets`, defaultRate: 35000, calcTotal: (r: number) => (bedrooms + bathrooms + 4) * r },
+                              { id: 'window_unit', name: 'Powder-coated Aluminum Windows', cat: 'Finishing', qty: `${bedrooms * 2 + 4} units`, defaultRate: 28000, calcTotal: (r: number) => (bedrooms * 2 + 4) * r },
+                              { id: 'bath_sanitary_unit', name: 'Bath Sanitary Sets & Luxury Mixers', cat: 'Finishing', qty: `${bathrooms} sets`, defaultRate: 65000, calcTotal: (r: number) => bathrooms * r },
+                            ].map((mat) => {
+                              const currentRate = customUnitPrices[mat.id] !== undefined ? customUnitPrices[mat.id] : mat.defaultRate;
+                              const lineTotal = mat.calcTotal(currentRate);
+                              return (
+                                <tr key={mat.id} className="hover:bg-[#F7F7F2]/60 transition-colors">
+                                  <td className="py-2.5 px-3 font-semibold text-[#202923]">{mat.name}</td>
+                                  <td className="py-2.5 px-3">
+                                    <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${mat.cat === 'Grey' ? 'bg-amber-50 text-amber-800 border border-amber-200' : 'bg-emerald-50 text-emerald-800 border border-emerald-200'}`}>
+                                      {mat.cat}
+                                    </span>
+                                  </td>
+                                  <td className="py-2.5 px-3 text-right font-mono text-[#68736C]">{mat.qty}</td>
+                                  <td className="py-2.5 px-3 text-right">
+                                    <div className="inline-flex items-center gap-1">
+                                      <span className="text-[#68736C] font-mono text-[10px]">PKR</span>
+                                      <input
+                                        type="number"
+                                        value={currentRate}
+                                        onChange={(e) => handleUnitPriceChange(mat.id, Number(e.target.value))}
+                                        className="w-24 bg-[#F7F7F2] border border-[#E2E7E1] rounded-lg px-2 py-1 text-right font-mono font-bold text-[#202923] focus:outline-none focus:border-[#23483D]"
+                                      />
+                                    </div>
+                                  </td>
+                                  <td className="py-2.5 px-3 text-right font-mono font-bold text-[#23483D]">
+                                    PKR {lineTotal.toLocaleString()}
+                                  </td>
+                                </tr>
+                              );
+                            })}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Sidebar Specifications & BOQ Card */}
@@ -2649,14 +3604,24 @@ export const NewDesignPage: React.FC = () => {
                   <DollarSign className="h-4 w-4 text-[#23483D]" />
                   Preliminary Construction BOQ
                 </h3>
-                <div className="p-4 rounded-xl bg-[#F7F7F2] border border-[#E2E7E1] space-y-1">
-                  <span className="text-[11px] text-[#68736C]">Estimated Total (Grey + Finish):</span>
-                  <p className="text-xl font-bold font-mono text-[#23483D]">
-                    {formatPKR(backendDesign?.boq?.total_cost_pkr || generatedAlternative?.estimatedCostPKR || 24500000)}
-                  </p>
-                  <p className="text-[10px] text-[#68736C]">
-                    PKR {Math.round((backendDesign?.boq?.total_cost_pkr || 24500000) / (calculatedAreaSqFt * (floors === 1 ? 0.75 : 1.55))).toLocaleString()} / sq ft
-                  </p>
+                <div className="p-4 rounded-xl bg-[#F7F7F2] border border-[#E2E7E1] space-y-2">
+                  <div className="space-y-0.5">
+                    <span className="text-[11px] text-[#68736C]">Estimated Total (Grey + Finish):</span>
+                    <p className="text-xl font-bold font-mono text-[#23483D]">
+                      {formatPKR(boqData?.grand_total || backendDesign?.boq?.total_cost_pkr || generatedAlternative?.estimatedCostPKR || 24500000)}
+                    </p>
+                    <p className="text-[10px] text-[#68736C]">
+                      PKR {Math.round((boqData?.grand_total || backendDesign?.boq?.total_cost_pkr || 24500000) / Math.max(1, Math.round(calculatedAreaSqFt * (floors === 1 ? 0.75 : 1.55)))).toLocaleString()} / sq ft
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setResultTab('boq')}
+                    className="w-full py-1.5 px-2.5 rounded-lg bg-[#EEF4F0] hover:bg-[#DCE7DE] text-[#23483D] border border-[#DCE7DE] font-semibold text-[11px] flex items-center justify-center gap-1.5 transition-colors"
+                  >
+                    <Calculator className="h-3.5 w-3.5" />
+                    <span>Customize Material Prices & BOQ</span>
+                  </button>
                 </div>
 
                 <div className="space-y-2 text-xs">

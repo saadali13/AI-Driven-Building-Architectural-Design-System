@@ -18,12 +18,19 @@ export type PlotPreset = '5_marla' | '7_marla' | '10_marla' | '1_kanal' | 'custo
 export type BuildingType = 'House' | 'Villa' | 'Apartment' | 'Commercial Building' | 'Other';
 export type ArchitecturalStyle = 'Modern Contemporary' | 'Minimalist' | 'Traditional Pakistani' | 'Classical Neo-Colonial' | 'Brutalist' | 'Eco-Sustainable' | 'Spanish Villa' | 'Classical Estate' | 'Traditional Haveli';
 
+export interface CustomRoomSpec {
+  id: string;
+  name: string;
+  size: string; // e.g. '12x14 ft'
+  floor?: 'Ground' | 'First';
+}
+
 export interface PakistaniSpecs {
   groundFloorBedrooms: number;
   firstFloorBedrooms: number;
   drawingRoomSeparate: boolean;
   powderRoomNearEntrance: boolean;
-  carPorchCapacity: number; // 1, 2, or 3 cars
+  carPorchCapacity: number; // 1, 2, 3, or 4 cars
   kitchenDirtyKitchenCombo: boolean; // Main show kitchen + dirty/mess kitchen
   prayerArea: boolean;
   servantQuarter: boolean;
@@ -33,6 +40,27 @@ export interface PakistaniSpecs {
   setbackFrontFt: number;
   setbackRearFt: number;
   setbackSidesFt: number;
+
+  // Extended Pakistani Residential Features
+  guardRoom?: boolean;
+
+  // Formal Features
+  formalDining?: boolean;
+  doubleHeightFoyer?: boolean;
+
+  // Foreign / Modern Features
+  openKitchenIsland?: boolean;
+  homeOffice?: boolean;
+  walkInClosets?: boolean;
+  pantryStore?: boolean;
+  solarUtilityShaft?: boolean;
+
+  // Custom Bedroom Sizing Preferences
+  masterBedSize?: string;
+  guestBedSize?: string;
+
+  // Custom Rooms list
+  customRooms?: CustomRoomSpec[];
 }
 
 export interface RoomSpec {
