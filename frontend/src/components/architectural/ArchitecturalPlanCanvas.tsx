@@ -26,6 +26,11 @@ export const ArchitecturalPlanCanvas: React.FC<ArchitecturalPlanCanvasProps> = (
   const [dragStart, setDragStart] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
   const [showGrid, setShowGrid] = useState<boolean>(false);
+  const [imageError, setImageError] = useState<boolean>(false);
+
+  useEffect(() => {
+    setImageError(false);
+  }, [imageSrc]);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -145,7 +150,7 @@ export const ArchitecturalPlanCanvas: React.FC<ArchitecturalPlanCanvasProps> = (
     handleReset();
   };
 
-  const hasImage = renderMode === 'backend_png' && Boolean(imageSrc);
+  const hasImage = renderMode === 'backend_png' && Boolean(imageSrc) && !imageError;
 
   return (
     <div
@@ -229,6 +234,7 @@ export const ArchitecturalPlanCanvas: React.FC<ArchitecturalPlanCanvasProps> = (
             <img
               src={imageSrc!}
               alt={alt}
+              onError={() => setImageError(true)}
               draggable={false}
               className="max-w-[760px] w-auto h-auto object-contain rounded-lg shadow-xs pointer-events-none"
             />

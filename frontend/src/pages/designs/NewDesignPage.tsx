@@ -62,7 +62,7 @@ const parseNumWord = (val: string | undefined): number | null => {
   return isNaN(n) ? null : n;
 };
 
-export interface ParsedBrief {
+interface ParsedBrief {
   plotPreset?: PlotPreset;
   plotWidthFt?: number;
   plotLengthFt?: number;
@@ -90,7 +90,7 @@ export interface ParsedBrief {
   customRooms?: CustomRoomSpec[];
 }
 
-export function parsePromptToDesignBrief(prompt: string): ParsedBrief {
+function parsePromptToDesignBrief(prompt: string): ParsedBrief {
   const text = prompt.toLowerCase();
   const result: ParsedBrief = {};
 
@@ -273,7 +273,7 @@ export function parsePromptToDesignBrief(prompt: string): ParsedBrief {
   return result;
 }
 
-export function formatFormToPrompt(
+function formatFormToPrompt(
   plotPreset: PlotPreset,
   plotWidthFt: number,
   plotLengthFt: number,
@@ -349,6 +349,56 @@ export function formatFormToPrompt(
   return `${parts.join(' ')} with ${features.join(', ')}.`;
 }
 
+
+interface ScheduledRoom {
+  id: string;
+  name: string;
+  category: 'bedroom' | 'living' | 'kitchen' | 'bathroom' | 'service';
+  floor: 'Ground Floor' | 'First Floor';
+  widthFt: number;
+  lengthFt: number;
+  isCustom?: boolean;
+}
+
+const generateDefaultRoomSchedule = (beds: number, baths: number, preset: string): ScheduledRoom[] => {
+  const is10M = preset === '10_marla' || preset === '1_kanal' || preset === 'custom';
+  const list: ScheduledRoom[] = [
+    { id: 'rm_mb1', name: 'Ground Master Bedroom 1', category: 'bedroom', floor: 'Ground Floor', widthFt: is10M ? 14 : 12, lengthFt: is10M ? 16 : 14 },
+    { id: 'rm_b2', name: 'Ground Bedroom 2', category: 'bedroom', floor: 'Ground Floor', widthFt: is10M ? 13 : 11, lengthFt: is10M ? 14 : 13 },
+    { id: 'rm_drw', name: 'Formal Guest Drawing Room', category: 'living', floor: 'Ground Floor', widthFt: is10M ? 14 : 12, lengthFt: is10M ? 20 : 16 },
+    { id: 'rm_tv1', name: 'Central Family TV Lounge', category: 'living', floor: 'Ground Floor', widthFt: is10M ? 16 : 14, lengthFt: is10M ? 22 : 18 },
+    { id: 'rm_din', name: 'Formal Dining Hall', category: 'living', floor: 'Ground Floor', widthFt: 12, lengthFt: 14 },
+    { id: 'rm_kit1', name: 'Modern Clean Show Kitchen', category: 'kitchen', floor: 'Ground Floor', widthFt: is10M ? 12 : 10, lengthFt: 14 },
+    { id: 'rm_kit2', name: 'Dirty Wok Kitchen / Scullery', category: 'kitchen', floor: 'Ground Floor', widthFt: 8, lengthFt: 10 },
+    { id: 'rm_ba1', name: 'Master Ensuite Bath 1', category: 'bathroom', floor: 'Ground Floor', widthFt: 8, lengthFt: 9 },
+    { id: 'rm_ba2', name: 'Attached Bath 2', category: 'bathroom', floor: 'Ground Floor', widthFt: 6, lengthFt: 8 },
+    { id: 'rm_pwd', name: 'Guest Powder Room', category: 'bathroom', floor: 'Ground Floor', widthFt: 5, lengthFt: 6 },
+    { id: 'rm_porch', name: 'Covered Car Porch', category: 'service', floor: 'Ground Floor', widthFt: is10M ? 18 : 14, lengthFt: is10M ? 18 : 15 },
+    { id: 'rm_ots', name: 'Central OTS Lightwell', category: 'service', floor: 'Ground Floor', widthFt: 6, lengthFt: 8 },
+  ];
+
+  if (beds >= 3) {
+    list.push({ id: 'rm_b3', name: 'Upper Executive Suite 3', category: 'bedroom', floor: 'First Floor', widthFt: is10M ? 14 : 12, lengthFt: 15 });
+    list.push({ id: 'rm_ba3', name: 'Upper Attached Bath 3', category: 'bathroom', floor: 'First Floor', widthFt: 6, lengthFt: 8 });
+  }
+  if (beds >= 4) {
+    list.push({ id: 'rm_b4', name: 'First Floor Bedroom 4', category: 'bedroom', floor: 'First Floor', widthFt: 12, lengthFt: 14 });
+    list.push({ id: 'rm_ba4', name: 'Upper Attached Bath 4', category: 'bathroom', floor: 'First Floor', widthFt: 6, lengthFt: 8 });
+  }
+  if (beds >= 5) {
+    list.push({ id: 'rm_b5', name: 'First Floor Bedroom 5', category: 'bedroom', floor: 'First Floor', widthFt: 12, lengthFt: 13 });
+    list.push({ id: 'rm_ba5', name: 'Upper Attached Bath 5', category: 'bathroom', floor: 'First Floor', widthFt: 6, lengthFt: 8 });
+  }
+  if (beds >= 6) {
+    list.push({ id: 'rm_b6', name: 'First Floor Bedroom 6', category: 'bedroom', floor: 'First Floor', widthFt: 11, lengthFt: 13 });
+    list.push({ id: 'rm_ba6', name: 'Upper Attached Bath 6', category: 'bathroom', floor: 'First Floor', widthFt: 6, lengthFt: 8 });
+  }
+
+  list.push({ id: 'rm_tv2', name: 'Upper Family Lounge / Gallery', category: 'living', floor: 'First Floor', widthFt: 14, lengthFt: 16 });
+
+  return list;
+};
+
 export const NewDesignPage: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -371,6 +421,47 @@ export const NewDesignPage: React.FC = () => {
   const [unit, setUnit] = useState<'feet' | 'meters' | 'yards'>('feet');
   const [floors, setFloors] = useState<number>(2);
   const [bedrooms, setBedrooms] = useState<number>(4);
+  // Interactive Room Schedule with custom room dimensions
+  const [roomSchedule, setRoomSchedule] = useState<ScheduledRoom[]>(() => generateDefaultRoomSchedule(4, 5, '10_marla'));
+  const [scheduleFilter, setScheduleFilter] = useState<'all' | 'bedroom' | 'living' | 'kitchen' | 'bathroom' | 'service'>('all');
+  const [schedNewRoomName, setSchedNewRoomName] = useState('');
+  const [schedNewRoomCategory, setSchedNewRoomCategory] = useState<'bedroom' | 'living' | 'kitchen' | 'bathroom' | 'service'>('bedroom');
+  const [schedNewRoomFloor, setSchedNewRoomFloor] = useState<'Ground Floor' | 'First Floor'>('Ground Floor');
+  const [schedNewRoomWidth, setSchedNewRoomWidth] = useState(12);
+  const [schedNewRoomLength, setSchedNewRoomLength] = useState(14);
+  const [schedIsAddingRoom, setSchedIsAddingRoom] = useState(false);
+
+  const handleUpdateRoomDimension = (id: string, field: 'widthFt' | 'lengthFt', val: number) => {
+    const clamped = Math.max(4, Math.min(50, val));
+    setRoomSchedule(prev => prev.map(r => r.id === id ? { ...r, [field]: clamped } : r));
+  };
+
+  const handleAddCustomScheduleRoom = () => {
+    if (!schedNewRoomName.trim()) return;
+    const newR: ScheduledRoom = {
+      id: `custom_${Date.now()}`,
+      name: schedNewRoomName.trim(),
+      category: schedNewRoomCategory,
+      floor: schedNewRoomFloor,
+      widthFt: schedNewRoomWidth,
+      lengthFt: schedNewRoomLength,
+      isCustom: true
+    };
+    setRoomSchedule(prev => [...prev, newR]);
+    setSchedNewRoomName('');
+    setSchedIsAddingRoom(false);
+  };
+
+  const handleRemoveScheduleRoom = (id: string) => {
+    setRoomSchedule(prev => prev.filter(r => r.id !== id));
+  };
+
+  const handleResetScheduleDimensions = () => {
+    setRoomSchedule(generateDefaultRoomSchedule(bedrooms, bathrooms, plotPreset));
+  };
+
+  const totalScheduleCoveredArea = roomSchedule.reduce((sum, r) => sum + (r.widthFt * r.lengthFt), 0);
+
   const [bathrooms, setBathrooms] = useState<number>(5);
   const [style, setStyle] = useState<ArchitecturalStyle>('Modern Contemporary');
   const [housingSociety, setHousingSociety] = useState('CDA Islamabad / LDA Lahore');
@@ -644,7 +735,7 @@ export const NewDesignPage: React.FC = () => {
     syncFormToPrompt(plotPreset, plotWidthFt, plotLengthFt, floors, bedrooms, bathrooms, style, { ...pakistaniSpecs, customRooms: updatedRooms }, housingSociety);
   };
   const [activeFloorView, setActiveFloorView] = useState<'ground' | 'first' | 'rooftop' | 'all'>('ground');
-  const [renderMode, setRenderMode] = useState<'backend_png' | 'interactive_svg'>('backend_png');
+  const [renderMode, setRenderMode] = useState<'backend_png' | 'interactive_svg'>('interactive_svg');
 
   // Regeneration View & Modification State
   const [isRegeneratePageOpen, setIsRegeneratePageOpen] = useState(false);
@@ -819,6 +910,7 @@ export const NewDesignPage: React.FC = () => {
         style: finalStyle.toLowerCase(),
         budget_tier: budgetPriority,
         currency: 'PKR',
+        custom_room_dimensions: roomSchedule,
         seed: Math.floor(Math.random() * 90000) + 1000,
       });
 
@@ -971,7 +1063,7 @@ export const NewDesignPage: React.FC = () => {
           base_version: revisionNumber
         });
 
-        if (res?.conflicts && res.conflicts.length > 0) {
+        if (res?.success === false && res?.conflicts && res.conflicts.length > 0) {
           setActiveConflict({
             reason: res.conflicts[0].reason,
             alternative: res.conflicts[0].alternative
@@ -979,6 +1071,8 @@ export const NewDesignPage: React.FC = () => {
           setCurrentStep(creationMode === 'prompt' ? 5 : 7);
           setIsSubmitting(false);
           return;
+        } else {
+          setActiveConflict(null);
         }
 
         const nextVer = revisionNumber + 1;
@@ -1905,6 +1999,7 @@ export const NewDesignPage: React.FC = () => {
                     onChange={(e) => {
                       const nb = Number(e.target.value);
                       setBedrooms(nb);
+                      setRoomSchedule(generateDefaultRoomSchedule(nb, bathrooms, plotPreset));
                       syncFormToPrompt(plotPreset, plotWidthFt, plotLengthFt, floors, nb, bathrooms, style, pakistaniSpecs, housingSociety);
                     }}
                     className="w-full bg-white border border-[#E2E7E1] rounded-xl px-3 py-2 font-mono font-bold text-[#202923]"
@@ -1949,32 +2044,215 @@ export const NewDesignPage: React.FC = () => {
                 </div>
               </div>
 
-              {/* Bedroom Dimensions / Size Preferences */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2 border-t border-[#E2E7E1] text-xs">
-                <div>
-                  <label className="block text-[#68736C] font-semibold mb-1">Master Bedroom Size Preference</label>
-                  <select
-                    value={masterBedSize}
-                    onChange={(e) => setMasterBedSize(e.target.value)}
-                    className="w-full bg-white border border-[#E2E7E1] rounded-xl px-3 py-2 text-xs text-[#202923] font-semibold"
-                  >
-                    <option value="14x16 ft (Executive)">14 &times; 16 ft (Executive Suite)</option>
-                    <option value="16x18 ft (Royal Suite)">16 &times; 18 ft (Royal Presidential Suite)</option>
-                    <option value="13x15 ft (Standard)">13 &times; 15 ft (Standard Master)</option>
-                    <option value="12x14 ft (Compact)">12 &times; 14 ft (Compact Urban Master)</option>
-                  </select>
+              {/* COMPREHENSIVE ITEMIZED ROOM SCHEDULE & DIMENSION EDITOR */}
+              <div className="pt-4 border-t border-[#E2E7E1] space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-emerald-50/60 border border-emerald-200/80 rounded-xl p-3.5">
+                  <div>
+                    <h4 className="text-xs font-bold text-[#23483D] uppercase tracking-wider flex items-center gap-1.5">
+                      <Sliders className="h-3.5 w-3.5 text-[#23483D]" />
+                      <span>Itemized Room Schedule & Dimension Editor</span>
+                    </h4>
+                    <p className="text-[11px] text-[#4F6A5B] mt-0.5">
+                      Review all individual spaces. Select and customize any room's width or length in feet.
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-3 text-xs shrink-0 font-mono">
+                    <span className="px-2 py-0.5 rounded bg-white border border-emerald-300 font-bold text-[#202923]">
+                      Total: {roomSchedule.length} Rooms
+                    </span>
+                    <span className="px-2 py-0.5 rounded bg-[#23483D] text-white font-bold">
+                      {totalScheduleCoveredArea.toLocaleString()} sq ft
+                    </span>
+                  </div>
                 </div>
-                <div>
-                  <label className="block text-[#68736C] font-semibold mb-1">Guest / Normal Bedroom Size Preference</label>
-                  <select
-                    value={guestBedSize}
-                    onChange={(e) => setGuestBedSize(e.target.value)}
-                    className="w-full bg-white border border-[#E2E7E1] rounded-xl px-3 py-2 text-xs text-[#202923] font-semibold"
-                  >
-                    <option value="12x14 ft (Standard)">12 &times; 14 ft (Standard Bedroom)</option>
-                    <option value="13x15 ft (Spacious)">13 &times; 15 ft (Spacious Bedroom)</option>
-                    <option value="11x13 ft (Economy)">11 &times; 13 ft (Economy Bedroom)</option>
-                  </select>
+
+                {/* Filter Tabs & Quick Actions */}
+                <div className="flex flex-wrap items-center justify-between gap-2 text-xs">
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    {(['all', 'bedroom', 'living', 'kitchen', 'bathroom', 'service'] as const).map(cat => (
+                      <button
+                        key={cat}
+                        type="button"
+                        onClick={() => setScheduleFilter(cat)}
+                        className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-all ${
+                          scheduleFilter === cat
+                            ? 'bg-[#23483D] text-white shadow-xs'
+                            : 'bg-white border border-[#E2E7E1] text-[#68736C] hover:text-[#202923]'
+                        }`}
+                      >
+                        {cat === 'all' ? `All (${roomSchedule.length})` :
+                         cat === 'bedroom' ? `Beds (${roomSchedule.filter(r => r.category === 'bedroom').length})` :
+                         cat === 'living' ? `Living & Drawing` :
+                         cat === 'kitchen' ? `Kitchens` :
+                         cat === 'bathroom' ? `Baths (${roomSchedule.filter(r => r.category === 'bathroom').length})` : 'Service / Porch'}
+                      </button>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => setSchedIsAddingRoom(!schedIsAddingRoom)}
+                      className="px-2.5 py-1 rounded-lg bg-white border border-[#23483D] text-[#23483D] text-[11px] font-bold flex items-center gap-1 hover:bg-[#EEF4F0]"
+                    >
+                      <Plus className="h-3 w-3" />
+                      <span>Add Custom Room</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={handleResetScheduleDimensions}
+                      className="px-2 py-1 rounded-lg text-[11px] text-[#68736C] hover:text-[#202923] flex items-center gap-1"
+                      title="Reset all rooms to Pakistani municipal standards"
+                    >
+                      <RotateCcw className="h-3 w-3" />
+                      <span>Reset Standard</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* Add Custom Room Inline Panel */}
+                {schedIsAddingRoom && (
+                  <div className="p-3.5 bg-white border border-[#23483D]/30 rounded-xl space-y-3 shadow-xs">
+                    <h5 className="text-[11px] font-bold text-[#202923] uppercase tracking-wider">Add Custom Space to Schedule</h5>
+                    <div className="grid grid-cols-1 sm:grid-cols-5 gap-2.5 text-xs">
+                      <div className="sm:col-span-2">
+                        <label className="block text-[10px] text-[#68736C] mb-1 font-semibold">Room Name</label>
+                        <input
+                          type="text"
+                          placeholder="e.g. Executive Home Office / Gym"
+                          value={schedNewRoomName}
+                          onChange={(e) => setSchedNewRoomName(e.target.value)}
+                          className="w-full bg-[#FBFBFA] border border-[#E2E7E1] rounded-lg px-2.5 py-1.5 text-xs text-[#202923]"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[10px] text-[#68736C] mb-1 font-semibold">Floor</label>
+                        <select
+                          value={schedNewRoomFloor}
+                          onChange={(e) => setSchedNewRoomFloor(e.target.value as any)}
+                          className="w-full bg-[#FBFBFA] border border-[#E2E7E1] rounded-lg px-2 py-1.5 text-xs text-[#202923]"
+                        >
+                          <option value="Ground Floor">Ground Floor</option>
+                          <option value="First Floor">First Floor</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-[10px] text-[#68736C] mb-1 font-semibold">Width (ft)</label>
+                        <input
+                          type="number"
+                          min={4}
+                          max={35}
+                          value={schedNewRoomWidth}
+                          onChange={(e) => setSchedNewRoomWidth(Number(e.target.value))}
+                          className="w-full bg-[#FBFBFA] border border-[#E2E7E1] rounded-lg px-2 py-1.5 text-xs font-mono font-bold text-[#202923]"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-[10px] text-[#68736C] mb-1 font-semibold">Length (ft)</label>
+                        <input
+                          type="number"
+                          min={4}
+                          max={35}
+                          value={schedNewRoomLength}
+                          onChange={(e) => setSchedNewRoomLength(Number(e.target.value))}
+                          className="w-full bg-[#FBFBFA] border border-[#E2E7E1] rounded-lg px-2 py-1.5 text-xs font-mono font-bold text-[#202923]"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-end gap-2 pt-1">
+                      <button
+                        type="button"
+                        onClick={() => setSchedIsAddingRoom(false)}
+                        className="px-2.5 py-1 text-xs text-[#68736C]"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleAddCustomScheduleRoom}
+                        className="px-3 py-1 bg-[#23483D] text-white rounded-lg text-xs font-bold hover:bg-[#1B362E]"
+                      >
+                        Save Room to Schedule
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* Individual Rooms Grid / Table */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-[480px] overflow-y-auto pr-1">
+                  {roomSchedule
+                    .filter(r => scheduleFilter === 'all' || r.category === scheduleFilter)
+                    .map((room) => {
+                      const areaSqFt = room.widthFt * room.lengthFt;
+                      return (
+                        <div
+                          key={room.id}
+                          className="p-3 bg-white border border-[#E2E7E1] hover:border-[#23483D]/40 rounded-xl flex items-center justify-between gap-3 transition-colors shadow-2xs"
+                        >
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-1.5">
+                              <span className="font-bold text-xs text-[#202923] truncate">
+                                {room.name}
+                              </span>
+                              {room.isCustom && (
+                                <span className="px-1.5 py-0.2 rounded text-[9px] bg-purple-100 text-purple-700 font-bold shrink-0">
+                                  Custom
+                                </span>
+                              )}
+                            </div>
+                            <div className="flex items-center gap-2 mt-1 text-[10px] text-[#68736C]">
+                              <span className="font-medium text-[#23483D]">{room.floor}</span>
+                              <span>&bull;</span>
+                              <span className="font-mono font-bold text-[#202923] bg-[#F7F7F2] px-1.5 py-0.5 rounded border border-[#E2E7E1]">
+                                {areaSqFt} sq ft
+                              </span>
+                            </div>
+                          </div>
+
+                          {/* Editable Width & Length Steppers */}
+                          <div className="flex items-center gap-2 shrink-0">
+                            <div className="flex items-center gap-1">
+                              <span className="text-[10px] text-[#68736C] font-semibold">W:</span>
+                              <input
+                                type="number"
+                                min={4}
+                                max={40}
+                                step={0.5}
+                                value={room.widthFt}
+                                onChange={(e) => handleUpdateRoomDimension(room.id, 'widthFt', Number(e.target.value))}
+                                className="w-14 bg-[#FBFBFA] border border-[#DCE7DE] rounded-lg px-1.5 py-1 text-center font-mono font-bold text-xs text-[#202923] focus:border-[#23483D] focus:ring-1 focus:ring-[#23483D]"
+                                title="Room Width in feet"
+                              />
+                            </div>
+                            <span className="text-xs text-[#68736C]">&times;</span>
+                            <div className="flex items-center gap-1">
+                              <span className="text-[10px] text-[#68736C] font-semibold">L:</span>
+                              <input
+                                type="number"
+                                min={4}
+                                max={50}
+                                step={0.5}
+                                value={room.lengthFt}
+                                onChange={(e) => handleUpdateRoomDimension(room.id, 'lengthFt', Number(e.target.value))}
+                                className="w-14 bg-[#FBFBFA] border border-[#DCE7DE] rounded-lg px-1.5 py-1 text-center font-mono font-bold text-xs text-[#202923] focus:border-[#23483D] focus:ring-1 focus:ring-[#23483D]"
+                                title="Room Length in feet"
+                              />
+                            </div>
+
+                            {room.isCustom && (
+                              <button
+                                type="button"
+                                onClick={() => handleRemoveScheduleRoom(room.id)}
+                                className="p-1 text-[#68736C] hover:text-rose-600 rounded transition-colors"
+                                title="Remove custom room"
+                              >
+                                <Trash2 className="h-3.5 w-3.5" />
+                              </button>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })}
                 </div>
               </div>
             </div>

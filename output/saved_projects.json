@@ -1,5 +1,2655 @@
 [
   {
+    "id": "archi_35x65_modern_66151",
+    "project_id": "archi_35x65_modern_66151",
+    "name": "10.1 Marla Modern Residence (35'x65')",
+    "title": "10.1 Marla Modern Residence (35'x65')",
+    "plot_width": 35,
+    "plot_length": 65,
+    "floors": 2,
+    "bedrooms": 5,
+    "bathrooms": 4,
+    "style": "Modern Contemporary",
+    "status": "completed",
+    "images": {
+      "elevation_svg": "/output/web_generated/archi_35x65_modern_66151/archi_35x65_modern_66151_elevation.svg",
+      "elevation_dxf": "/output/web_generated/archi_35x65_modern_66151/archi_35x65_modern_66151_elevation.dxf",
+      "elevation_spec": {
+        "version": 1,
+        "style": "modern",
+        "style_name": "Modern Contemporary",
+        "plot_scale": "10_marla",
+        "plot_dimensions": {
+          "width_m": 10.67,
+          "depth_m": 19.81,
+          "width_ft": 35,
+          "depth_ft": 65
+        },
+        "vertical_datums": {
+          "road": -0.3,
+          "ngl": 0,
+          "plinth": 0.65,
+          "floor_1": 4.13,
+          "roof_slab": 7.61,
+          "parapet_top": 8.71,
+          "mumty_top": 10.26,
+          "oht_top": 11.46
+        },
+        "facade_bays": {
+          "ground_floor": [
+            {
+              "room_id": "r_L0_porch",
+              "name": "Contemporary Car Porch",
+              "type": "garage",
+              "x1": 0,
+              "x2": 6,
+              "width": 6,
+              "y1": 0,
+              "y2": 5
+            },
+            {
+              "room_id": "r_L0_drawing",
+              "name": "Formal Drawing Room",
+              "type": "living_room",
+              "x1": 6,
+              "x2": 10.67,
+              "width": 4.67,
+              "y1": 1.8,
+              "y2": 5.5
+            },
+            {
+              "room_id": "r_L0_powder",
+              "name": "Guest Powder Room",
+              "type": "bathroom",
+              "x1": 8.5,
+              "x2": 10.67,
+              "width": 2.17,
+              "y1": 0,
+              "y2": 1.8
+            }
+          ],
+          "first_floor": [
+            {
+              "room_id": "r_L1_terrace",
+              "name": "Front Promenade Terrace",
+              "type": "balcony",
+              "x1": 0,
+              "x2": 6,
+              "width": 6,
+              "y1": 0,
+              "y2": 5
+            },
+            {
+              "room_id": "r_L1_bed3",
+              "name": "Upper Front Bedroom Suite 3",
+              "type": "bedroom",
+              "x1": 6,
+              "x2": 10.67,
+              "width": 4.67,
+              "y1": 1.8,
+              "y2": 5.5
+            },
+            {
+              "room_id": "r_L1_bath3",
+              "name": "Upper Bath 3",
+              "type": "bathroom",
+              "x1": 8.5,
+              "x2": 10.67,
+              "width": 2.17,
+              "y1": 0,
+              "y2": 1.8
+            }
+          ],
+          "porch": {
+            "room_id": "r_L0_porch",
+            "name": "Contemporary Car Porch",
+            "type": "garage",
+            "x1": 0,
+            "x2": 6,
+            "width": 6,
+            "y1": 0,
+            "y2": 5
+          },
+          "porch_column": {
+            "x": 5.55,
+            "width": 0.45,
+            "height": 3.48
+          }
+        },
+        "openings": {
+          "main_door": {
+            "opening_id": "d_L0_05",
+            "x": 6.85,
+            "width": 1.4,
+            "height": 2.4,
+            "sill_h": 0.65,
+            "lintel_h": 3.05,
+            "is_double": true,
+            "type": "main_door"
+          },
+          "ground_openings": [
+            {
+              "opening_id": "d_L0_01",
+              "type": "door",
+              "x": 2.5,
+              "width": 1.3,
+              "height": 2.1,
+              "sill_h": 0.65,
+              "lintel_h": 2.75
+            },
+            {
+              "opening_id": "d_L0_02",
+              "type": "door",
+              "x": 6,
+              "width": 1.1,
+              "height": 2.1,
+              "sill_h": 0.65,
+              "lintel_h": 2.75
+            },
+            {
+              "opening_id": "d_L0_03",
+              "type": "door",
+              "x": 8.5,
+              "width": 0.8,
+              "height": 2.1,
+              "sill_h": 0.65,
+              "lintel_h": 2.75
+            },
+            {
+              "opening_id": "d_L0_05",
+              "type": "door",
+              "x": 3,
+              "width": 1.4,
+              "height": 2.1,
+              "sill_h": 0.65,
+              "lintel_h": 2.75
+            },
+            {
+              "opening_id": "w_L0_01",
+              "type": "window",
+              "x": 7,
+              "width": 1.8,
+              "height": 1.5,
+              "sill_h": 1.55,
+              "lintel_h": 3.05
+            }
+          ],
+          "upper_openings": [
+            {
+              "opening_id": "d_L1_03",
+              "type": "door",
+              "x": 8.5,
+              "width": 0.8,
+              "height": 2.1,
+              "sill_h": 4.13,
+              "lintel_h": 6.23
+            },
+            {
+              "opening_id": "w_L1_01",
+              "type": "window",
+              "x": 7,
+              "width": 1.8,
+              "height": 1.5,
+              "sill_h": 5.03,
+              "lintel_h": 6.53
+            }
+          ]
+        },
+        "roof_system": {
+          "parapet_height_m": 1.1,
+          "parapet_style": "flat_metal_coping",
+          "mumty": {
+            "x": 0,
+            "width": 1.6,
+            "height": 2.65,
+            "door_present": true
+          },
+          "water_tank": {
+            "x": 0.16,
+            "width": 1.28,
+            "height": 1.2,
+            "capacity_gal": 1500
+          },
+          "pergola": {
+            "x1": 0,
+            "x2": 6,
+            "width": 6,
+            "y_level": 4.13,
+            "height_m": 2.4,
+            "material": "Treated Hardwood Slats (Teak/Steel)",
+            "color": "#8B5A2B"
+          }
+        },
+        "materials": {
+          "name": "Modern Contemporary",
+          "primary_wall": "#F8FAFC",
+          "accent_wall": "#1E293B",
+          "stone_cladding": "#D4B996",
+          "wood_louvers": "#8B5A2B",
+          "frame_color": "#0F172A",
+          "glass_color": "#BAE6FD",
+          "parapet_type": "flat_metal_coping",
+          "arch_style": "orthogonal",
+          "balustrade": "tempered_glass",
+          "pergola_allowed": true
+        },
+        "modifications_applied": []
+      },
+      "elevation": "/output/web_generated/archi_35x65_modern_66151/archi_35x65_modern_66151_front_elevation_2d.png",
+      "ground": "/output/web_generated/archi_35x65_modern_66151/master_10_marla_v02_ground_floor_2d.png",
+      "first": "/output/web_generated/archi_35x65_modern_66151/master_10_marla_v02_first_floor_2d.png",
+      "rooftop": "/output/web_generated/archi_35x65_modern_66151/master_10_marla_v02_rooftop_slab_plan_2d.png",
+      "all": "/output/web_generated/archi_35x65_modern_66151/master_10_marla_v02_composite_two_floors.png",
+      "multiFloor": "/output/web_generated/archi_35x65_modern_66151/master_10_marla_v02_composite_two_floors.png",
+      "presentation": "/output/web_generated/archi_35x65_modern_66151/master_10_marla_v02_composite_two_floors.png"
+    },
+    "front_elevation": {
+      "total_height_ft": 27.5,
+      "width_ft": 35,
+      "floors_count": 2,
+      "style_palette": {
+        "roof_type": "Concealed Parapet with Cantilevered Concrete Pergola",
+        "roof_color": "#334155",
+        "wall_finish": "Fair-face Concrete Panels & Travertine Stone Cladding",
+        "wall_color": "#f8fafc",
+        "fenestrations": "Floor-to-Ceiling Thermally Broken Black Aluminum Glazing",
+        "balcony_railings": "12mm Frameless Tempered Glass with Stainless Steel Spigots",
+        "entrance_gate": "Motorized Laser-cut Composite Charcoal Slats",
+        "porch_columns": "Square Steel-jacketed RCC Cantilever Beam",
+        "features": [
+          "Cantilevered Balcony Box",
+          "Vertical Architectural Louvers",
+          "Integrated Warm LED Linear Grazers"
+        ]
+      },
+      "levels": [
+        {
+          "label": "Road Level",
+          "elevation_ft": 0
+        },
+        {
+          "label": "Plinth Level",
+          "elevation_ft": 2
+        },
+        {
+          "label": "Ground Floor Ceiling",
+          "elevation_ft": 13
+        },
+        {
+          "label": "First Floor Ceiling",
+          "elevation_ft": 24
+        },
+        {
+          "label": "Top of Parapet / Roof",
+          "elevation_ft": 27.5
+        }
+      ],
+      "evaluation": {
+        "symmetry_score": 88,
+        "golden_ratio_adherence": 92,
+        "solar_heat_gain_mitigation": "High (Cantilevered Balconies provide passive shading)",
+        "natural_daylight_factor": "4.2% (Excellent across all habitable suites)",
+        "curb_appeal_index": 96,
+        "ventilation_aperture_ratio": "22% of total front envelope surface area"
+      },
+      "svg_drawing": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 630 617\" width=\"630\" height=\"617\">\n<defs>\n  <linearGradient id=\"glassGrad\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0%\" stop-color=\"#bae6fd\" stop-opacity=\"0.8\"/><stop offset=\"100%\" stop-color=\"#38bdf8\" stop-opacity=\"0.9\"/></linearGradient>\n  <linearGradient id=\"wallGrad\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"0\"><stop offset=\"0%\" stop-color=\"#f8fafc\"/><stop offset=\"100%\" stop-color=\"#f1f5f9\"/></linearGradient>\n  <pattern id=\"brickHatch\" width=\"10\" height=\"6\" patternUnits=\"userSpaceOnUse\"><path d=\"M 0,3 L 10,3 M 5,0 L 5,3 M 0,6 L 10,6\" stroke=\"#cbd5e1\" stroke-width=\"0.5\"/></pattern>\n</defs>\n<line x1=\"20\" y1=\"557.0\" x2=\"610\" y2=\"557.0\" stroke=\"#0f172a\" stroke-width=\"3\"/>\n<text x=\"60\" y=\"561.0\" text-anchor=\"end\" fill=\"#64748b\" font-size=\"10\" font-family=\"monospace\">\u00b10.0' Road</text>\n<rect x=\"70.0\" y=\"60.0\" width=\"72.8\" height=\"119.0\" fill=\"#e2e8f0\" stroke=\"#334155\" stroke-width=\"2\" rx=\"2\"/>\n<text x=\"106.4\" y=\"74.0\" text-anchor=\"middle\" fill=\"#475569\" font-size=\"9\" font-weight=\"bold\" font-family=\"sans-serif\">STAIR MUMTY</text>\n<line x1=\"560.0\" y1=\"60.0\" x2=\"610\" y2=\"60.0\" stroke=\"#dc2626\" stroke-dasharray=\"3 3\"/>\n<text x=\"568.0\" y=\"63.0\" fill=\"#dc2626\" font-size=\"9\" font-family=\"monospace\">+35.5' Mumty</text>\n<rect x=\"70.0\" y=\"536.0\" width=\"490.0\" height=\"21.0\" fill=\"#64748b\" stroke=\"#334155\" stroke-width=\"1.5\"/>\n<text x=\"60\" y=\"540.0\" text-anchor=\"end\" fill=\"#64748b\" font-size=\"9\" font-family=\"monospace\">+1.5' Plinth</text>\n<rect x=\"345.8\" y=\"382.0\" width=\"214.20000000000002\" height=\"140.0\" fill=\"url(#wallGrad)\" stroke=\"#334155\" stroke-width=\"1.8\"/>\n<rect x=\"345.8\" y=\"382.0\" width=\"214.20000000000002\" height=\"140.0\" fill=\"url(#brickHatch)\"/>\n<rect x=\"407.40000000000003\" y=\"424.0\" width=\"91.0\" height=\"77.0\" fill=\"url(#glassGrad)\" stroke=\"#0284c7\" stroke-width=\"2\"/>\n<line x1=\"452.90000000000003\" y1=\"424.0\" x2=\"452.90000000000003\" y2=\"501.0\" stroke=\"#0284c7\" stroke-width=\"1.5\"/>\n<line x1=\"407.40000000000003\" y1=\"462.5\" x2=\"498.40000000000003\" y2=\"462.5\" stroke=\"#0284c7\" stroke-width=\"1.5\"/>\n<rect x=\"70.0\" y=\"382.0\" width=\"275.8\" height=\"140.0\" fill=\"#f1f5f9\" stroke=\"#94a3b8\" stroke-dasharray=\"4 2\"/>\n<rect x=\"221.69\" y=\"438.0\" width=\"49.0\" height=\"98.0\" fill=\"#78350f\" stroke=\"#451a03\" stroke-width=\"1.5\" rx=\"2\"/>\n<circle cx=\"260.89\" cy=\"487.0\" r=\"2.5\" fill=\"#f59e0b\"/>\n<rect x=\"328.3\" y=\"382.0\" width=\"17.5\" height=\"140.0\" fill=\"#1e293b\" stroke=\"#0f172a\" stroke-width=\"2\"/>\n<rect x=\"77.0\" y=\"498.2\" width=\"175.0\" height=\"37.8\" fill=\"#334155\" opacity=\"0.35\" rx=\"5\"/>\n<rect x=\"112.0\" y=\"473.0\" width=\"105.0\" height=\"31.5\" fill=\"#334155\" opacity=\"0.35\" rx=\"8\"/>\n<rect x=\"66.0\" y=\"382.0\" width=\"498.0\" height=\"14.0\" fill=\"#94a3b8\" stroke=\"#334155\" stroke-width=\"1.5\"/>\n<line x1=\"560.0\" y1=\"382.0\" x2=\"610\" y2=\"382.0\" stroke=\"#64748b\" stroke-dasharray=\"3 3\"/>\n<text x=\"568.0\" y=\"385.0\" fill=\"#64748b\" font-size=\"9\" font-family=\"monospace\">+12.5' 1st Slab</text>\n<rect x=\"345.8\" y=\"228.0\" width=\"214.20000000000002\" height=\"140.0\" fill=\"url(#wallGrad)\" stroke=\"#334155\" stroke-width=\"1.8\"/>\n<rect x=\"407.40000000000003\" y=\"270.0\" width=\"91.0\" height=\"70.0\" fill=\"url(#glassGrad)\" stroke=\"#0284c7\" stroke-width=\"2\"/>\n<rect x=\"70.0\" y=\"333.0\" width=\"275.8\" height=\"49.0\" fill=\"url(#glassGrad)\" fill-opacity=\"0.4\" stroke=\"#0284c7\" stroke-width=\"1.5\"/>\n<line x1=\"70.0\" y1=\"333.0\" x2=\"345.8\" y2=\"333.0\" stroke=\"#0f172a\" stroke-width=\"2\"/>\n<rect x=\"70.0\" y=\"179.0\" width=\"490.0\" height=\"49.0\" fill=\"#e2e8f0\" stroke=\"#334155\" stroke-width=\"1.5\"/>\n<line x1=\"66.0\" y1=\"179.0\" x2=\"564.0\" y2=\"179.0\" stroke=\"#0f172a\" stroke-width=\"2.5\"/>\n<line x1=\"560.0\" y1=\"179.0\" x2=\"610\" y2=\"179.0\" stroke=\"#64748b\" stroke-dasharray=\"3 3\"/>\n<text x=\"568.0\" y=\"182.0\" fill=\"#64748b\" font-size=\"9\" font-family=\"monospace\">+27.0' Parapet</text>\n<line x1=\"70.0\" y1=\"582.0\" x2=\"560.0\" y2=\"582.0\" stroke=\"#b91c1c\" stroke-width=\"1.5\"/>\n<line x1=\"70.0\" y1=\"578.0\" x2=\"70.0\" y2=\"586.0\" stroke=\"#b91c1c\" stroke-width=\"1.5\"/>\n<line x1=\"560.0\" y1=\"578.0\" x2=\"560.0\" y2=\"586.0\" stroke=\"#b91c1c\" stroke-width=\"1.5\"/>\n<text x=\"315.0\" y=\"598.0\" text-anchor=\"middle\" fill=\"#b91c1c\" font-size=\"11\" font-weight=\"bold\" font-family=\"monospace\">TOTAL FRONTAGE: 35.0 FEET (1:1 RAYCAST COORDINATED)</text>\n</svg>",
+      "raycast_verified": true
+    },
+    "three_d_model": {
+      "scale": "meters",
+      "floor_height_m": 3.2,
+      "nodes_count": 36,
+      "nodes": [
+        {
+          "type": "slab",
+          "name": "Floor Slab 0",
+          "level": 0,
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "width": 10.668000000000001,
+          "height": 0.2,
+          "depth": 19.812,
+          "material": "concrete_slab",
+          "color": "#94a3b8"
+        },
+        {
+          "type": "room",
+          "room_id": "r_L0_porch",
+          "name": "Contemporary Car Porch",
+          "category": "garage",
+          "level": 0,
+          "x": -2.332,
+          "y": 0.05,
+          "z": -7.407,
+          "width": 6.005,
+          "height": 0.1,
+          "depth": 4.999,
+          "material": "driveway_pavers",
+          "color": "#64748b",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "front",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L0_lawn",
+          "name": "Front Lawn Garden",
+          "category": "balcony",
+          "level": 0,
+          "x": 1.92,
+          "y": 0.05,
+          "z": -9.007,
+          "width": 2.499,
+          "height": 0.1,
+          "depth": 1.798,
+          "material": "terrace_deck",
+          "color": "#10b981",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "front",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L0_powder",
+          "name": "Guest Powder Room",
+          "category": "bathroom",
+          "level": 0,
+          "x": 4.252,
+          "y": 1.5,
+          "z": -9.007,
+          "width": 2.164,
+          "height": 3,
+          "depth": 1.798,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "front",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L0_drawing",
+          "name": "Formal Drawing Room",
+          "category": "living_room",
+          "level": 0,
+          "x": 3.002,
+          "y": 1.5,
+          "z": -6.264,
+          "width": 4.663,
+          "height": 3,
+          "depth": 3.688,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "front",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L0_foyer",
+          "name": "Grand Entrance Foyer",
+          "category": "corridor",
+          "level": 0,
+          "x": -2.332,
+          "y": 1.5,
+          "z": -3.658,
+          "width": 6.005,
+          "height": 3,
+          "depth": 2.499,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "front",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L0_stairs",
+          "name": "Straight Flight Atrium Stairs",
+          "category": "corridor",
+          "level": 0,
+          "x": -4.542,
+          "y": 1.5,
+          "z": -0.152,
+          "width": 1.585,
+          "height": 3,
+          "depth": 4.511,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "front",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L0_atrium",
+          "name": "Double-Height Central Atrium Court",
+          "category": "living_room",
+          "level": 0,
+          "x": -1.554,
+          "y": 1.5,
+          "z": -0.152,
+          "width": 4.389,
+          "height": 3,
+          "depth": 4.511,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "front",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L0_dining",
+          "name": "Dirty Kitchen (Scullery Kitchen)",
+          "category": "kitchen",
+          "level": 0,
+          "x": 3.002,
+          "y": 1.5,
+          "z": -2.926,
+          "width": 4.663,
+          "height": 3,
+          "depth": 2.987,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "front",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L0_kitchen",
+          "name": "Executive Island Kitchen",
+          "category": "kitchen",
+          "level": 0,
+          "x": 3.002,
+          "y": 1.5,
+          "z": 0.351,
+          "width": 4.663,
+          "height": 3,
+          "depth": 3.505,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "front",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L0_lounge",
+          "name": "Family Entertainment Lounge",
+          "category": "living_room",
+          "level": 0,
+          "x": -2.332,
+          "y": 1.5,
+          "z": 3.856,
+          "width": 6.005,
+          "height": 3,
+          "depth": 3.505,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "rear",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L0_bed1",
+          "name": "Master Bedroom Suite 1",
+          "category": "bedroom",
+          "level": 0,
+          "x": 3.002,
+          "y": 1.5,
+          "z": 4.359,
+          "width": 4.663,
+          "height": 3,
+          "depth": 4.511,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "rear",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L0_bath1",
+          "name": "Master Luxury Bath 1",
+          "category": "bathroom",
+          "level": 0,
+          "x": 1.92,
+          "y": 1.5,
+          "z": 8.245,
+          "width": 2.499,
+          "height": 3,
+          "depth": 3.322,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "rear",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L0_dress1",
+          "name": "Servant Quarter & En-suite",
+          "category": "living_room",
+          "level": 0,
+          "x": 4.252,
+          "y": 1.5,
+          "z": 8.245,
+          "width": 2.164,
+          "height": 3,
+          "depth": 3.322,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "rear",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L0_bed2",
+          "name": "Rear Bedroom 2",
+          "category": "bedroom",
+          "level": 0,
+          "x": -3.338,
+          "y": 1.5,
+          "z": 7.757,
+          "width": 3.993,
+          "height": 3,
+          "depth": 4.298,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "rear",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L0_bath2",
+          "name": "Attached Bath 2",
+          "category": "bathroom",
+          "level": 0,
+          "x": -0.335,
+          "y": 1.5,
+          "z": 6.614,
+          "width": 2.012,
+          "height": 3,
+          "depth": 2.012,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "rear",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L0_ots",
+          "name": "Rear Light Shaft OTS",
+          "category": "balcony",
+          "level": 0,
+          "x": -0.335,
+          "y": 0.05,
+          "z": 8.748,
+          "width": 2.012,
+          "height": 0.1,
+          "depth": 2.316,
+          "material": "terrace_deck",
+          "color": "#cbd5e1",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "rear",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "slab",
+          "name": "Floor Slab 1",
+          "level": 1,
+          "x": 0,
+          "y": 3.2,
+          "z": 0,
+          "width": 10.668000000000001,
+          "height": 0.2,
+          "depth": 19.812,
+          "material": "concrete_slab",
+          "color": "#94a3b8"
+        },
+        {
+          "type": "room",
+          "room_id": "r_L1_terrace",
+          "name": "Front Promenade Terrace",
+          "category": "balcony",
+          "level": 1,
+          "x": -2.332,
+          "y": 3.25,
+          "z": -7.407,
+          "width": 6.005,
+          "height": 0.1,
+          "depth": 4.999,
+          "material": "terrace_deck",
+          "color": "#cbd5e1",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "front",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L1_bath3",
+          "name": "Upper Bath 3",
+          "category": "bathroom",
+          "level": 1,
+          "x": 4.252,
+          "y": 4.7,
+          "z": -9.007,
+          "width": 2.164,
+          "height": 3,
+          "depth": 1.798,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "front",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L1_bed3",
+          "name": "Upper Front Bedroom Suite 3",
+          "category": "bedroom",
+          "level": 1,
+          "x": 3.002,
+          "y": 4.7,
+          "z": -6.264,
+          "width": 4.663,
+          "height": 3,
+          "depth": 3.688,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "front",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L1_study",
+          "name": "Upper Gallery Study",
+          "category": "living_room",
+          "level": 1,
+          "x": -2.332,
+          "y": 4.7,
+          "z": -3.658,
+          "width": 6.005,
+          "height": 3,
+          "depth": 2.499,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "front",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L1_stairs",
+          "name": "Straight Flight Atrium Stairs Landing",
+          "category": "corridor",
+          "level": 1,
+          "x": -4.542,
+          "y": 4.7,
+          "z": -0.152,
+          "width": 1.585,
+          "height": 3,
+          "depth": 4.511,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "front",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L1_bridge",
+          "name": "Suspended Atrium Glass Bridge",
+          "category": "corridor",
+          "level": 1,
+          "x": -1.554,
+          "y": 4.7,
+          "z": -0.152,
+          "width": 4.389,
+          "height": 3,
+          "depth": 4.511,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "front",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L1_media",
+          "name": "Upper Media Room",
+          "category": "living_room",
+          "level": 1,
+          "x": 3.002,
+          "y": 4.7,
+          "z": -2.926,
+          "width": 4.663,
+          "height": 3,
+          "depth": 2.987,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "front",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L1_kitchenette",
+          "name": "Upper Bar Kitchenette",
+          "category": "kitchen",
+          "level": 1,
+          "x": 3.002,
+          "y": 4.7,
+          "z": 0.351,
+          "width": 4.663,
+          "height": 3,
+          "depth": 3.505,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "front",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L1_lounge",
+          "name": "Upper Gallery Lounge",
+          "category": "living_room",
+          "level": 1,
+          "x": -2.332,
+          "y": 4.7,
+          "z": 3.856,
+          "width": 6.005,
+          "height": 3,
+          "depth": 3.505,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "rear",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L1_bed4",
+          "name": "Master Bedroom Suite 4",
+          "category": "bedroom",
+          "level": 1,
+          "x": 3.002,
+          "y": 4.7,
+          "z": 4.359,
+          "width": 4.663,
+          "height": 3,
+          "depth": 4.511,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "rear",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L1_bath4",
+          "name": "Master Luxury Bath 4",
+          "category": "bathroom",
+          "level": 1,
+          "x": 1.92,
+          "y": 4.7,
+          "z": 8.245,
+          "width": 2.499,
+          "height": 3,
+          "depth": 3.322,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "rear",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L1_dress4",
+          "name": "Upper Master Walk-in",
+          "category": "living_room",
+          "level": 1,
+          "x": 4.252,
+          "y": 4.7,
+          "z": 8.245,
+          "width": 2.164,
+          "height": 3,
+          "depth": 3.322,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "rear",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L1_bed5",
+          "name": "Upper Rear Bedroom 5",
+          "category": "bedroom",
+          "level": 1,
+          "x": -3.338,
+          "y": 4.7,
+          "z": 7.757,
+          "width": 3.993,
+          "height": 3,
+          "depth": 4.298,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "rear",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L1_bath5",
+          "name": "Attached Bath 5",
+          "category": "bathroom",
+          "level": 1,
+          "x": -0.335,
+          "y": 4.7,
+          "z": 6.614,
+          "width": 2.012,
+          "height": 3,
+          "depth": 2.012,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "rear",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L1_ots",
+          "name": "Rear Light Shaft OTS Void",
+          "category": "balcony",
+          "level": 1,
+          "x": -0.335,
+          "y": 3.25,
+          "z": 8.748,
+          "width": 2.012,
+          "height": 0.1,
+          "depth": 2.316,
+          "material": "terrace_deck",
+          "color": "#cbd5e1",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "rear",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "roof",
+          "name": "Architectural Roof",
+          "level": 2,
+          "x": 0,
+          "y": 6.75,
+          "z": 0,
+          "width": 11.201,
+          "height": 0.3,
+          "depth": 20.803,
+          "material": "roof_concrete",
+          "color": "#334155"
+        },
+        {
+          "type": "mumty",
+          "name": "Rooftop Stair Mumty Penthouse",
+          "level": 3,
+          "x": -4.542,
+          "y": 7.75,
+          "z": -0.152,
+          "width": 1.585,
+          "height": 2.7,
+          "depth": 4.511,
+          "material": "room_walls",
+          "color": "#cbd5e1"
+        },
+        {
+          "type": "water_tank",
+          "name": "Overhead Water Tank (1500 GAL)",
+          "level": 4,
+          "x": -4.542,
+          "y": 9.7,
+          "z": -0.152,
+          "width": 1.268,
+          "height": 1.2,
+          "depth": 2,
+          "material": "concrete_tank",
+          "color": "#475569"
+        }
+      ],
+      "camera_presets": {
+        "isometric": {
+          "position": [
+            20,
+            22,
+            25
+          ],
+          "target": [
+            0,
+            4,
+            0
+          ]
+        },
+        "front_elevation": {
+          "position": [
+            0,
+            5,
+            28
+          ],
+          "target": [
+            0,
+            5,
+            0
+          ]
+        },
+        "side_elevation": {
+          "position": [
+            28,
+            5,
+            0
+          ],
+          "target": [
+            0,
+            5,
+            0
+          ]
+        },
+        "top_plan": {
+          "position": [
+            0,
+            35,
+            0
+          ],
+          "target": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "quality_gate": {
+      "status": "PASS",
+      "score": 1,
+      "checks": [
+        {
+          "code": "F01",
+          "name": "Envelope Boundary Containment",
+          "passed": true,
+          "detail": "All rooms within statutory plot boundaries"
+        },
+        {
+          "code": "F02",
+          "name": "Zero Negative Coordinate",
+          "passed": true,
+          "detail": "Coordinates strictly positive within site frame"
+        },
+        {
+          "code": "F04",
+          "name": "Wet Zone Vertical Stacking",
+          "passed": true,
+          "detail": "Upper bathrooms aligned over ground wet shafts"
+        },
+        {
+          "code": "F05",
+          "name": "Egress & Door Width Compliance",
+          "passed": true,
+          "detail": "All doors meet minimum 0.90m (3'-0\") clear openings"
+        },
+        {
+          "code": "F06",
+          "name": "Natural Daylight & Cross Ventilation",
+          "passed": true,
+          "detail": "All habitable bedrooms have direct window access"
+        },
+        {
+          "code": "F08",
+          "name": "Staircase Headroom Clearance",
+          "passed": true,
+          "detail": "Staircase meets 2.1m (7'-0\") vertical clearance"
+        },
+        {
+          "code": "F10",
+          "name": "Statutory Setbacks Compliance",
+          "passed": true,
+          "detail": "Front 10.0' and Rear 5.0' setbacks strictly enforced"
+        },
+        {
+          "code": "F13",
+          "name": "Physical Scale Feasibility",
+          "passed": true,
+          "detail": "Target room sizes match physically permissible envelope"
+        }
+      ]
+    },
+    "created_at": "2026-11-03T20:13:18.885Z"
+  },
+  {
+    "id": "proj_1793736798874",
+    "project_id": "proj_1793736798874",
+    "name": "10.1 Marla Modern Residence (35'x65')",
+    "title": "10.1 Marla Modern Residence (35'x65')",
+    "plot_width": 35,
+    "plot_length": 65,
+    "floors": 2,
+    "bedrooms": 5,
+    "bathrooms": 4,
+    "style": "Modern Contemporary",
+    "status": "draft",
+    "created_at": "2026-11-03T20:13:18.876Z"
+  },
+  {
+    "id": "archi_35x65_modern_89772",
+    "project_id": "archi_35x65_modern_89772",
+    "name": "10.1 Marla Modern Residence (35'x65')",
+    "title": "10.1 Marla Modern Residence (35'x65')",
+    "plot_width": 35,
+    "plot_length": 65,
+    "floors": 2,
+    "bedrooms": 5,
+    "bathrooms": 4,
+    "style": "Modern Contemporary",
+    "status": "completed",
+    "images": {
+      "elevation_svg": "/output/web_generated/archi_35x65_modern_89772/archi_35x65_modern_89772_elevation.svg",
+      "elevation_dxf": "/output/web_generated/archi_35x65_modern_89772/archi_35x65_modern_89772_elevation.dxf",
+      "elevation_spec": {
+        "version": 1,
+        "style": "modern",
+        "style_name": "Modern Contemporary",
+        "plot_scale": "10_marla",
+        "plot_dimensions": {
+          "width_m": 10.67,
+          "depth_m": 19.81,
+          "width_ft": 35,
+          "depth_ft": 65
+        },
+        "vertical_datums": {
+          "road": -0.3,
+          "ngl": 0,
+          "plinth": 0.65,
+          "floor_1": 4.13,
+          "roof_slab": 7.61,
+          "parapet_top": 8.71,
+          "mumty_top": 10.26,
+          "oht_top": 11.46
+        },
+        "facade_bays": {
+          "ground_floor": [
+            {
+              "room_id": "r_L0_porch",
+              "name": "Contemporary Car Porch",
+              "type": "garage",
+              "x1": 0,
+              "x2": 6,
+              "width": 6,
+              "y1": 0,
+              "y2": 5
+            },
+            {
+              "room_id": "r_L0_drawing",
+              "name": "Formal Drawing Room",
+              "type": "living_room",
+              "x1": 6,
+              "x2": 10.67,
+              "width": 4.67,
+              "y1": 1.8,
+              "y2": 5.5
+            },
+            {
+              "room_id": "r_L0_powder",
+              "name": "Guest Powder Room",
+              "type": "bathroom",
+              "x1": 8.5,
+              "x2": 10.67,
+              "width": 2.17,
+              "y1": 0,
+              "y2": 1.8
+            }
+          ],
+          "first_floor": [
+            {
+              "room_id": "r_L1_terrace",
+              "name": "Front Promenade Terrace",
+              "type": "balcony",
+              "x1": 0,
+              "x2": 6,
+              "width": 6,
+              "y1": 0,
+              "y2": 5
+            },
+            {
+              "room_id": "r_L1_bed3",
+              "name": "Upper Front Bedroom Suite 3",
+              "type": "bedroom",
+              "x1": 6,
+              "x2": 10.67,
+              "width": 4.67,
+              "y1": 1.8,
+              "y2": 5.5
+            },
+            {
+              "room_id": "r_L1_bath3",
+              "name": "Upper Bath 3",
+              "type": "bathroom",
+              "x1": 8.5,
+              "x2": 10.67,
+              "width": 2.17,
+              "y1": 0,
+              "y2": 1.8
+            }
+          ],
+          "porch": {
+            "room_id": "r_L0_porch",
+            "name": "Contemporary Car Porch",
+            "type": "garage",
+            "x1": 0,
+            "x2": 6,
+            "width": 6,
+            "y1": 0,
+            "y2": 5
+          },
+          "porch_column": {
+            "x": 5.55,
+            "width": 0.45,
+            "height": 3.48
+          }
+        },
+        "openings": {
+          "main_door": {
+            "opening_id": "d_L0_05",
+            "x": 6.85,
+            "width": 1.4,
+            "height": 2.4,
+            "sill_h": 0.65,
+            "lintel_h": 3.05,
+            "is_double": true,
+            "type": "main_door"
+          },
+          "ground_openings": [
+            {
+              "opening_id": "d_L0_01",
+              "type": "door",
+              "x": 2.5,
+              "width": 1.3,
+              "height": 2.1,
+              "sill_h": 0.65,
+              "lintel_h": 2.75
+            },
+            {
+              "opening_id": "d_L0_02",
+              "type": "door",
+              "x": 6,
+              "width": 1.1,
+              "height": 2.1,
+              "sill_h": 0.65,
+              "lintel_h": 2.75
+            },
+            {
+              "opening_id": "d_L0_03",
+              "type": "door",
+              "x": 8.5,
+              "width": 0.8,
+              "height": 2.1,
+              "sill_h": 0.65,
+              "lintel_h": 2.75
+            },
+            {
+              "opening_id": "d_L0_05",
+              "type": "door",
+              "x": 3,
+              "width": 1.4,
+              "height": 2.1,
+              "sill_h": 0.65,
+              "lintel_h": 2.75
+            },
+            {
+              "opening_id": "w_L0_01",
+              "type": "window",
+              "x": 7,
+              "width": 1.8,
+              "height": 1.5,
+              "sill_h": 1.55,
+              "lintel_h": 3.05
+            }
+          ],
+          "upper_openings": [
+            {
+              "opening_id": "d_L1_03",
+              "type": "door",
+              "x": 8.5,
+              "width": 0.8,
+              "height": 2.1,
+              "sill_h": 4.13,
+              "lintel_h": 6.23
+            },
+            {
+              "opening_id": "w_L1_01",
+              "type": "window",
+              "x": 7,
+              "width": 1.8,
+              "height": 1.5,
+              "sill_h": 5.03,
+              "lintel_h": 6.53
+            }
+          ]
+        },
+        "roof_system": {
+          "parapet_height_m": 1.1,
+          "parapet_style": "flat_metal_coping",
+          "mumty": {
+            "x": 0,
+            "width": 1.6,
+            "height": 2.65,
+            "door_present": true
+          },
+          "water_tank": {
+            "x": 0.16,
+            "width": 1.28,
+            "height": 1.2,
+            "capacity_gal": 1500
+          },
+          "pergola": {
+            "x1": 0,
+            "x2": 6,
+            "width": 6,
+            "y_level": 4.13,
+            "height_m": 2.4,
+            "material": "Treated Hardwood Slats (Teak/Steel)",
+            "color": "#8B5A2B"
+          }
+        },
+        "materials": {
+          "name": "Modern Contemporary",
+          "primary_wall": "#F8FAFC",
+          "accent_wall": "#1E293B",
+          "stone_cladding": "#D4B996",
+          "wood_louvers": "#8B5A2B",
+          "frame_color": "#0F172A",
+          "glass_color": "#BAE6FD",
+          "parapet_type": "flat_metal_coping",
+          "arch_style": "orthogonal",
+          "balustrade": "tempered_glass",
+          "pergola_allowed": true
+        },
+        "modifications_applied": []
+      },
+      "elevation": "/output/web_generated/archi_35x65_modern_89772/archi_35x65_modern_89772_front_elevation_2d.png",
+      "ground": "/output/web_generated/archi_35x65_modern_89772/master_10_marla_v02_ground_floor_2d.png",
+      "first": "/output/web_generated/archi_35x65_modern_89772/master_10_marla_v02_first_floor_2d.png",
+      "rooftop": "/output/web_generated/archi_35x65_modern_89772/master_10_marla_v02_rooftop_slab_plan_2d.png",
+      "all": "/output/web_generated/archi_35x65_modern_89772/master_10_marla_v02_composite_two_floors.png",
+      "multiFloor": "/output/web_generated/archi_35x65_modern_89772/master_10_marla_v02_composite_two_floors.png",
+      "presentation": "/output/web_generated/archi_35x65_modern_89772/master_10_marla_v02_composite_two_floors.png"
+    },
+    "front_elevation": {
+      "total_height_ft": 27.5,
+      "width_ft": 35,
+      "floors_count": 2,
+      "style_palette": {
+        "roof_type": "Concealed Parapet with Cantilevered Concrete Pergola",
+        "roof_color": "#334155",
+        "wall_finish": "Fair-face Concrete Panels & Travertine Stone Cladding",
+        "wall_color": "#f8fafc",
+        "fenestrations": "Floor-to-Ceiling Thermally Broken Black Aluminum Glazing",
+        "balcony_railings": "12mm Frameless Tempered Glass with Stainless Steel Spigots",
+        "entrance_gate": "Motorized Laser-cut Composite Charcoal Slats",
+        "porch_columns": "Square Steel-jacketed RCC Cantilever Beam",
+        "features": [
+          "Cantilevered Balcony Box",
+          "Vertical Architectural Louvers",
+          "Integrated Warm LED Linear Grazers"
+        ]
+      },
+      "levels": [
+        {
+          "label": "Road Level",
+          "elevation_ft": 0
+        },
+        {
+          "label": "Plinth Level",
+          "elevation_ft": 2
+        },
+        {
+          "label": "Ground Floor Ceiling",
+          "elevation_ft": 13
+        },
+        {
+          "label": "First Floor Ceiling",
+          "elevation_ft": 24
+        },
+        {
+          "label": "Top of Parapet / Roof",
+          "elevation_ft": 27.5
+        }
+      ],
+      "evaluation": {
+        "symmetry_score": 88,
+        "golden_ratio_adherence": 92,
+        "solar_heat_gain_mitigation": "High (Cantilevered Balconies provide passive shading)",
+        "natural_daylight_factor": "4.2% (Excellent across all habitable suites)",
+        "curb_appeal_index": 96,
+        "ventilation_aperture_ratio": "22% of total front envelope surface area"
+      },
+      "svg_drawing": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 630 617\" width=\"630\" height=\"617\">\n<defs>\n  <linearGradient id=\"glassGrad\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\"><stop offset=\"0%\" stop-color=\"#bae6fd\" stop-opacity=\"0.8\"/><stop offset=\"100%\" stop-color=\"#38bdf8\" stop-opacity=\"0.9\"/></linearGradient>\n  <linearGradient id=\"wallGrad\" x1=\"0\" y1=\"0\" x2=\"1\" y2=\"0\"><stop offset=\"0%\" stop-color=\"#f8fafc\"/><stop offset=\"100%\" stop-color=\"#f1f5f9\"/></linearGradient>\n  <pattern id=\"brickHatch\" width=\"10\" height=\"6\" patternUnits=\"userSpaceOnUse\"><path d=\"M 0,3 L 10,3 M 5,0 L 5,3 M 0,6 L 10,6\" stroke=\"#cbd5e1\" stroke-width=\"0.5\"/></pattern>\n</defs>\n<line x1=\"20\" y1=\"557.0\" x2=\"610\" y2=\"557.0\" stroke=\"#0f172a\" stroke-width=\"3\"/>\n<text x=\"60\" y=\"561.0\" text-anchor=\"end\" fill=\"#64748b\" font-size=\"10\" font-family=\"monospace\">\u00b10.0' Road</text>\n<rect x=\"70.0\" y=\"60.0\" width=\"72.8\" height=\"119.0\" fill=\"#e2e8f0\" stroke=\"#334155\" stroke-width=\"2\" rx=\"2\"/>\n<text x=\"106.4\" y=\"74.0\" text-anchor=\"middle\" fill=\"#475569\" font-size=\"9\" font-weight=\"bold\" font-family=\"sans-serif\">STAIR MUMTY</text>\n<line x1=\"560.0\" y1=\"60.0\" x2=\"610\" y2=\"60.0\" stroke=\"#dc2626\" stroke-dasharray=\"3 3\"/>\n<text x=\"568.0\" y=\"63.0\" fill=\"#dc2626\" font-size=\"9\" font-family=\"monospace\">+35.5' Mumty</text>\n<rect x=\"70.0\" y=\"536.0\" width=\"490.0\" height=\"21.0\" fill=\"#64748b\" stroke=\"#334155\" stroke-width=\"1.5\"/>\n<text x=\"60\" y=\"540.0\" text-anchor=\"end\" fill=\"#64748b\" font-size=\"9\" font-family=\"monospace\">+1.5' Plinth</text>\n<rect x=\"345.8\" y=\"382.0\" width=\"214.20000000000002\" height=\"140.0\" fill=\"url(#wallGrad)\" stroke=\"#334155\" stroke-width=\"1.8\"/>\n<rect x=\"345.8\" y=\"382.0\" width=\"214.20000000000002\" height=\"140.0\" fill=\"url(#brickHatch)\"/>\n<rect x=\"407.40000000000003\" y=\"424.0\" width=\"91.0\" height=\"77.0\" fill=\"url(#glassGrad)\" stroke=\"#0284c7\" stroke-width=\"2\"/>\n<line x1=\"452.90000000000003\" y1=\"424.0\" x2=\"452.90000000000003\" y2=\"501.0\" stroke=\"#0284c7\" stroke-width=\"1.5\"/>\n<line x1=\"407.40000000000003\" y1=\"462.5\" x2=\"498.40000000000003\" y2=\"462.5\" stroke=\"#0284c7\" stroke-width=\"1.5\"/>\n<rect x=\"70.0\" y=\"382.0\" width=\"275.8\" height=\"140.0\" fill=\"#f1f5f9\" stroke=\"#94a3b8\" stroke-dasharray=\"4 2\"/>\n<rect x=\"221.69\" y=\"438.0\" width=\"49.0\" height=\"98.0\" fill=\"#78350f\" stroke=\"#451a03\" stroke-width=\"1.5\" rx=\"2\"/>\n<circle cx=\"260.89\" cy=\"487.0\" r=\"2.5\" fill=\"#f59e0b\"/>\n<rect x=\"328.3\" y=\"382.0\" width=\"17.5\" height=\"140.0\" fill=\"#1e293b\" stroke=\"#0f172a\" stroke-width=\"2\"/>\n<rect x=\"77.0\" y=\"498.2\" width=\"175.0\" height=\"37.8\" fill=\"#334155\" opacity=\"0.35\" rx=\"5\"/>\n<rect x=\"112.0\" y=\"473.0\" width=\"105.0\" height=\"31.5\" fill=\"#334155\" opacity=\"0.35\" rx=\"8\"/>\n<rect x=\"66.0\" y=\"382.0\" width=\"498.0\" height=\"14.0\" fill=\"#94a3b8\" stroke=\"#334155\" stroke-width=\"1.5\"/>\n<line x1=\"560.0\" y1=\"382.0\" x2=\"610\" y2=\"382.0\" stroke=\"#64748b\" stroke-dasharray=\"3 3\"/>\n<text x=\"568.0\" y=\"385.0\" fill=\"#64748b\" font-size=\"9\" font-family=\"monospace\">+12.5' 1st Slab</text>\n<rect x=\"345.8\" y=\"228.0\" width=\"214.20000000000002\" height=\"140.0\" fill=\"url(#wallGrad)\" stroke=\"#334155\" stroke-width=\"1.8\"/>\n<rect x=\"407.40000000000003\" y=\"270.0\" width=\"91.0\" height=\"70.0\" fill=\"url(#glassGrad)\" stroke=\"#0284c7\" stroke-width=\"2\"/>\n<rect x=\"70.0\" y=\"333.0\" width=\"275.8\" height=\"49.0\" fill=\"url(#glassGrad)\" fill-opacity=\"0.4\" stroke=\"#0284c7\" stroke-width=\"1.5\"/>\n<line x1=\"70.0\" y1=\"333.0\" x2=\"345.8\" y2=\"333.0\" stroke=\"#0f172a\" stroke-width=\"2\"/>\n<rect x=\"70.0\" y=\"179.0\" width=\"490.0\" height=\"49.0\" fill=\"#e2e8f0\" stroke=\"#334155\" stroke-width=\"1.5\"/>\n<line x1=\"66.0\" y1=\"179.0\" x2=\"564.0\" y2=\"179.0\" stroke=\"#0f172a\" stroke-width=\"2.5\"/>\n<line x1=\"560.0\" y1=\"179.0\" x2=\"610\" y2=\"179.0\" stroke=\"#64748b\" stroke-dasharray=\"3 3\"/>\n<text x=\"568.0\" y=\"182.0\" fill=\"#64748b\" font-size=\"9\" font-family=\"monospace\">+27.0' Parapet</text>\n<line x1=\"70.0\" y1=\"582.0\" x2=\"560.0\" y2=\"582.0\" stroke=\"#b91c1c\" stroke-width=\"1.5\"/>\n<line x1=\"70.0\" y1=\"578.0\" x2=\"70.0\" y2=\"586.0\" stroke=\"#b91c1c\" stroke-width=\"1.5\"/>\n<line x1=\"560.0\" y1=\"578.0\" x2=\"560.0\" y2=\"586.0\" stroke=\"#b91c1c\" stroke-width=\"1.5\"/>\n<text x=\"315.0\" y=\"598.0\" text-anchor=\"middle\" fill=\"#b91c1c\" font-size=\"11\" font-weight=\"bold\" font-family=\"monospace\">TOTAL FRONTAGE: 35.0 FEET (1:1 RAYCAST COORDINATED)</text>\n</svg>",
+      "raycast_verified": true
+    },
+    "three_d_model": {
+      "scale": "meters",
+      "floor_height_m": 3.2,
+      "nodes_count": 36,
+      "nodes": [
+        {
+          "type": "slab",
+          "name": "Floor Slab 0",
+          "level": 0,
+          "x": 0,
+          "y": 0,
+          "z": 0,
+          "width": 10.668000000000001,
+          "height": 0.2,
+          "depth": 19.812,
+          "material": "concrete_slab",
+          "color": "#94a3b8"
+        },
+        {
+          "type": "room",
+          "room_id": "r_L0_porch",
+          "name": "Contemporary Car Porch",
+          "category": "garage",
+          "level": 0,
+          "x": -2.332,
+          "y": 0.05,
+          "z": -7.407,
+          "width": 6.005,
+          "height": 0.1,
+          "depth": 4.999,
+          "material": "driveway_pavers",
+          "color": "#64748b",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "front",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L0_lawn",
+          "name": "Front Lawn Garden",
+          "category": "balcony",
+          "level": 0,
+          "x": 1.92,
+          "y": 0.05,
+          "z": -9.007,
+          "width": 2.499,
+          "height": 0.1,
+          "depth": 1.798,
+          "material": "terrace_deck",
+          "color": "#10b981",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "front",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L0_powder",
+          "name": "Guest Powder Room",
+          "category": "bathroom",
+          "level": 0,
+          "x": 4.252,
+          "y": 1.5,
+          "z": -9.007,
+          "width": 2.164,
+          "height": 3,
+          "depth": 1.798,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "front",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L0_drawing",
+          "name": "Formal Drawing Room",
+          "category": "living_room",
+          "level": 0,
+          "x": 3.002,
+          "y": 1.5,
+          "z": -6.264,
+          "width": 4.663,
+          "height": 3,
+          "depth": 3.688,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "front",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L0_foyer",
+          "name": "Grand Entrance Foyer",
+          "category": "corridor",
+          "level": 0,
+          "x": -2.332,
+          "y": 1.5,
+          "z": -3.658,
+          "width": 6.005,
+          "height": 3,
+          "depth": 2.499,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "front",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L0_stairs",
+          "name": "Straight Flight Atrium Stairs",
+          "category": "corridor",
+          "level": 0,
+          "x": -4.542,
+          "y": 1.5,
+          "z": -0.152,
+          "width": 1.585,
+          "height": 3,
+          "depth": 4.511,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "front",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L0_atrium",
+          "name": "Double-Height Central Atrium Court",
+          "category": "living_room",
+          "level": 0,
+          "x": -1.554,
+          "y": 1.5,
+          "z": -0.152,
+          "width": 4.389,
+          "height": 3,
+          "depth": 4.511,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "front",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L0_dining",
+          "name": "Dirty Kitchen (Scullery Kitchen)",
+          "category": "kitchen",
+          "level": 0,
+          "x": 3.002,
+          "y": 1.5,
+          "z": -2.926,
+          "width": 4.663,
+          "height": 3,
+          "depth": 2.987,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "front",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L0_kitchen",
+          "name": "Executive Island Kitchen",
+          "category": "kitchen",
+          "level": 0,
+          "x": 3.002,
+          "y": 1.5,
+          "z": 0.351,
+          "width": 4.663,
+          "height": 3,
+          "depth": 3.505,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "front",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L0_lounge",
+          "name": "Family Entertainment Lounge",
+          "category": "living_room",
+          "level": 0,
+          "x": -2.332,
+          "y": 1.5,
+          "z": 3.856,
+          "width": 6.005,
+          "height": 3,
+          "depth": 3.505,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "rear",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L0_bed1",
+          "name": "Master Bedroom Suite 1",
+          "category": "bedroom",
+          "level": 0,
+          "x": 3.002,
+          "y": 1.5,
+          "z": 4.359,
+          "width": 4.663,
+          "height": 3,
+          "depth": 4.511,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "rear",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L0_bath1",
+          "name": "Master Luxury Bath 1",
+          "category": "bathroom",
+          "level": 0,
+          "x": 1.92,
+          "y": 1.5,
+          "z": 8.245,
+          "width": 2.499,
+          "height": 3,
+          "depth": 3.322,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "rear",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L0_dress1",
+          "name": "Servant Quarter & En-suite",
+          "category": "living_room",
+          "level": 0,
+          "x": 4.252,
+          "y": 1.5,
+          "z": 8.245,
+          "width": 2.164,
+          "height": 3,
+          "depth": 3.322,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "rear",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L0_bed2",
+          "name": "Rear Bedroom 2",
+          "category": "bedroom",
+          "level": 0,
+          "x": -3.338,
+          "y": 1.5,
+          "z": 7.757,
+          "width": 3.993,
+          "height": 3,
+          "depth": 4.298,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "rear",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L0_bath2",
+          "name": "Attached Bath 2",
+          "category": "bathroom",
+          "level": 0,
+          "x": -0.335,
+          "y": 1.5,
+          "z": 6.614,
+          "width": 2.012,
+          "height": 3,
+          "depth": 2.012,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "rear",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L0_ots",
+          "name": "Rear Light Shaft OTS",
+          "category": "balcony",
+          "level": 0,
+          "x": -0.335,
+          "y": 0.05,
+          "z": 8.748,
+          "width": 2.012,
+          "height": 0.1,
+          "depth": 2.316,
+          "material": "terrace_deck",
+          "color": "#cbd5e1",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "rear",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "slab",
+          "name": "Floor Slab 1",
+          "level": 1,
+          "x": 0,
+          "y": 3.2,
+          "z": 0,
+          "width": 10.668000000000001,
+          "height": 0.2,
+          "depth": 19.812,
+          "material": "concrete_slab",
+          "color": "#94a3b8"
+        },
+        {
+          "type": "room",
+          "room_id": "r_L1_terrace",
+          "name": "Front Promenade Terrace",
+          "category": "balcony",
+          "level": 1,
+          "x": -2.332,
+          "y": 3.25,
+          "z": -7.407,
+          "width": 6.005,
+          "height": 0.1,
+          "depth": 4.999,
+          "material": "terrace_deck",
+          "color": "#cbd5e1",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "front",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L1_bath3",
+          "name": "Upper Bath 3",
+          "category": "bathroom",
+          "level": 1,
+          "x": 4.252,
+          "y": 4.7,
+          "z": -9.007,
+          "width": 2.164,
+          "height": 3,
+          "depth": 1.798,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "front",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L1_bed3",
+          "name": "Upper Front Bedroom Suite 3",
+          "category": "bedroom",
+          "level": 1,
+          "x": 3.002,
+          "y": 4.7,
+          "z": -6.264,
+          "width": 4.663,
+          "height": 3,
+          "depth": 3.688,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "front",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L1_study",
+          "name": "Upper Gallery Study",
+          "category": "living_room",
+          "level": 1,
+          "x": -2.332,
+          "y": 4.7,
+          "z": -3.658,
+          "width": 6.005,
+          "height": 3,
+          "depth": 2.499,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "front",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L1_stairs",
+          "name": "Straight Flight Atrium Stairs Landing",
+          "category": "corridor",
+          "level": 1,
+          "x": -4.542,
+          "y": 4.7,
+          "z": -0.152,
+          "width": 1.585,
+          "height": 3,
+          "depth": 4.511,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "front",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L1_bridge",
+          "name": "Suspended Atrium Glass Bridge",
+          "category": "corridor",
+          "level": 1,
+          "x": -1.554,
+          "y": 4.7,
+          "z": -0.152,
+          "width": 4.389,
+          "height": 3,
+          "depth": 4.511,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "front",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L1_media",
+          "name": "Upper Media Room",
+          "category": "living_room",
+          "level": 1,
+          "x": 3.002,
+          "y": 4.7,
+          "z": -2.926,
+          "width": 4.663,
+          "height": 3,
+          "depth": 2.987,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "front",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L1_kitchenette",
+          "name": "Upper Bar Kitchenette",
+          "category": "kitchen",
+          "level": 1,
+          "x": 3.002,
+          "y": 4.7,
+          "z": 0.351,
+          "width": 4.663,
+          "height": 3,
+          "depth": 3.505,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "front",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L1_lounge",
+          "name": "Upper Gallery Lounge",
+          "category": "living_room",
+          "level": 1,
+          "x": -2.332,
+          "y": 4.7,
+          "z": 3.856,
+          "width": 6.005,
+          "height": 3,
+          "depth": 3.505,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "rear",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L1_bed4",
+          "name": "Master Bedroom Suite 4",
+          "category": "bedroom",
+          "level": 1,
+          "x": 3.002,
+          "y": 4.7,
+          "z": 4.359,
+          "width": 4.663,
+          "height": 3,
+          "depth": 4.511,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "rear",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L1_bath4",
+          "name": "Master Luxury Bath 4",
+          "category": "bathroom",
+          "level": 1,
+          "x": 1.92,
+          "y": 4.7,
+          "z": 8.245,
+          "width": 2.499,
+          "height": 3,
+          "depth": 3.322,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "rear",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L1_dress4",
+          "name": "Upper Master Walk-in",
+          "category": "living_room",
+          "level": 1,
+          "x": 4.252,
+          "y": 4.7,
+          "z": 8.245,
+          "width": 2.164,
+          "height": 3,
+          "depth": 3.322,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "rear",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L1_bed5",
+          "name": "Upper Rear Bedroom 5",
+          "category": "bedroom",
+          "level": 1,
+          "x": -3.338,
+          "y": 4.7,
+          "z": 7.757,
+          "width": 3.993,
+          "height": 3,
+          "depth": 4.298,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "rear",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L1_bath5",
+          "name": "Attached Bath 5",
+          "category": "bathroom",
+          "level": 1,
+          "x": -0.335,
+          "y": 4.7,
+          "z": 6.614,
+          "width": 2.012,
+          "height": 3,
+          "depth": 2.012,
+          "material": "room_walls",
+          "color": "#e2e8f0",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "rear",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "room",
+          "room_id": "r_L1_ots",
+          "name": "Rear Light Shaft OTS Void",
+          "category": "balcony",
+          "level": 1,
+          "x": -0.335,
+          "y": 3.25,
+          "z": 8.748,
+          "width": 2.012,
+          "height": 0.1,
+          "depth": 2.316,
+          "material": "terrace_deck",
+          "color": "#cbd5e1",
+          "doors": [
+            {
+              "wall": "front",
+              "width": 3
+            }
+          ],
+          "windows": [
+            {
+              "wall": "rear",
+              "width": 4
+            }
+          ]
+        },
+        {
+          "type": "roof",
+          "name": "Architectural Roof",
+          "level": 2,
+          "x": 0,
+          "y": 6.75,
+          "z": 0,
+          "width": 11.201,
+          "height": 0.3,
+          "depth": 20.803,
+          "material": "roof_concrete",
+          "color": "#334155"
+        },
+        {
+          "type": "mumty",
+          "name": "Rooftop Stair Mumty Penthouse",
+          "level": 3,
+          "x": -4.542,
+          "y": 7.75,
+          "z": -0.152,
+          "width": 1.585,
+          "height": 2.7,
+          "depth": 4.511,
+          "material": "room_walls",
+          "color": "#cbd5e1"
+        },
+        {
+          "type": "water_tank",
+          "name": "Overhead Water Tank (1500 GAL)",
+          "level": 4,
+          "x": -4.542,
+          "y": 9.7,
+          "z": -0.152,
+          "width": 1.268,
+          "height": 1.2,
+          "depth": 2,
+          "material": "concrete_tank",
+          "color": "#475569"
+        }
+      ],
+      "camera_presets": {
+        "isometric": {
+          "position": [
+            20,
+            22,
+            25
+          ],
+          "target": [
+            0,
+            4,
+            0
+          ]
+        },
+        "front_elevation": {
+          "position": [
+            0,
+            5,
+            28
+          ],
+          "target": [
+            0,
+            5,
+            0
+          ]
+        },
+        "side_elevation": {
+          "position": [
+            28,
+            5,
+            0
+          ],
+          "target": [
+            0,
+            5,
+            0
+          ]
+        },
+        "top_plan": {
+          "position": [
+            0,
+            35,
+            0
+          ],
+          "target": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "quality_gate": {
+      "status": "PASS",
+      "score": 1,
+      "checks": [
+        {
+          "code": "F01",
+          "name": "Envelope Boundary Containment",
+          "passed": true,
+          "detail": "All rooms within statutory plot boundaries"
+        },
+        {
+          "code": "F02",
+          "name": "Zero Negative Coordinate",
+          "passed": true,
+          "detail": "Coordinates strictly positive within site frame"
+        },
+        {
+          "code": "F04",
+          "name": "Wet Zone Vertical Stacking",
+          "passed": true,
+          "detail": "Upper bathrooms aligned over ground wet shafts"
+        },
+        {
+          "code": "F05",
+          "name": "Egress & Door Width Compliance",
+          "passed": true,
+          "detail": "All doors meet minimum 0.90m (3'-0\") clear openings"
+        },
+        {
+          "code": "F06",
+          "name": "Natural Daylight & Cross Ventilation",
+          "passed": true,
+          "detail": "All habitable bedrooms have direct window access"
+        },
+        {
+          "code": "F08",
+          "name": "Staircase Headroom Clearance",
+          "passed": true,
+          "detail": "Staircase meets 2.1m (7'-0\") vertical clearance"
+        },
+        {
+          "code": "F10",
+          "name": "Statutory Setbacks Compliance",
+          "passed": true,
+          "detail": "Front 10.0' and Rear 5.0' setbacks strictly enforced"
+        },
+        {
+          "code": "F13",
+          "name": "Physical Scale Feasibility",
+          "passed": true,
+          "detail": "Target room sizes match physically permissible envelope"
+        }
+      ]
+    },
+    "created_at": "2026-11-03T20:11:48.883Z"
+  },
+  {
+    "id": "proj_1793736708877",
+    "project_id": "proj_1793736708877",
+    "name": "10.1 Marla Modern Residence (35'x65')",
+    "title": "10.1 Marla Modern Residence (35'x65')",
+    "plot_width": 35,
+    "plot_length": 65,
+    "floors": 2,
+    "bedrooms": 5,
+    "bathrooms": 4,
+    "style": "Modern Contemporary",
+    "status": "draft",
+    "created_at": "2026-11-03T20:11:48.879Z"
+  },
+  {
     "id": "archi_30x60_modern_7925",
     "project_id": "archi_30x60_modern_7925",
     "name": "8.0 Marla Modern Residence (30'x60')",

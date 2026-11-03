@@ -25,19 +25,20 @@ class ImprovementParser:
 
     ROOM_SYNONYMS = {
         "master bedroom": ["master bedroom", "master bed", "m.bed", "mbed", "main bedroom"],
-        "bedroom": ["bedroom", "bed", "guest bedroom", "bed 2", "bed 3"],
-        "kitchen": ["kitchen", "main kitchen", "show kitchen", "chef's kitchen"],
-        "dirty kitchen": ["dirty kitchen", "scullery", "wet kitchen", "grease kitchen"],
+        "bedroom": ["bedroom", "bed", "guest bedroom", "bed 2", "bed 3", "bed 4", "bed 5"],
+        "kitchen": ["kitchen", "main kitchen", "show kitchen", "chef's kitchen", "clean kitchen"],
+        "dirty kitchen": ["dirty kitchen", "diry kichen", "scullery", "wet kitchen", "grease kitchen", "mess kitchen", "wok kitchen"],
         "dining": ["dining", "dining room", "dining area"],
-        "drawing room": ["drawing room", "drawing", "formal drawing", "guest salon"],
-        "lounge": ["lounge", "tv lounge", "family lounge", "living room"],
+        "drawing room": ["drawing room", "drawing", "formal drawing", "guest salon", "formal sitting", "guest drawing"],
+        "lounge": ["lounge", "tv lounge", "family lounge", "living room", "living", "family hall"],
         "bathroom": ["bathroom", "bath", "washroom", "en-suite", "ensuite"],
         "powder room": ["powder room", "powder", "guest toilet"],
         "staircase": ["staircase", "stairs", "stair", "stair lobby", "mumty"],
         "car porch": ["car porch", "porch", "garage", "carport", "driveway"],
         "servant quarter": ["servant quarter", "servant room", "servant", "maid room", "maid's room"],
         "ots": ["ots", "lightwell", "courtyard", "airwell"],
-        "lawn": ["lawn", "garden", "front lawn"]
+        "lawn": ["lawn", "garden", "front lawn"],
+        "foyer": ["foyer", "grand entrance", "grand entry", "entry lobby", "entrance lobby", "entrance foyer", "vestibule", "entrance", "entry"]
     }
 
     @classmethod
@@ -58,6 +59,40 @@ class ImprovementParser:
         operations: List[Dict[str, Any]] = []
         if not text:
             return operations
+
+        # 0. Typo normalization & phonetic correction
+        text = re.sub(r'\bdiry\b', 'dirty', text, flags=re.IGNORECASE)
+        text = re.sub(r'\bkichen\b', 'kitchen', text, flags=re.IGNORECASE)
+        text = re.sub(r'\bconect\b', 'connect', text, flags=re.IGNORECASE)
+        text = re.sub(r'\bocup\b', 'occupy', text, flags=re.IGNORECASE)
+        text = re.sub(r'\bteh\b', 'the', text, flags=re.IGNORECASE)
+        text = re.sub(r'\bseperate\b', 'separate', text, flags=re.IGNORECASE)
+
+        # 0.1 Check for Dirty Kitchen isolation / connectivity rules
+        # e.g. "dirty kitchen is connect to the formal drawing room and diry kichen is only door connect to the main kitchen"
+        if re.search(r'\bdirty kitchen\b', text, re.IGNORECASE) and (
+            re.search(r'\b(?:drawing room|drawing|formal drawing)\b', text, re.IGNORECASE) or
+            re.search(r'\b(?:only door|only connect|connect to main kitchen)\b', text, re.IGNORECASE)
+        ):
+            operations.append({
+                "op": "ISOLATE_DIRTY_KITCHEN",
+                "target_room": "dirty kitchen",
+                "connect_to": "kitchen",
+                "disconnect_from": "drawing room",
+                "description": "Isolate Dirty Kitchen: remove drawing room door, connect strictly to Main Kitchen and service OTS"
+            })
+
+        # 0.2 Check for Grand Entrance / Foyer removal or integration into lounge
+        # e.g. "remove the grand entrance this ocup the area", "grand entry is why separate to the tv lounge"
+        if re.search(r'\b(?:grand entrance|grand entry|entrance foyer|foyer|entry lobby)\b', text, re.IGNORECASE) and (
+            re.search(r'\b(?:remove|delete|eliminate|without|separate|occup|merge|open)\b', text, re.IGNORECASE)
+        ):
+            operations.append({
+                "op": "REMOVE_ROOM",
+                "room_name": "foyer",
+                "merge_into": "lounge",
+                "description": "Remove grand entrance / foyer and merge spatial area directly into family TV lounge"
+            })
 
         # 1. First check for SWAP operations across the full text or clauses
         swap_matches = re.finditer(r'(?:swap|exchange)\s+([a-zA-Z\s]+?)\s+(?:and|with)\s+([a-zA-Z\s]+?)(?:$|[,;]|\b(?:then|also)\b)', text, re.IGNORECASE)

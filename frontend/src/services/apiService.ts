@@ -26,6 +26,7 @@ export interface GenerateDesignPayload {
   seed?: number;
   strategy?: string;
   variant_index?: number;
+  custom_room_dimensions?: any[];
 }
 
 class ApiService {
