@@ -1,0 +1,256 @@
+{
+  "source_file": "elevationwithfloorplan\\71922af1b45e5f7ca14241441872a016.jpg",
+  "category": "elevationwithfloorplan",
+  "plot": {
+    "category": "5_marla",
+    "marla": 5.0,
+    "dimensions_ft": [
+      25.0,
+      45.0
+    ],
+    "setbacks_ft": {
+      "front": 5.0,
+      "rear": 4.0,
+      "side_left": 0.0,
+      "side_right": 0.0
+    }
+  },
+  "pixel_scale": {
+    "image_width_px": 1080,
+    "image_height_px": 1779,
+    "cropped_envelope_px": [
+      0,
+      0,
+      1080,
+      1779
+    ],
+    "pixels_per_foot_x": 43.2,
+    "pixels_per_foot_y": 39.533
+  },
+  "rooms": [
+    {
+      "id": "room_1",
+      "name": "Car Porch & Driveway",
+      "type": "garage",
+      "zoning": "Front-Public",
+      "bbox_ft": [
+        0.09,
+        0.1,
+        24.81,
+        19.1
+      ],
+      "area_sqft": 473.9,
+      "aspect_ratio": 1.3,
+      "polygon_coords": [
+        [
+          24.9,
+          0.1
+        ],
+        [
+          24.9,
+          19.2
+        ],
+        [
+          0.09,
+          19.2
+        ],
+        [
+          0.09,
+          0.1
+        ],
+        [
+          24.9,
+          0.1
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_2",
+      "name": "Central Family TV Lounge",
+      "type": "living_room",
+      "zoning": "Mid-Living-Service",
+      "bbox_ft": [
+        0.09,
+        19.200000000000003,
+        24.81,
+        7.99
+      ],
+      "area_sqft": 198.2,
+      "aspect_ratio": 3.11,
+      "polygon_coords": [
+        [
+          0.09,
+          27.19
+        ],
+        [
+          24.9,
+          27.19
+        ],
+        [
+          24.9,
+          19.2
+        ],
+        [
+          0.09,
+          19.2
+        ],
+        [
+          0.09,
+          27.19
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_3",
+      "name": "Master Bedroom Suite",
+      "type": "bedroom",
+      "zoning": "Mid-Living-Service",
+      "bbox_ft": [
+        4.26,
+        27.32,
+        20.65,
+        17.58
+      ],
+      "area_sqft": 363.0,
+      "aspect_ratio": 1.17,
+      "polygon_coords": [
+        [
+          24.91,
+          27.32
+        ],
+        [
+          24.91,
+          44.9
+        ],
+        [
+          4.26,
+          44.9
+        ],
+        [
+          4.26,
+          27.32
+        ],
+        [
+          24.91,
+          27.32
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_4",
+      "name": "Rear OTS Lightwell",
+      "type": "ots",
+      "zoning": "Rear-Private",
+      "bbox_ft": [
+        0.97,
+        35.24,
+        3.29,
+        8.47
+      ],
+      "area_sqft": 27.9,
+      "aspect_ratio": 0.39,
+      "polygon_coords": [
+        [
+          0.97,
+          35.24
+        ],
+        [
+          0.97,
+          43.71
+        ],
+        [
+          4.26,
+          43.71
+        ],
+        [
+          4.26,
+          35.24
+        ],
+        [
+          0.97,
+          35.24
+        ]
+      ],
+      "floor_level": 0
+    }
+  ],
+  "fenestrations": [
+    {
+      "id": "door_room_1_main",
+      "type": "door",
+      "host_room": "room_1",
+      "wall": "rear",
+      "position": [
+        14.98,
+        19.2,
+        0.0
+      ],
+      "width": 3.5,
+      "height": 7.0,
+      "sill_height": 0.0
+    },
+    {
+      "id": "win_room_3_rear",
+      "type": "window",
+      "host_room": "room_3",
+      "wall": "rear",
+      "position": [
+        14.58,
+        44.9,
+        3.0
+      ],
+      "width": 4.5,
+      "height": 4.5,
+      "sill_height": 3.0
+    }
+  ],
+  "circulation_graph": {
+    "room_1": [
+      "room_2"
+    ],
+    "room_2": [
+      "room_1",
+      "room_3"
+    ],
+    "room_3": [
+      "room_2",
+      "room_4"
+    ],
+    "room_4": [
+      "room_3"
+    ]
+  },
+  "elevation_features": {
+    "datum_levels": [
+      {
+        "name": "Natural Ground Level (NGL)",
+        "elevation_ft": 0.0
+      },
+      {
+        "name": "Plinth Level",
+        "elevation_ft": 1.5
+      },
+      {
+        "name": "Ground Floor Ceiling",
+        "elevation_ft": 11.0
+      },
+      {
+        "name": "First Floor Ceiling",
+        "elevation_ft": 22.0
+      },
+      {
+        "name": "Rooftop Parapet",
+        "elevation_ft": 25.5
+      },
+      {
+        "name": "Stair Mumty Tower",
+        "elevation_ft": 33.5
+      }
+    ],
+    "porch_column_detected": true,
+    "balcony_slab_detected": true
+  }
+}

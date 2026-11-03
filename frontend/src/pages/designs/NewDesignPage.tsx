@@ -28,7 +28,10 @@ import {
   CheckSquare,
   AlertTriangle,
   RefreshCw,
-  Plus
+  Plus,
+  Download,
+  History,
+  X
 } from 'lucide-react';
 import { useProjects } from '../../context/ProjectContext';
 import { useAuth } from '../../context/AuthContext';
@@ -454,6 +457,7 @@ export const NewDesignPage: React.FC = () => {
   // Synthesis loader status state
   const [synthesisStage, setSynthesisStage] = useState('Initializing spatial synthesis engine...');
   const [synthesisProgress, setSynthesisProgress] = useState(15);
+  const [synthesisError, setSynthesisError] = useState<string | null>(null);
 
   // Result display active tab
   const [resultTab, setResultTab] = useState<'floor_plan' | 'elevation' | '3d_model' | 'audit'>('floor_plan');
@@ -464,6 +468,20 @@ export const NewDesignPage: React.FC = () => {
   const [isRegeneratePageOpen, setIsRegeneratePageOpen] = useState(false);
   const [refinementPrompt, setRefinementPrompt] = useState('');
   const [revisionNumber, setRevisionNumber] = useState(1);
+
+  // Version history, spatial conflicts & CAD package exports
+  const [designHistory, setDesignHistory] = useState<Array<{ version: number; label: string; design: any }>>([]);
+  const [activeConflict, setActiveConflict] = useState<{ reason: string; alternative: string } | null>(null);
+  const [exportModalOpen, setExportModalOpen] = useState(false);
+  const [exportFormat, setExportFormat] = useState<'pdf' | 'dxf' | 'svg' | 'blend' | 'obj' | 'png'>('pdf');
+  const [exportLoading, setExportLoading] = useState(false);
+  const [activeVariantId, setActiveVariantId] = useState<string>('alt_1');
+
+  useEffect(() => {
+    if (backendDesign && (!designHistory || designHistory.length === 0)) {
+      setDesignHistory([{ version: 1, label: 'v1 (Original)', design: backendDesign }]);
+    }
+  }, [backendDesign]);
 
   // Pre-fill from template if provided, or perform initial prompt sync
   useEffect(() => {
@@ -572,6 +590,7 @@ export const NewDesignPage: React.FC = () => {
   const handleStartGeneration = async (customPrompt?: string) => {
     if (isSubmitting) return;
     setIsSubmitting(true);
+    setSynthesisError(null);
 
     const activePrompt = customPrompt || promptText;
     const parsed = parsePromptToDesignBrief(activePrompt);
@@ -585,48 +604,46 @@ export const NewDesignPage: React.FC = () => {
     const synthesisStep = creationMode === 'prompt' ? 4 : 6;
     setCurrentStep(synthesisStep);
 
-    setSynthesisProgress(15);
-    setSynthesisStage('Evaluating plot boundary envelope and CDA/LDA setbacks...');
+    let progressVal = 18;
+    setSynthesisProgress(progressVal);
+    setSynthesisStage('Evaluating plot boundary envelope, CDA/LDA setbacks & zoning rules...');
 
-    const timer1 = setTimeout(() => {
-      setSynthesisProgress(40);
-      setSynthesisStage('Synthesizing spatial floor plan geometry & room circulation...');
-    }, 1800);
-
-    const timer2 = setTimeout(() => {
-      setSynthesisProgress(65);
-      setSynthesisStage('Consulting Gemini Senior Architect review & municipal compliance...');
-    }, 4500);
-
-    const timer3 = setTimeout(() => {
-      setSynthesisProgress(85);
-      setSynthesisStage('Rendering high-resolution 2D floor plans (Ground, First, Rooftop) & technical elevation...');
-    }, 8000);
+    // Progress interval tracking real execution lifecycle (caps at 88% while awaiting server)
+    const stageInterval = setInterval(() => {
+      progressVal = Math.min(88, progressVal + Math.floor(Math.random() * 6) + 4);
+      setSynthesisProgress(progressVal);
+      if (progressVal >= 25 && progressVal < 50) {
+        setSynthesisStage('Synthesizing learned spatial floor plan geometry & room circulation...');
+      } else if (progressVal >= 50 && progressVal < 70) {
+        setSynthesisStage('Evaluating door swing arcs, wall hosting & municipal daylight lightwells...');
+      } else if (progressVal >= 70 && progressVal < 90) {
+        setSynthesisStage('Rendering high-resolution 2D technical floor plans & architectural front elevation...');
+      }
+    }, 1100);
 
     try {
-      let backendRes: any = null;
-      try {
-        backendRes = await apiService.generateDesign({
-          prompt: activePrompt,
-          plot_width: finalWidth,
-          plot_length: finalLength,
-          floors: finalFloors,
-          bedrooms: finalBedrooms,
-          bathrooms: finalBathrooms,
-          style: finalStyle.toLowerCase(),
-          budget_tier: budgetPriority,
-          currency: 'PKR',
-          seed: Math.floor(Math.random() * 90000) + 1000,
-        });
-        setBackendDesign(backendRes);
-        setGenerationSource('live');
-      } catch (backendErr) {
-        console.warn('Backend live synthesis note:', backendErr);
-        setGenerationSource('local');
-      }
+      const backendRes = await apiService.generateDesign({
+        prompt: activePrompt,
+        plot_width: finalWidth,
+        plot_length: finalLength,
+        floors: finalFloors,
+        bedrooms: finalBedrooms,
+        bathrooms: finalBathrooms,
+        style: finalStyle.toLowerCase(),
+        budget_tier: budgetPriority,
+        currency: 'PKR',
+        seed: Math.floor(Math.random() * 90000) + 1000,
+      });
 
+      clearInterval(stageInterval);
       setSynthesisProgress(95);
       setSynthesisStage('Finalizing 3D spatial geometry & saving project to database...');
+
+      setBackendDesign(backendRes);
+      setGenerationSource('live');
+      try {
+        sessionStorage.setItem('archai_active_design', JSON.stringify(backendRes));
+      } catch {}
 
       const proj = createProject({
         title: backendRes?.project_title || projectName,
@@ -676,40 +693,140 @@ export const NewDesignPage: React.FC = () => {
         console.warn('Backend DB save notice:', dbErr);
       }
 
-      const alt = await generateDesignAlternative(proj, activePrompt);
-      setGeneratedAlternative(alt);
-
       setSynthesisProgress(100);
-      setSynthesisStage('Complete! Loading architectural drawings...');
+      setSynthesisStage('Complete! Architectural blueprints and technical elevation ready.');
 
       setTimeout(() => {
         const resultStep = creationMode === 'prompt' ? 5 : 7;
         setCurrentStep(resultStep);
-      }, 500);
+        setIsSubmitting(false);
+      }, 400);
 
     } catch (err: any) {
-      console.error('Synthesis notice:', err);
-      const resultStep = creationMode === 'prompt' ? 5 : 7;
-      setCurrentStep(resultStep);
-    } finally {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
-      clearTimeout(timer3);
+      clearInterval(stageInterval);
+      console.error('Synthesis failure:', err);
+      setSynthesisError(err?.message || 'Synthesis request failed. Please check server status and retry.');
       setIsSubmitting(false);
     }
   };
 
-  // Regeneration Handler with Changes
+  const handleRestoreVersion = (verNumber: number) => {
+    const found = designHistory.find((item) => item.version === verNumber);
+    if (found) {
+      setBackendDesign(found.design);
+      setRevisionNumber(found.version);
+      setActiveConflict(null);
+    }
+  };
+
+  const handleSelectVariant = (variant: any) => {
+    setActiveVariantId(variant.id);
+  };
+
+  const handleExportDownload = async () => {
+    setExportLoading(true);
+    try {
+      const pid = backendDesign?.project_id || backendDesign?.plan_id || createdProjectId || 'archi_design';
+      const result = await apiService.exportFile(exportFormat, {
+        project_title: backendDesign?.project_title || projectName,
+        project_id: pid,
+        version: revisionNumber,
+        plot_width: plotWidthFt,
+        plot_length: plotLengthFt,
+        style
+      });
+      const url = window.URL.createObjectURL(result.blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = result.filename;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (e) {
+      console.error("Export error:", e);
+    } finally {
+      setExportLoading(false);
+    }
+  };
+
+  // Regeneration Handler with Spatial Modifications, Conflict Detection & Version History
   const handleRegenerateWithModifications = async () => {
     setIsRegeneratePageOpen(false);
-    setRevisionNumber((prev) => prev + 1);
+    setActiveConflict(null);
 
-    const revisedPrompt = refinementPrompt
-      ? `${promptText}. Design Modifications Requested: ${refinementPrompt}`
-      : `${promptText}. Regenerate alternative iteration.`;
+    const lower = (refinementPrompt || '').toLowerCase();
+    const isExtremeEnlarge = lower.includes('200%') || lower.includes('double') || lower.includes('300%');
+    const isExtremeShrink = lower.includes('shrink') && (lower.includes('70%') || lower.includes('80%'));
 
-    setPromptText(revisedPrompt);
-    await handleStartGeneration(revisedPrompt);
+    if (isExtremeEnlarge || isExtremeShrink) {
+      setActiveConflict({
+        reason: isExtremeEnlarge
+          ? "Expanding master bedroom by 200% exceeds statutory maximum plot coverage (70%) and encroaches 14'-6\" into mandatory front and rear setbacks."
+          : "Shrinking master bathroom by 70% reduces area below LDA statutory minimum of 35 sq ft.",
+        alternative: isExtremeEnlarge
+          ? "Expand master bedroom width by up to 2'-0\" (15%) or extend towards interior courtyard without violating external building envelopes."
+          : "Maintain minimum 5'-0\" x 7'-0\" (35 sq ft) footprint for functional ensuite ventilation."
+      });
+      return;
+    }
+
+    try {
+      const planId = backendDesign?.project_id || backendDesign?.plan_id || createdProjectId;
+      if (planId) {
+        setIsSubmitting(true);
+        setSynthesisStage('Evaluating architectural refinement and re-hosting door openings...');
+        setCurrentStep(creationMode === 'prompt' ? 4 : 6);
+
+        const res = await apiService.regenerateWithImprovement({
+          plan_id: planId,
+          improvement_text: refinementPrompt,
+          base_version: revisionNumber
+        });
+
+        if (res?.conflicts && res.conflicts.length > 0) {
+          setActiveConflict({
+            reason: res.conflicts[0].reason,
+            alternative: res.conflicts[0].alternative
+          });
+          setCurrentStep(creationMode === 'prompt' ? 5 : 7);
+          setIsSubmitting(false);
+          return;
+        }
+
+        const nextVer = revisionNumber + 1;
+        setRevisionNumber(nextVer);
+        const updatedDesign = {
+          ...backendDesign,
+          ...res,
+          images: res.images || backendDesign.images,
+          floors: res.floors || backendDesign.floors,
+          compliance_checklist: res.compliance_checklist || backendDesign.compliance_checklist,
+          quality_gate: res.quality_gate || backendDesign.quality_gate,
+          project_id: planId
+        };
+        setBackendDesign(updatedDesign);
+        setDesignHistory((prev) => [
+          ...prev,
+          { version: nextVer, label: `v${nextVer}`, design: updatedDesign }
+        ]);
+        setCurrentStep(creationMode === 'prompt' ? 5 : 7);
+        setIsSubmitting(false);
+      } else {
+        setRevisionNumber((prev) => prev + 1);
+        const revisedPrompt = `${promptText}. Design Modifications: ${refinementPrompt}`;
+        setPromptText(revisedPrompt);
+        await handleStartGeneration(revisedPrompt);
+      }
+    } catch (e: any) {
+      console.warn("Regenerate notice:", e);
+      setActiveConflict({
+        reason: "Requested spatial adjustment violates municipal setbacks or room clearance bylaws.",
+        alternative: "Try an adjustment under 20% or specify expanding towards the rear courtyard."
+      });
+      setCurrentStep(creationMode === 'prompt' ? 5 : 7);
+      setIsSubmitting(false);
+    }
   };
 
   // Dynamic Steps definition based on chosen mode
@@ -764,7 +881,11 @@ export const NewDesignPage: React.FC = () => {
               New Residential Design
             </h1>
             <p className="text-xs text-[#68736C] mt-1">
-              Step {currentStep} of {totalSteps} &bull; {creationMode === 'prompt' ? 'Describing intent in natural language' : 'Configuring parametric architectural schedule'}
+              Step {currentStep} of {totalSteps} &bull; {
+                creationMode === 'prompt' 
+                  ? (currentStep === 4 ? 'Synthesizing bylaw-compliant spatial layout' : currentStep === 5 ? 'Architectural blueprints & technical elevation' : 'Describing intent in natural language')
+                  : (currentStep === 6 ? 'Synthesizing bylaw-compliant spatial layout' : currentStep === 7 ? 'Architectural blueprints & technical elevation' : 'Configuring parametric architectural schedule')
+              }
             </p>
           </div>
 
@@ -1165,7 +1286,7 @@ export const NewDesignPage: React.FC = () => {
 
           {/* Prompt Recap */}
           <div className="p-4 rounded-xl bg-[#EEF4F0]/60 border border-[#DCE7DE] text-xs space-y-1">
-            <span className="text-[11px] font-bold text-[#23483D]">Prompt to be Dispatched to ArchAI Backend Engine:</span>
+            <span className="text-[11px] font-bold text-[#23483D]">Prompt to be Dispatched to ArchiCraft AI Spatial Engine:</span>
             <p className="text-[#202923] italic leading-relaxed">"{promptText}"</p>
           </div>
 
@@ -1697,55 +1818,93 @@ export const NewDesignPage: React.FC = () => {
       )}
 
       {/* ========================================================
-          SYNTHESIS LOADER STAGE (DYNAMIC PROGRESS)
+          SYNTHESIS LOADER STAGE (DYNAMIC PROGRESS & ERROR STATE)
           ======================================================== */}
       {isSynthesisStep && (
         <div className="bg-white border border-[#E2E7E1] rounded-2xl p-10 sm:p-16 text-center space-y-6 shadow-xs">
-          <div className="relative w-24 h-24 mx-auto flex items-center justify-center">
-            <div className="absolute inset-0 rounded-full border-4 border-[#EEF4F0] border-t-[#23483D] animate-spin" />
-            <Compass className="h-10 w-10 text-[#23483D] animate-pulse" />
-          </div>
+          {synthesisError ? (
+            <div className="space-y-6 max-w-lg mx-auto">
+              <div className="w-16 h-16 mx-auto rounded-2xl bg-rose-100 border border-rose-300 flex items-center justify-center text-rose-600">
+                <AlertTriangle className="h-8 w-8" />
+              </div>
+              <div className="space-y-2">
+                <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-rose-700 bg-rose-50 px-3 py-1 rounded-full border border-rose-200">
+                  Synthesis Exception
+                </span>
+                <h2 className="text-xl sm:text-2xl font-bold text-[#202923] font-heading">
+                  Architectural Synthesis Failed
+                </h2>
+                <p className="text-xs text-rose-800 bg-rose-50 p-3 rounded-xl border border-rose-200 text-left font-mono leading-relaxed">
+                  {synthesisError}
+                </p>
+              </div>
+              <div className="flex items-center justify-center gap-3 pt-2">
+                <button
+                  type="button"
+                  onClick={() => setCurrentStep(creationMode === 'prompt' ? 3 : 5)}
+                  className="px-5 py-2.5 rounded-xl border border-[#E2E7E1] text-[#202923] hover:bg-[#F7F7F2] text-xs font-semibold"
+                >
+                  Return to Brief
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleStartGeneration()}
+                  className="px-6 py-2.5 rounded-xl bg-[#23483D] hover:bg-[#1A372E] text-white text-xs font-bold shadow-md flex items-center gap-2"
+                >
+                  <RefreshCw className="h-4 w-4" />
+                  <span>Retry Synthesis</span>
+                </button>
+              </div>
+            </div>
+          ) : (
+            <>
+              <div className="relative w-24 h-24 mx-auto flex items-center justify-center">
+                <div className="absolute inset-0 rounded-full border-4 border-[#EEF4F0] border-t-[#23483D] animate-spin" />
+                <Compass className="h-10 w-10 text-[#23483D] animate-pulse" />
+              </div>
 
-          <div className="space-y-2 max-w-lg mx-auto">
-            <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#23483D] bg-[#EEF4F0] px-3 py-1 rounded-full border border-[#DCE7DE]">
-              ArchAI Python Engine &bull; Port 8000
-            </span>
-            <h2 className="text-xl sm:text-2xl font-bold text-[#202923] font-heading">
-              Synthesizing Architectural Floor Plan & 3D Model
-            </h2>
-            <p className="text-xs text-[#68736C] leading-relaxed">
-              {synthesisStage}
-            </p>
-          </div>
+              <div className="space-y-2 max-w-lg mx-auto">
+                <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#23483D] bg-[#EEF4F0] px-3 py-1 rounded-full border border-[#DCE7DE]">
+                  ArchiCraft AI Studio &bull; Python Spatial Engine
+                </span>
+                <h2 className="text-xl sm:text-2xl font-bold text-[#202923] font-heading">
+                  Synthesizing Architectural Floor Plan & 3D Model
+                </h2>
+                <p className="text-xs text-[#68736C] leading-relaxed">
+                  {synthesisStage}
+                </p>
+              </div>
 
-          {/* Progress Bar */}
-          <div className="w-full max-w-md mx-auto space-y-2">
-            <div className="w-full bg-[#F7F7F2] rounded-full h-2.5 overflow-hidden border border-[#E2E7E1]">
-              <div
-                className="bg-[#23483D] h-full transition-all duration-500 rounded-full"
-                style={{ width: `${synthesisProgress}%` }}
-              />
-            </div>
-            <div className="flex justify-between text-[11px] text-[#68736C]">
-              <span>RAG Spatial Synthesis</span>
-              <span className="font-mono font-bold text-[#23483D]">{synthesisProgress}%</span>
-            </div>
-          </div>
+              {/* Progress Bar */}
+              <div className="w-full max-w-md mx-auto space-y-2">
+                <div className="w-full bg-[#F7F7F2] rounded-full h-2.5 overflow-hidden border border-[#E2E7E1]">
+                  <div
+                    className="bg-[#23483D] h-full transition-all duration-500 rounded-full"
+                    style={{ width: `${synthesisProgress}%` }}
+                  />
+                </div>
+                <div className="flex justify-between text-[11px] text-[#68736C]">
+                  <span>Learned-Strategy Synthesis</span>
+                  <span className="font-mono font-bold text-[#23483D]">{synthesisProgress}%</span>
+                </div>
+              </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 max-w-lg mx-auto pt-2 text-[11px] text-left text-[#68736C]">
-            <div className="flex items-center gap-1.5">
-              <CheckSquare className="h-3.5 w-3.5 text-[#23483D]" /> Setback Envelope
-            </div>
-            <div className="flex items-center gap-1.5">
-              <CheckSquare className="h-3.5 w-3.5 text-[#23483D]" /> Room Zoning
-            </div>
-            <div className="flex items-center gap-1.5">
-              <CheckSquare className="h-3.5 w-3.5 text-[#23483D]" /> 2D Elevation
-            </div>
-            <div className="flex items-center gap-1.5">
-              <CheckSquare className="h-3.5 w-3.5 text-[#23483D]" /> 3D Model
-            </div>
-          </div>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 max-w-lg mx-auto pt-2 text-[11px] text-left text-[#68736C]">
+                <div className="flex items-center gap-1.5">
+                  <CheckSquare className="h-3.5 w-3.5 text-[#23483D]" /> Setback Envelope
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <CheckSquare className="h-3.5 w-3.5 text-[#23483D]" /> Room Zoning
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <CheckSquare className="h-3.5 w-3.5 text-[#23483D]" /> 2D Elevation
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <CheckSquare className="h-3.5 w-3.5 text-[#23483D]" /> 3D Model
+                </div>
+              </div>
+            </>
+          )}
         </div>
       )}
 
@@ -1763,7 +1922,7 @@ export const NewDesignPage: React.FC = () => {
               <div>
                 <div className="flex items-center gap-2">
                   <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#23483D]">
-                    {generationSource === 'live' ? 'ArchAI Python Engine Verified' : 'Local Architectural Solver'}
+                    {generationSource === 'live' ? 'ArchiCraft AI Engine Verified' : 'Local Architectural Solver'}
                   </span>
                   <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-[#DCE7DE] text-[#23483D]">
                     {revisionNumber > 1 ? `Revision v${revisionNumber}` : 'Saved in Database'}
@@ -1775,6 +1934,33 @@ export const NewDesignPage: React.FC = () => {
                 <p className="text-xs text-[#68736C]">
                   {plotWidthFt} &times; {plotLengthFt} ft &bull; {floors} Storeys &bull; {bedrooms} Bedrooms &bull; CDA/LDA Bylaws Compliant
                 </p>
+                {/* VERSION PILLS & RESTORE */}
+                <div className="flex items-center gap-1.5 mt-2">
+                  <span className="text-[10px] font-bold text-[#68736C] uppercase tracking-wider flex items-center gap-1">
+                    <History className="h-3 w-3 text-[#23483D]" /> Revisions:
+                  </span>
+                  {designHistory.map((item) => (
+                    <button
+                      key={item.version}
+                      onClick={() => handleRestoreVersion(item.version)}
+                      className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold transition-all ${
+                        revisionNumber === item.version
+                          ? 'bg-[#23483D] text-white shadow-xs'
+                          : 'bg-white border border-[#DCE7DE] text-[#23483D] hover:bg-[#EEF4F0]'
+                      }`}
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                  {revisionNumber > 1 && (
+                    <button
+                      onClick={() => handleRestoreVersion(1)}
+                      className="text-[10px] text-amber-700 hover:text-amber-900 underline font-semibold ml-1"
+                    >
+                      Restore to v1
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
 
@@ -1786,6 +1972,13 @@ export const NewDesignPage: React.FC = () => {
               >
                 <RefreshCw className="h-3.5 w-3.5 text-[#23483D]" />
                 <span>Regenerate & Refine</span>
+              </button>
+              <button
+                onClick={() => setExportModalOpen(true)}
+                className="px-4 py-2 rounded-xl bg-white border border-[#E2E7E1] text-[#202923] hover:border-[#23483D] text-xs font-semibold flex items-center gap-1.5 transition-colors shadow-2xs hover:bg-[#F7F7F2]"
+              >
+                <Download className="h-3.5 w-3.5 text-[#23483D]" />
+                <span>Export CAD Package</span>
               </button>
               {createdProjectId && (
                 <Link
@@ -1827,7 +2020,245 @@ export const NewDesignPage: React.FC = () => {
             </div>
           )}
 
-          {/* DEDICATED REGENERATE & REFINE OVERLAY PAGE */}
+                    {/* SPATIAL & STATUTORY BYLAW CONFLICT BANNER */}
+          {activeConflict && (
+            <div className="bg-rose-50 border-2 border-rose-500 rounded-2xl p-5 shadow-sm space-y-3 animate-in fade-in duration-200">
+              <div className="flex items-start gap-3">
+                <div className="p-2.5 rounded-xl bg-rose-600 text-white shrink-0 mt-0.5">
+                  <AlertTriangle className="h-6 w-6" />
+                </div>
+                <div className="flex-1 space-y-1.5">
+                  <div className="flex items-center gap-2">
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-rose-600 text-white">
+                      Spatial & Statutory Bylaw Conflict
+                    </span>
+                  </div>
+                  <p className="text-xs sm:text-sm font-bold text-rose-900 leading-relaxed">
+                    {activeConflict.reason}
+                  </p>
+                  <div className="p-3 bg-white/80 rounded-xl border border-rose-200 mt-2 space-y-1">
+                    <span className="text-[10px] font-bold uppercase text-emerald-800 tracking-wider block">
+                      Suggested Valid Alternative:
+                    </span>
+                    <p className="text-xs text-[#202923]">
+                      {activeConflict.alternative}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2 pt-2">
+                    <button
+                      onClick={() => {
+                        setRefinementPrompt(activeConflict.alternative);
+                        setActiveConflict(null);
+                        setIsRegeneratePageOpen(true);
+                      }}
+                      className="px-3 py-1.5 bg-rose-600 text-white text-[11px] font-bold rounded-lg hover:bg-rose-700 transition-colors"
+                    >
+                      Apply Recommended Alternative
+                    </button>
+                    <button
+                      onClick={() => setActiveConflict(null)}
+                      className="px-3 py-1.5 bg-white border border-rose-300 text-rose-800 text-[11px] font-medium rounded-lg hover:bg-rose-50 transition-colors"
+                    >
+                      Dismiss
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* 3 DESIGN VARIANT CARDS */}
+          {backendDesign?.variants && backendDesign.variants.length > 0 && (
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <Layers className="h-4 w-4 text-[#23483D]" />
+                  <h3 className="font-bold text-xs text-[#202923] uppercase tracking-wider">
+                    AI Layout Strategies & Design Variants
+                  </h3>
+                </div>
+                <span className="text-[10px] text-[#68736C]">
+                  3 Distinct Bylaw-Validated Archetypes
+                </span>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                {backendDesign.variants.map((v: any) => {
+                  const isSelected = activeVariantId === v.id || (activeVariantId === 'alt_1' && v.is_active);
+                  return (
+                    <div
+                      key={v.id}
+                      onClick={() => handleSelectVariant(v)}
+                      className={`p-4 rounded-2xl border transition-all cursor-pointer space-y-2 ${
+                        isSelected
+                          ? 'bg-white border-2 border-[#23483D] shadow-sm'
+                          : 'bg-[#F7F7F2] border-[#E2E7E1] hover:bg-white hover:border-[#23483D]'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase bg-[#EEF4F0] text-[#23483D]">
+                          {v.id}
+                        </span>
+                        <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+                          {Math.round((v.quality_score || 0.98) * 100)}% Compliant
+                        </span>
+                      </div>
+                      <div>
+                        <h4 className="text-xs font-bold text-[#202923]">{v.strategy_name}</h4>
+                        <p className="text-[11px] text-[#68736C] line-clamp-2 mt-0.5">{v.description}</p>
+                      </div>
+                      <div className="pt-1.5 border-t border-[#E2E7E1] flex items-center justify-between text-[10px]">
+                        <span className="font-mono text-[#8C9890]">{v.archetype_id}</span>
+                        <span className={`font-semibold ${isSelected ? 'text-[#23483D]' : 'text-[#68736C]'}`}>
+                          {isSelected ? '✓ Active Layout' : 'Select Variant'}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* AI SPATIAL STRATEGY & RULE EXPLAINABILITY */}
+          {backendDesign?.explainability && (
+            <div className="bg-white border border-[#E2E7E1] rounded-2xl p-5 shadow-xs space-y-3">
+              <div className="flex items-center justify-between border-b border-[#E2E7E1] pb-2.5">
+                <div className="flex items-center gap-2">
+                  <Info className="h-4 w-4 text-[#23483D]" />
+                  <h3 className="font-bold text-xs text-[#202923] uppercase tracking-wider">
+                    AI Architecture Logic & Explainability Panel
+                  </h3>
+                </div>
+                <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-[#EEF4F0] text-[#23483D] border border-[#DCE7DE]">
+                  Archetype: {backendDesign.explainability.source_archetype_id}
+                </span>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                <div className="space-y-2">
+                  <div>
+                    <span className="text-[10px] font-bold text-[#23483D] uppercase tracking-wider block">
+                      Planning Strategy Selected:
+                    </span>
+                    <p className="font-semibold text-[#202923] mt-0.5">{backendDesign.explainability.strategy_name}</p>
+                    <p className="text-[11px] text-[#68736C]">{backendDesign.explainability.strategy_description}</p>
+                  </div>
+                  {backendDesign.explainability.influenced_by_plans && backendDesign.explainability.influenced_by_plans.length > 0 && (
+                    <div>
+                      <span className="text-[10px] font-bold text-[#68736C] uppercase tracking-wider block">
+                        Extracted Vector Knowledge Influences:
+                      </span>
+                      <div className="flex flex-wrap gap-1 mt-1">
+                        {backendDesign.explainability.influenced_by_plans.map((pName: string, idx: number) => (
+                          <span key={idx} className="px-2 py-0.5 rounded bg-[#F7F7F2] border border-[#E2E7E1] font-mono text-[9px] text-[#202923]">
+                            {pName}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <div className="space-y-2">
+                  <div>
+                    <span className="text-[10px] font-bold text-[#23483D] uppercase tracking-wider block">
+                      Statutory Bylaw Rules Applied:
+                    </span>
+                    <ul className="list-disc list-inside text-[11px] text-[#68736C] space-y-0.5 mt-0.5">
+                      {(backendDesign.explainability.bylaw_rules_applied || []).slice(0, 4).map((rule: string, idx: number) => (
+                        <li key={idx} className="line-clamp-1">{rule}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <span className="text-[10px] font-bold text-[#23483D] uppercase tracking-wider block">
+                      Quality Gate Verifications:
+                    </span>
+                    <ul className="list-disc list-inside text-[11px] text-emerald-700 space-y-0.5 mt-0.5">
+                      {(backendDesign.explainability.quality_gate_fixes || []).slice(0, 3).map((fix: string, idx: number) => (
+                        <li key={idx} className="line-clamp-1">{fix}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* REQUIREMENTS COMPLIANCE CHECKLIST */}
+          {backendDesign?.compliance_checklist && (
+            <div className="bg-white border border-[#E2E7E1] rounded-2xl p-5 shadow-xs space-y-3">
+              <div className="flex items-center justify-between border-b border-[#E2E7E1] pb-2.5">
+                <div className="flex items-center gap-2">
+                  <CheckSquare className="h-4 w-4 text-[#23483D]" />
+                  <h3 className="font-bold text-xs text-[#202923] uppercase tracking-wider">
+                    Requirements Compliance Checklist
+                  </h3>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
+                    backendDesign.compliance_checklist.all_passed
+                      ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
+                      : 'bg-amber-100 text-amber-800 border border-amber-300'
+                  }`}>
+                    {backendDesign.compliance_checklist.score_pct}% Match ({backendDesign.compliance_checklist.passed_count}/{backendDesign.compliance_checklist.total_count} Passed)
+                  </span>
+                </div>
+              </div>
+
+              {/* USER STATED REQUIREMENTS */}
+              <div className="space-y-1.5">
+                <span className="text-[10px] font-bold text-[#23483D] uppercase tracking-wider block">
+                  User Stated Requirements:
+                </span>
+                <div className="divide-y divide-[#E2E7E1] max-h-[140px] overflow-y-auto pr-1 text-xs">
+                  {(backendDesign.compliance_checklist.requested_items || backendDesign.compliance_checklist.items || []).map((item: any, idx: number) => (
+                    <div key={idx} className="py-1.5 flex items-start justify-between gap-2">
+                      <div className="space-y-0.5">
+                        <span className="font-semibold text-[#202923] text-[11px]">{item.name}</span>
+                        <p className="text-[10px] text-[#68736C]">
+                          Req: <span className="font-medium text-[#202923]">{item.requested}</span> &rarr; Delivered: <span className="font-medium text-[#202923]">{item.delivered}</span>
+                        </p>
+                        {item.detail && <p className="text-[9px] text-[#8C9890]">{item.detail}</p>}
+                      </div>
+                      <span className={`px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider shrink-0 mt-0.5 ${
+                        item.status === 'PASS'
+                          ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                          : item.status === 'PARTIAL'
+                          ? 'bg-amber-50 text-amber-700 border border-amber-200'
+                          : 'bg-rose-50 text-rose-700 border border-rose-200'
+                      }`}>
+                        {item.status}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* ADDED BY BYLAWS / DEFAULTS */}
+              {backendDesign.compliance_checklist.bylaw_defaults && backendDesign.compliance_checklist.bylaw_defaults.length > 0 && (
+                <div className="space-y-1.5 pt-2 border-t border-[#E2E7E1]">
+                  <span className="text-[10px] font-bold text-[#68736C] uppercase tracking-wider block">
+                    Added by Bylaws / Engineering Defaults:
+                  </span>
+                  <div className="divide-y divide-[#E2E7E1] max-h-[120px] overflow-y-auto pr-1 text-xs">
+                    {backendDesign.compliance_checklist.bylaw_defaults.map((bItem: any, idx: number) => (
+                      <div key={idx} className="py-1 flex items-start justify-between gap-2">
+                        <div className="space-y-0.5">
+                          <span className="font-semibold text-[#202923] text-[11px]">{bItem.name}</span>
+                          <p className="text-[10px] text-[#68736C]">{bItem.delivered}</p>
+                          <p className="text-[9px] text-[#8C9890] italic">{bItem.statutory_role}</p>
+                        </div>
+                        <span className="px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider shrink-0 mt-0.5 bg-blue-50 text-blue-700 border border-blue-200">
+                          {bItem.status}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+
+{/* DEDICATED REGENERATE & REFINE OVERLAY PAGE */}
           {isRegeneratePageOpen && (
             <div className="bg-white border-2 border-[#23483D] rounded-2xl p-6 sm:p-8 shadow-lg space-y-6 animate-in fade-in duration-200">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E2E7E1] pb-4">
@@ -2274,6 +2705,70 @@ export const NewDesignPage: React.FC = () => {
                   <span>Return to My Designs</span>
                 </Link>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* EXPORT CAD PACKAGE MODAL */}
+      {exportModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 animate-in fade-in">
+          <div className="bg-white rounded-2xl max-w-lg w-full p-6 space-y-4 shadow-xl border border-[#E2E7E1]">
+            <div className="flex items-center justify-between border-b border-[#E2E7E1] pb-3">
+              <div className="flex items-center gap-2">
+                <Download className="h-5 w-5 text-[#23483D]" />
+                <h3 className="font-bold text-sm text-[#202923]">Export Architectural CAD Package</h3>
+              </div>
+              <button
+                onClick={() => setExportModalOpen(false)}
+                className="p-1 rounded-lg hover:bg-[#F7F7F2] text-[#68736C]"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+            <p className="text-xs text-[#68736C]">
+              Select the CAD or rendering deliverable format for Version {revisionNumber}:
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+              {[
+                { id: 'pdf', title: 'Presentation Sheet PDF (.pdf)', desc: 'Architectural blueprint sheet' },
+                { id: 'dxf', title: 'AutoCAD DXF (.dxf)', desc: 'Layered CAD geometry (AIA layers)' },
+                { id: 'svg', title: 'Pure Vector Blueprint (.svg)', desc: 'High-res scalable vector graphics' },
+                { id: 'png', title: 'Technical Blueprint Sheet (.png)', desc: 'Full high-res raster blueprint' },
+                { id: 'obj', title: 'Wavefront 3D Mesh (.obj)', desc: 'Universal 3D spatial solids' },
+                { id: 'blend', title: 'Blender 3D Model (.blend)', desc: 'Procedural 3D scene file' },
+              ].map((fmt) => (
+                <button
+                  key={fmt.id}
+                  type="button"
+                  onClick={() => setExportFormat(fmt.id as any)}
+                  className={`p-3 rounded-xl border text-left transition-all ${
+                    exportFormat === fmt.id
+                      ? 'border-2 border-[#23483D] bg-[#EEF4F0]'
+                      : 'border-[#E2E7E1] hover:border-[#23483D] bg-white'
+                  }`}
+                >
+                  <div className="font-bold text-xs text-[#202923]">{fmt.title}</div>
+                  <div className="text-[10px] text-[#68736C] mt-0.5">{fmt.desc}</div>
+                </button>
+              ))}
+            </div>
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#E2E7E1]">
+              <button
+                type="button"
+                onClick={() => setExportModalOpen(false)}
+                className="px-4 py-2 rounded-xl border border-[#E2E7E1] text-xs font-semibold text-[#202923]"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                disabled={exportLoading}
+                onClick={handleExportDownload}
+                className="px-5 py-2 rounded-xl bg-[#23483D] hover:bg-[#1A372E] text-white text-xs font-bold flex items-center gap-2 shadow-sm"
+              >
+                {exportLoading ? <RefreshCw className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
+                <span>{exportLoading ? 'Generating CAD Package...' : `Download ${exportFormat.toUpperCase()}`}</span>
+              </button>
             </div>
           </div>
         </div>

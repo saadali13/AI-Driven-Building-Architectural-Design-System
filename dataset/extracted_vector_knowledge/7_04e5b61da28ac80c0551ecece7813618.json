@@ -1,0 +1,259 @@
+{
+  "source_file": "7\\04e5b61da28ac80c0551ecece7813618.jpg",
+  "category": "7",
+  "plot": {
+    "category": "7_marla",
+    "marla": 7.0,
+    "dimensions_ft": [
+      30.0,
+      52.5
+    ],
+    "setbacks_ft": {
+      "front": 5.0,
+      "rear": 5.0,
+      "side_left": 0.0,
+      "side_right": 0.0
+    }
+  },
+  "pixel_scale": {
+    "image_width_px": 720,
+    "image_height_px": 1280,
+    "cropped_envelope_px": [
+      105,
+      69,
+      566,
+      1122
+    ],
+    "pixels_per_foot_x": 18.867,
+    "pixels_per_foot_y": 21.371
+  },
+  "rooms": [
+    {
+      "id": "room_1",
+      "name": "Formal Guest Drawing Room",
+      "type": "drawing_room",
+      "zoning": "Front-Public",
+      "bbox_ft": [
+        20.99,
+        0.89,
+        8.0,
+        4.45
+      ],
+      "area_sqft": 35.6,
+      "aspect_ratio": 1.8,
+      "polygon_coords": [
+        [
+          28.99,
+          0.89
+        ],
+        [
+          28.99,
+          5.34
+        ],
+        [
+          20.99,
+          5.34
+        ],
+        [
+          20.99,
+          0.89
+        ],
+        [
+          28.99,
+          0.89
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_2",
+      "name": "Central Family TV Lounge",
+      "type": "living_room",
+      "zoning": "Mid-Living-Service",
+      "bbox_ft": [
+        0.42,
+        19.7,
+        9.17,
+        3.93
+      ],
+      "area_sqft": 36.0,
+      "aspect_ratio": 2.33,
+      "polygon_coords": [
+        [
+          9.59,
+          19.7
+        ],
+        [
+          9.59,
+          23.63
+        ],
+        [
+          0.42,
+          23.63
+        ],
+        [
+          0.42,
+          19.7
+        ],
+        [
+          9.59,
+          19.7
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_3",
+      "name": "Powder Room",
+      "type": "powder_room",
+      "zoning": "Mid-Living-Service",
+      "bbox_ft": [
+        3.39,
+        26.34,
+        10.12,
+        3.93
+      ],
+      "area_sqft": 39.8,
+      "aspect_ratio": 2.58,
+      "polygon_coords": [
+        [
+          13.51,
+          26.34
+        ],
+        [
+          13.51,
+          30.27
+        ],
+        [
+          3.39,
+          30.27
+        ],
+        [
+          3.39,
+          26.34
+        ],
+        [
+          13.51,
+          26.34
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_4",
+      "name": "Master Bedroom Suite 4",
+      "type": "bedroom",
+      "zoning": "Rear-Private",
+      "bbox_ft": [
+        9.91,
+        38.23,
+        19.08,
+        13.48
+      ],
+      "area_sqft": 257.2,
+      "aspect_ratio": 1.42,
+      "polygon_coords": [
+        [
+          28.99,
+          38.23
+        ],
+        [
+          28.99,
+          51.71
+        ],
+        [
+          9.91,
+          51.71
+        ],
+        [
+          9.91,
+          38.23
+        ],
+        [
+          28.99,
+          38.23
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_5",
+      "name": "Rear OTS Lightwell",
+      "type": "ots",
+      "zoning": "Rear-Private",
+      "bbox_ft": [
+        1.01,
+        42.58,
+        8.59,
+        4.26
+      ],
+      "area_sqft": 36.6,
+      "aspect_ratio": 2.02,
+      "polygon_coords": [
+        [
+          9.6,
+          42.58
+        ],
+        [
+          9.6,
+          46.84
+        ],
+        [
+          1.01,
+          46.84
+        ],
+        [
+          1.01,
+          42.58
+        ],
+        [
+          9.6,
+          42.58
+        ]
+      ],
+      "floor_level": 0
+    }
+  ],
+  "fenestrations": [
+    {
+      "id": "win_room_1_front",
+      "type": "window",
+      "host_room": "room_1",
+      "wall": "front",
+      "position": [
+        24.99,
+        0.89,
+        3.0
+      ],
+      "width": 5.2,
+      "height": 5.5,
+      "sill_height": 2.5
+    },
+    {
+      "id": "win_room_4_rear",
+      "type": "window",
+      "host_room": "room_4",
+      "wall": "rear",
+      "position": [
+        19.45,
+        51.71,
+        3.0
+      ],
+      "width": 4.5,
+      "height": 4.5,
+      "sill_height": 3.0
+    }
+  ],
+  "circulation_graph": {
+    "room_1": [],
+    "room_2": [],
+    "room_3": [],
+    "room_4": [
+      "room_5"
+    ],
+    "room_5": [
+      "room_4"
+    ]
+  },
+  "elevation_features": null
+}

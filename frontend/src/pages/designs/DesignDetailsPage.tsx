@@ -42,7 +42,7 @@ export const DesignDetailsPage: React.FC = () => {
   );
   const [shareCopied, setShareCopied] = useState(false);
   const [exportModalOpen, setExportModalOpen] = useState(false);
-  const [exportFormat, setExportFormat] = useState<'pdf' | 'dxf' | 'svg' | 'blend'>('pdf');
+  const [exportFormat, setExportFormat] = useState<'pdf' | 'dxf' | 'svg' | 'blend' | 'obj' | 'png'>('pdf');
   const [exportLoading, setExportLoading] = useState(false);
   const [exportSuccess, setExportSuccess] = useState(false);
 
@@ -442,6 +442,8 @@ export const DesignDetailsPage: React.FC = () => {
                 { id: 'pdf', title: 'Presentation Sheet PDF (.pdf)', desc: 'Full architectural layout with dimension callouts' },
                 { id: 'dxf', title: 'AutoCAD DXF (.dxf)', desc: 'Layered CAD geometry (A-WALL, A-DOOR, A-WIND, A-DIMS)' },
                 { id: 'svg', title: 'Pure Vector Blueprint (.svg)', desc: 'High-resolution scalable vector graphic' },
+                { id: 'png', title: 'Technical Blueprint Sheet (.png)', desc: 'High-resolution presentation sheet raster rendering' },
+                { id: 'obj', title: 'Wavefront 3D Mesh (.obj)', desc: 'Universal 3D geometry mesh with floor slabs and wall solids' },
                 { id: 'blend', title: 'Blender 3D Model (.blend)', desc: 'Procedural solid walls and Cycle renders' },
               ].map((opt) => (
                 <label

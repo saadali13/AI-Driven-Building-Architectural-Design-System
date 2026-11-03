@@ -246,14 +246,17 @@ class FloorPlanToElevationMapper:
                     })
 
         # Detect Staircase Core for background projection
-        stair_rooms = [r for r in rooms if "stair" in r.room_id.lower() or "stair" in r.room_name.lower()]
+        stair_rooms = [r for r in rooms if "stair" in r.room_id.lower() or "stair" in r.room_name.lower() or r.room_type == "stairs"]
         if stair_rooms:
             s_pts = [p for r in stair_rooms for p in r.polygon]
-            stair_x = round(min(p[0] for p in s_pts) - min_x, 2)
-            stair_w = round(max(2.20, max(p[0] for p in s_pts) - min(p[0] for p in s_pts)), 2)
+            stair_min_x = min(p[0] for p in s_pts) - min_x
+            stair_max_x = max(p[0] for p in s_pts) - min_x
+            stair_center_x = (stair_min_x + stair_max_x) / 2.0
+            stair_w = round(max(2.40, stair_max_x - stair_min_x), 2)
+            stair_x = max(0.60, round(stair_center_x - stair_w / 2.0, 2))
         else:
-            stair_x = 0.0
-            stair_w = 2.44
+            stair_x = round(plot_w * 0.35, 2)
+            stair_w = 2.60
 
         return {
             "plot_w": plot_w,
@@ -342,9 +345,9 @@ class FloorPlanToElevationMapper:
         for py in np.arange(cls.H_NGL + 0.22, cls.H_PLINTH, 0.22):
             ax.plot([0, plot_w], [py, py], color="#1E293B" if style_key != "classical" else "#94A3B8", lw=0.8, zorder=6)
 
-        # 2. BACKGROUND STAIR MUMTY & OHT (Recessed from plan stair coordinates)
-        mum_x = max(0.0, min(plot_w - stair_w, stair_x))
-        mum_w = min(stair_w, plot_w)
+        # 2. BACKGROUND STAIR MUMTY & OHT (Aligned strictly with stair core)
+        mum_x = max(0.60, min(plot_w - stair_w - 0.30, stair_x))
+        mum_w = min(stair_w, plot_w - mum_x - 0.20)
         mum_bg = "#E2E8F0" if style_key in ("modern", "brutalist", "scandinavian") else ("#FEF3C7" if style_key == "spanish" else "#F1F5F9")
         ax.add_patch(patches.Rectangle((mum_x, cls.H_ROOF), mum_w, cls.H_MUMTY - cls.H_ROOF, facecolor=mum_bg, edgecolor="#94A3B8", lw=0.8, zorder=6))
         for my in np.arange(cls.H_ROOF + 0.5, cls.H_MUMTY - 0.4, 0.35):
@@ -353,7 +356,7 @@ class FloorPlanToElevationMapper:
         oht_x = mum_x + (mum_w - oht_w) * 0.5
         ax.add_patch(patches.Rectangle((oht_x, cls.H_MUMTY), oht_w, cls.H_OHT - cls.H_MUMTY, facecolor="#CBD5E1", edgecolor="#94A3B8", lw=0.8, zorder=8))
         ax.text(oht_x + oht_w * 0.5, cls.H_MUMTY + 0.60, "OHT (+11.46m)", fontsize=5.5, color="#64748B", ha="center", va="center", zorder=9)
-        ax.text(mum_x + mum_w * 0.5, cls.H_ROOF + 1.30, f"STAIR MUMTY (RECESSED @ X={mum_x:.1f}m)\n[0.13mm Aerial Fade]", fontsize=5.2, color="#64748B", ha="center", va="center", zorder=8)
+        ax.text(mum_x + mum_w * 0.5, cls.H_ROOF + 1.30, f"STAIR MUMTY PENTHOUSE\n(Aligned @ X={mum_x:.1f}m)", fontsize=5.2, color="#64748B", ha="center", va="center", zorder=8)
 
         # 3. LEVEL 0 GROUND FACADE BAYS (Rendered from real l0_front_rooms)
         for r_item in l0_rooms:
@@ -417,12 +420,23 @@ class FloorPlanToElevationMapper:
                     for qy in np.arange(cls.H_PLINTH + 0.10, cls.H_1F - 0.40, 0.50):
                         ax.add_patch(patches.Rectangle((rx2 - 0.40, qy), 0.40, 0.22, facecolor="#E2E8F0", edgecolor="#0F172A", lw=0.8, zorder=12))
 
-        # Render Main Entrance Door from plan
+        # Render Main Entrance Door: Separated beside porch with dedicated canopy portico
         if main_door:
             md_x = main_door["x"]
             md_w = main_door["width"]
             is_dbl = main_door["is_double"]
             door_h = 2.45
+            if porch_info and (porch_info["x1"] - 0.10 <= md_x <= porch_info["x2"] + 0.10):
+                md_x = min(plot_w - md_w * 0.70, porch_info["x2"] + 0.85)
+
+            # Architectural entrance canopy slab
+            canopy_w = md_w + 0.60
+            canopy_h = 0.16
+            canopy_x = md_x - canopy_w * 0.5
+            canopy_y = cls.H_PLINTH + door_h + 0.12
+            ax.add_patch(patches.Rectangle((canopy_x, canopy_y), canopy_w, canopy_h, facecolor="#0F172A", edgecolor="#0F172A", lw=1.5, zorder=12))
+            ax.add_patch(patches.Rectangle((md_x + md_w * 0.5 + 0.12, cls.H_PLINTH + door_h * 0.65), 0.10, 0.22, facecolor="#D97706", edgecolor="#0F172A", lw=1.0, zorder=13))
+
             # Wooden door frame & leaf
             ax.add_patch(patches.Rectangle((md_x - md_w * 0.5, cls.H_PLINTH), md_w, door_h, facecolor="#3E2723", edgecolor="#1C1917", lw=1.8, zorder=9))
             if is_dbl:
@@ -549,7 +563,12 @@ class FloorPlanToElevationMapper:
             ax.plot([datum_x_left + 1.40, plot_w + 0.30], [h_val, h_val], color="#DC2626", lw=0.70, linestyle=":", alpha=0.75, zorder=25)
             tri = [[datum_x_left + 1.40, h_val], [datum_x_left + 1.10, h_val + 0.16], [datum_x_left + 1.10, h_val - 0.16], [datum_x_left + 1.40, h_val]]
             ax.add_patch(MplPoly(tri, closed=True, facecolor="#DC2626", edgecolor="#B91C1C", lw=0.8, zorder=26))
-            ax.text(datum_x_left + 1.00, h_val, f"{name}\n{dim_str}", fontsize=5.2, fontweight="bold", color="#DC2626", ha="right", va="center", zorder=27)
+            if name == "ROAD LEVEL":
+                ax.text(datum_x_left + 1.00, h_val - 0.22, f"{name}: {dim_str}", fontsize=4.8, fontweight="bold", color="#DC2626", ha="right", va="top", zorder=27)
+            elif name == "NATURAL GROUND LEVEL":
+                ax.text(datum_x_left + 1.00, h_val + 0.22, f"{name}: {dim_str}", fontsize=4.8, fontweight="bold", color="#DC2626", ha="right", va="bottom", zorder=27)
+            else:
+                ax.text(datum_x_left + 1.00, h_val, f"{name}\n{dim_str}", fontsize=5.0, fontweight="bold", color="#DC2626", ha="right", va="center", zorder=27)
 
         # 9. BOTTOM CHAIN DIMENSIONS (Synchronized with Plan Bays)
         chain_y = -1.35
@@ -576,7 +595,7 @@ class FloorPlanToElevationMapper:
         ax.plot([tb_x, tb_x + tb_w], [tb_y + tb_h - 0.65, tb_y + tb_h - 0.65], color="#0F172A", lw=1.2, zorder=31)
         ax.plot([tb_x, tb_x + tb_w], [tb_y + 0.90, tb_y + 0.90], color="#CBD5E1", lw=0.9, zorder=31)
 
-        ax.text(tb_x + tb_w * 0.5, tb_y + tb_h - 0.32, "ARCHITECTURAL SYSTEMCAD", fontsize=7.2, fontweight="black", color="#0F172A", ha="center", va="center", zorder=32)
+        ax.text(tb_x + tb_w * 0.5, tb_y + tb_h - 0.32, "ArchiCraft AI Studio - Parametric CAD", fontsize=7.2, fontweight="black", color="#0F172A", ha="center", va="center", zorder=32)
         ax.text(tb_x + 0.20, tb_y + tb_h - 0.85, "DRAWING: 2D FRONT ELEVATION", fontsize=5.8, fontweight="bold", color="#0F172A", zorder=32)
         ax.text(tb_x + 0.20, tb_y + tb_h - 1.15, f"STYLE: {style_title}", fontsize=5.5, fontweight="bold", color="#2563EB", zorder=32)
         ax.text(tb_x + 0.20, tb_y + tb_h - 1.45, "COORDINATION: 1:1 PLAN-DERIVED", fontsize=5.0, color="#16A34A", fontweight="bold", zorder=32)
@@ -654,7 +673,7 @@ class FloorPlanToElevationMapper:
             [x + w - 0.3, y + 0.32], [x + 0.1, y + 0.32]
         ]
         ax.add_patch(MplPoly(poly, closed=True, facecolor="#1E293B", alpha=0.35, edgecolor="#0F172A", lw=1.2, zorder=11))
-        ax.text(x + w * 0.5, y + 0.85, "SUV VEHICLE SILHOUETTE (IN PORCH)", fontsize=4.6, color="#0F172A", alpha=0.7, ha="center", zorder=14)
+        # SUV Silhouette
 
     @classmethod
     def _draw_human_figure(cls, ax, x: float, y: float):
@@ -667,7 +686,7 @@ class FloorPlanToElevationMapper:
             [x - 0.12, y + 0.85], [x - 0.14, y + 1.48]
         ]
         ax.add_patch(MplPoly(person_poly, closed=True, facecolor="#0F172A", alpha=0.85, zorder=20))
-        ax.text(x, y - 0.18, "HUMAN SCALE (1.75m)", fontsize=4.5, color="#475569", ha="center", zorder=22)
+        # Human figure scale
 
     @classmethod
     def verify_consistency(

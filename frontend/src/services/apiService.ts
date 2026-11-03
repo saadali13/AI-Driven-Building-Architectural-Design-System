@@ -24,6 +24,8 @@ export interface GenerateDesignPayload {
   budget_tier?: string;
   currency?: string;
   seed?: number;
+  strategy?: string;
+  variant_index?: number;
 }
 
 class ApiService {
@@ -59,11 +61,21 @@ class ApiService {
     });
 
     if (!res.ok) {
-      const errText = await res.text().catch(() => 'Server error');
+      let errText = 'Server error';
+      try {
+        const errJson = await res.json();
+        errText = errJson.error || errJson.message || JSON.stringify(errJson);
+      } catch {
+        errText = await res.text().catch(() => 'Server error');
+      }
       throw new Error(`Generation failed (HTTP ${res.status}): ${errText}`);
     }
 
-    return await res.json();
+    const data = await res.json();
+    if (data && data.success === false) {
+      throw new Error(data.error || 'Architectural generation returned an error');
+    }
+    return data;
   }
 
   /**
@@ -81,6 +93,68 @@ class ApiService {
 
     if (!res.ok) {
       throw new Error(`Regeneration failed (HTTP ${res.status})`);
+    }
+
+    return await res.json();
+  }
+
+  /**
+   * Targeted regeneration on CanonicalFloorPlan (Phase 2)
+   */
+  async regenerateWithImprovement(params: {
+    plan_id: string;
+    improvement_text: string;
+    base_version?: number;
+  }): Promise<any> {
+    const res = await fetch(`${this.baseUrl}/api/regenerate`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify(params),
+    });
+
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({ error: 'Regeneration failed' }));
+      throw new Error(err.error || `Regeneration failed (HTTP ${res.status})`);
+    }
+
+    return await res.json();
+  }
+
+  /**
+   * Fetch version history for a plan (Phase 2)
+   */
+  async getPlanVersions(planId: string): Promise<any[]> {
+    try {
+      const res = await fetch(`${this.baseUrl}/api/plans/${encodeURIComponent(planId)}/versions`, {
+        method: 'GET',
+        headers: { 'Accept': 'application/json' },
+      });
+      if (!res.ok) return [];
+      const data = await res.json();
+      return data.versions || [];
+    } catch {
+      return [];
+    }
+  }
+
+  /**
+   * Restore a historical plan version (Phase 2)
+   */
+  async restorePlanVersion(planId: string, version: number): Promise<any> {
+    const res = await fetch(`${this.baseUrl}/api/plans/${encodeURIComponent(planId)}/restore`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+      body: JSON.stringify({ version }),
+    });
+
+    if (!res.ok) {
+      throw new Error(`Failed to restore version ${version} (HTTP ${res.status})`);
     }
 
     return await res.json();
@@ -113,7 +187,7 @@ class ApiService {
   /**
    * Download real generated export file (AutoCAD DXF, SVG, PDF, Blender .blend)
    */
-  async exportFile(format: 'dxf' | 'svg' | 'pdf' | 'blend', designData: any): Promise<{ blob: Blob; filename: string }> {
+  async exportFile(format: 'dxf' | 'svg' | 'pdf' | 'blend' | 'obj' | 'png', designData: any): Promise<{ blob: Blob; filename: string }> {
     const endpoint = `/api/export/${format}`;
     const res = await fetch(`${this.baseUrl}${endpoint}`, {
       method: 'POST',

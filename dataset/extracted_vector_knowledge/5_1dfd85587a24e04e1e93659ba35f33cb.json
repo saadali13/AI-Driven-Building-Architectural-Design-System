@@ -1,0 +1,210 @@
+{
+  "source_file": "5\\1dfd85587a24e04e1e93659ba35f33cb.jpg",
+  "category": "5",
+  "plot": {
+    "category": "5_marla",
+    "marla": 5.0,
+    "dimensions_ft": [
+      25.0,
+      45.0
+    ],
+    "setbacks_ft": {
+      "front": 5.0,
+      "rear": 4.0,
+      "side_left": 0.0,
+      "side_right": 0.0
+    }
+  },
+  "pixel_scale": {
+    "image_width_px": 640,
+    "image_height_px": 1136,
+    "cropped_envelope_px": [
+      40,
+      104,
+      556,
+      913
+    ],
+    "pixels_per_foot_x": 22.24,
+    "pixels_per_foot_y": 20.289
+  },
+  "rooms": [
+    {
+      "id": "room_1",
+      "name": "Car Porch & Driveway",
+      "type": "garage",
+      "zoning": "Front-Public",
+      "bbox_ft": [
+        2.02,
+        1.87,
+        20.46,
+        15.03
+      ],
+      "area_sqft": 279.6,
+      "aspect_ratio": 1.36,
+      "polygon_coords": [
+        [
+          22.48,
+          1.87
+        ],
+        [
+          2.02,
+          1.87
+        ],
+        [
+          2.02,
+          16.9
+        ],
+        [
+          2.07,
+          16.9
+        ],
+        [
+          2.07,
+          15.53
+        ],
+        [
+          22.48,
+          15.53
+        ],
+        [
+          22.48,
+          1.87
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_2",
+      "name": "Central Family TV Lounge",
+      "type": "living_room",
+      "zoning": "Mid-Living-Service",
+      "bbox_ft": [
+        2.07,
+        15.53,
+        20.86,
+        22.28
+      ],
+      "area_sqft": 464.8,
+      "aspect_ratio": 0.94,
+      "polygon_coords": [
+        [
+          22.93,
+          15.53
+        ],
+        [
+          22.93,
+          37.81
+        ],
+        [
+          2.07,
+          37.81
+        ],
+        [
+          2.07,
+          15.53
+        ],
+        [
+          22.93,
+          15.53
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_3",
+      "name": "Master Bedroom Suite 3",
+      "type": "bedroom",
+      "zoning": "Rear-Private",
+      "bbox_ft": [
+        1.21,
+        32.48,
+        22.75,
+        11.73
+      ],
+      "area_sqft": 155.7,
+      "aspect_ratio": 1.94,
+      "polygon_coords": [
+        [
+          1.21,
+          32.48
+        ],
+        [
+          1.21,
+          44.21
+        ],
+        [
+          23.96,
+          44.21
+        ],
+        [
+          23.96,
+          32.48
+        ],
+        [
+          22.93,
+          32.48
+        ],
+        [
+          22.93,
+          37.81
+        ],
+        [
+          2.07,
+          37.81
+        ],
+        [
+          2.07,
+          32.48
+        ],
+        [
+          1.21,
+          32.48
+        ]
+      ],
+      "floor_level": 0
+    }
+  ],
+  "fenestrations": [
+    {
+      "id": "door_room_1_main",
+      "type": "door",
+      "host_room": "room_1",
+      "wall": "rear",
+      "position": [
+        14.3,
+        16.9,
+        0.0
+      ],
+      "width": 3.5,
+      "height": 7.0,
+      "sill_height": 0.0
+    },
+    {
+      "id": "win_room_3_rear",
+      "type": "window",
+      "host_room": "room_3",
+      "wall": "rear",
+      "position": [
+        12.59,
+        44.21,
+        3.0
+      ],
+      "width": 4.5,
+      "height": 4.5,
+      "sill_height": 3.0
+    }
+  ],
+  "circulation_graph": {
+    "room_1": [
+      "room_2"
+    ],
+    "room_2": [
+      "room_1",
+      "room_3"
+    ],
+    "room_3": [
+      "room_2"
+    ]
+  },
+  "elevation_features": null
+}

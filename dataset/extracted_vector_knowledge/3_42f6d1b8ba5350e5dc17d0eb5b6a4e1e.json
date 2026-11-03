@@ -1,0 +1,179 @@
+{
+  "source_file": "3\\42f6d1b8ba5350e5dc17d0eb5b6a4e1e.jpg",
+  "category": "3",
+  "plot": {
+    "category": "3_marla",
+    "marla": 3.0,
+    "dimensions_ft": [
+      20.0,
+      34.0
+    ],
+    "setbacks_ft": {
+      "front": 5.0,
+      "rear": 3.0,
+      "side_left": 0.0,
+      "side_right": 0.0
+    }
+  },
+  "pixel_scale": {
+    "image_width_px": 736,
+    "image_height_px": 1308,
+    "cropped_envelope_px": [
+      41,
+      34,
+      654,
+      1274
+    ],
+    "pixels_per_foot_x": 32.7,
+    "pixels_per_foot_y": 37.471
+  },
+  "rooms": [
+    {
+      "id": "room_1",
+      "name": "Formal Guest Drawing Room",
+      "type": "drawing_room",
+      "zoning": "Front-Public",
+      "bbox_ft": [
+        0.28,
+        0.24,
+        19.42,
+        2.54
+      ],
+      "area_sqft": 49.3,
+      "aspect_ratio": 7.65,
+      "polygon_coords": [
+        [
+          19.7,
+          0.24
+        ],
+        [
+          19.7,
+          2.78
+        ],
+        [
+          0.28,
+          2.78
+        ],
+        [
+          0.28,
+          0.24
+        ],
+        [
+          19.7,
+          0.24
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_2",
+      "name": "Car Porch & Driveway",
+      "type": "garage",
+      "zoning": "Front-Public",
+      "bbox_ft": [
+        3.18,
+        6.08,
+        3.52,
+        7.07
+      ],
+      "area_sqft": 24.9,
+      "aspect_ratio": 0.5,
+      "polygon_coords": [
+        [
+          6.7,
+          6.08
+        ],
+        [
+          6.7,
+          13.15
+        ],
+        [
+          3.18,
+          13.15
+        ],
+        [
+          3.18,
+          6.08
+        ],
+        [
+          6.7,
+          6.08
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_3",
+      "name": "Central Family TV Lounge",
+      "type": "living_room",
+      "zoning": "Rear-Private",
+      "bbox_ft": [
+        1.71,
+        26.37,
+        3.33,
+        5.87
+      ],
+      "area_sqft": 19.5,
+      "aspect_ratio": 0.57,
+      "polygon_coords": [
+        [
+          5.04,
+          26.37
+        ],
+        [
+          5.04,
+          32.24
+        ],
+        [
+          1.71,
+          32.24
+        ],
+        [
+          1.71,
+          26.37
+        ],
+        [
+          5.04,
+          26.37
+        ]
+      ],
+      "floor_level": 0
+    }
+  ],
+  "fenestrations": [
+    {
+      "id": "win_room_1_front",
+      "type": "window",
+      "host_room": "room_1",
+      "wall": "front",
+      "position": [
+        9.99,
+        0.24,
+        3.0
+      ],
+      "width": 6.5,
+      "height": 5.5,
+      "sill_height": 2.5
+    },
+    {
+      "id": "door_room_2_main",
+      "type": "door",
+      "host_room": "room_2",
+      "wall": "rear",
+      "position": [
+        5.29,
+        13.15,
+        0.0
+      ],
+      "width": 3.5,
+      "height": 7.0,
+      "sill_height": 0.0
+    }
+  ],
+  "circulation_graph": {
+    "room_1": [],
+    "room_2": [],
+    "room_3": []
+  },
+  "elevation_features": null
+}

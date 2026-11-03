@@ -1,0 +1,232 @@
+{
+  "source_file": "3\\3398a39340324048f64931162c7dbca0.jpg",
+  "category": "3",
+  "plot": {
+    "category": "3_marla",
+    "marla": 3.0,
+    "dimensions_ft": [
+      20.0,
+      34.0
+    ],
+    "setbacks_ft": {
+      "front": 5.0,
+      "rear": 3.0,
+      "side_left": 0.0,
+      "side_right": 0.0
+    }
+  },
+  "pixel_scale": {
+    "image_width_px": 675,
+    "image_height_px": 1200,
+    "cropped_envelope_px": [
+      43,
+      62,
+      612,
+      1089
+    ],
+    "pixels_per_foot_x": 30.6,
+    "pixels_per_foot_y": 32.029
+  },
+  "rooms": [
+    {
+      "id": "room_1",
+      "name": "Car Porch & Driveway",
+      "type": "garage",
+      "zoning": "Front-Public",
+      "bbox_ft": [
+        0.75,
+        1.0,
+        16.83,
+        17.14
+      ],
+      "area_sqft": 162.1,
+      "aspect_ratio": 0.98,
+      "polygon_coords": [
+        [
+          17.58,
+          1.0
+        ],
+        [
+          0.75,
+          1.0
+        ],
+        [
+          0.75,
+          18.14
+        ],
+        [
+          6.11,
+          18.14
+        ],
+        [
+          6.11,
+          7.12
+        ],
+        [
+          17.58,
+          7.12
+        ],
+        [
+          17.58,
+          1.0
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_2",
+      "name": "Formal Guest Drawing Room",
+      "type": "drawing_room",
+      "zoning": "Front-Public",
+      "bbox_ft": [
+        6.11,
+        7.12,
+        11.5,
+        17.67
+      ],
+      "area_sqft": 203.2,
+      "aspect_ratio": 0.65,
+      "polygon_coords": [
+        [
+          17.61,
+          7.12
+        ],
+        [
+          17.61,
+          24.79
+        ],
+        [
+          6.11,
+          24.79
+        ],
+        [
+          6.11,
+          7.12
+        ],
+        [
+          17.61,
+          7.12
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_3",
+      "name": "Central Family TV Lounge",
+      "type": "living_room",
+      "zoning": "Rear-Private",
+      "bbox_ft": [
+        10.95,
+        24.85,
+        8.27,
+        8.27
+      ],
+      "area_sqft": 68.4,
+      "aspect_ratio": 1.0,
+      "polygon_coords": [
+        [
+          19.22,
+          24.85
+        ],
+        [
+          19.22,
+          33.12
+        ],
+        [
+          10.95,
+          33.12
+        ],
+        [
+          10.95,
+          24.85
+        ],
+        [
+          19.22,
+          24.85
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_4",
+      "name": "Rear OTS Lightwell",
+      "type": "ots",
+      "zoning": "Rear-Private",
+      "bbox_ft": [
+        0.82,
+        28.66,
+        7.22,
+        4.21
+      ],
+      "area_sqft": 30.4,
+      "aspect_ratio": 1.71,
+      "polygon_coords": [
+        [
+          8.04,
+          28.66
+        ],
+        [
+          8.04,
+          32.87
+        ],
+        [
+          0.82,
+          32.87
+        ],
+        [
+          0.82,
+          28.66
+        ],
+        [
+          8.04,
+          28.66
+        ]
+      ],
+      "floor_level": 0
+    }
+  ],
+  "fenestrations": [
+    {
+      "id": "door_room_1_main",
+      "type": "door",
+      "host_room": "room_1",
+      "wall": "rear",
+      "position": [
+        10.85,
+        18.14,
+        0.0
+      ],
+      "width": 3.5,
+      "height": 7.0,
+      "sill_height": 0.0
+    },
+    {
+      "id": "win_room_2_front",
+      "type": "window",
+      "host_room": "room_2",
+      "wall": "front",
+      "position": [
+        11.86,
+        7.12,
+        3.0
+      ],
+      "width": 6.5,
+      "height": 5.5,
+      "sill_height": 2.5
+    }
+  ],
+  "circulation_graph": {
+    "room_1": [
+      "room_2"
+    ],
+    "room_2": [
+      "room_1",
+      "room_3"
+    ],
+    "room_3": [
+      "room_2"
+    ],
+    "room_4": []
+  },
+  "elevation_features": null
+}

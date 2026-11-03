@@ -1,0 +1,182 @@
+{
+  "source_file": "3\\118c3a69f01310f3bd515ba2a9109e41.jpg",
+  "category": "3",
+  "plot": {
+    "category": "3_marla",
+    "marla": 3.0,
+    "dimensions_ft": [
+      20.0,
+      34.0
+    ],
+    "setbacks_ft": {
+      "front": 5.0,
+      "rear": 3.0,
+      "side_left": 0.0,
+      "side_right": 0.0
+    }
+  },
+  "pixel_scale": {
+    "image_width_px": 735,
+    "image_height_px": 1145,
+    "cropped_envelope_px": [
+      0,
+      5,
+      734,
+      1092
+    ],
+    "pixels_per_foot_x": 36.7,
+    "pixels_per_foot_y": 32.118
+  },
+  "rooms": [
+    {
+      "id": "room_1",
+      "name": "Car Porch & Driveway",
+      "type": "garage",
+      "zoning": "Front-Public",
+      "bbox_ft": [
+        1.63,
+        4.51,
+        16.1,
+        18.49
+      ],
+      "area_sqft": 297.7,
+      "aspect_ratio": 0.87,
+      "polygon_coords": [
+        [
+          17.73,
+          4.51
+        ],
+        [
+          17.73,
+          23.0
+        ],
+        [
+          1.63,
+          23.0
+        ],
+        [
+          1.63,
+          4.51
+        ],
+        [
+          17.73,
+          4.51
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_2",
+      "name": "Central Family TV Lounge",
+      "type": "living_room",
+      "zoning": "Mid-Living-Service",
+      "bbox_ft": [
+        0.95,
+        22.64,
+        14.44,
+        10.27
+      ],
+      "area_sqft": 143.3,
+      "aspect_ratio": 1.41,
+      "polygon_coords": [
+        [
+          0.95,
+          22.64
+        ],
+        [
+          0.95,
+          32.91
+        ],
+        [
+          15.39,
+          32.91
+        ],
+        [
+          15.39,
+          23.0
+        ],
+        [
+          1.63,
+          23.0
+        ],
+        [
+          1.63,
+          22.64
+        ],
+        [
+          0.95,
+          22.64
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_3",
+      "name": "Rear OTS Lightwell",
+      "type": "ots",
+      "zoning": "Rear-Private",
+      "bbox_ft": [
+        15.389999999999999,
+        23.35,
+        2.1,
+        7.53
+      ],
+      "area_sqft": 15.8,
+      "aspect_ratio": 0.28,
+      "polygon_coords": [
+        [
+          17.49,
+          30.88
+        ],
+        [
+          17.49,
+          23.35
+        ],
+        [
+          15.39,
+          23.35
+        ],
+        [
+          15.39,
+          30.88
+        ],
+        [
+          17.49,
+          30.88
+        ]
+      ],
+      "floor_level": 0
+    }
+  ],
+  "fenestrations": [
+    {
+      "id": "door_room_1_main",
+      "type": "door",
+      "host_room": "room_1",
+      "wall": "rear",
+      "position": [
+        11.29,
+        23.0,
+        0.0
+      ],
+      "width": 3.5,
+      "height": 7.0,
+      "sill_height": 0.0
+    }
+  ],
+  "circulation_graph": {
+    "room_1": [
+      "room_2",
+      "room_3"
+    ],
+    "room_2": [
+      "room_1",
+      "room_3"
+    ],
+    "room_3": [
+      "room_1",
+      "room_2"
+    ]
+  },
+  "elevation_features": null
+}

@@ -1,0 +1,153 @@
+{
+  "source_file": "7\\169f889d2765aec7024fdea981049482.jpg",
+  "category": "7",
+  "plot": {
+    "category": "7_marla",
+    "marla": 7.0,
+    "dimensions_ft": [
+      30.0,
+      52.5
+    ],
+    "setbacks_ft": {
+      "front": 5.0,
+      "rear": 5.0,
+      "side_left": 0.0,
+      "side_right": 0.0
+    }
+  },
+  "pixel_scale": {
+    "image_width_px": 544,
+    "image_height_px": 960,
+    "cropped_envelope_px": [
+      0,
+      0,
+      543,
+      960
+    ],
+    "pixels_per_foot_x": 18.1,
+    "pixels_per_foot_y": 18.286
+  },
+  "rooms": [
+    {
+      "id": "room_1",
+      "name": "Car Porch & Driveway",
+      "type": "garage",
+      "zoning": "Front-Public",
+      "bbox_ft": [
+        2.43,
+        7.71,
+        24.25,
+        36.42
+      ],
+      "area_sqft": 883.2,
+      "aspect_ratio": 0.67,
+      "polygon_coords": [
+        [
+          26.68,
+          7.71
+        ],
+        [
+          26.68,
+          44.13
+        ],
+        [
+          2.43,
+          44.13
+        ],
+        [
+          2.43,
+          7.71
+        ],
+        [
+          26.68,
+          7.71
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_2",
+      "name": "Master Bedroom Suite 2",
+      "type": "bedroom",
+      "zoning": "Rear-Private",
+      "bbox_ft": [
+        13.04,
+        42.44,
+        13.92,
+        6.89
+      ],
+      "area_sqft": 72.9,
+      "aspect_ratio": 2.02,
+      "polygon_coords": [
+        [
+          13.04,
+          49.33
+        ],
+        [
+          26.96,
+          49.33
+        ],
+        [
+          26.96,
+          42.44
+        ],
+        [
+          26.68,
+          42.44
+        ],
+        [
+          26.68,
+          44.13
+        ],
+        [
+          13.04,
+          44.13
+        ],
+        [
+          13.04,
+          49.33
+        ]
+      ],
+      "floor_level": 0
+    }
+  ],
+  "fenestrations": [
+    {
+      "id": "door_room_1_main",
+      "type": "door",
+      "host_room": "room_1",
+      "wall": "rear",
+      "position": [
+        16.98,
+        44.13,
+        0.0
+      ],
+      "width": 3.5,
+      "height": 7.0,
+      "sill_height": 0.0
+    },
+    {
+      "id": "win_room_2_rear",
+      "type": "window",
+      "host_room": "room_2",
+      "wall": "rear",
+      "position": [
+        20.0,
+        49.33,
+        3.0
+      ],
+      "width": 4.5,
+      "height": 4.5,
+      "sill_height": 3.0
+    }
+  ],
+  "circulation_graph": {
+    "room_1": [
+      "room_2"
+    ],
+    "room_2": [
+      "room_1"
+    ]
+  },
+  "elevation_features": null
+}

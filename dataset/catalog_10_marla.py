@@ -760,7 +760,7 @@ def build_10m_v10() -> CanonicalFloorPlan:
     rooms.append(make_room("r_L0_store", "dressing_room", "Entrance Mudroom Store", 9.2, 0, w, 1.8, 0, False))
     rooms.append(make_room("r_L0_drawing", "living_room", "Formal Minimalist Living", 5.0, 1.8, w, 5.0, 0, True))
     rooms.append(make_room("r_L0_stairs", "corridor", "Open Floating Glass Stair", 0, 5.0, 1.2, 10.5, 0, False, {"typology": "floating"}))
-    rooms.append(make_room("r_L0_lounge", "living_room", "Open Concept Great Room", 1.2, 5.0, 7.5, 10.5, 0, True))
+    rooms.append(make_room("r_L0_lounge", "living_room", "Open Concept Great Room & Dining", 1.2, 5.0, 7.5, 10.5, 0, True))
     rooms.append(make_room("r_L0_kitchen", "kitchen", "Concealed Minimalist Kitchen", 7.5, 5.0, w, 12.0, 0, True))
     rooms.append(make_room("r_L0_pantry", "kitchen", "Concealed Dirty Scullery", 7.5, 12.0, w, 14.5, 0, True))
     rooms.append(make_room("r_L0_corridor", "corridor", "Minimalist Rear Corridor", 0, 10.5, 7.5, 12.0, 0, False))

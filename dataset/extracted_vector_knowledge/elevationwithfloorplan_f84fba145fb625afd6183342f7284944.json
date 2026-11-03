@@ -1,0 +1,299 @@
+{
+  "source_file": "elevationwithfloorplan\\f84fba145fb625afd6183342f7284944.jpg",
+  "category": "elevationwithfloorplan",
+  "plot": {
+    "category": "5_marla",
+    "marla": 5.0,
+    "dimensions_ft": [
+      25.0,
+      45.0
+    ],
+    "setbacks_ft": {
+      "front": 5.0,
+      "rear": 4.0,
+      "side_left": 0.0,
+      "side_right": 0.0
+    }
+  },
+  "pixel_scale": {
+    "image_width_px": 736,
+    "image_height_px": 1016,
+    "cropped_envelope_px": [
+      0,
+      11,
+      736,
+      626
+    ],
+    "pixels_per_foot_x": 29.44,
+    "pixels_per_foot_y": 13.911
+  },
+  "rooms": [
+    {
+      "id": "room_1",
+      "name": "Car Porch & Driveway",
+      "type": "garage",
+      "zoning": "Front-Public",
+      "bbox_ft": [
+        0.14,
+        0.29,
+        24.73,
+        31.13
+      ],
+      "area_sqft": 769.8,
+      "aspect_ratio": 0.79,
+      "polygon_coords": [
+        [
+          24.87,
+          0.29
+        ],
+        [
+          24.87,
+          31.42
+        ],
+        [
+          0.14,
+          31.42
+        ],
+        [
+          0.14,
+          0.29
+        ],
+        [
+          24.87,
+          0.29
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_2",
+      "name": "Master Bedroom Suite",
+      "type": "bedroom",
+      "zoning": "Rear-Private",
+      "bbox_ft": [
+        3.53,
+        31.419999999999998,
+        4.55,
+        7.18
+      ],
+      "area_sqft": 32.7,
+      "aspect_ratio": 0.63,
+      "polygon_coords": [
+        [
+          3.53,
+          38.6
+        ],
+        [
+          8.08,
+          38.6
+        ],
+        [
+          8.08,
+          31.42
+        ],
+        [
+          3.53,
+          31.42
+        ],
+        [
+          3.53,
+          38.6
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_3",
+      "name": "Ensuite Bath 3",
+      "type": "bathroom",
+      "zoning": "Rear-Private",
+      "bbox_ft": [
+        8.8,
+        31.419999999999998,
+        7.07,
+        7.11
+      ],
+      "area_sqft": 50.3,
+      "aspect_ratio": 0.99,
+      "polygon_coords": [
+        [
+          8.8,
+          38.53
+        ],
+        [
+          15.87,
+          38.53
+        ],
+        [
+          15.87,
+          31.42
+        ],
+        [
+          8.8,
+          31.42
+        ],
+        [
+          8.8,
+          38.53
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_4",
+      "name": "Ensuite Bath 4",
+      "type": "bathroom",
+      "zoning": "Rear-Private",
+      "bbox_ft": [
+        16.0,
+        37.31,
+        8.87,
+        4.82
+      ],
+      "area_sqft": 42.8,
+      "aspect_ratio": 1.84,
+      "polygon_coords": [
+        [
+          24.87,
+          37.31
+        ],
+        [
+          24.87,
+          42.13
+        ],
+        [
+          16.0,
+          42.13
+        ],
+        [
+          16.0,
+          37.31
+        ],
+        [
+          24.87,
+          37.31
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_5",
+      "name": "Ensuite Bath 5",
+      "type": "bathroom",
+      "zoning": "Rear-Private",
+      "bbox_ft": [
+        0.14,
+        40.54,
+        15.59,
+        3.81
+      ],
+      "area_sqft": 59.4,
+      "aspect_ratio": 4.09,
+      "polygon_coords": [
+        [
+          15.73,
+          40.54
+        ],
+        [
+          15.73,
+          44.35
+        ],
+        [
+          0.14,
+          44.35
+        ],
+        [
+          0.14,
+          40.54
+        ],
+        [
+          15.73,
+          40.54
+        ]
+      ],
+      "floor_level": 0
+    }
+  ],
+  "fenestrations": [
+    {
+      "id": "door_room_1_main",
+      "type": "door",
+      "host_room": "room_1",
+      "wall": "rear",
+      "position": [
+        14.98,
+        31.42,
+        0.0
+      ],
+      "width": 3.5,
+      "height": 7.0,
+      "sill_height": 0.0
+    },
+    {
+      "id": "win_room_2_rear",
+      "type": "window",
+      "host_room": "room_2",
+      "wall": "rear",
+      "position": [
+        5.8,
+        38.6,
+        3.0
+      ],
+      "width": 4.5,
+      "height": 4.5,
+      "sill_height": 3.0
+    }
+  ],
+  "circulation_graph": {
+    "room_1": [
+      "room_2",
+      "room_3"
+    ],
+    "room_2": [
+      "room_1",
+      "room_3"
+    ],
+    "room_3": [
+      "room_1",
+      "room_2",
+      "room_4"
+    ],
+    "room_4": [
+      "room_3",
+      "room_5"
+    ],
+    "room_5": [
+      "room_4"
+    ]
+  },
+  "elevation_features": {
+    "datum_levels": [
+      {
+        "name": "Natural Ground Level (NGL)",
+        "elevation_ft": 0.0
+      },
+      {
+        "name": "Plinth Level",
+        "elevation_ft": 1.5
+      },
+      {
+        "name": "Ground Floor Ceiling",
+        "elevation_ft": 11.0
+      },
+      {
+        "name": "First Floor Ceiling",
+        "elevation_ft": 22.0
+      },
+      {
+        "name": "Rooftop Parapet",
+        "elevation_ft": 25.5
+      },
+      {
+        "name": "Stair Mumty Tower",
+        "elevation_ft": 33.5
+      }
+    ],
+    "porch_column_detected": true,
+    "balcony_slab_detected": true
+  }
+}
