@@ -23,7 +23,7 @@ import uuid
 import collections
 import concurrent.futures
 from http.server import HTTPServer, ThreadingHTTPServer, SimpleHTTPRequestHandler
-from urllib.parse import urlparse, parse_qs
+from urllib.parse import urlparse, parse_qs, unquote
 from typing import Dict, Any, List, Optional
 import datetime
 from shapely.geometry import Polygon
@@ -765,11 +765,12 @@ class ProceduralArchitecturalEngine:
         # Dynamic 2D rendering of the newly synthesized floor plan
         generated_images = {}
         project_title = f"{marla_equivalent} Marla {style.capitalize()} Residence ({int(plot_width)}'x{int(plot_length)}')"
+        style_slug = re.sub(r'[^a-zA-Z0-9]+', '_', style.strip().lower()).strip('_')
         if seed == 1:
             unique_token = uuid.uuid4().hex[:6]
-            project_id = f"archi_{int(plot_width)}x{int(plot_length)}_{style}_{seed}_{unique_token}"
+            project_id = f"archi_{int(plot_width)}x{int(plot_length)}_{style_slug}_{seed}_{unique_token}"
         else:
-            project_id = f"archi_{int(plot_width)}x{int(plot_length)}_{style}_{seed}"
+            project_id = f"archi_{int(plot_width)}x{int(plot_length)}_{style_slug}_{seed}"
 
         elev_spec = None
         elev_filename = f"{project_id}_front_elevation_2d.png"
@@ -793,9 +794,9 @@ class ProceduralArchitecturalEngine:
                 generated_images["ground"] = f"{web_base}/{p_id}_ground_floor_2d.png"
                 generated_images["first"] = f"{web_base}/{p_id}_first_floor_2d.png"
                 generated_images["rooftop"] = f"{web_base}/{p_id}_rooftop_slab_plan_2d.png"
-                generated_images["all"] = f"{web_base}/{p_id}_composite_two_floors_2d.png"
-                generated_images["multiFloor"] = f"{web_base}/{p_id}_composite_two_floors_2d.png"
-                generated_images["presentation"] = f"{web_base}/{p_id}_composite_two_floors_2d.png"
+                generated_images["all"] = f"{web_base}/{p_id}_composite_two_floors.png"
+                generated_images["multiFloor"] = f"{web_base}/{p_id}_composite_two_floors.png"
+                generated_images["presentation"] = f"{web_base}/{p_id}_composite_two_floors.png"
 
                 # 2. Asynchronous Background Rendering of Heavy Matplotlib PNGs & CAD DXF
                 def _bg_render(c_plan, e_spec, p_out, e_file, d_file, st, p_title, v1_dir):
@@ -2682,16 +2683,29 @@ class ArchitecturalRequestHandler(SimpleHTTPRequestHandler):
             return
 
         if path.startswith("/output/"):
-            rel_path = path[len("/output/"):].replace("/", os.sep)
+            rel_path = unquote(path[len("/output/"):].replace("/", os.sep))
             file_path = os.path.join(OUTPUT_DIR, rel_path)
+
+            if not os.path.exists(file_path):
+                # Try alternative names
+                if "_composite_two_floors_2d.png" in file_path:
+                    alt_path = file_path.replace("_composite_two_floors_2d.png", "_composite_two_floors.png")
+                    if os.path.exists(alt_path):
+                        file_path = alt_path
+                elif "_composite_two_floors.png" in file_path:
+                    alt_path = file_path.replace("_composite_two_floors.png", "_composite_two_floors_2d.png")
+                    if os.path.exists(alt_path):
+                        file_path = alt_path
+
             if not os.path.exists(file_path):
                 self._handle_ondemand_output_fallback(rel_path, file_path)
+
             if os.path.exists(file_path) and os.path.isfile(file_path):
                 mime, _ = mimetypes.guess_type(file_path)
                 with open(file_path, "rb") as f:
                     content = f.read()
                 self.send_response(200)
-                self.send_header("Content-Type", mime or "application/octet-stream")
+                self.send_header("Content-Type", mime or "image/png")
                 self.send_header("Content-Length", str(len(content)))
                 self.send_header("Access-Control-Allow-Origin", "*")
                 self.end_headers()
