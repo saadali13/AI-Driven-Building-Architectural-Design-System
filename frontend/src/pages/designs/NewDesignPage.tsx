@@ -42,7 +42,7 @@ import { useAuth } from '../../context/AuthContext';
 import { PlotPreset, ArchitecturalStyle, BuildingType, DesignAlternative, PakistaniSpecs } from '../../types';
 import { FloorPlanViewer } from '../../components/architectural/FloorPlanViewer';
 import { ArchitecturalPlanCanvas } from '../../components/architectural/ArchitecturalPlanCanvas';
-import { formatPKR } from '../../services/costEstimatorService';
+import { formatPKR, DETAILED_MATERIALS_CATALOG } from '../../services/costEstimatorService';
 import { apiService } from '../../services/apiService';
 
 
@@ -517,6 +517,13 @@ export const NewDesignPage: React.FC = () => {
   const [geminiCity, setGeminiCity] = useState('Islamabad / Lahore');
   const [isFetchingGeminiRates, setIsFetchingGeminiRates] = useState(false);
   const [rateSourceNotice, setRateSourceNotice] = useState('Verified 2026 Pakistan Construction Benchmark');
+  const [selectedBoqVarieties, setSelectedBoqVarieties] = useState<Record<string, string>>(() => {
+    const defaults: Record<string, string> = {};
+    DETAILED_MATERIALS_CATALOG.forEach((m) => {
+      defaults[m.id] = m.defaultVarietyId;
+    });
+    return defaults;
+  });
   const [customUnitPrices, setCustomUnitPrices] = useState<Record<string, number>>({
     cement_bag: 1450,
     steel_ton: 275000,
@@ -529,6 +536,8 @@ export const NewDesignPage: React.FC = () => {
     door_unit: 35000,
     window_unit: 28000,
     bath_sanitary_unit: 65000,
+    electrical_sqft: 260,
+    waterproofing_sqft: 95,
   });
   const [boqData, setBoqData] = useState<any>(null);
   const [isUpdatingBoq, setIsUpdatingBoq] = useState(false);
@@ -711,6 +720,32 @@ export const NewDesignPage: React.FC = () => {
     } finally {
       setIsUpdatingBoq(false);
     }
+  };
+
+  const CATALOG_TO_API_MAP: Record<string, string> = {
+    cement: 'cement_bag',
+    steel: 'steel_ton',
+    bricks: 'brick_unit',
+    sand: 'sand_cft',
+    crush: 'crush_cft',
+    civil_labor: 'labor_per_sqft',
+    tiles: 'tiles_sqft',
+    paint: 'paint_sqft',
+    doors: 'door_unit',
+    windows: 'window_unit',
+    sanitary: 'bath_sanitary_unit',
+    electrical: 'electrical_sqft',
+    waterproofing: 'waterproofing_sqft',
+  };
+
+  const handleBoqVarietyChange = (matId: string, varietyId: string) => {
+    const mat = DETAILED_MATERIALS_CATALOG.find((m) => m.id === matId);
+    if (!mat) return;
+    const variety = mat.varieties.find((v) => v.id === varietyId);
+    if (!variety) return;
+    setSelectedBoqVarieties((prev) => ({ ...prev, [matId]: varietyId }));
+    const apiId = CATALOG_TO_API_MAP[matId] || matId;
+    handleUnitPriceChange(apiId, variety.defaultPricePKR);
   };
 
   const handleAddCustomRoom = () => {
@@ -3817,45 +3852,52 @@ export const NewDesignPage: React.FC = () => {
                         <table className="w-full text-left text-xs">
                           <thead className="bg-[#F7F7F2] border-b border-[#E2E7E1] text-[#68736C] font-semibold">
                             <tr>
-                              <th className="py-2.5 px-3">Material / Service</th>
-                              <th className="py-2.5 px-3">Category</th>
+                              <th className="py-2.5 px-3">Material / Service Trade</th>
+                              <th className="py-2.5 px-3">Variety / Quality Grade</th>
                               <th className="py-2.5 px-3 text-right">Quantity</th>
                               <th className="py-2.5 px-3 text-right">Unit Rate (PKR)</th>
                               <th className="py-2.5 px-3 text-right">Line Total (PKR)</th>
                             </tr>
                           </thead>
                           <tbody className="divide-y divide-[#E2E7E1] bg-white">
-                            {[
-                              { id: 'cement_bag', name: 'Portland Cement (50kg bags)', cat: 'Grey', qty: Math.round(plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55) * 0.45).toLocaleString() + ' bags', defaultRate: 1450, calcTotal: (r: number) => Math.round(plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55) * 0.45 * r) },
-                              { id: 'steel_ton', name: 'Grade 60 Deformed Steel Rebar', cat: 'Grey', qty: (plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55) * 0.00385).toFixed(2) + ' tons', defaultRate: 275000, calcTotal: (r: number) => Math.round(plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55) * 0.00385 * r) },
-                              { id: 'brick_unit', name: 'Burnt Red Clay Bricks (Awwal)', cat: 'Grey', qty: Math.round(plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55) * 26.5).toLocaleString() + ' bricks', defaultRate: 14.5, calcTotal: (r: number) => Math.round(plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55) * 26.5 * r) },
-                              { id: 'sand_cft', name: 'Coarse Sand (Chenab / Ravi)', cat: 'Grey', qty: Math.round(plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55) * 2.75).toLocaleString() + ' cft', defaultRate: 48, calcTotal: (r: number) => Math.round(plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55) * 2.75 * r) },
-                              { id: 'crush_cft', name: 'Margalla Coarse Aggregate (Crush)', cat: 'Grey', qty: Math.round(plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55) * 1.85).toLocaleString() + ' cft', defaultRate: 125, calcTotal: (r: number) => Math.round(plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55) * 1.85 * r) },
-                              { id: 'labor_per_sqft', name: 'Civil Construction Labor & Shuttering', cat: 'Grey', qty: Math.round(plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55)).toLocaleString() + ' sq ft', defaultRate: 450, calcTotal: (r: number) => Math.round(plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55) * r) },
-                              { id: 'tiles_sqft', name: 'Porcelain / Marble Tile Flooring', cat: 'Finishing', qty: Math.round(plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55) * 0.85).toLocaleString() + ' sq ft', defaultRate: 350, calcTotal: (r: number) => Math.round(plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55) * 0.85 * r) },
-                              { id: 'paint_sqft', name: 'Interior Paint, Weather-shield & Putty', cat: 'Finishing', qty: Math.round(plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55) * 3.4).toLocaleString() + ' sq ft', defaultRate: 55, calcTotal: (r: number) => Math.round(plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55) * 3.4 * r) },
-                              { id: 'door_unit', name: 'Solid Wood Doors & Hardware', cat: 'Finishing', qty: `${bedrooms + bathrooms + 4} sets`, defaultRate: 35000, calcTotal: (r: number) => (bedrooms + bathrooms + 4) * r },
-                              { id: 'window_unit', name: 'Powder-coated Aluminum Windows', cat: 'Finishing', qty: `${bedrooms * 2 + 4} units`, defaultRate: 28000, calcTotal: (r: number) => (bedrooms * 2 + 4) * r },
-                              { id: 'bath_sanitary_unit', name: 'Bath Sanitary Sets & Luxury Mixers', cat: 'Finishing', qty: `${bathrooms} sets`, defaultRate: 65000, calcTotal: (r: number) => bathrooms * r },
-                            ].map((mat) => {
-                              const currentRate = customUnitPrices[mat.id] !== undefined ? customUnitPrices[mat.id] : mat.defaultRate;
-                              const lineTotal = mat.calcTotal(currentRate);
+                            {DETAILED_MATERIALS_CATALOG.map((mat) => {
+                              const apiId = CATALOG_TO_API_MAP[mat.id] || mat.id;
+                              const selectedVarId = selectedBoqVarieties[mat.id] || mat.defaultVarietyId;
+                              const selectedVar = mat.varieties.find((v) => v.id === selectedVarId) || mat.varieties[0];
+                              const currentRate = customUnitPrices[apiId] !== undefined ? customUnitPrices[apiId] : selectedVar.defaultPricePKR;
+                              const area = Math.round(plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55));
+                              const qty = mat.calculateQuantity(area, floors, bedrooms, bathrooms);
+                              const lineTotal = Math.round(qty * currentRate);
+
                               return (
                                 <tr key={mat.id} className="hover:bg-[#F7F7F2]/60 transition-colors">
-                                  <td className="py-2.5 px-3 font-semibold text-[#202923]">{mat.name}</td>
                                   <td className="py-2.5 px-3">
-                                    <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${mat.cat === 'Grey' ? 'bg-amber-50 text-amber-800 border border-amber-200' : 'bg-emerald-50 text-emerald-800 border border-emerald-200'}`}>
-                                      {mat.cat}
-                                    </span>
+                                    <div className="font-semibold text-[#202923]">{mat.name}</div>
+                                    <span className="text-[10px] text-[#68736C]">{mat.formulaDescription}</span>
                                   </td>
-                                  <td className="py-2.5 px-3 text-right font-mono text-[#68736C]">{mat.qty}</td>
+                                  <td className="py-2.5 px-3">
+                                    <select
+                                      value={selectedVarId}
+                                      onChange={(e) => handleBoqVarietyChange(mat.id, e.target.value)}
+                                      className="w-full max-w-xs bg-[#F7F7F2] border border-[#E2E7E1] rounded-lg px-2 py-1 text-xs text-[#202923] font-medium focus:outline-none focus:border-[#23483D]"
+                                    >
+                                      {mat.varieties.map((v) => (
+                                        <option key={v.id} value={v.id}>
+                                          {v.name} (₨ {v.defaultPricePKR.toLocaleString()})
+                                        </option>
+                                      ))}
+                                    </select>
+                                  </td>
+                                  <td className="py-2.5 px-3 text-right font-mono text-[#68736C]">
+                                    {qty.toLocaleString()} {mat.unit}
+                                  </td>
                                   <td className="py-2.5 px-3 text-right">
                                     <div className="inline-flex items-center gap-1">
                                       <span className="text-[#68736C] font-mono text-[10px]">PKR</span>
                                       <input
                                         type="number"
                                         value={currentRate}
-                                        onChange={(e) => handleUnitPriceChange(mat.id, Number(e.target.value))}
+                                        onChange={(e) => handleUnitPriceChange(apiId, Number(e.target.value))}
                                         className="w-24 bg-[#F7F7F2] border border-[#E2E7E1] rounded-lg px-2 py-1 text-right font-mono font-bold text-[#202923] focus:outline-none focus:border-[#23483D]"
                                       />
                                     </div>
@@ -3868,6 +3910,28 @@ export const NewDesignPage: React.FC = () => {
                             })}
                           </tbody>
                         </table>
+                      </div>
+                    </div>
+
+                    {/* Educational Civil Engineering Formula Explainer */}
+                    <div className="p-4 rounded-xl bg-[#F7F7F2] border border-[#E2E7E1] space-y-3 mt-4">
+                      <div className="flex items-center gap-2 text-[#23483D] font-bold text-xs">
+                        <Layers className="h-4 w-4" />
+                        <span>Civil Engineering Formula Breakdown (How This Cost Is Calculated)</span>
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-[11px] text-[#68736C]">
+                        <div className="p-3 bg-white rounded-lg border border-[#E2E7E1] space-y-1">
+                          <strong className="text-[#202923] block">1. Covered Area Standard</strong>
+                          <span>Derived as Ground + 1st Floor + Mumty = <strong>{Math.round(plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55))} sq ft</strong>. All material quantities are scaled from this covered area.</span>
+                        </div>
+                        <div className="p-3 bg-white rounded-lg border border-[#E2E7E1] space-y-1">
+                          <strong className="text-[#202923] block">2. Consumption Coefficients</strong>
+                          <span>16.5 bricks/sq ft, 0.45 cement bags/sq ft, 3.85 kg rebar/sq ft, 2.75 cft sand/sq ft, and 1.85 cft crush/sq ft based on PEC residential codes.</span>
+                        </div>
+                        <div className="p-3 bg-white rounded-lg border border-[#E2E7E1] space-y-1">
+                          <strong className="text-[#202923] block">3. Line Total Formula</strong>
+                          <span>Line Cost = Quantity × Current Unit Rate. Grand Total = Grey Structure + Finishing Works + MEP Protection + 7.5% Contingency Reserve.</span>
+                        </div>
                       </div>
                     </div>
                   </div>

@@ -400,6 +400,8 @@ class CostEstimator:
         prices["window_unit"] = 28000.0
         prices["bath_sanitary_unit"] = 65000.0
         prices["labor_per_sqft"] = 450.0
+        prices["electrical_sqft"] = 260.0
+        prices["waterproofing_sqft"] = 95.0
 
         tier_tile_key = f"tiles_sqft_{tier}"
         tile_rate = prices.get(tier_tile_key, prices.get("tiles_sqft", 350.0))
@@ -431,9 +433,12 @@ class CostEstimator:
         sanitary_cost = round(baths_count * prices.get("bath_sanitary_unit", 65000.0))
         tiles_cost = round(tiles_sqft * tile_rate)
         paint_cost = round(paint_sqft * prices.get("paint_sqft", 55.0))
+        electrical_cost = round(total_area * prices.get("electrical_sqft", 260.0))
+        waterproofing_sqft_calc = round((total_area / max(1, floors)) * 1.8)
+        waterproofing_cost = round(waterproofing_sqft_calc * prices.get("waterproofing_sqft", 95.0))
 
         calculated_grey = cement_cost + steel_cost + bricks_cost + sand_cost + crush_cost + labor_cost
-        calculated_finishing = tiles_cost + paint_cost + doors_cost + windows_cost + sanitary_cost
+        calculated_finishing = tiles_cost + paint_cost + doors_cost + windows_cost + sanitary_cost + electrical_cost + waterproofing_cost
 
         if custom_unit_prices:
             grey_cost = calculated_grey
@@ -454,6 +459,8 @@ class CostEstimator:
             {"id": "door_unit", "name": "Solid Wood / Ashwood Doors & Hardware", "category": "finishing", "quantity": doors_count, "unit": "sets", "unit_price": prices.get("door_unit", 35000.0), "total_cost": doors_cost},
             {"id": "window_unit", "name": "Powder-coated Aluminum / UPVC Windows", "category": "finishing", "quantity": windows_count, "unit": "units", "unit_price": prices.get("window_unit", 28000.0), "total_cost": windows_cost},
             {"id": "bath_sanitary_unit", "name": "Bath Sanitary Ware & Luxury Mixers", "category": "finishing", "quantity": baths_count, "unit": "sets", "unit_price": prices.get("bath_sanitary_unit", 65000.0), "total_cost": sanitary_cost},
+            {"id": "electrical_sqft", "name": "Electrical Copper Wiring, Conduits & Smart LEDs", "category": "mep", "quantity": int(total_area), "unit": "sq ft", "unit_price": prices.get("electrical_sqft", 260.0), "total_cost": electrical_cost},
+            {"id": "waterproofing_sqft", "name": "Waterproofing, Termite Proofing & DPC Membrane", "category": "mep", "quantity": waterproofing_sqft_calc, "unit": "sq ft", "unit_price": prices.get("waterproofing_sqft", 95.0), "total_cost": waterproofing_cost},
         ]
 
         return {
