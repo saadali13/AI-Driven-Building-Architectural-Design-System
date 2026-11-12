@@ -24,30 +24,39 @@ class ImprovementParser:
     """
 
     ROOM_SYNONYMS = {
-        "master bedroom": ["master bedroom", "master bed", "m.bed", "mbed", "main bedroom"],
-        "bedroom": ["bedroom", "bed", "guest bedroom", "bed 2", "bed 3", "bed 4", "bed 5"],
+        "dirty kitchen": ["dirty kitchen", "diry kichen", "dirty mess kitchen", "mess kitchen", "scullery", "wet kitchen", "grease kitchen", "wok kitchen", "pantry", "service scullery", "dirty cooking"],
+        "master bedroom": ["master bedroom", "master bed", "m.bed", "mbed", "main bedroom", "primary bedroom", "master suite"],
+        "guest bedroom": ["guest bedroom", "guest bed", "drawing bed"],
+        "bedroom": ["bedroom", "bed", "bed 1", "bed 2", "bed 3", "bed 4", "bed 5", "bed 6"],
         "kitchen": ["kitchen", "main kitchen", "show kitchen", "chef's kitchen", "clean kitchen"],
-        "dirty kitchen": ["dirty kitchen", "diry kichen", "scullery", "wet kitchen", "grease kitchen", "mess kitchen", "wok kitchen"],
-        "dining": ["dining", "dining room", "dining area"],
-        "drawing room": ["drawing room", "drawing", "formal drawing", "guest salon", "formal sitting", "guest drawing"],
-        "lounge": ["lounge", "tv lounge", "family lounge", "living room", "living", "family hall"],
-        "bathroom": ["bathroom", "bath", "washroom", "en-suite", "ensuite"],
-        "powder room": ["powder room", "powder", "guest toilet"],
+        "dining": ["dining", "dining room", "dining area", "dining hall"],
+        "drawing room": ["drawing room", "drawing", "formal drawing", "guest salon", "formal sitting", "guest drawing", "drawing salon"],
+        "lounge": ["lounge", "tv lounge", "family lounge", "living room", "living", "family hall", "tv room", "entertainment lounge"],
+        "powder room": ["powder room", "powder", "guest toilet", "powder bath", "guest w/c"],
+        "bathroom": ["bathroom", "bath", "washroom", "en-suite", "ensuite", "attached bath"],
         "staircase": ["staircase", "stairs", "stair", "stair lobby", "mumty"],
         "car porch": ["car porch", "porch", "garage", "carport", "driveway"],
         "servant quarter": ["servant quarter", "servant room", "servant", "maid room", "maid's room"],
         "ots": ["ots", "lightwell", "courtyard", "airwell"],
         "lawn": ["lawn", "garden", "front lawn"],
-        "foyer": ["foyer", "grand entrance", "grand entry", "entry lobby", "entrance lobby", "entrance foyer", "vestibule", "entrance", "entry"]
+        "foyer": ["foyer", "grand entrance", "grand entry", "entry lobby", "entrance lobby", "entrance foyer", "vestibule", "entrance", "entry", "main entrance", "front entry", "front entrance"]
     }
 
     @classmethod
     def _normalize_room_name(cls, text: str) -> Optional[str]:
         t_low = text.lower()
+        # Flatten all synonyms into (length, canonical_name, synonym) tuples
+        # Sorted strictly by synonym length descending so multi-word phrases match first
+        # (e.g. "dirty kitchen" matches before "kitchen", "master bedroom" before "bedroom")
+        all_pairs = []
         for canonical_name, syns in cls.ROOM_SYNONYMS.items():
             for s in syns:
-                if re.search(r'\b' + re.escape(s) + r'\b', t_low):
-                    return canonical_name
+                all_pairs.append((len(s), canonical_name, s))
+        all_pairs.sort(key=lambda x: x[0], reverse=True)
+
+        for _, canonical_name, s in all_pairs:
+            if re.search(r'\b' + re.escape(s) + r'\b', t_low):
+                return canonical_name
         return None
 
     @classmethod
@@ -68,6 +77,8 @@ class ImprovementParser:
         text = re.sub(r'\bteh\b', 'the', text, flags=re.IGNORECASE)
         text = re.sub(r'\bseperate\b', 'separate', text, flags=re.IGNORECASE)
 
+        handled_rooms = set()
+
         # 0.1 Check for Dirty Kitchen isolation / connectivity rules
         # e.g. "dirty kitchen is connect to the formal drawing room and diry kichen is only door connect to the main kitchen"
         if re.search(r'\bdirty kitchen\b', text, re.IGNORECASE) and (
@@ -81,11 +92,12 @@ class ImprovementParser:
                 "disconnect_from": "drawing room",
                 "description": "Isolate Dirty Kitchen: remove drawing room door, connect strictly to Main Kitchen and service OTS"
             })
+            handled_rooms.add("dirty kitchen")
 
         # 0.2 Check for Grand Entrance / Foyer removal or integration into lounge
         # e.g. "remove the grand entrance this ocup the area", "grand entry is why separate to the tv lounge"
-        if re.search(r'\b(?:grand entrance|grand entry|entrance foyer|foyer|entry lobby)\b', text, re.IGNORECASE) and (
-            re.search(r'\b(?:remove|delete|eliminate|without|separate|occup|merge|open)\b', text, re.IGNORECASE)
+        if re.search(r'\b(?:grand entrance|grand entry|entrance foyer|foyer|entry lobby|entrance)\b', text, re.IGNORECASE) and (
+            re.search(r'\b(?:remove|delete|eliminate|without|separate|occup|merge|open|not look good)\b', text, re.IGNORECASE)
         ):
             operations.append({
                 "op": "REMOVE_ROOM",
@@ -93,6 +105,7 @@ class ImprovementParser:
                 "merge_into": "lounge",
                 "description": "Remove grand entrance / foyer and merge spatial area directly into family TV lounge"
             })
+            handled_rooms.add("foyer")
 
         # 1. First check for SWAP operations across the full text or clauses
         swap_matches = re.finditer(r'(?:swap|exchange)\s+([a-zA-Z\s]+?)\s+(?:and|with)\s+([a-zA-Z\s]+?)(?:$|[,;]|\b(?:then|also)\b)', text, re.IGNORECASE)
@@ -169,8 +182,21 @@ class ImprovementParser:
                     })
                     continue
 
-            # 5. MOVE_ROOM / CHANGE_ADJACENCY: e.g. "move kitchen next to dining"
-            move_next_m = re.search(r'(?:move|shift|place)\s+([a-zA-Z\s]+?)\s+next\s+to\s+([a-zA-Z\s]+)', cl)
+            # 5. REMOVE_ROOM: e.g. "remove dirty kitchen", "delete powder room", "servant room hata do"
+            remove_keywords = ["remove", "delete", "drop", "eliminate", "without", "discard", "exclude", "hatado", "hata do", "khatam", "no need"]
+            if any(re.search(r'\b' + re.escape(k) + r'\b', cl) for k in remove_keywords):
+                r = cls._normalize_room_name(cl)
+                if r and r not in handled_rooms:
+                    operations.append({
+                        "op": "REMOVE_ROOM",
+                        "room_name": r,
+                        "description": f"Remove {r.title()} from layout and merge footprint into adjacent space"
+                    })
+                    handled_rooms.add(r)
+                    continue
+
+            # 6. MOVE_ROOM / CHANGE_ADJACENCY: e.g. "move kitchen next to dining"
+            move_next_m = re.search(r'\b(?:move|shift|place)\s+([a-zA-Z\s]+?)\s+next\s+to\s+([a-zA-Z\s]+)', cl)
             if move_next_m:
                 r1 = cls._normalize_room_name(move_next_m.group(1))
                 r2 = cls._normalize_room_name(move_next_m.group(2))
@@ -184,9 +210,10 @@ class ImprovementParser:
                     continue
 
             # Move room to zone (rear, front, side)
-            if any(k in cl for k in ["move", "shift", "relocate"]):
+            move_keywords = ["move", "shift", "relocate", "transfer"]
+            if any(re.search(r'\b' + re.escape(k) + r'\b', cl) for k in move_keywords):
                 r = cls._normalize_room_name(cl)
-                if r:
+                if r and r not in handled_rooms:
                     zone = "rear" if "rear" in cl else ("front" if "front" in cl else "central")
                     operations.append({
                         "op": "MOVE_ROOM",
@@ -196,8 +223,9 @@ class ImprovementParser:
                     })
                     continue
 
-            # 6. ADD_ROOM: e.g. "add one more bathroom", "add a servant quarter", "add powder room"
-            if any(k in cl for k in ["add", "include", "provide", "create"]):
+            # 7. ADD_ROOM: e.g. "add one more bathroom", "add a servant quarter", "add powder room"
+            add_keywords = ["add", "include", "provide", "create", "banao", "daalo"]
+            if any(re.search(r'\b' + re.escape(k) + r'\b', cl) for k in add_keywords):
                 r = cls._normalize_room_name(cl)
                 if r:
                     floor_target = 1 if any(k in cl for k in ["first floor", "upper floor", "upstairs"]) else (
@@ -211,15 +239,13 @@ class ImprovementParser:
                     })
                     continue
 
-            # 7. REMOVE_ROOM: e.g. "remove servant quarter", "delete powder room"
-            if any(k in cl for k in ["remove", "delete", "drop", "eliminate", "without"]):
-                r = cls._normalize_room_name(cl)
-                if r:
-                    operations.append({
-                        "op": "REMOVE_ROOM",
-                        "room_name": r,
-                        "description": f"Remove {r.title()} from layout"
-                    })
-                    continue
+        # Strict deduplication while preserving ordering
+        deduped_ops = []
+        seen_keys = set()
+        for op in operations:
+            op_key = (op.get("op"), op.get("room_name") or op.get("target_room") or op.get("room_1") or op.get("target_location"))
+            if op_key not in seen_keys:
+                seen_keys.add(op_key)
+                deduped_ops.append(op)
 
-        return operations
+        return deduped_ops

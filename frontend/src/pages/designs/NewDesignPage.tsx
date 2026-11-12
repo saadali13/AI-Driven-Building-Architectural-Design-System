@@ -770,7 +770,8 @@ export const NewDesignPage: React.FC = () => {
     syncFormToPrompt(plotPreset, plotWidthFt, plotLengthFt, floors, bedrooms, bathrooms, style, { ...pakistaniSpecs, customRooms: updatedRooms }, housingSociety);
   };
   const [activeFloorView, setActiveFloorView] = useState<'ground' | 'first' | 'rooftop' | 'all'>('ground');
-  const [renderMode, setRenderMode] = useState<'backend_png' | 'interactive_svg'>('interactive_svg');
+  const [planLayer, setPlanLayer] = useState<'structural' | 'furnishing'>('structural');
+  const [renderMode, setRenderMode] = useState<'backend_png' | 'interactive_svg'>('backend_png');
 
   // Regeneration View & Modification State
   const [isRegeneratePageOpen, setIsRegeneratePageOpen] = useState(false);
@@ -1110,15 +1111,16 @@ export const NewDesignPage: React.FC = () => {
           setActiveConflict(null);
         }
 
-        const nextVer = revisionNumber + 1;
+        const nextVer = res?.version || (revisionNumber + 1);
         setRevisionNumber(nextVer);
         const updatedDesign = {
           ...backendDesign,
           ...res,
-          images: res.images || backendDesign.images,
-          floors: res.floors || backendDesign.floors,
-          compliance_checklist: res.compliance_checklist || backendDesign.compliance_checklist,
-          quality_gate: res.quality_gate || backendDesign.quality_gate,
+          canonical_plan: res.canonical_plan || backendDesign?.canonical_plan,
+          images: res.images || backendDesign?.images,
+          floors: res.floors || backendDesign?.floors,
+          compliance_checklist: res.compliance_checklist || backendDesign?.compliance_checklist,
+          quality_gate: res.quality_gate || backendDesign?.quality_gate,
           project_id: planId
         };
         setBackendDesign(updatedDesign);
@@ -1126,6 +1128,8 @@ export const NewDesignPage: React.FC = () => {
           ...prev,
           { version: nextVer, label: `v${nextVer}`, design: updatedDesign }
         ]);
+        setResultTab('floor_plan');
+        setActiveFloorView('ground');
         setCurrentStep(creationMode === 'prompt' ? 5 : 7);
         setIsSubmitting(false);
       } else {
@@ -1174,8 +1178,8 @@ export const NewDesignPage: React.FC = () => {
     (backendDesign?.images?.ground ? backendDesign.images.ground.replace('_ground_floor_2d.png', '_rooftop_slab_plan_2d.png') : null);
 
   const backendFloorImage = 
-    activeFloorView === 'ground' ? backendDesign?.images?.ground :
-    activeFloorView === 'first' ? backendDesign?.images?.first :
+    activeFloorView === 'ground' ? (planLayer === 'furnishing' ? (backendDesign?.images?.ground_furnishing || backendDesign?.images?.ground) : (backendDesign?.images?.ground_structural || backendDesign?.images?.ground)) :
+    activeFloorView === 'first' ? (planLayer === 'furnishing' ? (backendDesign?.images?.first_furnishing || backendDesign?.images?.first) : (backendDesign?.images?.first_structural || backendDesign?.images?.first)) :
     activeFloorView === 'rooftop' ? rooftopUrl :
     (backendDesign?.images?.all || backendDesign?.images?.multiFloor || backendDesign?.images?.presentation);
 
@@ -3579,13 +3583,32 @@ export const NewDesignPage: React.FC = () => {
                       </button>
                     </div>
 
-                    {/* View Switcher */}
+                    {/* Plan Layer Switcher: 2D Structural vs Inner Furnishing */}
                     <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-1 bg-[#EEF4F0] p-1 rounded-xl border border-[#DCE7DE] text-xs">
+                        <button
+                          onClick={() => setPlanLayer('structural')}
+                          className={`px-2.5 py-1 rounded-lg font-semibold transition-colors ${
+                            planLayer === 'structural' ? 'bg-[#23483D] text-white shadow-xs' : 'text-[#68736C] hover:text-[#202923]'
+                          }`}
+                        >
+                          📐 2D Structural Plan
+                        </button>
+                        <button
+                          onClick={() => setPlanLayer('furnishing')}
+                          className={`px-2.5 py-1 rounded-lg font-semibold transition-colors ${
+                            planLayer === 'furnishing' ? 'bg-[#23483D] text-white shadow-xs' : 'text-[#68736C] hover:text-[#202923]'
+                          }`}
+                        >
+                          🛋️ Inner Furnishing Plan
+                        </button>
+                      </div>
+
                       <button
                         onClick={() => setRenderMode(renderMode === 'backend_png' ? 'interactive_svg' : 'backend_png')}
                         className="px-2.5 py-1 rounded-lg bg-[#EEF4F0] border border-[#DCE7DE] text-[#23483D] text-[11px] font-semibold"
                       >
-                        {renderMode === 'backend_png' ? 'Switch to Vector SVG' : 'Switch to Technical Blueprint PNG'}
+                        {renderMode === 'backend_png' ? 'Vector SVG' : 'CAD Blueprint PNG'}
                       </button>
                     </div>
                   </div>

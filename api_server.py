@@ -23,6 +23,11 @@ import uuid
 import collections
 import concurrent.futures
 from http.server import HTTPServer, ThreadingHTTPServer, SimpleHTTPRequestHandler
+
+if hasattr(sys.stdout, 'reconfigure'):
+    sys.stdout.reconfigure(line_buffering=True)
+os.environ.setdefault("MPLCONFIGDIR", os.path.join(os.path.abspath(os.path.dirname(__file__)), "output", ".matplotlib"))
+os.makedirs(os.environ["MPLCONFIGDIR"], exist_ok=True)
 from urllib.parse import urlparse, parse_qs, unquote
 from typing import Dict, Any, List, Optional
 import datetime
@@ -44,7 +49,10 @@ def get_plan_lock(plan_id: str) -> threading.Lock:
 
 # Architectural Engine Core Modules
 from requirements.parser import NaturalLanguageRequirementsParser
-from generation.rag_solver import DatasetDrivenRAGSolver
+try:
+    from generation.rag_solver import DatasetDrivenRAGSolver
+except ImportError:
+    DatasetDrivenRAGSolver = None
 from generation.quality_gate import FloorPlanQualityGate
 from generation.visualizer import FloorPlanVisualizer
 from cad.dxf_generator import DXFGenerator
@@ -599,7 +607,8 @@ class ProceduralArchitecturalEngine:
         currency: str = "PKR",
         seed: int = 1,
         variant_index: Optional[int] = None,
-        strategy: Optional[str] = None
+        strategy: Optional[str] = None,
+        custom_room_dimensions: Optional[List[Dict[str, Any]]] = None
     ) -> Dict[str, Any]:
         # NLP prompt parsing overrides if user entered free text
         parsed_prompt = cls._parse_prompt_text(prompt)
@@ -773,6 +782,46 @@ class ProceduralArchitecturalEngine:
             v_num = strategy_metadata.get(chosen_strategy_id, {}).get("archetype_version", 1)
             source_archetype_id = f"catalog_{scale} v{v_num:02d}"
 
+            # Apply user-customized room dimensions from Room Schedule if provided
+            if custom_room_dimensions and canonical_plan:
+                from generation.plan_edit_applier import PlanEditApplier
+                for c_dim in custom_room_dimensions:
+                    c_name = (c_dim.get("name") or "").lower()
+                    c_w_ft = float(c_dim.get("widthFt") or c_dim.get("width") or 0)
+                    c_l_ft = float(c_dim.get("lengthFt") or c_dim.get("length") or 0)
+                    c_floor = c_dim.get("floor", "Ground Floor")
+                    c_lvl = 1 if "first" in str(c_floor).lower() or "upper" in str(c_floor).lower() else 0
+                    if c_w_ft > 0 and c_l_ft > 0:
+                        target_area_sqft = c_w_ft * c_l_ft
+                        target_area_m2 = round(target_area_sqft / 10.7639, 2)
+                        matching_room = next((r for r in canonical_plan.rooms if r.level_index == c_lvl and (c_name in r.room_name.lower() or any(w in r.room_name.lower() for w in c_name.split() if len(w) > 4))), None)
+                        if matching_room and matching_room.area_m2 > 0:
+                            delta_pct = (target_area_m2 - matching_room.area_m2) / matching_room.area_m2
+                            if abs(delta_pct) >= 0.05:
+                                try:
+                                    PlanEditApplier._apply_resize_room(
+                                        canonical_plan,
+                                        {"op": "RESIZE_ROOM", "room_name": matching_room.room_name, "action": "enlarge" if delta_pct > 0 else "shrink", "delta_pct": delta_pct},
+                                        plot_width,
+                                        plot_length
+                                    )
+                                except Exception as e_cr:
+                                    print(f"[Custom Dimension Notice]: {e_cr}")
+
+            # Enforce zero drawing-to-kitchen and zero dirty-to-drawing doors
+            if canonical_plan:
+                sanitized_openings = []
+                for op in canonical_plan.openings:
+                    if op.opening_type == "door" and op.connects_rooms:
+                        r_nms = [canonical_plan.get_room_by_id(rid).room_name.lower() for rid in op.connects_rooms if canonical_plan.get_room_by_id(rid)]
+                        is_draw = any("drawing" in nm or "formal" in nm for nm in r_nms)
+                        is_kit = any("kitchen" in nm for nm in r_nms)
+                        is_dirty = any("dirty" in nm or "scullery" in nm or "wok" in nm for nm in r_nms)
+                        if (is_draw and is_kit) or (is_draw and is_dirty):
+                            continue # Strip illegal door
+                    sanitized_openings.append(op)
+                canonical_plan.openings = sanitized_openings
+
             # Convert to imperial floors format for the frontend UI
             all_floors = cls._convert_canonical_to_floors(canonical_plan, plot_width, plot_length)
             floors = len(all_floors)
@@ -928,6 +977,9 @@ class ProceduralArchitecturalEngine:
 
         if canonical_plan:
             try:
+                # Synchronize canonical_plan metadata with project_id
+                canonical_plan.metadata.plan_id = project_id
+
                 # 1. Immediate Vector Elevation SVG & Spec (Fast: <3ms)
                 elev_spec = ElevationBuilder.build_elevation_spec(canonical_plan, style=style)
                 ElevationSVGRenderer.render_svg(elev_spec, os.path.join(plan_out_dir, svg_filename))
@@ -936,26 +988,35 @@ class ProceduralArchitecturalEngine:
                 generated_images["elevation_spec"] = elev_spec
                 generated_images["elevation"] = f"{web_base}/{elev_filename}"
 
-                p_id = canonical_plan.metadata.plan_id
-                generated_images["ground"] = f"{web_base}/{p_id}_ground_floor_2d.png"
+                p_id = project_id
+                ground_png = f"{p_id}_ground_floor_2d.png"
+                generated_images["ground"] = f"{web_base}/{ground_png}"
                 generated_images["first"] = f"{web_base}/{p_id}_first_floor_2d.png"
                 generated_images["rooftop"] = f"{web_base}/{p_id}_rooftop_slab_plan_2d.png"
                 generated_images["all"] = f"{web_base}/{p_id}_composite_two_floors.png"
                 generated_images["multiFloor"] = f"{web_base}/{p_id}_composite_two_floors.png"
                 generated_images["presentation"] = f"{web_base}/{p_id}_composite_two_floors.png"
 
-                # 2. Asynchronous Background Rendering of Heavy Matplotlib PNGs & CAD DXF
-                def _bg_render(c_plan, e_spec, p_out, e_file, d_file, st, p_title, v1_dir):
+                # Synchronous rendering of Ground Floor & Front Elevation so immediate HTTP requests NEVER 404
+                with RENDER_LOCK:
+                    try:
+                        ground_img_path = os.path.join(plan_out_dir, ground_png)
+                        FloorPlanVisualizer.render_floor_plan(canonical_plan, ground_img_path, level_index=0)
+                    except Exception as e_gr:
+                        print(f"[Sync Ground FloorPlanVisualizer Warning]: {e_gr}")
+                    try:
+                        elev_img_path = os.path.join(plan_out_dir, elev_filename)
+                        FloorPlanToElevationMapper.map_and_render_elevation(canonical_plan, elev_img_path, style=style, project_title=project_title)
+                    except Exception as e_el:
+                        print(f"[Sync Elevation Warning]: {e_el}")
+
+                # 2. Asynchronous Background Rendering of Remaining Floors (First Floor, Rooftop, Composite) & CAD DXF
+                def _bg_render(c_plan, e_spec, p_out, d_file, v1_dir):
                     with RENDER_LOCK:
                         try:
                             FloorPlanVisualizer.render_all_floors(c_plan, p_out)
                         except Exception as e_rend:
                             print(f"[BG FloorPlanVisualizer Warning]: {e_rend}")
-                        try:
-                            e_path = os.path.join(p_out, e_file)
-                            FloorPlanToElevationMapper.map_and_render_elevation(c_plan, e_path, style=st, project_title=p_title)
-                        except Exception as e_elev:
-                            print(f"[BG FloorPlanToElevationMapper Warning]: {e_elev}")
                         try:
                             ElevationDXFExporter.export_dxf(e_spec, os.path.join(p_out, d_file))
                             if v1_dir and os.path.exists(v1_dir):
@@ -964,7 +1025,7 @@ class ProceduralArchitecturalEngine:
                             print(f"[BG ElevationDXFExporter Warning]: {e_dxf}")
 
                 plan_v1_dir = os.path.join(OUTPUT_DIR, project_id, "v1")
-                BACKGROUND_EXECUTOR.submit(_bg_render, canonical_plan, elev_spec, plan_out_dir, elev_filename, dxf_filename, style, project_title, plan_v1_dir)
+                BACKGROUND_EXECUTOR.submit(_bg_render, canonical_plan, elev_spec, plan_out_dir, dxf_filename, plan_v1_dir)
             except Exception as e_imm:
                 print(f"[Immediate Render Warning]: {e_imm}")
 
@@ -1104,11 +1165,6 @@ class ProceduralArchitecturalEngine:
         with open(v_file, "r", encoding="utf-8") as f:
             base_data = json.load(f)
 
-        canonical_dict = base_data.get("canonical_plan")
-        if not canonical_dict:
-            raise ValueError(f"No canonical_plan data found in {v_file}")
-
-        base_canonical = CanonicalFloorPlan.model_validate(canonical_dict)
         plot_data = base_data.get("plot", {})
         pw = float(plot_data.get("width_ft", 35.0))
         pl = float(plot_data.get("length_ft", 65.0))
@@ -1117,6 +1173,20 @@ class ProceduralArchitecturalEngine:
         scale = plot_data.get("scale", "10_marla")
         requested_reqs = base_data.get("requested_requirements") or {}
         setbacks = plot_data.get("setbacks", {"front_ft": 5.0, "rear_ft": 4.0, "side_ft": 0.0})
+
+        canonical_dict = base_data.get("canonical_plan")
+        if not canonical_dict:
+            try:
+                rec_plan = DesignDiversityEngine.synthesize_diverse_plan(
+                    prompt=base_data.get("prompt", "") or project_title,
+                    scale=scale
+                )
+                canonical_dict = rec_plan.to_dict()
+                base_data["canonical_plan"] = canonical_dict
+            except Exception as e_rec:
+                raise ValueError(f"No canonical_plan data found in {v_file} and recovery failed: {e_rec}")
+
+        base_canonical = CanonicalFloorPlan.model_validate(canonical_dict)
 
         # 1. Parse improvements into structured operations
         operations = ImprovementParser.parse_improvements(improvement_text)
@@ -1139,6 +1209,20 @@ class ProceduralArchitecturalEngine:
             plot_l_ft=pl
         )
         updated_canonical = edit_result["plan"]
+
+        # Enforce zero drawing-to-kitchen and zero dirty-to-drawing doors
+        if updated_canonical:
+            sanitized_openings = []
+            for op in updated_canonical.openings:
+                if op.opening_type == "door" and op.connects_rooms:
+                    r_nms = [updated_canonical.get_room_by_id(rid).room_name.lower() for rid in op.connects_rooms if updated_canonical.get_room_by_id(rid)]
+                    is_draw = any("drawing" in nm or "formal" in nm for nm in r_nms)
+                    is_kit = any("kitchen" in nm for nm in r_nms)
+                    is_dirty = any("dirty" in nm or "scullery" in nm or "wok" in nm for nm in r_nms)
+                    if (is_draw and is_kit) or (is_draw and is_dirty):
+                        continue
+                sanitized_openings.append(op)
+            updated_canonical.openings = sanitized_openings
 
         # 3. Determine next version number
         existing_versions = []
@@ -1189,13 +1273,21 @@ class ProceduralArchitecturalEngine:
         os.makedirs(plan_out_dir, exist_ok=True)
         web_base = f"/output/web_generated/{plan_id}"
 
-        p_id = updated_canonical.metadata.plan_id
-        generated_images["ground"] = f"{web_base}/{p_id}_ground_floor_2d.png"
-        generated_images["first"] = f"{web_base}/{p_id}_first_floor_2d.png"
-        generated_images["rooftop"] = f"{web_base}/{p_id}_rooftop_slab_plan_2d.png"
-        generated_images["all"] = f"{web_base}/{p_id}_composite_two_floors_2d.png"
-        generated_images["multiFloor"] = f"{web_base}/{p_id}_composite_two_floors_2d.png"
-        generated_images["presentation"] = f"{web_base}/{p_id}_composite_two_floors_2d.png"
+        # Synchronize canonical metadata with plan_id
+        updated_canonical.metadata.plan_id = plan_id
+
+        # Version-specific filenames prevent browser caching from showing stale designs
+        ground_filename = f"{plan_id}_v{next_version}_ground_floor_2d.png"
+        first_filename = f"{plan_id}_v{next_version}_first_floor_2d.png"
+        rooftop_filename = f"{plan_id}_v{next_version}_rooftop_slab_plan_2d.png"
+        composite_filename = f"{plan_id}_v{next_version}_composite_two_floors.png"
+
+        generated_images["ground"] = f"{web_base}/{ground_filename}"
+        generated_images["first"] = f"{web_base}/{first_filename}"
+        generated_images["rooftop"] = f"{web_base}/{rooftop_filename}"
+        generated_images["all"] = f"{web_base}/{composite_filename}"
+        generated_images["multiFloor"] = f"{web_base}/{composite_filename}"
+        generated_images["presentation"] = f"{web_base}/{composite_filename}"
 
         # 8. Elevation & 3D Model
         elev_filename = f"{plan_id}_v{next_version}_front_elevation_2d.png"
@@ -1214,6 +1306,22 @@ class ProceduralArchitecturalEngine:
         next_v_dir = os.path.join(plan_base_dir, f"v{next_version}")
         os.makedirs(next_v_dir, exist_ok=True)
 
+        # Synchronous rendering of Ground Floor & Front Elevation so immediate HTTP requests NEVER 404
+        with RENDER_LOCK:
+            try:
+                ground_img_path = os.path.join(plan_out_dir, ground_filename)
+                FloorPlanVisualizer.render_floor_plan(updated_canonical, ground_img_path, level_index=0)
+                # Also maintain unversioned alias for backwards-compatibility
+                legacy_ground_path = os.path.join(plan_out_dir, f"{plan_id}_ground_floor_2d.png")
+                FloorPlanVisualizer.render_floor_plan(updated_canonical, legacy_ground_path, level_index=0)
+            except Exception as e_gr:
+                print(f"[Sync Regen Ground Warning]: {e_gr}")
+            try:
+                elev_img_path = os.path.join(plan_out_dir, elev_filename)
+                FloorPlanToElevationMapper.map_and_render_elevation(updated_canonical, elev_img_path, style=style, project_title=project_title)
+            except Exception as e_el:
+                print(f"[Sync Regen Elevation Warning]: {e_el}")
+
         # Offload heavy Matplotlib PNGs and CAD DXF to background thread
         def _bg_regen_render(c_plan, e_spec, p_out, e_file, d_file, st, p_title, nv_dir):
             with RENDER_LOCK:
@@ -1221,11 +1329,6 @@ class ProceduralArchitecturalEngine:
                     FloorPlanVisualizer.render_all_floors(c_plan, p_out)
                 except Exception as e_v:
                     print(f"[BG Regen Visualizer Error]: {e_v}")
-                try:
-                    e_path = os.path.join(p_out, e_file)
-                    FloorPlanToElevationMapper.map_and_render_elevation(c_plan, e_path, style=st, project_title=p_title)
-                except Exception as e_m:
-                    print(f"[BG Regen Elevation Error]: {e_m}")
                 try:
                     ElevationDXFExporter.export_dxf(e_spec, os.path.join(p_out, d_file))
                     if nv_dir and os.path.exists(nv_dir):
@@ -2742,9 +2845,76 @@ class ArchitecturalRequestHandler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=WEB_DIR, **kwargs)
 
+    def do_OPTIONS(self):
+        """Handles CORS pre-flight requests from modern frontends."""
+        self.send_response(200)
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With")
+        self.send_header("Access-Control-Max-Age", "86400")
+        self.end_headers()
+
     def do_GET(self):
         url = urlparse(self.path)
         path = url.path
+
+        # 1. GET /export/<design_id>?format=dxf|png|boq
+        m_export = re.match(r"^/export/([^/?]+)", path)
+        if m_export:
+            design_id = m_export.group(1)
+            q = parse_qs(url.query)
+            fmt = q.get("format", ["png"])[0].lower()
+            from layout_engine.manager import DesignManager
+            st = DesignManager.load_design_state(design_id)
+            des = st.get("selected_design") if st else None
+            if not des:
+                self._send_json({"error": f"Design {design_id} not found"}, status_code=404)
+                return
+
+            if fmt == "dxf":
+                dxf_file = ArchitecturalExporters.generate_dxf(des)
+                with open(dxf_file, "rb") as f:
+                    content = f.read()
+                self._send_file_download(content, f"{design_id}.dxf", "application/dxf")
+                return
+            elif fmt == "boq":
+                covered = float(des.get("total_covered_area_sqft", 2100.0))
+                boq = CostEstimator.calculate(
+                    covered_area_sqft=covered,
+                    floors=int(des.get("floors_count", 2)),
+                    bedrooms=int(des.get("bedrooms_count", 4)),
+                    bathrooms=int(des.get("bathrooms_count", 4))
+                )
+                self._send_json(boq)
+                return
+            else:
+                png_file = ArchitecturalExporters.generate_png(des)
+                with open(png_file, "rb") as f:
+                    content = f.read()
+                self._send_file_download(content, f"{design_id}.png", "image/png")
+                return
+
+        # 2. GET /designs/<design_id>
+        m_des = re.match(r"^/designs/([^/?]+)", path)
+        if m_des:
+            design_id = m_des.group(1)
+            from layout_engine.manager import DesignManager
+            st = DesignManager.load_design_state(design_id)
+            if st:
+                self._send_json({
+                    "success": True,
+                    "design_id": design_id,
+                    "current_version": st.get("current_version", 1),
+                    "design": st.get("selected_design"),
+                    "candidates": {k: {"label": v["label"], "source": v["source"], "quality_score": v["quality_score"]} for k, v in st.get("candidates", {}).items()},
+                    "history": [
+                        {"version": h["version"], "action": h["action"], "timestamp": h["timestamp"]}
+                        for h in st.get("version_history", [])
+                    ]
+                })
+            else:
+                self._send_json({"error": f"Design {design_id} not found"}, status_code=404)
+            return
 
         if path == "/api/templates":
             self._send_json(ARCHITECTURAL_TEMPLATES)
@@ -2852,6 +3022,24 @@ class ArchitecturalRequestHandler(SimpleHTTPRequestHandler):
                 self.end_headers()
                 return
 
+        # Serve static reference blueprint images from extraction_v2
+        if re.match(r"^/\d+/[a-f0-9]+\.(jpg|jpeg|png)$", path, re.I):
+            clean_rel = path.lstrip("/").replace("/", os.sep)
+            ext_path = os.path.join(PROJECT_ROOT, "extraction_v2", clean_rel)
+            if not os.path.exists(ext_path):
+                ext_path = os.path.join(PROJECT_ROOT, clean_rel)
+            if os.path.exists(ext_path) and os.path.isfile(ext_path):
+                mime, _ = mimetypes.guess_type(ext_path)
+                with open(ext_path, "rb") as f:
+                    content = f.read()
+                self.send_response(200)
+                self.send_header("Content-Type", mime or "image/jpeg")
+                self.send_header("Content-Length", str(len(content)))
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.end_headers()
+                self.wfile.write(content)
+                return
+
         # Serve static web frontend
         return super().do_GET()
 
@@ -2866,6 +3054,107 @@ class ArchitecturalRequestHandler(SimpleHTTPRequestHandler):
             payload = json.loads(post_body) if post_body else {}
         except Exception:
             payload = {}
+
+        # 1. POST /references
+        if path in ["/references", "/api/references"]:
+            try:
+                from retrieval.search import search_plans
+                hits = search_plans(payload, top_k=3, usable_only=True)
+                if not hits:
+                    hits = search_plans(payload, top_k=3, usable_only=False)
+                resp_refs = []
+                for h in hits:
+                    resp_refs.append({
+                        "plan_id": h.get("plan_id"),
+                        "similarity": round(h.get("similarity_score", 0.0), 3),
+                        "image_url": f"/{h.get('image_path')}",
+                        "origin": h.get("origin"),
+                        "plot_source": h.get("plot_source"),
+                        "usable": h.get("tier") in ("tier_A", "tier_B", "needs_review"),
+                        "what_matched": h.get("what_matched", []),
+                        "what_missed": h.get("what_missed", []),
+                        "marla": h.get("marla_225")
+                    })
+                self._send_json({"success": True, "references": resp_refs})
+            except Exception as e_ref:
+                self._send_json({"success": False, "error": str(e_ref)}, status_code=500)
+            return
+
+        # 2. POST /generate_from_reference (Contract Endpoint)
+        if path in ["/generate_from_reference", "/api/generate_from_reference"]:
+            try:
+                from layout_engine.manager import DesignManager
+                req_ref_id = payload.get("reference_id")
+                state = DesignManager.generate_candidates(payload, requested_ref_id=req_ref_id)
+                des = state["selected_design"]
+                self._send_json({
+                    "success": True,
+                    "design_id": state["design_id"],
+                    "selected_candidate": state["selected_candidate"],
+                    "candidates": state["candidates"],
+                    "design": des,
+                    "quality_score": des.get("quality_score"),
+                    "verification": state.get("verification"),
+                    "op_log": des.get("adaptation_edits", []),
+                    "provenance": des.get("provenance", "real_reference"),
+                    "fallback_used": des.get("fallback_used", False)
+                })
+            except Exception as e_gfr:
+                import traceback
+                traceback.print_exc()
+                self._send_json({"success": False, "error": str(e_gfr)}, status_code=500)
+            return
+
+        # 3. POST /regenerate (Contract Endpoint)
+        if path in ["/regenerate", "/api/regenerate"]:
+            design_id = payload.get("design_id")
+            if not design_id:
+                # Legacy fallback to procedural regeneration if plan_id is provided instead of design_id
+                plan_id = payload.get("plan_id")
+                if not plan_id:
+                    self._send_json({"success": False, "error": "design_id required"}, status_code=400)
+                    return
+            else:
+                try:
+                    from layout_engine.manager import DesignManager
+                    action = payload.get("action")
+                    instruction = payload.get("instruction")
+                    res = DesignManager.apply_regeneration(design_id, action=action, instruction=instruction)
+                    self._send_json(res)
+                    return
+                except Exception as e_reg:
+                    import traceback
+                    traceback.print_exc()
+                    self._send_json({"success": False, "error": str(e_reg)}, status_code=400)
+                    return
+
+        # 4. POST /undo
+        if path in ["/undo", "/api/undo"]:
+            design_id = payload.get("design_id")
+            if not design_id:
+                self._send_json({"success": False, "error": "design_id required"}, status_code=400)
+                return
+            try:
+                from layout_engine.manager import DesignManager
+                res = DesignManager.undo_version(design_id)
+                self._send_json(res)
+            except Exception as e_un:
+                self._send_json({"success": False, "error": str(e_un)}, status_code=400)
+            return
+
+        # 5. POST /redo
+        if path in ["/redo", "/api/redo"]:
+            design_id = payload.get("design_id")
+            if not design_id:
+                self._send_json({"success": False, "error": "design_id required"}, status_code=400)
+                return
+            try:
+                from layout_engine.manager import DesignManager
+                res = DesignManager.redo_version(design_id)
+                self._send_json(res)
+            except Exception as e_re:
+                self._send_json({"success": False, "error": str(e_re)}, status_code=400)
+            return
 
         if path == "/api/elevation":
             plan_id = payload.get("plan_id")
@@ -2920,48 +3209,43 @@ class ArchitecturalRequestHandler(SimpleHTTPRequestHandler):
             variant_index = int(v_idx) if v_idx is not None else None
             strategy = payload.get("strategy")
 
+            custom_room_dimensions = payload.get("custom_room_dimensions") or payload.get("room_schedule") or []
             try:
-                design = ProceduralArchitecturalEngine.synthesize_design(
-                    prompt=prompt,
+                from generation.gemini_cad_engine import synthesize_design as gemini_synthesize_design
+                refinement_prompt = f"{prompt}. Refinement modifications: {improvement_text}" if improvement_text else prompt
+                design = gemini_synthesize_design(
+                    prompt=refinement_prompt,
                     plot_width=pw,
                     plot_length=pl,
                     floors=floors,
                     bedrooms=beds,
                     bathrooms=baths,
                     style=style,
-                    shape=shape,
                     budget_tier=budget_tier,
-                    currency=currency,
-                    seed=seed,
-                    variant_index=variant_index,
-                    strategy=strategy
+                    custom_room_dimensions=custom_room_dimensions
                 )
                 self._send_json(design)
             except Exception as e_gen:
                 import traceback
                 traceback.print_exc()
-                self._send_json({"success": False, "error": f"Synthesis failed: {str(e_gen)}"}, status_code=500)
+                self._send_json({"success": False, "error": f"Gemini CAD regeneration failed: {str(e_gen)}"}, status_code=500)
             return
 
-        elif path == "/api/generate":
+        elif path in ["/api/generate", "/api/rag/llm-generate"]:
             prompt = payload.get("prompt", "")
-            pw = float(payload.get("plot_width", 25.0))
-            pl = float(payload.get("plot_length", 45.0))
+            pw = float(payload.get("plot_width", 35.0))
+            pl = float(payload.get("plot_length", 65.0))
             floors = int(payload.get("floors", 2))
             beds = int(payload.get("bedrooms", 4))
             baths = int(payload.get("bathrooms", 4))
-            style = payload.get("style", "spanish")
-            shape = payload.get("shape", "rectangular")
-            budget_tier = payload.get("budget_tier", "standard")
-            currency = payload.get("currency", "PKR")
-            seed_val = payload.get("seed")
-            seed = int(seed_val) if seed_val is not None else (int(datetime.datetime.now().timestamp() * 1000) % 1000000)
-            v_idx = payload.get("variant_index") or payload.get("alternative_index")
-            variant_index = int(v_idx) if v_idx is not None else None
-            strategy = payload.get("strategy")
+            style = payload.get("style", "Modern Contemporary")
+            budget_tier = payload.get("budget_tier", "balanced")
+            api_key = payload.get("api_key") or payload.get("gemini_api_key")
 
+            custom_room_dimensions = payload.get("custom_room_dimensions") or payload.get("room_schedule") or []
             try:
-                design = ProceduralArchitecturalEngine.synthesize_design(
+                from generation.gemini_cad_engine import synthesize_design as gemini_synthesize_design
+                design = gemini_synthesize_design(
                     prompt=prompt,
                     plot_width=pw,
                     plot_length=pl,
@@ -2969,18 +3253,37 @@ class ArchitecturalRequestHandler(SimpleHTTPRequestHandler):
                     bedrooms=beds,
                     bathrooms=baths,
                     style=style,
-                    shape=shape,
+                    api_key=api_key,
                     budget_tier=budget_tier,
-                    currency=currency,
-                    seed=seed,
-                    variant_index=variant_index,
-                    strategy=strategy
+                    custom_room_dimensions=custom_room_dimensions
                 )
                 self._send_json(design)
             except Exception as e_gen:
                 import traceback
                 traceback.print_exc()
-                self._send_json({"success": False, "error": f"Synthesis failed: {str(e_gen)}"}, status_code=500)
+                self._send_json({"success": False, "error": f"Gemini CAD generation failed: {str(e_gen)}"}, status_code=500)
+            return
+
+        elif path in ["/generate_from_reference", "/api/generate_from_reference"]:
+            try:
+                from pipeline.generate_from_requirements import generate_from_requirements
+                res = generate_from_requirements(payload, tag="api_ref")
+                resp = {
+                    "success": True,
+                    "plan": res["design"],
+                    "reference_id": res["reference_plan_id"],
+                    "similarity": res["reference_similarity"],
+                    "top_3_hits": res["top_3_hits"],
+                    "explanation": res["adapter_explanations"],
+                    "requirements_met": res["verification"]["checklist"],
+                    "requirements_passed": (res["verification"]["status"] == "PASS"),
+                    "reference_image": f"/{res['top_3_hits'][0]['image_path']}" if res.get("top_3_hits") else None
+                }
+                self._send_json(resp)
+            except Exception as e_gen_ref:
+                import traceback
+                traceback.print_exc()
+                self._send_json({"success": False, "error": f"Generate from reference failed: {str(e_gen_ref)}"}, status_code=500)
             return
 
         elif path.startswith("/api/plans/") and path.endswith("/restore"):

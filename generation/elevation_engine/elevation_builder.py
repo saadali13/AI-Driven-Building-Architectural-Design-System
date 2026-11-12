@@ -269,18 +269,15 @@ class ElevationBuilder:
                         "lintel_h": round(cls.H_1F + sill_h + op_h, 2)
                     })
 
-        # Fallback or reposition main entrance door to foyer front bay outside car porch
-        if main_door and porch_bay:
-            if porch_bay["x1"] - 0.10 <= main_door["x"] <= porch_bay["x2"] + 0.10:
-                main_door["x"] = round(min(plot_w - main_door["width"] * 0.70, porch_bay["x2"] + 0.85), 2)
-        elif not main_door and porch_bay:
+        # Fallback or detect main entrance door from ground openings
+        if not main_door and porch_bay:
             main_door = {
                 "opening_id": "d_main_entry",
-                "x": round(min(plot_w - 1.20, porch_bay["x2"] + 0.85), 2),
-                "width": 1.20,
-                "height": 2.40,
+                "x": round(min(plot_w - 1.20, porch_bay["x2"] + 0.75), 2),
+                "width": 1.30,
+                "height": 2.45,
                 "sill_h": cls.H_PLINTH,
-                "lintel_h": round(cls.H_PLINTH + 2.40, 2),
+                "lintel_h": round(cls.H_PLINTH + 2.45, 2),
                 "is_double": True,
                 "type": "main_door"
             }
@@ -296,14 +293,11 @@ class ElevationBuilder:
         s_pts = [p for r in stair_rooms for p in r.polygon]
         stair_min_x = round(min(p[0] for p in s_pts), 2)
         stair_max_x = round(max(p[0] for p in s_pts), 2)
-        stair_center_x = round((stair_min_x + stair_max_x) / 2.0, 2)
         stair_w = round(stair_max_x - stair_min_x, 2)
 
         # Mumty sits exactly atop the stair core load-bearing perimeter walls
-        mumty_x = max(0.0, stair_min_x)
-        mumty_w = round(max(1.50, min(stair_w, plot_w - mumty_x)), 2)
-        if mumty_x + mumty_w > plot_w:
-            mumty_x = max(0.0, round(plot_w - mumty_w, 2))
+        mumty_x = stair_min_x
+        mumty_w = stair_w
 
         oht_w = round(min(mumty_w * 0.80, 2.0), 2)
         oht_x = round(mumty_x + (mumty_w - oht_w) * 0.5, 2)
@@ -323,6 +317,55 @@ class ElevationBuilder:
                 "material": "Treated Hardwood Slats (Teak/Steel)",
                 "color": style_cfg["wood_louvers"]
             }
+
+        # 7. Foreground Site Elements (Boundary wall, gate, pillars, lawn, pavers)
+        site_elements = {
+            "boundary_wall": {
+                "height_m": 1.45,
+                "style": style_key,
+                "has_gate": True,
+                "gate_width_m": round(min(4.20, (porch_bay["width"] if porch_bay else 3.80)), 2),
+                "gate_x": porch_bay["x1"] if porch_bay else 0.0,
+                "pillar_w": 0.45,
+                "pillar_h": 1.70,
+                "pillar_lights": True
+            },
+            "driveway": {
+                "x1": porch_bay["x1"] if porch_bay else 0.0,
+                "x2": porch_bay["x2"] if porch_bay else 4.50,
+                "pattern": "herringbone_pavers"
+            },
+            "lawn": {
+                "x1": porch_bay["x2"] if porch_bay else 4.50,
+                "x2": plot_w,
+                "has_palm_tree": True,
+                "tree_x": round(plot_w - 0.90, 2)
+            },
+            "car": {
+                "parked": True,
+                "type": "executive_sedan",
+                "x": round((porch_bay["x1"] if porch_bay else 0.0) + 0.35, 2),
+                "width": round(min(4.20, (porch_bay["width"] if porch_bay else 3.80) * 0.75), 2),
+                "height_m": 1.40
+            }
+        }
+
+        # 8. Style Geometric Differences
+        style_geometry = {
+            "style_key": style_key,
+            "arch_style": style_cfg["arch_style"],
+            "parapet_style": style_cfg["parapet_type"],
+            "balustrade_style": style_cfg["balustrade"],
+            "roof_geometry": {
+                "type": "sloped_hip_terracotta" if style_key == "spanish" else ("classical_pediment_dentil" if style_key == "classical" else ("flat_cantilever_pergola" if style_key == "modern" else "monolithic_flush_parapet")),
+                "pitch_delta_m": 1.35 if style_key == "spanish" else (0.45 if style_key == "classical" else 0.0),
+                "eaves_overhang_m": 0.45 if style_key == "spanish" else (0.25 if style_key == "classical" else 0.15)
+            },
+            "columns": {
+                "type": "fluted_corinthian" if style_key == "classical" else ("semicircular_arched_piers" if style_key == "spanish" else ("slate_cantilever_piers" if style_key == "modern" else "flush_concrete_pilasters")),
+                "count": 4 if style_key == "classical" else 2
+            }
+        }
 
         # Detect plot scale
         prov = getattr(plan.metadata, "provenance", {}) or {}
@@ -380,6 +423,7 @@ class ElevationBuilder:
             "roof_system": {
                 "parapet_height_m": parapet_h,
                 "parapet_style": style_cfg["parapet_type"],
+                "roof_pitch_delta_m": 1.35 if style_key == "spanish" else (0.45 if style_key == "classical" else 0.0),
                 "mumty": {
                     "x": mumty_x,
                     "width": mumty_w,
@@ -394,6 +438,8 @@ class ElevationBuilder:
                 },
                 "pergola": pergola_spec
             },
+            "site_elements": site_elements,
+            "style_geometry": style_geometry,
             "materials": style_cfg,
             "modifications_applied": overrides.get("feedback_applied", [])
         }

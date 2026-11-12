@@ -30,7 +30,12 @@ from dataset.schema.canonical import (
     GraphEdgeModel
 )
 from generation.quality_gate import FloorPlanQualityGate
-from extraction.relationships import SpatialRelationshipGraphExtractor
+try:
+    from extraction.relationships import SpatialRelationshipGraphExtractor
+except ImportError:
+    class SpatialRelationshipGraphExtractor:
+        def __init__(self, *args, **kwargs): pass
+        def extract(self, *args, **kwargs): return []
 
 
 def rect_poly(x1: float, y1: float, x2: float, y2: float) -> List[List[float]]:

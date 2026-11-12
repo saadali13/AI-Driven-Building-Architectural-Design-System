@@ -981,6 +981,12 @@ class FloorPlanVisualizer:
 
         ax.set_facecolor("#FFFFFF")
 
+        all_xs = [pt[0] for r in rooms for pt in r.polygon] if rooms else [0, 10]
+        all_ys = [pt[1] for r in rooms for pt in r.polygon] if rooms else [0, 10]
+        b_min_x, b_max_x = min(all_xs), max(all_xs)
+        b_min_y, b_max_y = min(all_ys), max(all_ys)
+        placed_labels = []
+
         # 1. Render Room Polygons with Soft Tint
         for r in rooms:
             color = cls.ROOM_COLORS.get(r.room_type, "#FFFFFF")
@@ -1007,13 +1013,17 @@ class FloorPlanVisualizer:
             r_lower = r.room_name.lower()
 
             # Architectural Fixtures Placement
-            if "stair" in r_lower or ("lobby" in r_lower and "stair" in r_lower):
+            is_stair_room = (r.room_type in ["staircase"]) or (
+                "stair" in r.room_id.lower() and "stair" in r_lower and "lobby" not in r_lower and "foyer" not in r_lower
+            )
+            if is_stair_room:
                 cls._draw_modular_staircase(ax, r, min_x, min_y, rw, rh, is_first_floor=(level_index > 0))
                 # Staircase features its own technical badges and tread callouts, skip overlapping tag
                 continue
 
             elif r.room_type == "garage" or "porch" in r_lower:
-                cls._draw_cars(ax, min_x, min_y, rw, rh, count=2)
+                car_count = 1 if (rw < 5.0 or "1 car" in r_lower or "single" in r_lower) else 2
+                cls._draw_cars(ax, min_x, min_y, rw, rh, count=car_count)
 
             elif r.room_type == "balcony" or "terrace" in r_lower:
                 cls._draw_terrace_patio(ax, min_x, min_y, rw, rh)
@@ -1126,13 +1136,25 @@ class FloorPlanVisualizer:
             w_str = _ft_in(rw)
             h_str = _ft_in(rh)
 
+            disp_name = r.room_name
+            if "porch" in r_lower or "garage" in r_lower:
+                car_count = 1 if (rw < 5.0 or "1 car" in r_lower or "single" in r_lower) else 2
+                disp_name = f"Car Porch ({car_count} Car{'s' if car_count > 1 else ''})"
+
             # Compact labels for small rooms, closets, utility & shafts to prevent text overlap
             if rw < 2.3 or rh < 2.1 or "ots" in r_lower or "dirty" in r_lower or "utility" in r_lower or "powder" in r_lower or "shaft" in r_lower or "garden" in r_lower:
-                label = f"{r.room_name}\n({r.area_m2:.1f} m² / {sqft:.0f} sqft)"
+                label = f"{disp_name}\n({r.area_m2:.1f} m² / {sqft:.0f} sqft)"
                 fsize = 6.0
             else:
-                label = f"{r.room_name}\n{w_str} x {h_str}\n({r.area_m2:.1f} m² / {sqft:.0f} sqft)"
+                label = f"{disp_name}\n{w_str} x {h_str}\n({r.area_m2:.1f} m² / {sqft:.0f} sqft)"
                 fsize = 7.0
+
+            # Collision avoidance with previously placed labels
+            for px, py in placed_labels:
+                if abs(label_x - px) < 1.6 and abs(label_y - py) < 0.9:
+                    label_y += 0.50
+                    break
+            placed_labels.append((label_x, label_y))
 
             ax.text(
                 label_x, label_y, label,
@@ -1309,13 +1331,17 @@ class FloorPlanVisualizer:
             elif op.opening_type == "window":
                 hw = width / 2.0
                 if is_vertical_wall:
-                    ax.plot([pos[0], pos[0]], [pos[1] - hw, pos[1] + hw], color="#0284C7", lw=3.6, solid_capstyle="round", zorder=5)
-                    ax.plot([pos[0] + 0.08, pos[0] + 0.08], [pos[1] - hw, pos[1] + hw], color="#0369A1", lw=1.2, zorder=5)
-                    ax.plot([pos[0] - 0.08, pos[0] - 0.08], [pos[1] - hw, pos[1] + hw], color="#0369A1", lw=1.2, zorder=5)
+                    y1 = max(b_min_y, pos[1] - hw)
+                    y2 = min(b_max_y, pos[1] + hw)
+                    ax.plot([pos[0], pos[0]], [y1, y2], color="#0284C7", lw=3.6, solid_capstyle="round", zorder=5)
+                    ax.plot([pos[0] + 0.08, pos[0] + 0.08], [y1, y2], color="#0369A1", lw=1.2, zorder=5)
+                    ax.plot([pos[0] - 0.08, pos[0] - 0.08], [y1, y2], color="#0369A1", lw=1.2, zorder=5)
                 else:
-                    ax.plot([pos[0] - hw, pos[0] + hw], [pos[1], pos[1]], color="#0284C7", lw=3.6, solid_capstyle="round", zorder=5)
-                    ax.plot([pos[0] - hw, pos[0] + hw], [pos[1] + 0.08, pos[1] + 0.08], color="#0369A1", lw=1.2, zorder=5)
-                    ax.plot([pos[0] - hw, pos[0] + hw], [pos[1] - 0.08, pos[1] - 0.08], color="#0369A1", lw=1.2, zorder=5)
+                    x1 = max(b_min_x, pos[0] - hw)
+                    x2 = min(b_max_x, pos[0] + hw)
+                    ax.plot([x1, x2], [pos[1], pos[1]], color="#0284C7", lw=3.6, solid_capstyle="round", zorder=5)
+                    ax.plot([x1, x2], [pos[1] + 0.08, pos[1] + 0.08], color="#0369A1", lw=1.2, zorder=5)
+                    ax.plot([x1, x2], [pos[1] - 0.08, pos[1] - 0.08], color="#0369A1", lw=1.2, zorder=5)
 
         # 3b. Human Circulation and Spatial Access Pathways
         cls._draw_circulation_flow(ax, rooms, openings)

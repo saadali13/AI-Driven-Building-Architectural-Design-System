@@ -184,7 +184,9 @@ benchmark/
 # SCRATCH / TEMPORARY DEVELOPMENT SCRIPTS
 # ---------------------------------------------------------------------------
 scratch/
-data/
+
+# Keep data/ — it contains the RAG guardrails JSON (essential)
+# data/   <-- do NOT ignore this folder
 
 # ---------------------------------------------------------------------------
 # LOGS AND TEMPORARY FILES

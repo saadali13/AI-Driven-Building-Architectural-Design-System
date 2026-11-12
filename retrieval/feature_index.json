@@ -1,0 +1,6669 @@
+{
+  "plans_hash": "41fc8a13dc0ceda4febf6031b3cd8bd2acb151d797cdb95280402fc63b8a20f8",
+  "corpus_version": "2.0-real-cv",
+  "total_plans": 92,
+  "usable_plans": 32,
+  "vectors": [
+    {
+      "plan_id": "1_00770eba64db20501bbd30bb21ce6aa5",
+      "tier": "tier_A",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": true,
+      "usability_reasons": [],
+      "image_path": "1/00770eba64db20501bbd30bb21ce6aa5.jpg",
+      "penalty_flag": false,
+      "plot_width": 50.0,
+      "plot_depth": 90.0,
+      "plot_area_sqft": 4500.0,
+      "aspect_ratio": 1.8,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 20.0,
+      "marla_272": 16.53,
+      "plot_class": "20_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 2,
+        "bathroom": 4,
+        "kitchen": 2,
+        "lounge": 2,
+        "drawing": 0,
+        "dining": 1,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 1,
+        "lawn": 1,
+        "other": 0
+      },
+      "total_covered_area": 2898.8,
+      "zones": [
+        {
+          "room": "M.BED",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "BED",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "S.KIT",
+          "canonical_type": "kitchen",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "DINING",
+          "canonical_type": "dining",
+          "y_zone": "middle",
+          "x_zone": "right"
+        },
+        {
+          "room": "PORCH",
+          "canonical_type": "porch",
+          "y_zone": "front",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "1_027c487cd8eb1a07ba644f292fd32e0c",
+      "tier": "tier_B",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "low_envelope_coverage (63.3% < 70%)"
+      ],
+      "image_path": "1/027c487cd8eb1a07ba644f292fd32e0c.jpg",
+      "penalty_flag": false,
+      "plot_width": null,
+      "plot_depth": null,
+      "plot_area_sqft": null,
+      "aspect_ratio": null,
+      "plot_source": "estimated_from_covered_area",
+      "marla_estimated": true,
+      "marla_225": 4.02,
+      "marla_272": 3.32,
+      "plot_class": "estimated_5_marla",
+      "floor_count": 2,
+      "floor_role": "multi",
+      "floors_source": "composite_sheet",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 3,
+        "kitchen": 1,
+        "lounge": 1,
+        "drawing": 0,
+        "dining": 1,
+        "porch": 0,
+        "servant": 0,
+        "store": 0,
+        "stair": 1,
+        "lawn": 0,
+        "other": 5
+      },
+      "total_covered_area": 1160.42,
+      "zones": [
+        {
+          "room": "BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "DINING",
+          "canonical_type": "dining",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "1_066fdb423d3141c8d88131702ce86c43",
+      "tier": "needs_review",
+      "origin": "possible_foreign",
+      "origin_triggers": [
+        "pooja_puja: ['pooja']"
+      ],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (126.5% > 105%)"
+      ],
+      "image_path": "1/066fdb423d3141c8d88131702ce86c43.jpg",
+      "penalty_flag": true,
+      "plot_width": null,
+      "plot_depth": null,
+      "plot_area_sqft": null,
+      "aspect_ratio": null,
+      "plot_source": "estimated_from_covered_area",
+      "marla_estimated": true,
+      "marla_225": 4.36,
+      "marla_272": 3.6,
+      "plot_class": "estimated_5_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 3,
+        "kitchen": 1,
+        "lounge": 7,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 1,
+        "lawn": 0,
+        "other": 1
+      },
+      "total_covered_area": 2120.22,
+      "zones": [
+        {
+          "room": "BED ROOM-1",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "GUEST ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "DRAWING ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "middle",
+          "x_zone": "right"
+        },
+        {
+          "room": "PORCH/PARKING AREA",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "1_20ba328abca8292cbf644fa2f1aaf0d2",
+      "tier": "tier_A",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (110.2% > 105%)"
+      ],
+      "image_path": "1/20ba328abca8292cbf644fa2f1aaf0d2.jpg",
+      "penalty_flag": false,
+      "plot_width": 50.0,
+      "plot_depth": 90.0,
+      "plot_area_sqft": 4500.0,
+      "aspect_ratio": 1.8,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 20.0,
+      "marla_272": 16.53,
+      "plot_class": "20_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 2,
+        "bathroom": 3,
+        "kitchen": 1,
+        "lounge": 4,
+        "drawing": 0,
+        "dining": 1,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 1,
+        "other": 3
+      },
+      "total_covered_area": 2582.12,
+      "zones": [
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "DINING",
+          "canonical_type": "dining",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "CAR PORCH",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "1_20f8dfbb9c1dd0dbccf4ae2a7cf53680",
+      "tier": "needs_review",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (113.3% > 105%)"
+      ],
+      "image_path": "1/20f8dfbb9c1dd0dbccf4ae2a7cf53680.jpg",
+      "penalty_flag": true,
+      "plot_width": 36.92,
+      "plot_depth": 59.0,
+      "plot_area_sqft": 2178.28,
+      "aspect_ratio": 1.6,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 9.68,
+      "marla_272": 8.0,
+      "plot_class": "10_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 2,
+        "kitchen": 1,
+        "lounge": 3,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 1,
+        "lawn": 2,
+        "other": 7
+      },
+      "total_covered_area": 2370.3,
+      "zones": [
+        {
+          "room": "BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "PORCH",
+          "canonical_type": "porch",
+          "y_zone": "front",
+          "x_zone": "left"
+        },
+        {
+          "room": "DRAWING ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "front",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "1_31c8ba8259f47372f5680f4e13ac2540",
+      "tier": "needs_review",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": true,
+      "usability_reasons": [],
+      "image_path": "1/31c8ba8259f47372f5680f4e13ac2540.jpg",
+      "penalty_flag": true,
+      "plot_width": 50.0,
+      "plot_depth": 90.0,
+      "plot_area_sqft": 4500.0,
+      "aspect_ratio": 1.8,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 20.0,
+      "marla_272": 16.53,
+      "plot_class": "20_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 2,
+        "bathroom": 3,
+        "kitchen": 2,
+        "lounge": 3,
+        "drawing": 0,
+        "dining": 1,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 1,
+        "lawn": 1,
+        "other": 2
+      },
+      "total_covered_area": 2633.97,
+      "zones": [
+        {
+          "room": "G.KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "DINING",
+          "canonical_type": "dining",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "PORCH",
+          "canonical_type": "porch",
+          "y_zone": "front",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "1_344dd5f88ce2e4f9dcf98ba99a838eaf",
+      "tier": "tier_B",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (117.1% > 105%)"
+      ],
+      "image_path": "1/344dd5f88ce2e4f9dcf98ba99a838eaf.jpg",
+      "penalty_flag": false,
+      "plot_width": null,
+      "plot_depth": null,
+      "plot_area_sqft": null,
+      "aspect_ratio": null,
+      "plot_source": "estimated_from_covered_area",
+      "marla_estimated": true,
+      "marla_225": 8.86,
+      "marla_272": 7.32,
+      "plot_class": "estimated_10_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 4,
+        "bathroom": 5,
+        "kitchen": 1,
+        "lounge": 1,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 0,
+        "servant": 0,
+        "store": 1,
+        "stair": 1,
+        "lawn": 0,
+        "other": 6
+      },
+      "total_covered_area": 2353.76,
+      "zones": [
+        {
+          "room": "M.BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "BED ROOM-3",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "DRAWING ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "1_348dc036a4d22b04bdd794ff0de1752c",
+      "tier": "needs_review",
+      "origin": "possible_foreign",
+      "origin_triggers": [
+        "foreign_metric: ['m²']"
+      ],
+      "layout_usable": false,
+      "usability_reasons": [
+        "missing_kitchen"
+      ],
+      "image_path": "1/348dc036a4d22b04bdd794ff0de1752c.jpg",
+      "penalty_flag": true,
+      "plot_width": null,
+      "plot_depth": null,
+      "plot_area_sqft": null,
+      "aspect_ratio": null,
+      "plot_source": "estimated_from_covered_area",
+      "marla_estimated": true,
+      "marla_225": 0.0,
+      "marla_272": 0.0,
+      "plot_class": "estimated_3_marla",
+      "floor_count": 2,
+      "floor_role": "first",
+      "floors_source": "title",
+      "counts": {
+        "bedroom": 5,
+        "bathroom": 4,
+        "kitchen": 0,
+        "lounge": 1,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 0,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 0,
+        "other": 10
+      },
+      "total_covered_area": 1844.0,
+      "zones": [
+        {
+          "room": "Bedroom 1",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "Bedroom 2",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "Master Bedroom",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "Family room",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "Bedroom 3",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "1_41847eb5f54a9509efa70c64ba29297d",
+      "tier": "tier_B",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": true,
+      "usability_reasons": [],
+      "image_path": "1/41847eb5f54a9509efa70c64ba29297d.jpg",
+      "penalty_flag": false,
+      "plot_width": null,
+      "plot_depth": null,
+      "plot_area_sqft": null,
+      "aspect_ratio": null,
+      "plot_source": "estimated_from_covered_area",
+      "marla_estimated": true,
+      "marla_225": 5.95,
+      "marla_272": 4.92,
+      "plot_class": "estimated_5_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 2,
+        "bathroom": 2,
+        "kitchen": 1,
+        "lounge": 2,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 1,
+        "lawn": 2,
+        "other": 1
+      },
+      "total_covered_area": 1466.5,
+      "zones": [
+        {
+          "room": "BED",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "OPEN KIT...",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "BED",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "CAR PORCH",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "1_6367c8c273d4b1d007fa03103612d22d",
+      "tier": "needs_review",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "missing_living_lounge"
+      ],
+      "image_path": "1/6367c8c273d4b1d007fa03103612d22d.jpg",
+      "penalty_flag": true,
+      "plot_width": null,
+      "plot_depth": null,
+      "plot_area_sqft": null,
+      "aspect_ratio": null,
+      "plot_source": "estimated_from_covered_area",
+      "marla_estimated": true,
+      "marla_225": 0.0,
+      "marla_272": 0.0,
+      "plot_class": "estimated_3_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 3,
+        "kitchen": 1,
+        "lounge": 0,
+        "drawing": 0,
+        "dining": 1,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 1,
+        "lawn": 1,
+        "other": 7
+      },
+      "total_covered_area": 1509.0,
+      "zones": [
+        {
+          "room": "BED",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "PARKING",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "right"
+        },
+        {
+          "room": "DINING TABLE",
+          "canonical_type": "dining",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "1_97abaa88d5f21c3240c969b10eb99341",
+      "tier": "needs_review",
+      "origin": "possible_foreign",
+      "origin_triggers": [
+        "pooja_puja: ['POOJA', 'pooja']"
+      ],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (136.0% > 105%)"
+      ],
+      "image_path": "1/97abaa88d5f21c3240c969b10eb99341.jpg",
+      "penalty_flag": true,
+      "plot_width": 25.0,
+      "plot_depth": 50.0,
+      "plot_area_sqft": 1250.0,
+      "aspect_ratio": 2.0,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 5.56,
+      "marla_272": 4.59,
+      "plot_class": "5_marla",
+      "floor_count": 2,
+      "floor_role": "first",
+      "floors_source": "title",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 2,
+        "kitchen": 1,
+        "lounge": 2,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 0,
+        "servant": 0,
+        "store": 1,
+        "stair": 0,
+        "lawn": 0,
+        "other": 2
+      },
+      "total_covered_area": 1185.0,
+      "zones": [
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "1_ad9deb5ed9c20f5a5549d01ecd65910a",
+      "tier": "tier_A",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (136.9% > 105%)"
+      ],
+      "image_path": "1/ad9deb5ed9c20f5a5549d01ecd65910a.jpg",
+      "penalty_flag": false,
+      "plot_width": 50.0,
+      "plot_depth": 90.0,
+      "plot_area_sqft": 4500.0,
+      "aspect_ratio": 1.8,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 20.0,
+      "marla_272": 16.53,
+      "plot_class": "20_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 3,
+        "kitchen": 1,
+        "lounge": 2,
+        "drawing": 0,
+        "dining": 1,
+        "porch": 0,
+        "servant": 0,
+        "store": 1,
+        "stair": 0,
+        "lawn": 1,
+        "other": 4
+      },
+      "total_covered_area": 2454.5,
+      "zones": [
+        {
+          "room": "BED",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "middle",
+          "x_zone": "right"
+        },
+        {
+          "room": "DINING",
+          "canonical_type": "dining",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "1_bbdffd190faab6edff7a5cee357a9d17",
+      "tier": "tier_A",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": true,
+      "usability_reasons": [],
+      "image_path": "1/bbdffd190faab6edff7a5cee357a9d17.jpg",
+      "penalty_flag": false,
+      "plot_width": 50.0,
+      "plot_depth": 90.0,
+      "plot_area_sqft": 4500.0,
+      "aspect_ratio": 1.8,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 20.0,
+      "marla_272": 16.53,
+      "plot_class": "20_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 3,
+        "kitchen": 2,
+        "lounge": 5,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 1,
+        "stair": 1,
+        "lawn": 1,
+        "other": 5
+      },
+      "total_covered_area": 2580.91,
+      "zones": [
+        {
+          "room": "BED",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "RAW KIT:",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "PORCH",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "G.BED",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "OPEN KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "1_bcb8f171cdca4416bb203d2206dff66f",
+      "tier": "needs_review",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (111.1% > 105%)"
+      ],
+      "image_path": "1/bcb8f171cdca4416bb203d2206dff66f.jpg",
+      "penalty_flag": true,
+      "plot_width": 50.0,
+      "plot_depth": 90.0,
+      "plot_area_sqft": 4500.0,
+      "aspect_ratio": 1.8,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 20.0,
+      "marla_272": 16.53,
+      "plot_class": "20_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 2,
+        "kitchen": 1,
+        "lounge": 3,
+        "drawing": 0,
+        "dining": 1,
+        "porch": 0,
+        "servant": 0,
+        "store": 1,
+        "stair": 0,
+        "lawn": 1,
+        "other": 7
+      },
+      "total_covered_area": 1967.75,
+      "zones": [
+        {
+          "room": "BED-02",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED-02",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "BED-01",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "middle",
+          "x_zone": "right"
+        },
+        {
+          "room": "DINING",
+          "canonical_type": "dining",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "1_d9bbe3743996485fb1a50711fe5b8262",
+      "tier": "tier_B",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": true,
+      "usability_reasons": [],
+      "image_path": "1/d9bbe3743996485fb1a50711fe5b8262.jpg",
+      "penalty_flag": false,
+      "plot_width": null,
+      "plot_depth": null,
+      "plot_area_sqft": null,
+      "aspect_ratio": null,
+      "plot_source": "estimated_from_covered_area",
+      "marla_estimated": true,
+      "marla_225": 6.17,
+      "marla_272": 5.1,
+      "plot_class": "estimated_5_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 4,
+        "bathroom": 3,
+        "kitchen": 1,
+        "lounge": 1,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 0,
+        "servant": 0,
+        "store": 0,
+        "stair": 1,
+        "lawn": 0,
+        "other": 5
+      },
+      "total_covered_area": 1580.0,
+      "zones": [
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "DRG. ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "1_dc63fcbef5792c11a0630cf42b1b279a (1)",
+      "tier": "needs_review",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "missing_kitchen"
+      ],
+      "image_path": "1/dc63fcbef5792c11a0630cf42b1b279a (1).jpg",
+      "penalty_flag": true,
+      "plot_width": null,
+      "plot_depth": null,
+      "plot_area_sqft": null,
+      "aspect_ratio": null,
+      "plot_source": "estimated_from_covered_area",
+      "marla_estimated": true,
+      "marla_225": 6.0,
+      "marla_272": 4.96,
+      "plot_class": "estimated_5_marla",
+      "floor_count": 2,
+      "floor_role": "first",
+      "floors_source": "title",
+      "counts": {
+        "bedroom": 4,
+        "bathroom": 0,
+        "kitchen": 0,
+        "lounge": 1,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 0,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 0,
+        "other": 14
+      },
+      "total_covered_area": 2119.0,
+      "zones": [
+        {
+          "room": "MSTR SUITE",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BEDRM 3",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BEDRM 5",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "right"
+        },
+        {
+          "room": "BEDRM 4",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "1_download (1)",
+      "tier": "needs_review",
+      "origin": "non_pakistan",
+      "origin_triggers": [
+        "foreign_turkish: ['ZEMİN KAT', 'PLANI']"
+      ],
+      "layout_usable": false,
+      "usability_reasons": [
+        "missing_living_lounge",
+        "missing_kitchen",
+        "high_envelope_coverage (134.3% > 105%)"
+      ],
+      "image_path": "1/download (1).png",
+      "penalty_flag": true,
+      "plot_width": null,
+      "plot_depth": null,
+      "plot_area_sqft": null,
+      "aspect_ratio": null,
+      "plot_source": "estimated_from_covered_area",
+      "marla_estimated": true,
+      "marla_225": 5.96,
+      "marla_272": 4.93,
+      "plot_class": "estimated_5_marla",
+      "floor_count": 2,
+      "floor_role": "multi",
+      "floors_source": "composite_sheet",
+      "counts": {
+        "bedroom": 1,
+        "bathroom": 2,
+        "kitchen": 0,
+        "lounge": 0,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 0,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 0,
+        "other": 13
+      },
+      "total_covered_area": 1795.95,
+      "zones": [
+        {
+          "room": "Brock",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "1_download",
+      "tier": "tier_A",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": true,
+      "usability_reasons": [],
+      "image_path": "1/download.png",
+      "penalty_flag": false,
+      "plot_width": 50.0,
+      "plot_depth": 90.0,
+      "plot_area_sqft": 4500.0,
+      "aspect_ratio": 1.8,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 20.0,
+      "marla_272": 16.53,
+      "plot_class": "20_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 4,
+        "bathroom": 3,
+        "kitchen": 3,
+        "lounge": 5,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 1,
+        "stair": 2,
+        "lawn": 1,
+        "other": 9
+      },
+      "total_covered_area": 2892.66,
+      "zones": [
+        {
+          "room": "BED",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "OPEN KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "RAW KIT:",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "PORCH",
+          "canonical_type": "porch",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "G.BED",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "IRON/PANTRY",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BRIDGE",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "1_ea4c139c31fdefa9e5b7a50490d4f8bf",
+      "tier": "needs_review",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (124.4% > 105%)"
+      ],
+      "image_path": "1/ea4c139c31fdefa9e5b7a50490d4f8bf.jpg",
+      "penalty_flag": true,
+      "plot_width": null,
+      "plot_depth": null,
+      "plot_area_sqft": null,
+      "aspect_ratio": null,
+      "plot_source": "estimated_from_covered_area",
+      "marla_estimated": true,
+      "marla_225": 0.0,
+      "marla_272": 0.0,
+      "plot_class": "estimated_3_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 4,
+        "bathroom": 3,
+        "kitchen": 1,
+        "lounge": 3,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 1,
+        "lawn": 1,
+        "other": 7
+      },
+      "total_covered_area": 2285.0,
+      "zones": [
+        {
+          "room": "CHILDREN ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "PARENTS ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "PRAYER ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "PORCH",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "3_0d2f29cf25a408c7e552e39b91189b34",
+      "tier": "tier_A",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (121.7% > 105%)"
+      ],
+      "image_path": "3/0d2f29cf25a408c7e552e39b91189b34.jpg",
+      "penalty_flag": false,
+      "plot_width": 36.0,
+      "plot_depth": 57.0,
+      "plot_area_sqft": 2052.0,
+      "aspect_ratio": 1.58,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 9.12,
+      "marla_272": 7.54,
+      "plot_class": "10_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 2,
+        "bathroom": 3,
+        "kitchen": 1,
+        "lounge": 3,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 1,
+        "lawn": 1,
+        "other": 1
+      },
+      "total_covered_area": 1850.3,
+      "zones": [
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "CAR PORCH",
+          "canonical_type": "porch",
+          "y_zone": "back",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "3_0f969b09633a07439acc75819fbd1506",
+      "tier": "tier_A",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (125.5% > 105%)"
+      ],
+      "image_path": "3/0f969b09633a07439acc75819fbd1506.jpg",
+      "penalty_flag": false,
+      "plot_width": 20.0,
+      "plot_depth": 50.0,
+      "plot_area_sqft": 1000.0,
+      "aspect_ratio": 2.5,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 4.44,
+      "marla_272": 3.67,
+      "plot_class": "5_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 3,
+        "kitchen": 1,
+        "lounge": 1,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 0,
+        "other": 1
+      },
+      "total_covered_area": 828.5,
+      "zones": [
+        {
+          "room": "ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "OPEN KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "CAR PORCH",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "DRAWING ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "3_136245892d121c74b3a7cf6063c928e6",
+      "tier": "needs_review",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (142.2% > 105%)"
+      ],
+      "image_path": "3/136245892d121c74b3a7cf6063c928e6.jpg",
+      "penalty_flag": true,
+      "plot_width": 30.0,
+      "plot_depth": 57.0,
+      "plot_area_sqft": 1710.0,
+      "aspect_ratio": 1.9,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 7.6,
+      "marla_272": 6.28,
+      "plot_class": "7_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 3,
+        "kitchen": 1,
+        "lounge": 3,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 0,
+        "other": 3
+      },
+      "total_covered_area": 1658.5,
+      "zones": [
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "CAR PORCH",
+          "canonical_type": "porch",
+          "y_zone": "front",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "3_1b14e27c276a847be7f0d5694be2c57d",
+      "tier": "needs_review",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "low_envelope_coverage (66.0% < 70%)"
+      ],
+      "image_path": "3/1b14e27c276a847be7f0d5694be2c57d.jpg",
+      "penalty_flag": true,
+      "plot_width": null,
+      "plot_depth": null,
+      "plot_area_sqft": null,
+      "aspect_ratio": null,
+      "plot_source": "estimated_from_covered_area",
+      "marla_estimated": true,
+      "marla_225": 0.0,
+      "marla_272": 0.0,
+      "plot_class": "estimated_3_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 1,
+        "bathroom": 1,
+        "kitchen": 1,
+        "lounge": 2,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 0,
+        "other": 2
+      },
+      "total_covered_area": 1039.0,
+      "zones": [
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "PORCH",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "3_2107f8b0ce6b3d5bb924afabecc63e87",
+      "tier": "needs_review",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": true,
+      "usability_reasons": [],
+      "image_path": "3/2107f8b0ce6b3d5bb924afabecc63e87.jpg",
+      "penalty_flag": true,
+      "plot_width": null,
+      "plot_depth": null,
+      "plot_area_sqft": null,
+      "aspect_ratio": null,
+      "plot_source": "estimated_from_covered_area",
+      "marla_estimated": true,
+      "marla_225": 0.46,
+      "marla_272": 0.38,
+      "plot_class": "estimated_3_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 3,
+        "kitchen": 1,
+        "lounge": 3,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 0,
+        "other": 3
+      },
+      "total_covered_area": 1644.99,
+      "zones": [
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "CAR PORCH",
+          "canonical_type": "porch",
+          "y_zone": "front",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "3_2aefdd3e925ee9337c96c8c8ecc3e32f",
+      "tier": "needs_review",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": true,
+      "usability_reasons": [],
+      "image_path": "3/2aefdd3e925ee9337c96c8c8ecc3e32f.jpg",
+      "penalty_flag": true,
+      "plot_width": null,
+      "plot_depth": null,
+      "plot_area_sqft": null,
+      "aspect_ratio": null,
+      "plot_source": "estimated_from_covered_area",
+      "marla_estimated": true,
+      "marla_225": 0.0,
+      "marla_272": 0.0,
+      "plot_class": "estimated_3_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 3,
+        "kitchen": 1,
+        "lounge": 1,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 0,
+        "other": 2
+      },
+      "total_covered_area": 1221.0,
+      "zones": [
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "GARAGE",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "DWG ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "3_332f77d7159e62a4b4c8ac89543bb94c",
+      "tier": "needs_review",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": true,
+      "usability_reasons": [],
+      "image_path": "3/332f77d7159e62a4b4c8ac89543bb94c.jpg",
+      "penalty_flag": true,
+      "plot_width": 40.0,
+      "plot_depth": 75.0,
+      "plot_area_sqft": 3000.0,
+      "aspect_ratio": 1.88,
+      "plot_source": "printed",
+      "marla_estimated": false,
+      "marla_225": 13.33,
+      "marla_272": 11.02,
+      "plot_class": "10_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 4,
+        "bathroom": 2,
+        "kitchen": 1,
+        "lounge": 2,
+        "drawing": 0,
+        "dining": 1,
+        "porch": 2,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 1,
+        "other": 3
+      },
+      "total_covered_area": 1950.0,
+      "zones": [
+        {
+          "room": "MASTER BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "DINING AREA",
+          "canonical_type": "dining",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "BEDROOM 2",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "BEDROOM 3",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "COVERED ENTRY PORCH",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "right"
+        },
+        {
+          "room": "LAUNDRY ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "right"
+        },
+        {
+          "room": "DOUBLE GARAGE",
+          "canonical_type": "porch",
+          "y_zone": "front",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "3_3398a39340324048f64931162c7dbca0",
+      "tier": "needs_review",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (134.9% > 105%)"
+      ],
+      "image_path": "3/3398a39340324048f64931162c7dbca0.jpg",
+      "penalty_flag": true,
+      "plot_width": 35.0,
+      "plot_depth": 50.0,
+      "plot_area_sqft": 1750.0,
+      "aspect_ratio": 1.43,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 7.78,
+      "marla_272": 6.43,
+      "plot_class": "7_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 2,
+        "kitchen": 1,
+        "lounge": 2,
+        "drawing": 0,
+        "dining": 1,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 2,
+        "lawn": 1,
+        "other": 1
+      },
+      "total_covered_area": 1602.0,
+      "zones": [
+        {
+          "room": "Bedroom 2",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "Bedroom 1",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "Modern Kitchen",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "Dining Area",
+          "canonical_type": "dining",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "Master Bedroom",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "Car Parking",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "3_344ae6af69aeab2aef0c20c6e97ee50f",
+      "tier": "needs_review",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "missing_living_lounge"
+      ],
+      "image_path": "3/344ae6af69aeab2aef0c20c6e97ee50f.jpg",
+      "penalty_flag": true,
+      "plot_width": null,
+      "plot_depth": null,
+      "plot_area_sqft": null,
+      "aspect_ratio": null,
+      "plot_source": "estimated_from_covered_area",
+      "marla_estimated": true,
+      "marla_225": 4.78,
+      "marla_272": 3.95,
+      "plot_class": "estimated_5_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 4,
+        "bathroom": 0,
+        "kitchen": 1,
+        "lounge": 0,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 1,
+        "stair": 0,
+        "lawn": 0,
+        "other": 2
+      },
+      "total_covered_area": 1268.56,
+      "zones": [
+        {
+          "room": "MASTER BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "REST ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "LIVING ROOM & DINING",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "GARAGE",
+          "canonical_type": "porch",
+          "y_zone": "back",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "3_42f6d1b8ba5350e5dc17d0eb5b6a4e1e",
+      "tier": "needs_review",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": true,
+      "usability_reasons": [],
+      "image_path": "3/42f6d1b8ba5350e5dc17d0eb5b6a4e1e.jpg",
+      "penalty_flag": true,
+      "plot_width": 35.0,
+      "plot_depth": 65.0,
+      "plot_area_sqft": 2275.0,
+      "aspect_ratio": 1.86,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 10.11,
+      "marla_272": 8.36,
+      "plot_class": "10_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 2,
+        "bathroom": 3,
+        "kitchen": 1,
+        "lounge": 2,
+        "drawing": 0,
+        "dining": 1,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 1,
+        "lawn": 1,
+        "other": 2
+      },
+      "total_covered_area": 1469.0,
+      "zones": [
+        {
+          "room": "BEDROOM (بیڈروم)",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "KITCHEN (کچن)",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "BEDROOM (بیڈروم)",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "DINING (ڈائننگ)",
+          "canonical_type": "dining",
+          "y_zone": "middle",
+          "x_zone": "right"
+        },
+        {
+          "room": "GARAGE (گیراج)",
+          "canonical_type": "porch",
+          "y_zone": "front",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "3_4f3655f8abc77ad4446ea4f1c1b38779",
+      "tier": "tier_A",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (177.7% > 105%)"
+      ],
+      "image_path": "3/4f3655f8abc77ad4446ea4f1c1b38779.jpg",
+      "penalty_flag": false,
+      "plot_width": 25.0,
+      "plot_depth": 30.0,
+      "plot_area_sqft": 750.0,
+      "aspect_ratio": 1.2,
+      "plot_source": "printed",
+      "marla_estimated": false,
+      "marla_225": 3.33,
+      "marla_272": 2.75,
+      "plot_class": "3_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 2,
+        "bathroom": 2,
+        "kitchen": 1,
+        "lounge": 1,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 0,
+        "servant": 0,
+        "store": 0,
+        "stair": 1,
+        "lawn": 0,
+        "other": 3
+      },
+      "total_covered_area": 668.83,
+      "zones": [
+        {
+          "room": "BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "middle",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "3_51ccd1f32dc512a057c404b60f687893",
+      "tier": "tier_A",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (136.6% > 105%)"
+      ],
+      "image_path": "3/51ccd1f32dc512a057c404b60f687893.jpg",
+      "penalty_flag": false,
+      "plot_width": 31.0,
+      "plot_depth": 38.0,
+      "plot_area_sqft": 1178.0,
+      "aspect_ratio": 1.23,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 5.24,
+      "marla_272": 4.33,
+      "plot_class": "5_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 2,
+        "kitchen": 1,
+        "lounge": 2,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 1,
+        "stair": 0,
+        "lawn": 0,
+        "other": 0
+      },
+      "total_covered_area": 1238.88,
+      "zones": [
+        {
+          "room": "BEDROOM-1",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BEDROOM-2",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "BEDROOM-1",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "PARKING",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "3_5580b528a4346f1214b84d7d9e2df65c",
+      "tier": "tier_A",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": true,
+      "usability_reasons": [],
+      "image_path": "3/5580b528a4346f1214b84d7d9e2df65c.jpg",
+      "penalty_flag": false,
+      "plot_width": 50.0,
+      "plot_depth": 90.0,
+      "plot_area_sqft": 4500.0,
+      "aspect_ratio": 1.8,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 20.0,
+      "marla_272": 16.53,
+      "plot_class": "20_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 3,
+        "kitchen": 2,
+        "lounge": 5,
+        "drawing": 0,
+        "dining": 1,
+        "porch": 1,
+        "servant": 0,
+        "store": 1,
+        "stair": 1,
+        "lawn": 1,
+        "other": 4
+      },
+      "total_covered_area": 2797.0,
+      "zones": [
+        {
+          "room": "G.KIT",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "DINING",
+          "canonical_type": "dining",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "GUEST BED",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "right"
+        },
+        {
+          "room": "PORCH",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "3_5d19b4b83e36512fd37809345a8236eb",
+      "tier": "tier_A",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (134.2% > 105%)"
+      ],
+      "image_path": "3/5d19b4b83e36512fd37809345a8236eb.jpg",
+      "penalty_flag": false,
+      "plot_width": 30.0,
+      "plot_depth": 55.0,
+      "plot_area_sqft": 1650.0,
+      "aspect_ratio": 1.83,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 7.33,
+      "marla_272": 6.06,
+      "plot_class": "7_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 3,
+        "kitchen": 1,
+        "lounge": 1,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 0,
+        "other": 2
+      },
+      "total_covered_area": 1320.2,
+      "zones": [
+        {
+          "room": "ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "CARPORCH",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "3_60988e8b43bca6b0e86ff5d6c85aac01",
+      "tier": "tier_A",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (220.7% > 105%)"
+      ],
+      "image_path": "3/60988e8b43bca6b0e86ff5d6c85aac01.jpg",
+      "penalty_flag": false,
+      "plot_width": 15.0,
+      "plot_depth": 50.0,
+      "plot_area_sqft": 750.0,
+      "aspect_ratio": 3.33,
+      "plot_source": "printed",
+      "marla_estimated": false,
+      "marla_225": 3.33,
+      "marla_272": 2.75,
+      "plot_class": "3_marla",
+      "floor_count": 2,
+      "floor_role": "multi",
+      "floors_source": "composite_sheet",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 4,
+        "kitchen": 1,
+        "lounge": 2,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 2,
+        "lawn": 0,
+        "other": 6
+      },
+      "total_covered_area": 1556.93,
+      "zones": [
+        {
+          "room": "BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "MASTER BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "PARKING",
+          "canonical_type": "porch",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "MASTER BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "3_771112c6507910567d5f673fc1171c2c",
+      "tier": "tier_A",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (201.1% > 105%)"
+      ],
+      "image_path": "3/771112c6507910567d5f673fc1171c2c.jpg",
+      "penalty_flag": false,
+      "plot_width": 20.0,
+      "plot_depth": 30.0,
+      "plot_area_sqft": 600.0,
+      "aspect_ratio": 1.5,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 2.67,
+      "marla_272": 2.2,
+      "plot_class": "3_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 2,
+        "kitchen": 1,
+        "lounge": 1,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 1,
+        "lawn": 0,
+        "other": 0
+      },
+      "total_covered_area": 699.19,
+      "zones": [
+        {
+          "room": "BED ROOM 1",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM 2",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "DRAWING ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "PORCH",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "3_7aa31691a29583df2029d7468a33e969",
+      "tier": "tier_B",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "low_envelope_coverage (68.1% < 70%)"
+      ],
+      "image_path": "3/7aa31691a29583df2029d7468a33e969.jpg",
+      "penalty_flag": false,
+      "plot_width": null,
+      "plot_depth": null,
+      "plot_area_sqft": null,
+      "aspect_ratio": null,
+      "plot_source": "estimated_from_covered_area",
+      "marla_estimated": true,
+      "marla_225": 4.4,
+      "marla_272": 3.64,
+      "plot_class": "estimated_5_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 2,
+        "bathroom": 3,
+        "kitchen": 1,
+        "lounge": 4,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 1,
+        "lawn": 0,
+        "other": 3
+      },
+      "total_covered_area": 1362.06,
+      "zones": [
+        {
+          "room": "Bedroom",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "Bedroom",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "Kitchen",
+          "canonical_type": "kitchen",
+          "y_zone": "middle",
+          "x_zone": "right"
+        },
+        {
+          "room": "Porch",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "3_88b4f0cbc89f50a8273953dc6208ff5d",
+      "tier": "needs_review",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": true,
+      "usability_reasons": [],
+      "image_path": "3/88b4f0cbc89f50a8273953dc6208ff5d.jpg",
+      "penalty_flag": true,
+      "plot_width": null,
+      "plot_depth": null,
+      "plot_area_sqft": null,
+      "aspect_ratio": null,
+      "plot_source": "estimated_from_covered_area",
+      "marla_estimated": true,
+      "marla_225": 0.11,
+      "marla_272": 0.09,
+      "plot_class": "estimated_3_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 1,
+        "bathroom": 1,
+        "kitchen": 1,
+        "lounge": 2,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 0,
+        "other": 2
+      },
+      "total_covered_area": 998.77,
+      "zones": [
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "PORCH",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "3_88fd24157ef6251ce7bb6acb925c9226",
+      "tier": "needs_review",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (114.6% > 105%)"
+      ],
+      "image_path": "3/88fd24157ef6251ce7bb6acb925c9226.jpg",
+      "penalty_flag": true,
+      "plot_width": 30.0,
+      "plot_depth": 60.0,
+      "plot_area_sqft": 1800.0,
+      "aspect_ratio": 2.0,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 8.0,
+      "marla_272": 6.61,
+      "plot_class": "7_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 3,
+        "kitchen": 1,
+        "lounge": 2,
+        "drawing": 0,
+        "dining": 1,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 1,
+        "other": 1
+      },
+      "total_covered_area": 1509.0,
+      "zones": [
+        {
+          "room": "Bedroom 2",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "Large Master Bedroom",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "Bedroom 3",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "Kitchen",
+          "canonical_type": "kitchen",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "Dining Area",
+          "canonical_type": "dining",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "Car Parking",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "3_9d33538b8b7a007ec839ee1bbbf6c5ce",
+      "tier": "tier_A",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (147.0% > 105%)"
+      ],
+      "image_path": "3/9d33538b8b7a007ec839ee1bbbf6c5ce.jpg",
+      "penalty_flag": false,
+      "plot_width": 35.0,
+      "plot_depth": 65.0,
+      "plot_area_sqft": 2275.0,
+      "aspect_ratio": 1.86,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 10.11,
+      "marla_272": 8.36,
+      "plot_class": "10_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 4,
+        "kitchen": 1,
+        "lounge": 4,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 1,
+        "lawn": 0,
+        "other": 3
+      },
+      "total_covered_area": 2216.64,
+      "zones": [
+        {
+          "room": "BEDROOM (کمرہ)",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "KITCHEN (کچن)",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "BEDROOM (کمرہ)",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "BEDROOM (کمرہ)",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "PARKING (پارکنگ)",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "3_a1f70a4d3a348ad2518588da4f8a7c2d",
+      "tier": "needs_review",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (111.2% > 105%)"
+      ],
+      "image_path": "3/a1f70a4d3a348ad2518588da4f8a7c2d.jpg",
+      "penalty_flag": true,
+      "plot_width": 30.0,
+      "plot_depth": 50.0,
+      "plot_area_sqft": 1500.0,
+      "aspect_ratio": 1.67,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 6.67,
+      "marla_272": 5.51,
+      "plot_class": "7_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 4,
+        "bathroom": 0,
+        "kitchen": 1,
+        "lounge": 2,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 1,
+        "other": 3
+      },
+      "total_covered_area": 1344.96,
+      "zones": [
+        {
+          "room": "W.ROOM.",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM.",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "W.ROOM.",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "KITCHEN.",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "PORCH",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "3_a2bf463f5ad9b218fc386818caa84b43",
+      "tier": "needs_review",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (116.6% > 105%)"
+      ],
+      "image_path": "3/a2bf463f5ad9b218fc386818caa84b43.jpg",
+      "penalty_flag": true,
+      "plot_width": 30.0,
+      "plot_depth": 60.0,
+      "plot_area_sqft": 1800.0,
+      "aspect_ratio": 2.0,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 8.0,
+      "marla_272": 6.61,
+      "plot_class": "7_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 2,
+        "kitchen": 1,
+        "lounge": 2,
+        "drawing": 0,
+        "dining": 1,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 1,
+        "other": 2
+      },
+      "total_covered_area": 1538.0,
+      "zones": [
+        {
+          "room": "BEDROOM 2",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "LARGE MASTER BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BEDROOM 3",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "MODULAR KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "DINING AREA",
+          "canonical_type": "dining",
+          "y_zone": "middle",
+          "x_zone": "right"
+        },
+        {
+          "room": "CAR PARKING",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "3_a734308e08a45e436e2e52be7709bd4a",
+      "tier": "needs_review",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "missing_kitchen",
+        "high_envelope_coverage (159.3% > 105%)"
+      ],
+      "image_path": "3/a734308e08a45e436e2e52be7709bd4a.jpg",
+      "penalty_flag": true,
+      "plot_width": 20.0,
+      "plot_depth": 40.0,
+      "plot_area_sqft": 800.0,
+      "aspect_ratio": 2.0,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 3.56,
+      "marla_272": 2.94,
+      "plot_class": "3_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 2,
+        "bathroom": 2,
+        "kitchen": 0,
+        "lounge": 1,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 0,
+        "other": 3
+      },
+      "total_covered_area": 871.38,
+      "zones": [
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "PORCH",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "DRAWING ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "3_ad2a6e1615603f20ba396a477186bad5",
+      "tier": "tier_B",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (123.3% > 105%)"
+      ],
+      "image_path": "3/ad2a6e1615603f20ba396a477186bad5.jpg",
+      "penalty_flag": false,
+      "plot_width": null,
+      "plot_depth": null,
+      "plot_area_sqft": null,
+      "aspect_ratio": null,
+      "plot_source": "estimated_from_covered_area",
+      "marla_estimated": true,
+      "marla_225": 9.29,
+      "marla_272": 7.68,
+      "plot_class": "estimated_10_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 2,
+        "kitchen": 2,
+        "lounge": 2,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 1,
+        "lawn": 1,
+        "other": 6
+      },
+      "total_covered_area": 2378.12,
+      "zones": [
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "RA-KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "DRAWING ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "PORCH",
+          "canonical_type": "porch",
+          "y_zone": "back",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "3_d4dbb158482db8ad4fc08fbbb2d72a12",
+      "tier": "needs_review",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": true,
+      "usability_reasons": [],
+      "image_path": "3/d4dbb158482db8ad4fc08fbbb2d72a12.jpg",
+      "penalty_flag": true,
+      "plot_width": null,
+      "plot_depth": null,
+      "plot_area_sqft": null,
+      "aspect_ratio": null,
+      "plot_source": "estimated_from_covered_area",
+      "marla_estimated": true,
+      "marla_225": 0.0,
+      "marla_272": 0.0,
+      "plot_class": "estimated_3_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 5,
+        "bathroom": 2,
+        "kitchen": 2,
+        "lounge": 1,
+        "drawing": 0,
+        "dining": 1,
+        "porch": 0,
+        "servant": 0,
+        "store": 1,
+        "stair": 0,
+        "lawn": 0,
+        "other": 1
+      },
+      "total_covered_area": 1486.0,
+      "zones": [
+        {
+          "room": "kitchen verandah",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "kitchen",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "dining",
+          "canonical_type": "dining",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "bed room 2",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "bed room 1",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "sitting room",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "master bed room",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "change room",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "3_download (1)",
+      "tier": "tier_A",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (125.0% > 105%)"
+      ],
+      "image_path": "3/download (1).png",
+      "penalty_flag": false,
+      "plot_width": 25.0,
+      "plot_depth": 40.0,
+      "plot_area_sqft": 1000.0,
+      "aspect_ratio": 1.6,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 4.44,
+      "marla_272": 3.67,
+      "plot_class": "5_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 2,
+        "kitchen": 1,
+        "lounge": 1,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 1,
+        "lawn": 0,
+        "other": 0
+      },
+      "total_covered_area": 867.19,
+      "zones": [
+        {
+          "room": "Bedroom",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "Bedroom",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "Bedroom",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "Kitchen",
+          "canonical_type": "kitchen",
+          "y_zone": "front",
+          "x_zone": "left"
+        },
+        {
+          "room": "Porch",
+          "canonical_type": "porch",
+          "y_zone": "front",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "3_f341cfff2eebc088be8396c794b7b1cf",
+      "tier": "needs_review",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (151.1% > 105%)"
+      ],
+      "image_path": "3/f341cfff2eebc088be8396c794b7b1cf.jpg",
+      "penalty_flag": true,
+      "plot_width": 25.0,
+      "plot_depth": 45.0,
+      "plot_area_sqft": 1125.0,
+      "aspect_ratio": 1.8,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 5.0,
+      "marla_272": 4.13,
+      "plot_class": "5_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 3,
+        "kitchen": 1,
+        "lounge": 1,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 0,
+        "other": 1
+      },
+      "total_covered_area": 1157.0,
+      "zones": [
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "CAR PORCH",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "DRAWING ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "3_f8f76de3c2ab3ab18fb1b32c341d7d42",
+      "tier": "tier_B",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": true,
+      "usability_reasons": [],
+      "image_path": "3/f8f76de3c2ab3ab18fb1b32c341d7d42.jpg",
+      "penalty_flag": false,
+      "plot_width": null,
+      "plot_depth": null,
+      "plot_area_sqft": null,
+      "aspect_ratio": null,
+      "plot_source": "estimated_from_covered_area",
+      "marla_estimated": true,
+      "marla_225": 5.03,
+      "marla_272": 4.15,
+      "plot_class": "estimated_5_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 3,
+        "kitchen": 1,
+        "lounge": 1,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 1,
+        "lawn": 0,
+        "other": 1
+      },
+      "total_covered_area": 1195.19,
+      "zones": [
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "DRAWING ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "PORCH",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "5_195e61769696aa144d1388a68ef92cc9",
+      "tier": "needs_review",
+      "origin": "possible_foreign",
+      "origin_triggers": [
+        "pooja_puja: ['POOJA', 'pooja']"
+      ],
+      "layout_usable": true,
+      "usability_reasons": [],
+      "image_path": "5/195e61769696aa144d1388a68ef92cc9.jpg",
+      "penalty_flag": true,
+      "plot_width": 50.0,
+      "plot_depth": 66.0,
+      "plot_area_sqft": 3300.0,
+      "aspect_ratio": 1.32,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 14.67,
+      "marla_272": 12.12,
+      "plot_class": "20_marla",
+      "floor_count": 2,
+      "floor_role": "multi",
+      "floors_source": "composite_sheet",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 0,
+        "kitchen": 1,
+        "lounge": 2,
+        "drawing": 0,
+        "dining": 1,
+        "porch": 1,
+        "servant": 0,
+        "store": 1,
+        "stair": 1,
+        "lawn": 1,
+        "other": 9
+      },
+      "total_covered_area": 1914.38,
+      "zones": [
+        {
+          "room": "BEDROOM 1",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BEDROOM 2",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "DINING",
+          "canonical_type": "dining",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "STUDY ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "PARKING",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "5_20fdc637f61dfa36c54e249634e14d0b",
+      "tier": "needs_review",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "low_envelope_coverage (68.7% < 70%)"
+      ],
+      "image_path": "5/20fdc637f61dfa36c54e249634e14d0b.jpg",
+      "penalty_flag": true,
+      "plot_width": 35.0,
+      "plot_depth": 65.0,
+      "plot_area_sqft": 2275.0,
+      "aspect_ratio": 1.86,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 10.11,
+      "marla_272": 8.36,
+      "plot_class": "10_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 2,
+        "bathroom": 2,
+        "kitchen": 1,
+        "lounge": 3,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 0,
+        "servant": 0,
+        "store": 1,
+        "stair": 0,
+        "lawn": 0,
+        "other": 4
+      },
+      "total_covered_area": 1324.0,
+      "zones": [
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "5_2ea42ee155c5b71b0b4b676ac963c7fb",
+      "tier": "tier_A",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (131.6% > 105%)"
+      ],
+      "image_path": "5/2ea42ee155c5b71b0b4b676ac963c7fb.jpg",
+      "penalty_flag": false,
+      "plot_width": 25.5,
+      "plot_depth": 43.0625,
+      "plot_area_sqft": 1098.09375,
+      "aspect_ratio": 1.69,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 4.88,
+      "marla_272": 4.03,
+      "plot_class": "5_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 3,
+        "kitchen": 1,
+        "lounge": 2,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 0,
+        "other": 0
+      },
+      "total_covered_area": 949.06,
+      "zones": [
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "PORCH",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "DRAWING ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "5_47ba31eeaca9848298775f65d6fa234f",
+      "tier": "needs_review",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": true,
+      "usability_reasons": [],
+      "image_path": "5/47ba31eeaca9848298775f65d6fa234f.jpg",
+      "penalty_flag": true,
+      "plot_width": null,
+      "plot_depth": null,
+      "plot_area_sqft": null,
+      "aspect_ratio": null,
+      "plot_source": "estimated_from_covered_area",
+      "marla_estimated": true,
+      "marla_225": 0.0,
+      "marla_272": 0.0,
+      "plot_class": "estimated_3_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 4,
+        "bathroom": 3,
+        "kitchen": 1,
+        "lounge": 1,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 2,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 0,
+        "other": 3
+      },
+      "total_covered_area": 1633.0,
+      "zones": [
+        {
+          "room": "Guest Room",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "Bedroom 1",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "Master Bedroom",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "Kitchen & Dining",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "Front Porch",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "Double Garage",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "5_4e23a185bf796b4cb5f666f1fe51793b",
+      "tier": "tier_A",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": true,
+      "usability_reasons": [],
+      "image_path": "5/4e23a185bf796b4cb5f666f1fe51793b.jpg",
+      "penalty_flag": false,
+      "plot_width": 50.0,
+      "plot_depth": 90.0,
+      "plot_area_sqft": 4500.0,
+      "aspect_ratio": 1.8,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 20.0,
+      "marla_272": 16.53,
+      "plot_class": "20_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 5,
+        "bathroom": 2,
+        "kitchen": 2,
+        "lounge": 1,
+        "drawing": 0,
+        "dining": 1,
+        "porch": 1,
+        "servant": 0,
+        "store": 1,
+        "stair": 1,
+        "lawn": 1,
+        "other": 2
+      },
+      "total_covered_area": 2481.77,
+      "zones": [
+        {
+          "room": "LIVING ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BREAKFAST",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "S.KIT",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "DRAWING ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "DINING",
+          "canonical_type": "dining",
+          "y_zone": "middle",
+          "x_zone": "right"
+        },
+        {
+          "room": "PORCH",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "5_56307c4b63202b4e854b8a8798eede62",
+      "tier": "tier_A",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": true,
+      "usability_reasons": [],
+      "image_path": "5/56307c4b63202b4e854b8a8798eede62.jpg",
+      "penalty_flag": false,
+      "plot_width": 50.0,
+      "plot_depth": 90.0,
+      "plot_area_sqft": 4500.0,
+      "aspect_ratio": 1.8,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 20.0,
+      "marla_272": 16.53,
+      "plot_class": "20_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 2,
+        "bathroom": 2,
+        "kitchen": 1,
+        "lounge": 3,
+        "drawing": 0,
+        "dining": 1,
+        "porch": 1,
+        "servant": 0,
+        "store": 1,
+        "stair": 1,
+        "lawn": 1,
+        "other": 5
+      },
+      "total_covered_area": 2622.11,
+      "zones": [
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "DINING",
+          "canonical_type": "dining",
+          "y_zone": "middle",
+          "x_zone": "right"
+        },
+        {
+          "room": "PORCH",
+          "canonical_type": "porch",
+          "y_zone": "front",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "5_56734469ec2d1b6642d46f696542f158 (1)",
+      "tier": "tier_B",
+      "origin": "non_pakistan",
+      "origin_triggers": [
+        "indian_cities_regions: ['MOINABAD']"
+      ],
+      "layout_usable": false,
+      "usability_reasons": [
+        "missing_living_lounge",
+        "missing_kitchen",
+        "high_envelope_coverage (118.8% > 105%)"
+      ],
+      "image_path": "5/56734469ec2d1b6642d46f696542f158 (1).jpg",
+      "penalty_flag": false,
+      "plot_width": null,
+      "plot_depth": null,
+      "plot_area_sqft": null,
+      "aspect_ratio": null,
+      "plot_source": "printed",
+      "marla_estimated": false,
+      "marla_225": 15.8,
+      "marla_272": 13.06,
+      "plot_class": "15_marla",
+      "floor_count": 2,
+      "floor_role": "first",
+      "floors_source": "title_and_stair",
+      "counts": {
+        "bedroom": 4,
+        "bathroom": 4,
+        "kitchen": 0,
+        "lounge": 0,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 0,
+        "servant": 0,
+        "store": 0,
+        "stair": 1,
+        "lawn": 0,
+        "other": 11
+      },
+      "total_covered_area": 2437.1,
+      "zones": [
+        {
+          "room": "M.BEDROOM-4",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "M.BEDROOM-5",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "M.BEDROOM-3",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "M.BEDROOM-6",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "5_5d2a41d1f18ef4aabe419ffdd8443c8c",
+      "tier": "needs_review",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "low_envelope_coverage (55.5% < 70%)"
+      ],
+      "image_path": "5/5d2a41d1f18ef4aabe419ffdd8443c8c.jpg",
+      "penalty_flag": true,
+      "plot_width": null,
+      "plot_depth": null,
+      "plot_area_sqft": null,
+      "aspect_ratio": null,
+      "plot_source": "estimated_from_covered_area",
+      "marla_estimated": true,
+      "marla_225": 1.9,
+      "marla_272": 1.57,
+      "plot_class": "estimated_3_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 2,
+        "bathroom": 2,
+        "kitchen": 1,
+        "lounge": 1,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 0,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 0,
+        "other": 2
+      },
+      "total_covered_area": 780.44,
+      "zones": [
+        {
+          "room": "BED",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "BED",
+          "canonical_type": "bedroom",
+          "y_zone": "front",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "5_6389b9829fd3b6095ea57e5e526f724d",
+      "tier": "tier_B",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": true,
+      "usability_reasons": [],
+      "image_path": "5/6389b9829fd3b6095ea57e5e526f724d.jpg",
+      "penalty_flag": false,
+      "plot_width": null,
+      "plot_depth": null,
+      "plot_area_sqft": null,
+      "aspect_ratio": null,
+      "plot_source": "estimated_from_covered_area",
+      "marla_estimated": true,
+      "marla_225": 7.92,
+      "marla_272": 6.55,
+      "plot_class": "estimated_7_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 4,
+        "kitchen": 1,
+        "lounge": 1,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 2,
+        "lawn": 1,
+        "other": 2
+      },
+      "total_covered_area": 1782.19,
+      "zones": [
+        {
+          "room": "BEDROOM-01",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BEDROOM-02",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "PARKING+ENTRANCE",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "GUEST ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "5_68811eb3e4fb65ca97fdbeec5b8a27fe",
+      "tier": "tier_A",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": true,
+      "usability_reasons": [],
+      "image_path": "5/68811eb3e4fb65ca97fdbeec5b8a27fe.jpg",
+      "penalty_flag": false,
+      "plot_width": 25.0,
+      "plot_depth": 50.0,
+      "plot_area_sqft": 1250.0,
+      "aspect_ratio": 2.0,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 5.56,
+      "marla_272": 4.59,
+      "plot_class": "5_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 2,
+        "bathroom": 3,
+        "kitchen": 1,
+        "lounge": 2,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 0,
+        "other": 1
+      },
+      "total_covered_area": 1006.25,
+      "zones": [
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "PORCH",
+          "canonical_type": "porch",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "5_9a134d49d66ca4a4d3c5aa4df027957f",
+      "tier": "tier_A",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": true,
+      "usability_reasons": [],
+      "image_path": "5/9a134d49d66ca4a4d3c5aa4df027957f.jpg",
+      "penalty_flag": false,
+      "plot_width": 33.667,
+      "plot_depth": 51.375,
+      "plot_area_sqft": 1729.642125,
+      "aspect_ratio": 1.53,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 7.69,
+      "marla_272": 6.35,
+      "plot_class": "7_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 4,
+        "kitchen": 1,
+        "lounge": 2,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 0,
+        "other": 2
+      },
+      "total_covered_area": 1512.66,
+      "zones": [
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "CAR PORCH",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "5_9ad5d0e23666bfb681998b5f8e9e1f7d",
+      "tier": "tier_A",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": true,
+      "usability_reasons": [],
+      "image_path": "5/9ad5d0e23666bfb681998b5f8e9e1f7d.jpg",
+      "penalty_flag": false,
+      "plot_width": 40.0,
+      "plot_depth": 80.0,
+      "plot_area_sqft": 3200.0,
+      "aspect_ratio": 2.0,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 14.22,
+      "marla_272": 11.75,
+      "plot_class": "20_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 5,
+        "bathroom": 2,
+        "kitchen": 2,
+        "lounge": 2,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 1,
+        "lawn": 2,
+        "other": 5
+      },
+      "total_covered_area": 2541.66,
+      "zones": [
+        {
+          "room": "DIRTY KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED-02",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "KITCHEN-01",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "STUDY ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "BED-01",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "PORCH",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "DRAWING ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "right"
+        },
+        {
+          "room": "DINING ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "5_a07abad857205eee632c9dc62578b518",
+      "tier": "needs_review",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (189.8% > 105%)"
+      ],
+      "image_path": "5/a07abad857205eee632c9dc62578b518.jpg",
+      "penalty_flag": true,
+      "plot_width": 36.0,
+      "plot_depth": 60.0,
+      "plot_area_sqft": 2160.0,
+      "aspect_ratio": 1.67,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 9.6,
+      "marla_272": 7.93,
+      "plot_class": "10_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 5,
+        "bathroom": 4,
+        "kitchen": 1,
+        "lounge": 1,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 0,
+        "other": 4
+      },
+      "total_covered_area": 3937.02,
+      "zones": [
+        {
+          "room": "Bed Room-02",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "Bed room-03",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "Kitchen",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "Bedroom-01",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "Living Room/Lounge",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "Drawing Room",
+          "canonical_type": "bedroom",
+          "y_zone": "front",
+          "x_zone": "left"
+        },
+        {
+          "room": "CAR PORCH",
+          "canonical_type": "porch",
+          "y_zone": "front",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "5_a40831320a67bd584783e08e8cab540c",
+      "tier": "needs_review",
+      "origin": "possible_foreign",
+      "origin_triggers": [
+        "foreign_metric: ['m²']"
+      ],
+      "layout_usable": true,
+      "usability_reasons": [],
+      "image_path": "5/a40831320a67bd584783e08e8cab540c.jpg",
+      "penalty_flag": true,
+      "plot_width": null,
+      "plot_depth": null,
+      "plot_area_sqft": null,
+      "aspect_ratio": null,
+      "plot_source": "estimated_from_covered_area",
+      "marla_estimated": true,
+      "marla_225": 0.0,
+      "marla_272": 0.0,
+      "plot_class": "estimated_3_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 2,
+        "kitchen": 1,
+        "lounge": 4,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 0,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 0,
+        "other": 0
+      },
+      "total_covered_area": 1550.0,
+      "zones": [
+        {
+          "room": "Bed Room 1",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "Bed room 2",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "Bed room 3",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "Kitchen",
+          "canonical_type": "kitchen",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "5_aa9c5eee83ff1531817b84397713a47d",
+      "tier": "needs_review",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": true,
+      "usability_reasons": [],
+      "image_path": "5/aa9c5eee83ff1531817b84397713a47d.jpg",
+      "penalty_flag": true,
+      "plot_width": 35.0,
+      "plot_depth": 65.0,
+      "plot_area_sqft": 2275.0,
+      "aspect_ratio": 1.86,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 10.11,
+      "marla_272": 8.36,
+      "plot_class": "10_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 2,
+        "kitchen": 1,
+        "lounge": 2,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 1,
+        "other": 4
+      },
+      "total_covered_area": 1602.0,
+      "zones": [
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "CAR PORCH",
+          "canonical_type": "porch",
+          "y_zone": "front",
+          "x_zone": "left"
+        },
+        {
+          "room": "DRAWING ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "front",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "5_ade450ae46b9d04bd9e7f292893d47a6",
+      "tier": "tier_A",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": true,
+      "usability_reasons": [],
+      "image_path": "5/ade450ae46b9d04bd9e7f292893d47a6.jpg",
+      "penalty_flag": false,
+      "plot_width": 50.0,
+      "plot_depth": 90.0,
+      "plot_area_sqft": 4500.0,
+      "aspect_ratio": 1.8,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 20.0,
+      "marla_272": 16.53,
+      "plot_class": "20_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 2,
+        "bathroom": 2,
+        "kitchen": 2,
+        "lounge": 3,
+        "drawing": 0,
+        "dining": 1,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 0,
+        "other": 5
+      },
+      "total_covered_area": 2459.5,
+      "zones": [
+        {
+          "room": "G.KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "DINING",
+          "canonical_type": "dining",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "PORCH",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "5_adec1a346b99ba2096ee670abeaace78",
+      "tier": "needs_review",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": true,
+      "usability_reasons": [],
+      "image_path": "5/adec1a346b99ba2096ee670abeaace78.jpg",
+      "penalty_flag": true,
+      "plot_width": 35.0,
+      "plot_depth": 64.0,
+      "plot_area_sqft": 2240.0,
+      "aspect_ratio": 1.83,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 9.96,
+      "marla_272": 8.23,
+      "plot_class": "10_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 2,
+        "kitchen": 1,
+        "lounge": 2,
+        "drawing": 0,
+        "dining": 1,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 1,
+        "other": 1
+      },
+      "total_covered_area": 1474.0,
+      "zones": [
+        {
+          "room": "BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "DINING",
+          "canonical_type": "dining",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "DRAWING ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "right"
+        },
+        {
+          "room": "PORCH",
+          "canonical_type": "porch",
+          "y_zone": "front",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "5_c718ae280899447757c8e9c2aad42095",
+      "tier": "tier_B",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (109.2% > 105%)"
+      ],
+      "image_path": "5/c718ae280899447757c8e9c2aad42095.jpg",
+      "penalty_flag": false,
+      "plot_width": null,
+      "plot_depth": null,
+      "plot_area_sqft": null,
+      "aspect_ratio": null,
+      "plot_source": "estimated_from_covered_area",
+      "marla_estimated": true,
+      "marla_225": 5.14,
+      "marla_272": 4.24,
+      "plot_class": "estimated_5_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 2,
+        "bathroom": 2,
+        "kitchen": 1,
+        "lounge": 3,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 0,
+        "other": 2
+      },
+      "total_covered_area": 1507.59,
+      "zones": [
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "PORCH",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "5_cd8718dddd2ed15d1c334f1663577d4f",
+      "tier": "tier_B",
+      "origin": "possible_foreign",
+      "origin_triggers": [
+        "pooja_puja: ['PUJA', 'pooja']"
+      ],
+      "layout_usable": true,
+      "usability_reasons": [],
+      "image_path": "5/cd8718dddd2ed15d1c334f1663577d4f.jpg",
+      "penalty_flag": false,
+      "plot_width": null,
+      "plot_depth": null,
+      "plot_area_sqft": null,
+      "aspect_ratio": null,
+      "plot_source": "estimated_from_covered_area",
+      "marla_estimated": true,
+      "marla_225": 6.88,
+      "marla_272": 5.69,
+      "plot_class": "estimated_7_marla",
+      "floor_count": 2,
+      "floor_role": "multi",
+      "floors_source": "composite_sheet",
+      "counts": {
+        "bedroom": 4,
+        "bathroom": 2,
+        "kitchen": 1,
+        "lounge": 1,
+        "drawing": 0,
+        "dining": 1,
+        "porch": 0,
+        "servant": 0,
+        "store": 0,
+        "stair": 1,
+        "lawn": 0,
+        "other": 7
+      },
+      "total_covered_area": 1676.81,
+      "zones": [
+        {
+          "room": "M.BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "DINING",
+          "canonical_type": "dining",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "DRG. ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "5_d14d42fc06343f35ab940e9ee05dc9f4",
+      "tier": "tier_A",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (123.3% > 105%)"
+      ],
+      "image_path": "5/d14d42fc06343f35ab940e9ee05dc9f4.jpg",
+      "penalty_flag": false,
+      "plot_width": 37.0,
+      "plot_depth": 34.5,
+      "plot_area_sqft": 1276.5,
+      "aspect_ratio": 0.93,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 5.67,
+      "marla_272": 4.69,
+      "plot_class": "5_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 4,
+        "bathroom": 3,
+        "kitchen": 1,
+        "lounge": 1,
+        "drawing": 0,
+        "dining": 1,
+        "porch": 0,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 0,
+        "other": 1
+      },
+      "total_covered_area": 1134.37,
+      "zones": [
+        {
+          "room": "BED-3",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "DINING",
+          "canonical_type": "dining",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "PRAYER ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "BED-1",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED-2",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "5_d2de957ad48c7984e1575cedde4013d4",
+      "tier": "tier_A",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (115.1% > 105%)"
+      ],
+      "image_path": "5/d2de957ad48c7984e1575cedde4013d4.jpg",
+      "penalty_flag": false,
+      "plot_width": 40.0,
+      "plot_depth": 70.0,
+      "plot_area_sqft": 2800.0,
+      "aspect_ratio": 1.75,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 12.44,
+      "marla_272": 10.28,
+      "plot_class": "10_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 3,
+        "kitchen": 2,
+        "lounge": 3,
+        "drawing": 0,
+        "dining": 1,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 1,
+        "lawn": 0,
+        "other": 6
+      },
+      "total_covered_area": 2443.06,
+      "zones": [
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED LOBBY",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "RAW.KIT",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "CAR PORCH",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "DINING",
+          "canonical_type": "dining",
+          "y_zone": "middle",
+          "x_zone": "right"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "5_dd45a2887797efa0627282b44f07bae8",
+      "tier": "needs_review",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": true,
+      "usability_reasons": [],
+      "image_path": "5/dd45a2887797efa0627282b44f07bae8.jpg",
+      "penalty_flag": true,
+      "plot_width": null,
+      "plot_depth": null,
+      "plot_area_sqft": null,
+      "aspect_ratio": null,
+      "plot_source": "estimated_from_covered_area",
+      "marla_estimated": true,
+      "marla_225": 0.0,
+      "marla_272": 0.0,
+      "plot_class": "estimated_3_marla",
+      "floor_count": 2,
+      "floor_role": "multi",
+      "floors_source": "composite_sheet",
+      "counts": {
+        "bedroom": 2,
+        "bathroom": 3,
+        "kitchen": 1,
+        "lounge": 1,
+        "drawing": 0,
+        "dining": 1,
+        "porch": 0,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 0,
+        "other": 7
+      },
+      "total_covered_area": 1257.0,
+      "zones": [
+        {
+          "room": "CLOSED KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "DINING",
+          "canonical_type": "dining",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "5_e4194c2f147c2b8da18c80580298530d",
+      "tier": "tier_A",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": true,
+      "usability_reasons": [],
+      "image_path": "5/e4194c2f147c2b8da18c80580298530d.jpg",
+      "penalty_flag": false,
+      "plot_width": 50.0,
+      "plot_depth": 90.0,
+      "plot_area_sqft": 4500.0,
+      "aspect_ratio": 1.8,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 20.0,
+      "marla_272": 16.53,
+      "plot_class": "20_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 3,
+        "kitchen": 1,
+        "lounge": 3,
+        "drawing": 0,
+        "dining": 1,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 1,
+        "lawn": 1,
+        "other": 2
+      },
+      "total_covered_area": 3229.3,
+      "zones": [
+        {
+          "room": "Guest Bed",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "Bed",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "Bed",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "Kitchen",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "In Formal Dining",
+          "canonical_type": "dining",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "Porch",
+          "canonical_type": "porch",
+          "y_zone": "back",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "7_0162fa659d7392157fc0854ef058f419",
+      "tier": "tier_A",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (211.3% > 105%)"
+      ],
+      "image_path": "7/0162fa659d7392157fc0854ef058f419.jpg",
+      "penalty_flag": false,
+      "plot_width": 20.0,
+      "plot_depth": 50.0,
+      "plot_area_sqft": 1000.0,
+      "aspect_ratio": 2.5,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 4.44,
+      "marla_272": 3.67,
+      "plot_class": "5_marla",
+      "floor_count": 2,
+      "floor_role": "multi",
+      "floors_source": "composite_sheet",
+      "counts": {
+        "bedroom": 6,
+        "bathroom": 4,
+        "kitchen": 2,
+        "lounge": 2,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 2,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 0,
+        "other": 2
+      },
+      "total_covered_area": 1608.65,
+      "zones": [
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "PARKING",
+          "canonical_type": "porch",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "PARKING",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "7_01d47a008ad8498cf8bc3f78cfc87765",
+      "tier": "needs_review",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": true,
+      "usability_reasons": [],
+      "image_path": "7/01d47a008ad8498cf8bc3f78cfc87765.jpg",
+      "penalty_flag": true,
+      "plot_width": 40.0,
+      "plot_depth": 70.0,
+      "plot_area_sqft": 2800.0,
+      "aspect_ratio": 1.75,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 12.44,
+      "marla_272": 10.28,
+      "plot_class": "10_marla",
+      "floor_count": 2,
+      "floor_role": "multi",
+      "floors_source": "composite_sheet",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 4,
+        "kitchen": 1,
+        "lounge": 1,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 0,
+        "servant": 0,
+        "store": 0,
+        "stair": 1,
+        "lawn": 0,
+        "other": 7
+      },
+      "total_covered_area": 1940.0,
+      "zones": [
+        {
+          "room": "بیڈروم",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "بیڈروم",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "بیڈروم",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "کچن",
+          "canonical_type": "kitchen",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "7_04e5b61da28ac80c0551ecece7813618",
+      "tier": "tier_A",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (113.3% > 105%)"
+      ],
+      "image_path": "7/04e5b61da28ac80c0551ecece7813618.jpg",
+      "penalty_flag": false,
+      "plot_width": 25.0,
+      "plot_depth": 50.0,
+      "plot_area_sqft": 1250.0,
+      "aspect_ratio": 2.0,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 5.56,
+      "marla_272": 4.59,
+      "plot_class": "5_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 2,
+        "bathroom": 3,
+        "kitchen": 1,
+        "lounge": 2,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 0,
+        "other": 2
+      },
+      "total_covered_area": 1040.0,
+      "zones": [
+        {
+          "room": "Bed Room",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "Bed Room",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "Kitchen",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "Porch",
+          "canonical_type": "porch",
+          "y_zone": "front",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "7_06039b29355a1a549fa1df3ae4853bbb",
+      "tier": "needs_review",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": true,
+      "usability_reasons": [],
+      "image_path": "7/06039b29355a1a549fa1df3ae4853bbb.jpg",
+      "penalty_flag": true,
+      "plot_width": null,
+      "plot_depth": null,
+      "plot_area_sqft": null,
+      "aspect_ratio": null,
+      "plot_source": "estimated_from_covered_area",
+      "marla_estimated": true,
+      "marla_225": 0.0,
+      "marla_272": 0.0,
+      "plot_class": "estimated_3_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 4,
+        "bathroom": 3,
+        "kitchen": 1,
+        "lounge": 1,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 1,
+        "stair": 0,
+        "lawn": 2,
+        "other": 2
+      },
+      "total_covered_area": 1581.0,
+      "zones": [
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "GUEST BED",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "PORCH",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "right"
+        },
+        {
+          "room": "DRG.ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "7_0f6eee7a69348cc86e2a304bb945cef6",
+      "tier": "tier_B",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (122.3% > 105%)"
+      ],
+      "image_path": "7/0f6eee7a69348cc86e2a304bb945cef6.jpg",
+      "penalty_flag": false,
+      "plot_width": null,
+      "plot_depth": null,
+      "plot_area_sqft": null,
+      "aspect_ratio": null,
+      "plot_source": "estimated_from_covered_area",
+      "marla_estimated": true,
+      "marla_225": 8.9,
+      "marla_272": 7.35,
+      "plot_class": "estimated_10_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 3,
+        "kitchen": 1,
+        "lounge": 3,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 1,
+        "lawn": 0,
+        "other": 1
+      },
+      "total_covered_area": 2290.0,
+      "zones": [
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "PORCH",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "7_1652325a12a334043c1915e179d0c968",
+      "tier": "needs_review",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (230.2% > 105%)"
+      ],
+      "image_path": "7/1652325a12a334043c1915e179d0c968.jpg",
+      "penalty_flag": true,
+      "plot_width": 20.0,
+      "plot_depth": 50.0,
+      "plot_area_sqft": 1000.0,
+      "aspect_ratio": 2.5,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 4.44,
+      "marla_272": 3.67,
+      "plot_class": "5_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 4,
+        "bathroom": 5,
+        "kitchen": 1,
+        "lounge": 2,
+        "drawing": 0,
+        "dining": 1,
+        "porch": 1,
+        "servant": 0,
+        "store": 1,
+        "stair": 0,
+        "lawn": 0,
+        "other": 5
+      },
+      "total_covered_area": 1825.36,
+      "zones": [
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "DINING",
+          "canonical_type": "dining",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "PORCH",
+          "canonical_type": "porch",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "7_169f889d2765aec7024fdea981049482",
+      "tier": "needs_review",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (107.5% > 105%)"
+      ],
+      "image_path": "7/169f889d2765aec7024fdea981049482.jpg",
+      "penalty_flag": true,
+      "plot_width": 41.0,
+      "plot_depth": 75.0,
+      "plot_area_sqft": 3075.0,
+      "aspect_ratio": 1.83,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 13.67,
+      "marla_272": 11.29,
+      "plot_class": "20_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 2,
+        "bathroom": 2,
+        "kitchen": 2,
+        "lounge": 3,
+        "drawing": 0,
+        "dining": 1,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 1,
+        "lawn": 1,
+        "other": 3
+      },
+      "total_covered_area": 1943.95,
+      "zones": [
+        {
+          "room": "D.KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "BED",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "DINING",
+          "canonical_type": "dining",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "PORCH",
+          "canonical_type": "porch",
+          "y_zone": "front",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "7_1bde12fea7ccdd1c38649c9f82617c6e",
+      "tier": "tier_B",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": true,
+      "usability_reasons": [],
+      "image_path": "7/1bde12fea7ccdd1c38649c9f82617c6e.jpg",
+      "penalty_flag": false,
+      "plot_width": null,
+      "plot_depth": null,
+      "plot_area_sqft": null,
+      "aspect_ratio": null,
+      "plot_source": "estimated_from_covered_area",
+      "marla_estimated": true,
+      "marla_225": 10.17,
+      "marla_272": 8.41,
+      "plot_class": "estimated_10_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 5,
+        "bathroom": 3,
+        "kitchen": 1,
+        "lounge": 4,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 1,
+        "other": 4
+      },
+      "total_covered_area": 2288.44,
+      "zones": [
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "DRAWING ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "CAR PORCH",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "right"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "7_2074e5e187b96cabd2b602003ff5f003",
+      "tier": "tier_B",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "low_envelope_coverage (65.8% < 70%)"
+      ],
+      "image_path": "7/2074e5e187b96cabd2b602003ff5f003.jpg",
+      "penalty_flag": false,
+      "plot_width": null,
+      "plot_depth": null,
+      "plot_area_sqft": null,
+      "aspect_ratio": null,
+      "plot_source": "estimated_from_covered_area",
+      "marla_estimated": true,
+      "marla_225": 5.85,
+      "marla_272": 4.83,
+      "plot_class": "estimated_5_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 4,
+        "kitchen": 1,
+        "lounge": 3,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 1,
+        "lawn": 0,
+        "other": 4
+      },
+      "total_covered_area": 1444.25,
+      "zones": [
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "DRAWING ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "middle",
+          "x_zone": "right"
+        },
+        {
+          "room": "PORCH",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "7_2d1db9db5e5271b768a784c33616801f",
+      "tier": "tier_B",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (120.9% > 105%)"
+      ],
+      "image_path": "7/2d1db9db5e5271b768a784c33616801f.jpg",
+      "penalty_flag": false,
+      "plot_width": null,
+      "plot_depth": null,
+      "plot_area_sqft": null,
+      "aspect_ratio": null,
+      "plot_source": "estimated_from_covered_area",
+      "marla_estimated": true,
+      "marla_225": 8.18,
+      "marla_272": 6.76,
+      "plot_class": "estimated_7_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 2,
+        "bathroom": 2,
+        "kitchen": 1,
+        "lounge": 3,
+        "drawing": 0,
+        "dining": 1,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 1,
+        "lawn": 1,
+        "other": 7
+      },
+      "total_covered_area": 2319.55,
+      "zones": [
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "DINING",
+          "canonical_type": "dining",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "PORCH",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "7_4adaf5dd471e2914a49b147244bff661",
+      "tier": "tier_A",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (137.9% > 105%)"
+      ],
+      "image_path": "7/4adaf5dd471e2914a49b147244bff661.jpg",
+      "penalty_flag": false,
+      "plot_width": 29.0,
+      "plot_depth": 60.0,
+      "plot_area_sqft": 1740.0,
+      "aspect_ratio": 2.07,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 7.73,
+      "marla_272": 6.39,
+      "plot_class": "7_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 4,
+        "bathroom": 2,
+        "kitchen": 1,
+        "lounge": 1,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 1,
+        "other": 2
+      },
+      "total_covered_area": 1302.44,
+      "zones": [
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "DRW ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "middle",
+          "x_zone": "right"
+        },
+        {
+          "room": "PORCH",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "7_56914aab30d80afd41516cd57a990236",
+      "tier": "tier_A",
+      "origin": "possible_foreign",
+      "origin_triggers": [
+        "pooja_puja: ['POOJA', 'pooja']"
+      ],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (116.7% > 105%)"
+      ],
+      "image_path": "7/56914aab30d80afd41516cd57a990236.jpg",
+      "penalty_flag": false,
+      "plot_width": 30.0,
+      "plot_depth": 50.75,
+      "plot_area_sqft": 1522.5,
+      "aspect_ratio": 1.69,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 6.77,
+      "marla_272": 5.59,
+      "plot_class": "7_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 2,
+        "kitchen": 1,
+        "lounge": 1,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 1,
+        "stair": 0,
+        "lawn": 0,
+        "other": 3
+      },
+      "total_covered_area": 1304.39,
+      "zones": [
+        {
+          "room": "MASTER BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BEDROOM 2",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "DRAWING ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "PORCH",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "7_5a6db849f3f45afc72e07e51080c33d7",
+      "tier": "needs_review",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "insufficient_rooms (4 < 6)",
+        "missing_bedroom",
+        "missing_living_lounge"
+      ],
+      "image_path": "7/5a6db849f3f45afc72e07e51080c33d7.jpg",
+      "penalty_flag": true,
+      "plot_width": 32.79,
+      "plot_depth": 49.17,
+      "plot_area_sqft": 1612.2843,
+      "aspect_ratio": 1.5,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 7.17,
+      "marla_272": 5.92,
+      "plot_class": "7_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 0,
+        "bathroom": 2,
+        "kitchen": 1,
+        "lounge": 0,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 0,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 0,
+        "other": 1
+      },
+      "total_covered_area": 214.0,
+      "zones": [
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "middle",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "7_5f3dc234d56a2f170caf0322f06df811",
+      "tier": "tier_A",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (137.3% > 105%)"
+      ],
+      "image_path": "7/5f3dc234d56a2f170caf0322f06df811.jpg",
+      "penalty_flag": false,
+      "plot_width": 25.0,
+      "plot_depth": 45.0,
+      "plot_area_sqft": 1125.0,
+      "aspect_ratio": 1.8,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 5.0,
+      "marla_272": 4.13,
+      "plot_class": "5_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 1,
+        "bathroom": 1,
+        "kitchen": 1,
+        "lounge": 2,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 1,
+        "lawn": 1,
+        "other": 2
+      },
+      "total_covered_area": 971.95,
+      "zones": [
+        {
+          "room": "BED",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "PORCH",
+          "canonical_type": "porch",
+          "y_zone": "back",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "7_632be2433924088b61ed44d12c17ae7e",
+      "tier": "tier_A",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "missing_living_lounge",
+        "high_envelope_coverage (115.1% > 105%)"
+      ],
+      "image_path": "7/632be2433924088b61ed44d12c17ae7e.jpg",
+      "penalty_flag": false,
+      "plot_width": 24.0,
+      "plot_depth": 52.54,
+      "plot_area_sqft": 1260.96,
+      "aspect_ratio": 2.19,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 5.6,
+      "marla_272": 4.63,
+      "plot_class": "5_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 3,
+        "kitchen": 2,
+        "lounge": 0,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 1,
+        "lawn": 0,
+        "other": 2
+      },
+      "total_covered_area": 1100.7,
+      "zones": [
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "DRG.ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "front",
+          "x_zone": "left"
+        },
+        {
+          "room": "KIT-YARD",
+          "canonical_type": "kitchen",
+          "y_zone": "front",
+          "x_zone": "left"
+        },
+        {
+          "room": "PARKING",
+          "canonical_type": "porch",
+          "y_zone": "front",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "7_download",
+      "tier": "tier_A",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (130.1% > 105%)"
+      ],
+      "image_path": "7/download.png",
+      "penalty_flag": false,
+      "plot_width": 25.0,
+      "plot_depth": 50.0,
+      "plot_area_sqft": 1250.0,
+      "aspect_ratio": 2.0,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 5.56,
+      "marla_272": 4.59,
+      "plot_class": "5_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 2,
+        "kitchen": 1,
+        "lounge": 2,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 0,
+        "other": 3
+      },
+      "total_covered_area": 1119.06,
+      "zones": [
+        {
+          "room": "BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "M.BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "PORCH",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "M.BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "10_052da9368c90d89e449dc37055603d7d",
+      "tier": "tier_A",
+      "origin": "possible_foreign",
+      "origin_triggers": [
+        "pooja_puja: ['POOJA', 'pooja']"
+      ],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (111.6% > 105%)"
+      ],
+      "image_path": "10/052da9368c90d89e449dc37055603d7d.jpg",
+      "penalty_flag": false,
+      "plot_width": 30.0,
+      "plot_depth": 60.0,
+      "plot_area_sqft": 1800.0,
+      "aspect_ratio": 2.0,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 8.0,
+      "marla_272": 6.61,
+      "plot_class": "7_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 3,
+        "kitchen": 1,
+        "lounge": 1,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 1,
+        "stair": 0,
+        "lawn": 1,
+        "other": 3
+      },
+      "total_covered_area": 1397.66,
+      "zones": [
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "DRAWING ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "PORCH",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "10_2064f9dd00f728258227a1045629be8f",
+      "tier": "tier_B",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (118.2% > 105%)"
+      ],
+      "image_path": "10/2064f9dd00f728258227a1045629be8f.jpg",
+      "penalty_flag": false,
+      "plot_width": null,
+      "plot_depth": null,
+      "plot_area_sqft": null,
+      "aspect_ratio": null,
+      "plot_source": "estimated_from_covered_area",
+      "marla_estimated": true,
+      "marla_225": 9.87,
+      "marla_272": 8.16,
+      "plot_class": "estimated_10_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 4,
+        "kitchen": 1,
+        "lounge": 3,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 1,
+        "stair": 1,
+        "lawn": 0,
+        "other": 3
+      },
+      "total_covered_area": 2508.5,
+      "zones": [
+        {
+          "room": "BED",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "BED",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "CAR PORCH",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "middle",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "10_26814652a4c8ad2f8d9272f08663e823",
+      "tier": "tier_A",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (150.4% > 105%)"
+      ],
+      "image_path": "10/26814652a4c8ad2f8d9272f08663e823.jpg",
+      "penalty_flag": false,
+      "plot_width": 40.0,
+      "plot_depth": 70.0,
+      "plot_area_sqft": 2800.0,
+      "aspect_ratio": 1.75,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 12.44,
+      "marla_272": 10.28,
+      "plot_class": "10_marla",
+      "floor_count": 2,
+      "floor_role": "ground",
+      "floors_source": "stair",
+      "counts": {
+        "bedroom": 3,
+        "bathroom": 3,
+        "kitchen": 1,
+        "lounge": 3,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 1,
+        "stair": 1,
+        "lawn": 0,
+        "other": 4
+      },
+      "total_covered_area": 2508.5,
+      "zones": [
+        {
+          "room": "BED",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "right"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "CAR PORCH",
+          "canonical_type": "porch",
+          "y_zone": "middle",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "10_31f87a6a3109770522565fd7532e48b8",
+      "tier": "needs_review",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (168.0% > 105%)"
+      ],
+      "image_path": "10/31f87a6a3109770522565fd7532e48b8.jpg",
+      "penalty_flag": true,
+      "plot_width": 30.0,
+      "plot_depth": 50.0,
+      "plot_area_sqft": 1500.0,
+      "aspect_ratio": 1.67,
+      "plot_source": "printed",
+      "marla_estimated": false,
+      "marla_225": 6.67,
+      "marla_272": 5.51,
+      "plot_class": "7_marla",
+      "floor_count": 2,
+      "floor_role": "multi",
+      "floors_source": "composite_sheet",
+      "counts": {
+        "bedroom": 4,
+        "bathroom": 3,
+        "kitchen": 1,
+        "lounge": 2,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 0,
+        "servant": 0,
+        "store": 0,
+        "stair": 1,
+        "lawn": 0,
+        "other": 5
+      },
+      "total_covered_area": 1689.0,
+      "zones": [
+        {
+          "room": "MASTER BED - ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED - ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED - ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "BED - ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "back",
+          "x_zone": "left"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "middle",
+          "x_zone": "left"
+        }
+      ]
+    },
+    {
+      "plan_id": "elevationwithfloorplan_316c1ce21d3d16a6e7e828134413d7fb",
+      "tier": "tier_A",
+      "origin": "pakistan",
+      "origin_triggers": [],
+      "layout_usable": false,
+      "usability_reasons": [
+        "missing_living_lounge",
+        "high_envelope_coverage (265.8% > 105%)"
+      ],
+      "image_path": "elevationwithfloorplan/316c1ce21d3d16a6e7e828134413d7fb.jpg",
+      "penalty_flag": false,
+      "plot_width": 40.0,
+      "plot_depth": 50.0,
+      "plot_area_sqft": 2000.0,
+      "aspect_ratio": 1.25,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 8.89,
+      "marla_272": 7.35,
+      "plot_class": "10_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 7,
+        "bathroom": 4,
+        "kitchen": 1,
+        "lounge": 0,
+        "drawing": 0,
+        "dining": 1,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 1,
+        "other": 4
+      },
+      "total_covered_area": 2352.6,
+      "zones": [
+        {
+          "room": "DINING",
+          "canonical_type": "dining",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "MASTER BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "right"
+        },
+        {
+          "room": "BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "right"
+        },
+        {
+          "room": "GUEST ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "front",
+          "x_zone": "left"
+        },
+        {
+          "room": "LIVING ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "front",
+          "x_zone": "left"
+        },
+        {
+          "room": "PARKING",
+          "canonical_type": "porch",
+          "y_zone": "front",
+          "x_zone": "left"
+        },
+        {
+          "room": "GUEST ROOM-2",
+          "canonical_type": "bedroom",
+          "y_zone": "front",
+          "x_zone": "right"
+        },
+        {
+          "room": "GUEST ROOM-1",
+          "canonical_type": "bedroom",
+          "y_zone": "front",
+          "x_zone": "right"
+        }
+      ]
+    },
+    {
+      "plan_id": "elevationwithfloorplan_398c88649e95f9986aa61683971e1817",
+      "tier": "tier_A",
+      "origin": "possible_foreign",
+      "origin_triggers": [
+        "pooja_puja: ['PUJA', 'pooja']"
+      ],
+      "layout_usable": false,
+      "usability_reasons": [
+        "high_envelope_coverage (389.2% > 105%)"
+      ],
+      "image_path": "elevationwithfloorplan/398c88649e95f9986aa61683971e1817.jpg",
+      "penalty_flag": false,
+      "plot_width": 42.58,
+      "plot_depth": 52.42,
+      "plot_area_sqft": 2232.0436,
+      "aspect_ratio": 1.23,
+      "plot_source": "vision_margin",
+      "marla_estimated": false,
+      "marla_225": 9.92,
+      "marla_272": 8.2,
+      "plot_class": "10_marla",
+      "floor_count": 1,
+      "floor_role": "ground",
+      "floors_source": "no_stair",
+      "counts": {
+        "bedroom": 5,
+        "bathroom": 4,
+        "kitchen": 1,
+        "lounge": 3,
+        "drawing": 0,
+        "dining": 0,
+        "porch": 1,
+        "servant": 0,
+        "store": 0,
+        "stair": 0,
+        "lawn": 0,
+        "other": 10
+      },
+      "total_covered_area": 3113.25,
+      "zones": [
+        {
+          "room": "BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "KITCHEN",
+          "canonical_type": "kitchen",
+          "y_zone": "middle",
+          "x_zone": "left"
+        },
+        {
+          "room": "BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "right"
+        },
+        {
+          "room": "BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "middle",
+          "x_zone": "right"
+        },
+        {
+          "room": "DRAWING ROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "front",
+          "x_zone": "left"
+        },
+        {
+          "room": "PARKING",
+          "canonical_type": "porch",
+          "y_zone": "front",
+          "x_zone": "left"
+        },
+        {
+          "room": "M.BEDROOM",
+          "canonical_type": "bedroom",
+          "y_zone": "front",
+          "x_zone": "right"
+        }
+      ]
+    }
+  ]
+}

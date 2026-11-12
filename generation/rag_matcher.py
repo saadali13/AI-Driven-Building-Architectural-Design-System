@@ -15,6 +15,7 @@ import re
 from typing import Dict, List, Tuple, Any, Optional, Union
 from dataset.schema.canonical import CanonicalFloorPlan
 from requirements.parser import ArchitecturalProgram
+from corpus.loader import get_real_corpus, USE_LEGACY_DATASET
 
 
 STAIR_TYPOLOGY_CODE = {
@@ -53,6 +54,11 @@ class RAGMatcher:
         self._load_index()
 
     def _load_index(self) -> None:
+        if not USE_LEGACY_DATASET:
+            self.real_corpus = get_real_corpus()
+            self.catalog = self.real_corpus.get_all_plans(usable_only=True)
+            return
+
         if os.path.exists(self.index_path):
             try:
                 with open(self.index_path, "r", encoding="utf-8") as f:
@@ -75,9 +81,17 @@ class RAGMatcher:
 
     def get_plan_by_id(self, plan_id: str) -> Tuple[CanonicalFloorPlan, str, float]:
         """
-        Direct plan retrieval by ID from dataset/processed_plans/{plan_id}.json.
+        Direct plan retrieval by ID from real plan corpus (or legacy processed_plans if enabled).
         Returns: (CanonicalFloorPlan, canonical_path, 1.0)
         """
+        if not USE_LEGACY_DATASET:
+            real_corp = get_real_corpus()
+            plan_data = real_corp.get_plan(plan_id)
+            if not plan_data:
+                raise FileNotFoundError(f"Real architectural plan '{plan_id}' not found in corpus!")
+            canon_plan = real_corp.to_canonical_floor_plan(plan_data)
+            return canon_plan, plan_data.get("image_path", ""), 1.0
+
         if not self.catalog:
             self._load_index()
 
@@ -215,6 +229,9 @@ class RAGMatcher:
         if not self.catalog:
             self._load_index()
 
+        if not USE_LEGACY_DATASET:
+            return [c for c in self.catalog if c.get("plot_class") == scale or c.get("scale") == scale]
+
         candidates = [c for c in self.catalog if c.get("plot_category") == scale or c.get("scale") == scale]
         if not candidates:
             candidates = list(self.catalog)
@@ -265,6 +282,37 @@ class RAGMatcher:
         5. If no real plan matches threshold: Loads golden baseline dataset/canonical_baselines/master_{scale}.json.
         Returns: (selected_plan, match_source, similarity_score)
         """
+        if not USE_LEGACY_DATASET:
+            from retrieval.search import search_plans
+            raw_p = ""
+            if isinstance(prompt_metadata, ArchitecturalProgram):
+                raw_p = prompt_metadata.raw_prompt or ""
+                target_scale = prompt_metadata.plot_category
+                beds = prompt_metadata.requested_room_counts.get("bedroom", 3)
+            elif isinstance(prompt_metadata, dict):
+                raw_p = prompt_metadata.get("raw_prompt") or prompt_metadata.get("prompt") or ""
+                target_scale = prompt_metadata.get("scale", prompt_metadata.get("plot_category", "5_marla"))
+                beds = prompt_metadata.get("bedrooms", prompt_metadata.get("requested_bedrooms", 3))
+            else:
+                target_scale = "5_marla"
+                beds = 3
+
+            q_text = raw_p if raw_p else f"{target_scale} {beds} bed"
+            hits = search_plans(q_text, top_k=1, usable_only=True)
+            if hits:
+                top_hit = hits[0]
+                plan, path, _ = self.get_plan_by_id(top_hit["plan_id"])
+                return plan, "real_cv_corpus", top_hit["similarity_score"]
+
+            real_corp = get_real_corpus()
+            real_cands = real_corp.get_plans_by_scale(target_scale, usable_only=True)
+            if not real_cands:
+                real_cands = real_corp.get_all_plans(usable_only=True)
+            if real_cands:
+                plan = real_corp.to_canonical_floor_plan(real_cands[0])
+                return plan, "real_cv_corpus", 0.75
+            raise RuntimeError("No usable real plans found in RealPlanCorpus!")
+
         if not self.catalog:
             self._load_index()
 
@@ -407,6 +455,37 @@ class RAGMatcher:
 
     def query(self, program: ArchitecturalProgram, top_k: int = 5) -> List[Dict[str, Any]]:
         """Queries the catalog using multi-factor topological similarity metrics."""
+        if not USE_LEGACY_DATASET:
+            from retrieval.search import search_plans
+            raw_p = ""
+            if isinstance(prompt_metadata, ArchitecturalProgram):
+                raw_p = prompt_metadata.raw_prompt or ""
+                target_scale = prompt_metadata.plot_category
+                beds = prompt_metadata.requested_room_counts.get("bedroom", 3)
+            elif isinstance(prompt_metadata, dict):
+                raw_p = prompt_metadata.get("raw_prompt") or prompt_metadata.get("prompt") or ""
+                target_scale = prompt_metadata.get("scale", prompt_metadata.get("plot_category", "5_marla"))
+                beds = prompt_metadata.get("bedrooms", prompt_metadata.get("requested_bedrooms", 3))
+            else:
+                target_scale = "5_marla"
+                beds = 3
+
+            q_text = raw_p if raw_p else f"{target_scale} {beds} bed"
+            hits = search_plans(q_text, top_k=1, usable_only=True)
+            if hits:
+                top_hit = hits[0]
+                plan, path, _ = self.get_plan_by_id(top_hit["plan_id"])
+                return plan, "real_cv_corpus", top_hit["similarity_score"]
+
+            real_corp = get_real_corpus()
+            real_cands = real_corp.get_plans_by_scale(target_scale, usable_only=True)
+            if not real_cands:
+                real_cands = real_corp.get_all_plans(usable_only=True)
+            if real_cands:
+                plan = real_corp.to_canonical_floor_plan(real_cands[0])
+                return plan, "real_cv_corpus", 0.75
+            raise RuntimeError("No usable real plans found in RealPlanCorpus!")
+
         if not self.catalog:
             self._load_index()
 

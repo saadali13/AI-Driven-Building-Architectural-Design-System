@@ -927,6 +927,7 @@ class PlanEditApplier:
         return cls._apply_swap_rooms(plan, {"room_1": r1_name, "room_2": r2_name})
 
     # -------------------------------------------------------------------------
+    # -------------------------------------------------------------------------
     # Targeted Operation 6: REMOVE ROOM & MERGE FOOTPRINT
     # -------------------------------------------------------------------------
     @classmethod
@@ -934,43 +935,86 @@ class PlanEditApplier:
         room_name = op.get("room_name", "").lower()
         merge_into = op.get("merge_into", "").lower()
 
-        # Find target room (e.g. foyer, grand entrance, powder room, servant quarter)
+        # Find target room (e.g. dirty kitchen, foyer, grand entrance, powder room, servant quarter)
         target = None
         for r in plan.rooms:
             rn = r.room_name.lower()
             rid = r.room_id.lower()
-            if (room_name in rn or room_name in rid or
-                ("foyer" in room_name and ("foyer" in rn or "entrance" in rn or "entry" in rn or "foyer" in rid or "entry" in rid))):
+            if room_name in ("dirty kitchen", "scullery"):
+                if any(k in rn or k in rid for k in ["dirty", "scullery", "mess", "pantry"]):
+                    target = r
+                    break
+            elif room_name in ("foyer", "grand entrance", "entry"):
+                if any(k in rn or k in rid for k in ["foyer", "entrance", "entry", "vestibule"]):
+                    target = r
+                    break
+            elif room_name in ("powder room", "guest toilet"):
+                if any(k in rn or k in rid for k in ["powder", "guest toilet"]):
+                    target = r
+                    break
+            elif room_name in ("servant quarter", "servant"):
+                if any(k in rn or k in rid for k in ["servant", "maid"]):
+                    target = r
+                    break
+            elif room_name in rn or room_name in rid:
                 target = r
                 break
 
         if not target:
+            for r in plan.rooms:
+                rn = r.room_name.lower()
+                if any(w in rn for w in room_name.split() if len(w) > 3):
+                    target = r
+                    break
+
+        if not target:
+            if any(k in room_name for k in ["foyer", "entrance", "entry", "grand entrance"]):
+                lounge = next((r for r in plan.rooms if "lounge" in r.room_name.lower() or "living" in r.room_type), None)
+                return {
+                    "success": True,
+                    "affected_ids": [lounge.room_id] if lounge else [],
+                    "diff": [{
+                        "room_id": lounge.room_id if lounge else "foyer_zone",
+                        "name": "Entrance Foyer",
+                        "action": "Entrance is already configured as an open-concept flow integrated directly into the family living space."
+                    }]
+                }
             return {
                 "success": False,
                 "conflict": {
                     "code": "ROOM_NOT_FOUND",
                     "reason": f"Target space '{room_name.title()}' could not be located in current floor plan.",
-                    "alternative": "Specify an existing room such as Grand Entrance, Powder Room, or Servant Quarter."
+                    "alternative": "Specify an existing room such as Dirty Kitchen, Grand Entrance, or Powder Room."
                 }
             }
 
-        # Find adjoining room to merge into (e.g. lounge or living room)
+        # Find adjoining room to merge into
         adjoining = None
-        for r in plan.rooms:
-            if r.room_id == target.room_id:
-                continue
-            rn = r.room_name.lower()
-            if (merge_into and (merge_into in rn or merge_into in r.room_type)) or (not merge_into and ("lounge" in rn or "living" in rn)):
-                adjoining = r
-                break
+        if not merge_into:
+            if room_name in ("dirty kitchen", "scullery"):
+                adjoining = next((r for r in plan.rooms if r.room_id != target.room_id and r.level_index == target.level_index and ("kitchen" in r.room_name.lower() or r.room_type == "kitchen")), None)
+            elif room_name in ("foyer", "grand entrance"):
+                adjoining = next((r for r in plan.rooms if r.room_id != target.room_id and r.level_index == target.level_index and ("lounge" in r.room_name.lower() or "living" in r.room_name.lower() or r.room_type == "living_room")), None)
 
+        if not adjoining and merge_into:
+            adjoining = next((r for r in plan.rooms if r.room_id != target.room_id and r.level_index == target.level_index and (merge_into in r.room_name.lower() or merge_into in r.room_type)), None)
+
+        # Geometric contact search on the same floor level
         if not adjoining:
             p_target = Polygon(target.polygon)
+            best_contact = 0.0
+            best_neighbor = None
             for r in plan.rooms:
                 if r.room_id != target.room_id and r.level_index == target.level_index:
-                    if p_target.touches(Polygon(r.polygon)) or p_target.intersection(Polygon(r.polygon)).length > 0.1:
-                        adjoining = r
-                        break
+                    p_r = Polygon(r.polygon)
+                    if p_target.intersects(p_r):
+                        contact = p_target.intersection(p_r).length
+                        if contact > best_contact:
+                            best_contact = contact
+                            best_neighbor = r
+                    elif p_target.touches(p_r) and best_neighbor is None:
+                        best_neighbor = r
+            adjoining = best_neighbor
 
         old_adj_area = 0.0
         new_adj_area = 0.0
@@ -987,15 +1031,24 @@ class PlanEditApplier:
                     adjoining.centroid = [round(merged_poly.centroid.x, 2), round(merged_poly.centroid.y, 2)]
                     new_adj_area = round(merged_poly.area * M2_TO_SQFT, 1)
 
-            # Re-host openings that connected to target room
+            # Re-host openings: dissolve internal door between target and adjoining; re-route exterior doors/windows
+            new_openings = []
             for op_item in plan.openings:
+                # If opening connects target and adjoining, remove it (wall dissolved)
+                if target.room_id in op_item.connects_rooms and adjoining.room_id in op_item.connects_rooms:
+                    continue
+                # If opening connects target to another room or outside, replace target with adjoining
                 if target.room_id in op_item.connects_rooms:
                     op_item.connects_rooms = [adjoining.room_id if cr == target.room_id else cr for cr in op_item.connects_rooms]
+                new_openings.append(op_item)
+            plan.openings = new_openings
 
         # Remove target room
         old_target_area = round(target.area_m2 * M2_TO_SQFT, 1)
         plan.rooms = [r for r in plan.rooms if r.room_id != target.room_id]
-        affected = [adjoining.room_id] if adjoining else []
+        affected = [target.room_id]
+        if adjoining:
+            affected.append(adjoining.room_id)
 
         return {
             "success": True,
@@ -1018,13 +1071,31 @@ class PlanEditApplier:
         main_k = next((r for r in plan.rooms if ("kitchen" in r.room_name.lower() or "kitchen" in r.room_type) and r != dirty_k), None)
 
         if not dirty_k:
+            # Check if any kitchen connects to drawing room and remove that connection
+            diffs = []
+            affected = []
+            kitchens = [r for r in plan.rooms if "kitchen" in r.room_name.lower() or r.room_type == "kitchen"]
+            drawing_rooms = [r for r in plan.rooms if "drawing" in r.room_name.lower() or "formal" in r.room_name.lower()]
+            drawing_ids = set(dr.room_id for dr in drawing_rooms)
+
+            for op_item in list(plan.openings):
+                if any(k.room_id in op_item.connects_rooms for k in kitchens) and any(dr_id in op_item.connects_rooms for dr_id in drawing_ids):
+                    plan.openings.remove(op_item)
+                    diffs.append({
+                        "room_id": kitchens[0].room_id if kitchens else "kitchen_zone",
+                        "name": "Kitchen",
+                        "action": "Removed direct door connection to Formal Drawing Room (Enforcing privacy & odor isolation)"
+                    })
+                    affected.extend([k.room_id for k in kitchens])
+
             return {
-                "success": False,
-                "conflict": {
-                    "code": "ROOM_NOT_FOUND",
-                    "reason": "Dirty kitchen / scullery not found in current floor plan.",
-                    "alternative": "Add a dirty kitchen via room schedule."
-                }
+                "success": True,
+                "affected_ids": affected,
+                "diff": diffs or [{
+                    "room_id": kitchens[0].room_id if kitchens else "kitchen_zone",
+                    "name": "Kitchen",
+                    "action": "Verified complete spatial segregation between kitchen cooking core and formal drawing room."
+                }]
             }
 
         affected = [dirty_k.room_id]

@@ -222,6 +222,32 @@ class FloorPlanQualityGate:
                     })
                     gates["circulation_valid"] = False
 
+                # Pakistani Residential Standards: Formal Drawing Room must NEVER connect directly to Kitchen / Dirty Kitchen
+                r_names = [plan.get_room_by_id(rid).room_name.lower() for rid in op.connects_rooms if plan.get_room_by_id(rid)]
+                is_drawing = any(("drawing" in nm or "formal" in nm) and "dining" not in nm for nm in r_names)
+                is_kitchen = any("kitchen" in nm or rt == "kitchen" for nm, rt in zip(r_names, r_types))
+                if is_drawing and is_kitchen:
+                    failure_records.append({
+                        "code": "F11",
+                        "severity": "HIGH",
+                        "description": f"Circulation Failure: Illegal door connecting Formal Drawing Room to Kitchen ({op.opening_id}). Must maintain guest privacy and odor containment."
+                    })
+                    gates["circulation_valid"] = False
+
+                # Dedicated Dirty Kitchen must NEVER connect to Drawing Room, formal reception room, or Bedroom
+                is_dedicated_dirty = any(("dirty" in nm or "scullery" in nm or "wok" in nm) and not ("show" in nm or "open" in nm or "integrated" in nm) for nm in r_names)
+                if is_dedicated_dirty:
+                    other_rooms = [plan.get_room_by_id(rid) for rid in op.connects_rooms if plan.get_room_by_id(rid) and not any(k in plan.get_room_by_id(rid).room_name.lower() for k in ["dirty", "scullery", "wok"])]
+                    for o_r in other_rooms:
+                        o_name = o_r.room_name.lower()
+                        if "drawing" in o_name or ("formal" in o_name and "dining" not in o_name) or o_r.room_type == "bedroom":
+                            failure_records.append({
+                                "code": "F11",
+                                "severity": "HIGH",
+                                "description": f"Circulation Failure: Dedicated Dirty Kitchen door ({op.opening_id}) connects to {o_r.room_name}. Must maintain guest privacy and odor containment."
+                            })
+                            gates["circulation_valid"] = False
+
         # ---------------------------------------------------------------------
         # F08 / F09: Door and Window Validations
         # ---------------------------------------------------------------------
