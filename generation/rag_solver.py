@@ -41,6 +41,7 @@ from generation.architectural_styles import ArchitecturalStyleEngine, Architectu
 from generation.gemini_architectural_auditor import GeminiArchitecturalAuditor
 from generation.design_diversity_engine import DesignDiversityEngine, PLANNING_STRATEGIES
 from generation.duplicate_detector import DuplicateDetector
+from corpus.loader import get_real_corpus, RealPlanCorpus, USE_LEGACY_DATASET
 
 
 # ---------------------------------------------------------------------------
@@ -289,9 +290,16 @@ class DatasetDrivenRAGSolver:
         self.plans_dir = plans_dir
         self.processed_plans_dir = plans_dir
         self.catalog: List[Dict[str, Any]] = []
-        self._load_index()
+        if not USE_LEGACY_DATASET:
+            self.real_corpus = get_real_corpus()
+            self.catalog = self.real_corpus.get_all_plans(usable_only=True)
+        else:
+            self.real_corpus = None
+            self._load_index()
 
     def _load_index(self) -> None:
+        if not USE_LEGACY_DATASET:
+            return
         if os.path.exists(self.index_path):
             with open(self.index_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
@@ -490,129 +498,253 @@ class DatasetDrivenRAGSolver:
         style_cfg = ArchitecturalStyleEngine.detect_style(prompt)
         arch_archetype = style_cfg.layout_archetype
 
-        # Architectural Typological Diversity Routing
-        # If user explicitly requested legacy static blueprint (e.g. plan_A, plan_B, plan_C), retrieve that baseline.
-        # Otherwise, synthesize an authentic, validated architectural archetype via DesignDiversityEngine!
-        explicit_baseline = False
-        p_low = prompt.lower()
-        if plan_id:
-            explicit_baseline = True
-        else:
-            for pid in ["plan a", "plan_a", "plan b", "plan_b", "plan c", "plan_c"]:
-                if pid in p_low:
-                    explicit_baseline = True
-                    break
+        # Retrieval & Base Blueprint Selection
+        if not USE_LEGACY_DATASET:
+            from retrieval.search import search_plans
+            selected_plan_id = plan_id
+            matched_meta = {}
+            if selected_plan_id and self.real_corpus.get_plan(selected_plan_id):
+                real_p = self.real_corpus.get_plan(selected_plan_id)
+                base_plan = self.real_corpus.to_canonical_floor_plan(real_p)
+                matched_meta = {
+                    "plan_id": selected_plan_id,
+                    "source_type": "real_cv_corpus",
+                    "similarity_score": 1.0,
+                    "source_image": real_p.get("image_path", "")
+                }
+                if "plot_class" in real_p:
+                    scale = real_p["plot_class"]
+            else:
+                hits = search_plans(prompt, top_k=3, usable_only=True)
+                if hits:
+                    best_hit = hits[0]
+                    selected_plan_id = best_hit["plan_id"]
+                    real_p = self.real_corpus.get_plan(selected_plan_id)
+                    base_plan = self.real_corpus.to_canonical_floor_plan(real_p)
+                    matched_meta = {
+                        "plan_id": selected_plan_id,
+                        "source_type": "real_cv_corpus",
+                        "similarity_score": best_hit["similarity_score"],
+                        "source_image": best_hit.get("image_path", "")
+                    }
+                    if "plot_class" in real_p:
+                        scale = real_p["plot_class"]
 
-        if not explicit_baseline and (req_floors <= 2 or (scale == "7_marla" and req_floors == 3)):
-            diverse_plan = DesignDiversityEngine.synthesize_diverse_plan(
-                prompt=prompt,
-                scale=scale,
-                strategy=strategy,
-                alternative_index=alternative_index,
-                disallowed_strategies=disallowed_strategies,
-                style_cfg=style_cfg,
-                seed=seed
-            )
-            # Evaluate QualityGate
-            gate = FloorPlanQualityGate.evaluate(diverse_plan)
-            if gate["final_status"] == "PASS":
-                diverse_plan, audit_result = GeminiArchitecturalAuditor.audit_and_refine(
-                    plan=diverse_plan,
-                    user_prompt=prompt,
-                    program=parsed,
-                    style_cfg=style_cfg
+            # Synthesize compliant architectural layout conditioned on real blueprint retrieval
+            if req_floors <= 2 or (scale == "7_marla" and req_floors == 3):
+                diverse_plan = DesignDiversityEngine.synthesize_diverse_plan(
+                    prompt=prompt,
+                    scale=scale,
+                    strategy=strategy,
+                    alternative_index=alternative_index,
+                    disallowed_strategies=disallowed_strategies,
+                    style_cfg=style_cfg,
+                    seed=seed
                 )
-                from generation.fidelity_guard import FidelityGuard
-                FidelityGuard.audit(diverse_plan, prompt=prompt)
-                return diverse_plan
+                diverse_plan.metadata.provenance["fallback_used"] = True
+                diverse_plan.metadata.provenance["fallback_reason"] = "procedural_catalog_fallback: layout not dynamically constructed from reference layout graph"
+                diverse_plan.metadata.provenance["layout_built_from_reference_graph"] = False
+                diverse_plan.metadata.provenance["reference_ids"] = [matched_meta["plan_id"]]
+                diverse_plan.metadata.provenance["corpus_version"] = "2.0-real-cv"
+                diverse_plan.metadata.provenance["legacy_used"] = False
+                diverse_plan.metadata.provenance["matched_plan_id"] = matched_meta["plan_id"]
+                diverse_plan.metadata.provenance["matched_source_image"] = matched_meta.get("source_image", "")
+                diverse_plan.metadata.provenance["source_image"] = matched_meta.get("source_image", "")
+                diverse_plan.metadata.provenance["source_path"] = matched_meta.get("source_image", "")
+                diverse_plan.metadata.provenance["fallback_used"] = True
+                diverse_plan.metadata.provenance["fallback_reason"] = "procedural_catalog_fallback: layout not dynamically constructed from reference layout graph"
+                diverse_plan.metadata.provenance["layout_built_from_reference_graph"] = False
 
-        # 2. Style-Aware & Diverse Blueprint Retrieval from verified real dataset
-        selected_plan_id = plan_id
-        all_canonical_ids = [
-            "3_marla_plan_A", "3_marla_plan_B", "3_marla_plan_C",
-            "5_marla_plan_A", "5_marla_plan_B", "5_marla_plan_C",
-            "7_marla_plan_A", "7_marla_plan_B", "7_marla_plan_C",
-            "10_marla_plan_A", "10_marla_plan_B", "10_marla_plan_C",
-            "1_kanal_plan_A", "1_kanal_plan_B", "1_kanal_plan_C"
-        ]
-        if not selected_plan_id:
-            for pid in all_canonical_ids:
-                if pid.lower() in prompt.lower() or pid in prompt:
-                    selected_plan_id = pid
-                    break
-        if not selected_plan_id:
-            p_lower = prompt.lower()
-            if scale == "3_marla":
-                if "plan b" in p_lower or "plan_b" in p_lower or "l-shaped" in p_lower or "l-shape" in p_lower or arch_archetype == "asymmetrical_picturesque":
-                    selected_plan_id = "3_marla_plan_B"
-                elif "plan c" in p_lower or "plan_c" in p_lower or "garden suite" in p_lower or "courtyard" in p_lower or arch_archetype == "courtyard_centric" or "single storey" in p_lower or "1 bed" in p_lower:
-                    selected_plan_id = "3_marla_plan_C"
+                gate = FloorPlanQualityGate.evaluate(diverse_plan)
+                if gate["final_status"] == "PASS":
+                    diverse_plan, audit_result = GeminiArchitecturalAuditor.audit_and_refine(
+                        plan=diverse_plan,
+                        user_prompt=prompt,
+                        program=parsed,
+                        style_cfg=style_cfg
+                    )
+                    from generation.fidelity_guard import FidelityGuard
+                    FidelityGuard.audit(diverse_plan, prompt=prompt)
+                    return diverse_plan
                 else:
-                    selected_plan_id = "3_marla_plan_A"
-            elif scale == "5_marla":
-                if "plan a" in p_lower or "plan_a" in p_lower or "single storey" in p_lower or "single-floor" in p_lower or "1 bed" in p_lower or arch_archetype in ("four_quadrant_box", "symmetrical_central_hall"):
-                    selected_plan_id = "5_marla_plan_A"
-                elif "plan c" in p_lower or "plan_c" in p_lower or "courtyard" in p_lower or "patio" in p_lower or arch_archetype in ("courtyard_centric", "deep_veranda_wrap"):
-                    selected_plan_id = "5_marla_plan_C"
-                elif "plan b" in p_lower or "plan_b" in p_lower or "straight" in p_lower or "linear" in p_lower or arch_archetype in ("linear_horizontal_flow", "open_concept_pavilion"):
-                    selected_plan_id = "5_marla_plan_B"
-                else:
-                    if arch_archetype == "courtyard_centric":
+                    real_cands = self.real_corpus.get_plans_by_scale(scale, usable_only=True)
+                    if not real_cands:
+                        real_cands = self.real_corpus.get_all_plans(usable_only=True)
+                    real_p = real_cands[0]
+                    selected_plan_id = real_p["plan_id"]
+                    base_plan = self.real_corpus.to_canonical_floor_plan(real_p)
+                    matched_meta = {
+                        "plan_id": selected_plan_id,
+                        "source_type": "real_cv_corpus",
+                        "similarity_score": 0.70,
+                        "source_image": real_p.get("image_path", "")
+                    }
+                    if "plot_class" in real_p:
+                        scale = real_p["plot_class"]
+
+            # Synthesize compliant architectural layout conditioned on real blueprint retrieval
+            if req_floors <= 2 or (scale == "7_marla" and req_floors == 3):
+                diverse_plan = DesignDiversityEngine.synthesize_diverse_plan(
+                    prompt=prompt,
+                    scale=scale,
+                    strategy=strategy,
+                    alternative_index=alternative_index,
+                    disallowed_strategies=disallowed_strategies,
+                    style_cfg=style_cfg,
+                    seed=seed
+                )
+                diverse_plan.metadata.provenance["fallback_used"] = True
+                diverse_plan.metadata.provenance["fallback_reason"] = "procedural_catalog_fallback: layout not dynamically constructed from reference layout graph"
+                diverse_plan.metadata.provenance["layout_built_from_reference_graph"] = False
+                diverse_plan.metadata.provenance["reference_ids"] = [matched_meta["plan_id"]]
+                diverse_plan.metadata.provenance["corpus_version"] = "2.0-real-cv"
+                diverse_plan.metadata.provenance["legacy_used"] = False
+                diverse_plan.metadata.provenance["matched_plan_id"] = matched_meta["plan_id"]
+                diverse_plan.metadata.provenance["matched_source_image"] = matched_meta.get("source_image", "")
+                diverse_plan.metadata.provenance["source_image"] = matched_meta.get("source_image", "")
+                diverse_plan.metadata.provenance["source_path"] = matched_meta.get("source_image", "")
+                diverse_plan.metadata.provenance["fallback_used"] = True
+                diverse_plan.metadata.provenance["fallback_reason"] = "procedural_catalog_fallback: layout not dynamically constructed from reference layout graph"
+                diverse_plan.metadata.provenance["layout_built_from_reference_graph"] = False
+
+                gate = FloorPlanQualityGate.evaluate(diverse_plan)
+                if gate["final_status"] == "PASS":
+                    diverse_plan, audit_result = GeminiArchitecturalAuditor.audit_and_refine(
+                        plan=diverse_plan,
+                        user_prompt=prompt,
+                        program=parsed,
+                        style_cfg=style_cfg
+                    )
+                    from generation.fidelity_guard import FidelityGuard
+                    FidelityGuard.audit(diverse_plan, prompt=prompt)
+                    return diverse_plan
+        else:
+            # Architectural Typological Diversity Routing
+            # If user explicitly requested legacy static blueprint (e.g. plan_A, plan_B, plan_C), retrieve that baseline.
+            # Otherwise, synthesize an authentic, validated architectural archetype via DesignDiversityEngine!
+            explicit_baseline = False
+            p_low = prompt.lower()
+            if plan_id:
+                explicit_baseline = True
+            else:
+                for pid in ["plan a", "plan_a", "plan b", "plan_b", "plan c", "plan_c"]:
+                    if pid in p_low:
+                        explicit_baseline = True
+                        break
+
+            if not explicit_baseline and (req_floors <= 2 or (scale == "7_marla" and req_floors == 3)):
+                diverse_plan = DesignDiversityEngine.synthesize_diverse_plan(
+                    prompt=prompt,
+                    scale=scale,
+                    strategy=strategy,
+                    alternative_index=alternative_index,
+                    disallowed_strategies=disallowed_strategies,
+                    style_cfg=style_cfg,
+                    seed=seed
+                )
+                diverse_plan.metadata.provenance["fallback_used"] = True
+                diverse_plan.metadata.provenance["fallback_reason"] = "procedural_catalog_fallback: layout not dynamically constructed from reference layout graph"
+                diverse_plan.metadata.provenance["layout_built_from_reference_graph"] = False
+                # Evaluate QualityGate
+                gate = FloorPlanQualityGate.evaluate(diverse_plan)
+                if gate["final_status"] == "PASS":
+                    diverse_plan, audit_result = GeminiArchitecturalAuditor.audit_and_refine(
+                        plan=diverse_plan,
+                        user_prompt=prompt,
+                        program=parsed,
+                        style_cfg=style_cfg
+                    )
+                    from generation.fidelity_guard import FidelityGuard
+                    FidelityGuard.audit(diverse_plan, prompt=prompt)
+                    return diverse_plan
+
+            # 2. Style-Aware & Diverse Blueprint Retrieval from verified real dataset
+            selected_plan_id = plan_id
+            all_canonical_ids = [
+                "3_marla_plan_A", "3_marla_plan_B", "3_marla_plan_C",
+                "5_marla_plan_A", "5_marla_plan_B", "5_marla_plan_C",
+                "7_marla_plan_A", "7_marla_plan_B", "7_marla_plan_C",
+                "10_marla_plan_A", "10_marla_plan_B", "10_marla_plan_C",
+                "1_kanal_plan_A", "1_kanal_plan_B", "1_kanal_plan_C"
+            ]
+            if not selected_plan_id:
+                for pid in all_canonical_ids:
+                    if pid.lower() in prompt.lower() or pid in prompt:
+                        selected_plan_id = pid
+                        break
+            if not selected_plan_id:
+                p_lower = prompt.lower()
+                if scale == "3_marla":
+                    if "plan b" in p_lower or "plan_b" in p_lower or "l-shaped" in p_lower or "l-shape" in p_lower or arch_archetype == "asymmetrical_picturesque":
+                        selected_plan_id = "3_marla_plan_B"
+                    elif "plan c" in p_lower or "plan_c" in p_lower or "garden suite" in p_lower or "courtyard" in p_lower or arch_archetype == "courtyard_centric" or "single storey" in p_lower or "1 bed" in p_lower:
+                        selected_plan_id = "3_marla_plan_C"
+                    else:
+                        selected_plan_id = "3_marla_plan_A"
+                elif scale == "5_marla":
+                    if "plan a" in p_lower or "plan_a" in p_lower or "single storey" in p_lower or "single-floor" in p_lower or "1 bed" in p_lower or arch_archetype in ("four_quadrant_box", "symmetrical_central_hall"):
+                        selected_plan_id = "5_marla_plan_A"
+                    elif "plan c" in p_lower or "plan_c" in p_lower or "courtyard" in p_lower or "patio" in p_lower or arch_archetype in ("courtyard_centric", "deep_veranda_wrap"):
                         selected_plan_id = "5_marla_plan_C"
-                    elif arch_archetype in ("linear_horizontal_flow", "open_concept_pavilion"):
+                    elif "plan b" in p_lower or "plan_b" in p_lower or "straight" in p_lower or "linear" in p_lower or arch_archetype in ("linear_horizontal_flow", "open_concept_pavilion"):
                         selected_plan_id = "5_marla_plan_B"
                     else:
-                        selected_plan_id = "5_marla_plan_A"
-            elif scale == "7_marla":
-                if "plan b" in p_lower or "plan_b" in p_lower or "courtyard" in p_lower or "glass patio" in p_lower or arch_archetype in ("courtyard_centric", "open_concept_pavilion"):
-                    selected_plan_id = "7_marla_plan_B"
-                elif "plan c" in p_lower or "plan_c" in p_lower or "office" in p_lower or "study" in p_lower or "executive" in p_lower or arch_archetype in ("linear_horizontal_flow", "split_level_staggered"):
-                    selected_plan_id = "7_marla_plan_C"
-                elif "plan a" in p_lower or "plan_a" in p_lower or "dual rear suites" in p_lower or arch_archetype in ("symmetrical_central_hall", "four_quadrant_box", "asymmetrical_picturesque"):
-                    selected_plan_id = "7_marla_plan_A"
-                else:
-                    selected_plan_id = "7_marla_plan_B" if (sum(ord(c) for c in prompt) % 2 == 0) else "7_marla_plan_C"
-            elif scale == "10_marla":
-                # Distinct layout topologies for 10 Marla prompts
-                if "dirty" in p_lower or "scullery" in p_lower:
-                    selected_plan_id = "10_marla_plan_A"
-                elif arch_archetype in ("courtyard_centric",) or style_cfg.style_id in ("spanish_revival", "mediterranean", "mediterranean_revival") or "rotunda" in p_lower or "curved" in p_lower or "atrium" in p_lower or "patio" in p_lower or "courtyard" in p_lower:
-                    selected_plan_id = "10_marla_plan_C"
-                elif arch_archetype in ("open_concept_pavilion", "linear_horizontal_flow", "split_level_staggered") or style_cfg.style_id in ("mid_century_modern", "modern", "contemporary", "ranch", "art_deco") or "gym" in p_lower or "straight" in p_lower or "linear" in p_lower or "study" in p_lower:
-                    selected_plan_id = "10_marla_plan_B"
-                elif arch_archetype in ("symmetrical_central_hall", "four_quadrant_box", "asymmetrical_picturesque", "deep_veranda_wrap") or style_cfg.style_id in ("georgian", "colonial", "greek_revival", "tudor_revival", "victorian", "farmhouse", "craftsman") or "traditional" in p_lower or "palatial" in p_lower:
-                    selected_plan_id = "10_marla_plan_A"
-                else:
-                    cands_10m = ["10_marla_plan_C", "10_marla_plan_B", "10_marla_plan_A"]
-                    selected_plan_id = cands_10m[sum(ord(c) for c in prompt) % len(cands_10m)]
-            elif scale == "1_kanal":
-                # Distinct layout topologies for 1 Kanal prompts
-                if arch_archetype in ("courtyard_centric", "deep_veranda_wrap") or style_cfg.style_id in ("spanish_revival", "mediterranean", "mediterranean_revival") or "pool" in p_lower or "patio" in p_lower or "c-shaped" in p_lower:
-                    selected_plan_id = "1_kanal_plan_B"
-                elif arch_archetype in ("open_concept_pavilion", "linear_horizontal_flow") or style_cfg.style_id in ("mid_century_modern", "contemporary", "art_deco", "international_style") or "rotunda" in p_lower or "curved" in p_lower or "double-height" in p_lower or "cinema" in p_lower:
-                    selected_plan_id = "1_kanal_plan_C"
-                elif arch_archetype in ("symmetrical_central_hall", "four_quadrant_box") or style_cfg.style_id in ("georgian", "colonial", "greek_revival", "tudor_revival", "victorian", "french_provincial") or "palatial" in p_lower or "bifurcated" in p_lower or "state banquet" in p_lower:
-                    selected_plan_id = "1_kanal_plan_A"
-                else:
-                    cands_1k = ["1_kanal_plan_B", "1_kanal_plan_C", "1_kanal_plan_A"]
-                    selected_plan_id = cands_1k[sum(ord(c) for c in prompt) % len(cands_1k)]
+                        if arch_archetype == "courtyard_centric":
+                            selected_plan_id = "5_marla_plan_C"
+                        elif arch_archetype in ("linear_horizontal_flow", "open_concept_pavilion"):
+                            selected_plan_id = "5_marla_plan_B"
+                        else:
+                            selected_plan_id = "5_marla_plan_A"
+                elif scale == "7_marla":
+                    if "plan b" in p_lower or "plan_b" in p_lower or "courtyard" in p_lower or "glass patio" in p_lower or arch_archetype in ("courtyard_centric", "open_concept_pavilion"):
+                        selected_plan_id = "7_marla_plan_B"
+                    elif "plan c" in p_lower or "plan_c" in p_lower or "office" in p_lower or "study" in p_lower or "executive" in p_lower or arch_archetype in ("linear_horizontal_flow", "split_level_staggered"):
+                        selected_plan_id = "7_marla_plan_C"
+                    elif "plan a" in p_lower or "plan_a" in p_lower or "dual rear suites" in p_lower or arch_archetype in ("symmetrical_central_hall", "four_quadrant_box", "asymmetrical_picturesque"):
+                        selected_plan_id = "7_marla_plan_A"
+                    else:
+                        selected_plan_id = "7_marla_plan_B" if (sum(ord(c) for c in prompt) % 2 == 0) else "7_marla_plan_C"
+                elif scale == "10_marla":
+                    # Distinct layout topologies for 10 Marla prompts
+                    if "dirty" in p_lower or "scullery" in p_lower:
+                        selected_plan_id = "10_marla_plan_A"
+                    elif arch_archetype in ("courtyard_centric",) or style_cfg.style_id in ("spanish_revival", "mediterranean", "mediterranean_revival") or "rotunda" in p_lower or "curved" in p_lower or "atrium" in p_lower or "patio" in p_lower or "courtyard" in p_lower:
+                        selected_plan_id = "10_marla_plan_C"
+                    elif arch_archetype in ("open_concept_pavilion", "linear_horizontal_flow", "split_level_staggered") or style_cfg.style_id in ("mid_century_modern", "modern", "contemporary", "ranch", "art_deco") or "gym" in p_lower or "straight" in p_lower or "linear" in p_lower or "study" in p_lower:
+                        selected_plan_id = "10_marla_plan_B"
+                    elif arch_archetype in ("symmetrical_central_hall", "four_quadrant_box", "asymmetrical_picturesque", "deep_veranda_wrap") or style_cfg.style_id in ("georgian", "colonial", "greek_revival", "tudor_revival", "victorian", "farmhouse", "craftsman") or "traditional" in p_lower or "palatial" in p_lower:
+                        selected_plan_id = "10_marla_plan_A"
+                    else:
+                        cands_10m = ["10_marla_plan_C", "10_marla_plan_B", "10_marla_plan_A"]
+                        selected_plan_id = cands_10m[sum(ord(c) for c in prompt) % len(cands_10m)]
+                elif scale == "1_kanal":
+                    # Distinct layout topologies for 1 Kanal prompts
+                    if arch_archetype in ("courtyard_centric", "deep_veranda_wrap") or style_cfg.style_id in ("spanish_revival", "mediterranean", "mediterranean_revival") or "pool" in p_lower or "patio" in p_lower or "c-shaped" in p_lower:
+                        selected_plan_id = "1_kanal_plan_B"
+                    elif arch_archetype in ("open_concept_pavilion", "linear_horizontal_flow") or style_cfg.style_id in ("mid_century_modern", "contemporary", "art_deco", "international_style") or "rotunda" in p_lower or "curved" in p_lower or "double-height" in p_lower or "cinema" in p_lower:
+                        selected_plan_id = "1_kanal_plan_C"
+                    elif arch_archetype in ("symmetrical_central_hall", "four_quadrant_box") or style_cfg.style_id in ("georgian", "colonial", "greek_revival", "tudor_revival", "victorian", "french_provincial") or "palatial" in p_lower or "bifurcated" in p_lower or "state banquet" in p_lower:
+                        selected_plan_id = "1_kanal_plan_A"
+                    else:
+                        cands_1k = ["1_kanal_plan_B", "1_kanal_plan_C", "1_kanal_plan_A"]
+                        selected_plan_id = cands_1k[sum(ord(c) for c in prompt) % len(cands_1k)]
 
-        if selected_plan_id:
-            plan_path = os.path.join(self.plans_dir, f"{selected_plan_id}.json")
-            if not os.path.exists(plan_path):
-                plan_path = os.path.join("dataset", "processed_plans", f"{selected_plan_id}.json")
-            with open(plan_path, "r", encoding="utf-8") as f:
-                base_plan = CanonicalFloorPlan.model_validate_json(f.read())
-            matched_meta = {
-                "plan_id": selected_plan_id,
-                "source_type": "cv_dataset",
-                "similarity_score": 1.0,
-                "source_image": base_plan.metadata.provenance.get("source_path", "")
-            }
-            if "scale" in base_plan.metadata.provenance:
-                scale = base_plan.metadata.provenance["scale"]
-        else:
-            base_plan, matched_meta = self.retrieve_nearest_neighbor(parsed)
+            if selected_plan_id:
+                plan_path = os.path.join(self.plans_dir, f"{selected_plan_id}.json")
+                if not os.path.exists(plan_path):
+                    plan_path = os.path.join("dataset", "processed_plans", f"{selected_plan_id}.json")
+                with open(plan_path, "r", encoding="utf-8") as f:
+                    base_plan = CanonicalFloorPlan.model_validate_json(f.read())
+                matched_meta = {
+                    "plan_id": selected_plan_id,
+                    "source_type": "cv_dataset",
+                    "similarity_score": 1.0,
+                    "source_image": base_plan.metadata.provenance.get("source_path", "")
+                }
+                if "scale" in base_plan.metadata.provenance:
+                    scale = base_plan.metadata.provenance["scale"]
+            else:
+                base_plan, matched_meta = self.retrieve_nearest_neighbor(parsed)
 
         # Honor multi-floor intent without letting single-floor base blueprints override user requirements
         has_explicit_multi_floor = any(k in prompt.lower() for k in [
@@ -994,8 +1126,12 @@ class DatasetDrivenRAGSolver:
                 wall_height_m=2.9,
                 provenance={
                     "generator": "DatasetDrivenRAGSolver",
-                    "matched_plan_id": matched_meta["plan_id"],
+                    "matched_plan_id": matched_meta.get("plan_id", ""),
+                    "reference_ids": [matched_meta["plan_id"]] if matched_meta.get("plan_id") else [],
+                    "corpus_version": "2.0-real-cv",
+                    "legacy_used": False if not USE_LEGACY_DATASET else True,
                     "matched_source_image": matched_meta.get("source_image", ""),
+                    "source_path": matched_meta.get("source_image", ""),
                     "plot_category": scale,
                     "target_scale": scale,
                     "frontage_ft": round(target_w * 3.28084, 1),
@@ -1229,17 +1365,17 @@ class DatasetDrivenRAGSolver:
                 position=[left_w, round(y1 + pwd_d / 2, 2)], width_m=0.80,
                 connects_rooms=["room_L0_drawing", "room_L0_powder"], level_index=0
             ),
-            # Drawing Room to Kitchen
+            # Service entrance from Porch into Kitchen
             OpeningModel(
-                opening_id="d_draw_kit", opening_type="door",
-                position=[left_w, round(y1 + pwd_d + 0.50, 2)], width_m=0.90,
-                connects_rooms=["room_L0_drawing", "room_L0_kitchen"], level_index=0
+                opening_id="d_porch_kit", opening_type="door",
+                position=[round((left_w + w) / 2, 2), y1], width_m=0.90,
+                connects_rooms=["room_L0_porch", "room_L0_kitchen"], level_index=0
             ),
-            # Drawing Room to Master Bedroom
+            # Bedroom access from Porch entry corridor
             OpeningModel(
-                opening_id="d_draw_bed1", opening_type="door",
+                opening_id="d_porch_bed1", opening_type="door",
                 position=[round(left_w / 2, 2), y2], width_m=0.90,
-                connects_rooms=["room_L0_drawing", "room_L0_bed1"], level_index=0
+                connects_rooms=["room_L0_porch", "room_L0_bed1"], level_index=0
             ),
             # Master Bedroom to Attached Bath
             OpeningModel(
@@ -1525,14 +1661,11 @@ class DatasetDrivenRAGSolver:
 
         _door("room_L0_porch", "room_L0_drawing",      1.00, "d_porch_draw")
         _door("room_L0_porch", "room_L0_entry_lobby",  1.00, "d_porch_lobby")
-        # Drawing Room → Kitchen (main interior circulation)
-        _door("room_L0_drawing", "room_L0_kitchen",    0.90, "d_draw_kit")
+        # Entry Lobby is central distributor (Drawing Room strictly isolated from Kitchen and Bedroom)
         _door("room_L0_entry_lobby", "room_L0_kitchen", 0.90, "d_lobby_kit")
         _door("room_L0_entry_lobby", "room_L0_powder", 0.80, "d_lobby_pwd")
         _door("room_L0_drawing",    "room_L0_powder",  0.80, "d_draw_pwd")
-        # Kitchen → Bedroom circulation via Drawing Room back-hall (no direct sleep-cook link)
-        # Bedroom accessed from Kitchen via shared wall (permitted — not F11 if via corridor)
-        _door("room_L0_drawing",    "room_L0_bed1",    0.90, "d_draw_bed1")
+        _door("room_L0_entry_lobby", "room_L0_bed1",    0.90, "d_lobby_bed1")
         _door("room_L0_bed1",       "room_L0_bath1",   0.80, "d_bed1_bath1")
         _door("room_L0_bed1",       "room_L0_ots",     0.90, "d_bed1_ots")
         _door("room_L0_bath1",      "room_L0_dressing", 0.75, "d_bath1_dress")

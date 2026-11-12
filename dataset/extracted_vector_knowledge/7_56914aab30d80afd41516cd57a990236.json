@@ -1,0 +1,225 @@
+{
+  "source_file": "7\\56914aab30d80afd41516cd57a990236.jpg",
+  "category": "7",
+  "plot": {
+    "category": "7_marla",
+    "marla": 7.0,
+    "dimensions_ft": [
+      30.0,
+      52.5
+    ],
+    "setbacks_ft": {
+      "front": 5.0,
+      "rear": 5.0,
+      "side_left": 0.0,
+      "side_right": 0.0
+    }
+  },
+  "pixel_scale": {
+    "image_width_px": 792,
+    "image_height_px": 1277,
+    "cropped_envelope_px": [
+      65,
+      40,
+      671,
+      1184
+    ],
+    "pixels_per_foot_x": 22.367,
+    "pixels_per_foot_y": 22.552
+  },
+  "rooms": [
+    {
+      "id": "room_1",
+      "name": "Car Porch & Driveway",
+      "type": "garage",
+      "zoning": "Front-Public",
+      "bbox_ft": [
+        12.61,
+        1.06,
+        8.67,
+        4.35
+      ],
+      "area_sqft": 37.7,
+      "aspect_ratio": 1.99,
+      "polygon_coords": [
+        [
+          21.28,
+          1.06
+        ],
+        [
+          21.28,
+          5.41
+        ],
+        [
+          12.61,
+          5.41
+        ],
+        [
+          12.61,
+          1.06
+        ],
+        [
+          21.28,
+          1.06
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_2",
+      "name": "Main Entrance Foyer",
+      "type": "foyer",
+      "zoning": "Front-Public",
+      "bbox_ft": [
+        21.46,
+        1.06,
+        7.47,
+        4.74
+      ],
+      "area_sqft": 35.4,
+      "aspect_ratio": 1.58,
+      "polygon_coords": [
+        [
+          28.93,
+          1.06
+        ],
+        [
+          28.93,
+          5.8
+        ],
+        [
+          21.46,
+          5.8
+        ],
+        [
+          21.46,
+          1.06
+        ],
+        [
+          28.93,
+          1.06
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_3",
+      "name": "Master Bedroom Suite",
+      "type": "bedroom",
+      "zoning": "Mid-Living-Service",
+      "bbox_ft": [
+        17.3,
+        35.56,
+        11.62,
+        14.14
+      ],
+      "area_sqft": 164.3,
+      "aspect_ratio": 0.82,
+      "polygon_coords": [
+        [
+          28.92,
+          35.56
+        ],
+        [
+          28.92,
+          49.7
+        ],
+        [
+          17.3,
+          49.7
+        ],
+        [
+          17.3,
+          35.56
+        ],
+        [
+          28.92,
+          35.56
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_4",
+      "name": "Rear OTS Lightwell",
+      "type": "ots",
+      "zoning": "Rear-Private",
+      "bbox_ft": [
+        16.32,
+        49.88,
+        13.5,
+        2.44
+      ],
+      "area_sqft": 32.9,
+      "aspect_ratio": 5.53,
+      "polygon_coords": [
+        [
+          29.82,
+          49.88
+        ],
+        [
+          29.82,
+          52.32
+        ],
+        [
+          16.32,
+          52.32
+        ],
+        [
+          16.32,
+          49.88
+        ],
+        [
+          29.82,
+          49.88
+        ]
+      ],
+      "floor_level": 0
+    }
+  ],
+  "fenestrations": [
+    {
+      "id": "door_room_1_main",
+      "type": "door",
+      "host_room": "room_1",
+      "wall": "rear",
+      "position": [
+        17.81,
+        5.41,
+        0.0
+      ],
+      "width": 3.5,
+      "height": 7.0,
+      "sill_height": 0.0
+    },
+    {
+      "id": "win_room_3_rear",
+      "type": "window",
+      "host_room": "room_3",
+      "wall": "rear",
+      "position": [
+        23.11,
+        49.7,
+        3.0
+      ],
+      "width": 4.5,
+      "height": 4.5,
+      "sill_height": 3.0
+    }
+  ],
+  "circulation_graph": {
+    "room_1": [
+      "room_2"
+    ],
+    "room_2": [
+      "room_1"
+    ],
+    "room_3": [
+      "room_4"
+    ],
+    "room_4": [
+      "room_3"
+    ]
+  },
+  "elevation_features": null
+}

@@ -1,0 +1,546 @@
+{
+  "total": 90,
+  "elapsed_seconds": 7.196239233016968,
+  "models": [
+    {
+      "file": "1_00770eba64db20501bbd30bb21ce6aa5.json",
+      "category": "1",
+      "rooms_count": 8,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "1_027c487cd8eb1a07ba644f292fd32e0c.json",
+      "category": "1",
+      "rooms_count": 5,
+      "fenestrations_count": 3
+    },
+    {
+      "file": "1_066fdb423d3141c8d88131702ce86c43.json",
+      "category": "1",
+      "rooms_count": 5,
+      "fenestrations_count": 3
+    },
+    {
+      "file": "1_0a921f345fb033e3b0dbf402e9f6b90c.json",
+      "category": "1",
+      "rooms_count": 8,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "1_20ba328abca8292cbf644fa2f1aaf0d2.json",
+      "category": "1",
+      "rooms_count": 4,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "1_20f8dfbb9c1dd0dbccf4ae2a7cf53680.json",
+      "category": "1",
+      "rooms_count": 3,
+      "fenestrations_count": 3
+    },
+    {
+      "file": "1_31c8ba8259f47372f5680f4e13ac2540.json",
+      "category": "1",
+      "rooms_count": 4,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "1_344dd5f88ce2e4f9dcf98ba99a838eaf.json",
+      "category": "1",
+      "rooms_count": 3,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "1_348dc036a4d22b04bdd794ff0de1752c.json",
+      "category": "1",
+      "rooms_count": 7,
+      "fenestrations_count": 3
+    },
+    {
+      "file": "1_41847eb5f54a9509efa70c64ba29297d.json",
+      "category": "1",
+      "rooms_count": 5,
+      "fenestrations_count": 4
+    },
+    {
+      "file": "1_5b541765ef090c505b5c0dc5a46933ae.json",
+      "category": "1",
+      "rooms_count": 4,
+      "fenestrations_count": 3
+    },
+    {
+      "file": "1_6367c8c273d4b1d007fa03103612d22d.json",
+      "category": "1",
+      "rooms_count": 2,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "1_91b2c2a4d9d000431f6271dc95b4f161.json",
+      "category": "1",
+      "rooms_count": 7,
+      "fenestrations_count": 3
+    },
+    {
+      "file": "1_97abaa88d5f21c3240c969b10eb99341.json",
+      "category": "1",
+      "rooms_count": 10,
+      "fenestrations_count": 4
+    },
+    {
+      "file": "1_ad9deb5ed9c20f5a5549d01ecd65910a.json",
+      "category": "1",
+      "rooms_count": 3,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "3_0adf5f25feca052f9968d0a9f42bd8eb.json",
+      "category": "3",
+      "rooms_count": 7,
+      "fenestrations_count": 3
+    },
+    {
+      "file": "3_0d2f29cf25a408c7e552e39b91189b34.json",
+      "category": "3",
+      "rooms_count": 8,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "3_0f969b09633a07439acc75819fbd1506.json",
+      "category": "3",
+      "rooms_count": 3,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "3_118c3a69f01310f3bd515ba2a9109e41.json",
+      "category": "3",
+      "rooms_count": 3,
+      "fenestrations_count": 1
+    },
+    {
+      "file": "3_136245892d121c74b3a7cf6063c928e6.json",
+      "category": "3",
+      "rooms_count": 3,
+      "fenestrations_count": 1
+    },
+    {
+      "file": "3_1b14e27c276a847be7f0d5694be2c57d.json",
+      "category": "3",
+      "rooms_count": 5,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "3_2107f8b0ce6b3d5bb924afabecc63e87.json",
+      "category": "3",
+      "rooms_count": 8,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "3_2aefdd3e925ee9337c96c8c8ecc3e32f.json",
+      "category": "3",
+      "rooms_count": 3,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "3_332f77d7159e62a4b4c8ac89543bb94c.json",
+      "category": "3",
+      "rooms_count": 6,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "3_3398a39340324048f64931162c7dbca0.json",
+      "category": "3",
+      "rooms_count": 4,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "3_344ae6af69aeab2aef0c20c6e97ee50f.json",
+      "category": "3",
+      "rooms_count": 7,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "3_42f6d1b8ba5350e5dc17d0eb5b6a4e1e.json",
+      "category": "3",
+      "rooms_count": 3,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "3_4f3655f8abc77ad4446ea4f1c1b38779.json",
+      "category": "3",
+      "rooms_count": 3,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "3_51ccd1f32dc512a057c404b60f687893.json",
+      "category": "3",
+      "rooms_count": 11,
+      "fenestrations_count": 3
+    },
+    {
+      "file": "3_5580b528a4346f1214b84d7d9e2df65c.json",
+      "category": "3",
+      "rooms_count": 4,
+      "fenestrations_count": 1
+    },
+    {
+      "file": "5_195e61769696aa144d1388a68ef92cc9.json",
+      "category": "5",
+      "rooms_count": 3,
+      "fenestrations_count": 3
+    },
+    {
+      "file": "5_1dfd85587a24e04e1e93659ba35f33cb.json",
+      "category": "5",
+      "rooms_count": 3,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "5_20fdc637f61dfa36c54e249634e14d0b.json",
+      "category": "5",
+      "rooms_count": 8,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "5_29c1ef134d62f2cc577bab5626a20c1c.json",
+      "category": "5",
+      "rooms_count": 8,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "5_2ea42ee155c5b71b0b4b676ac963c7fb.json",
+      "category": "5",
+      "rooms_count": 8,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "5_47ba31eeaca9848298775f65d6fa234f.json",
+      "category": "5",
+      "rooms_count": 8,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "5_4820b52582970f30b0498f3a123221b7.json",
+      "category": "5",
+      "rooms_count": 8,
+      "fenestrations_count": 3
+    },
+    {
+      "file": "5_4e23a185bf796b4cb5f666f1fe51793b.json",
+      "category": "5",
+      "rooms_count": 4,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "5_56307c4b63202b4e854b8a8798eede62.json",
+      "category": "5",
+      "rooms_count": 2,
+      "fenestrations_count": 1
+    },
+    {
+      "file": "5_56734469ec2d1b6642d46f696542f158 (1).json",
+      "category": "5",
+      "rooms_count": 7,
+      "fenestrations_count": 3
+    },
+    {
+      "file": "5_56734469ec2d1b6642d46f696542f158.json",
+      "category": "5",
+      "rooms_count": 7,
+      "fenestrations_count": 3
+    },
+    {
+      "file": "5_57642ab86df23f4c3c16dc532812a4a2.json",
+      "category": "5",
+      "rooms_count": 4,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "5_5d2a41d1f18ef4aabe419ffdd8443c8c.json",
+      "category": "5",
+      "rooms_count": 4,
+      "fenestrations_count": 3
+    },
+    {
+      "file": "5_62d5c958516588e9756a20568ad5f365.json",
+      "category": "5",
+      "rooms_count": 4,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "5_6389b9829fd3b6095ea57e5e526f724d.json",
+      "category": "5",
+      "rooms_count": 8,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "7_0162fa659d7392157fc0854ef058f419.json",
+      "category": "7",
+      "rooms_count": 6,
+      "fenestrations_count": 3
+    },
+    {
+      "file": "7_01d47a008ad8498cf8bc3f78cfc87765.json",
+      "category": "7",
+      "rooms_count": 4,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "7_04e5b61da28ac80c0551ecece7813618.json",
+      "category": "7",
+      "rooms_count": 5,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "7_06039b29355a1a549fa1df3ae4853bbb.json",
+      "category": "7",
+      "rooms_count": 3,
+      "fenestrations_count": 1
+    },
+    {
+      "file": "7_0f6eee7a69348cc86e2a304bb945cef6.json",
+      "category": "7",
+      "rooms_count": 8,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "7_1652325a12a334043c1915e179d0c968.json",
+      "category": "7",
+      "rooms_count": 10,
+      "fenestrations_count": 3
+    },
+    {
+      "file": "7_169f889d2765aec7024fdea981049482.json",
+      "category": "7",
+      "rooms_count": 2,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "7_1bde12fea7ccdd1c38649c9f82617c6e.json",
+      "category": "7",
+      "rooms_count": 4,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "7_2074e5e187b96cabd2b602003ff5f003.json",
+      "category": "7",
+      "rooms_count": 3,
+      "fenestrations_count": 3
+    },
+    {
+      "file": "7_23026147e546ab5090a238f05ad0d223.json",
+      "category": "7",
+      "rooms_count": 2,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "7_2d1db9db5e5271b768a784c33616801f.json",
+      "category": "7",
+      "rooms_count": 3,
+      "fenestrations_count": 3
+    },
+    {
+      "file": "7_4adaf5dd471e2914a49b147244bff661.json",
+      "category": "7",
+      "rooms_count": 3,
+      "fenestrations_count": 3
+    },
+    {
+      "file": "7_56914aab30d80afd41516cd57a990236.json",
+      "category": "7",
+      "rooms_count": 4,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "7_5a6db849f3f45afc72e07e51080c33d7.json",
+      "category": "7",
+      "rooms_count": 3,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "7_5f3dc234d56a2f170caf0322f06df811.json",
+      "category": "7",
+      "rooms_count": 7,
+      "fenestrations_count": 3
+    },
+    {
+      "file": "10_052da9368c90d89e449dc37055603d7d.json",
+      "category": "10",
+      "rooms_count": 7,
+      "fenestrations_count": 3
+    },
+    {
+      "file": "10_060d13de5349461d2064392ce14217fc.json",
+      "category": "10",
+      "rooms_count": 8,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "10_2064f9dd00f728258227a1045629be8f.json",
+      "category": "10",
+      "rooms_count": 5,
+      "fenestrations_count": 3
+    },
+    {
+      "file": "10_26814652a4c8ad2f8d9272f08663e823.json",
+      "category": "10",
+      "rooms_count": 3,
+      "fenestrations_count": 1
+    },
+    {
+      "file": "10_30e52ed97103feac044bb49485e40da5.json",
+      "category": "10",
+      "rooms_count": 8,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "10_31f87a6a3109770522565fd7532e48b8.json",
+      "category": "10",
+      "rooms_count": 8,
+      "fenestrations_count": 3
+    },
+    {
+      "file": "10_36c25c2aa334607d73ec124ebe838329.json",
+      "category": "10",
+      "rooms_count": 4,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "10_37a0070e0f79ac2338bf803e41caa0d5.json",
+      "category": "10",
+      "rooms_count": 8,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "10_3dd46b9a57d817703f8fbd60992cba19.json",
+      "category": "10",
+      "rooms_count": 4,
+      "fenestrations_count": 1
+    },
+    {
+      "file": "10_412d074e3cb6a1733fc43466004f3adb.json",
+      "category": "10",
+      "rooms_count": 8,
+      "fenestrations_count": 4
+    },
+    {
+      "file": "10_43c64ecf0b3a2087e060aaffacacf517.json",
+      "category": "10",
+      "rooms_count": 5,
+      "fenestrations_count": 3
+    },
+    {
+      "file": "10_49db978c8cac36f27a7d2ddc2375b538.json",
+      "category": "10",
+      "rooms_count": 6,
+      "fenestrations_count": 3
+    },
+    {
+      "file": "10_4eab6e9db38b31d6ea0c4b3eec575240.json",
+      "category": "10",
+      "rooms_count": 7,
+      "fenestrations_count": 3
+    },
+    {
+      "file": "10_5d53b7f32586b0b769726a3e9e7c67d6.json",
+      "category": "10",
+      "rooms_count": 8,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "10_660c56d57c30c57d2598ce074c644adf.json",
+      "category": "10",
+      "rooms_count": 4,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "elevationwithfloorplan_316c1ce21d3d16a6e7e828134413d7fb.json",
+      "category": "elevationwithfloorplan",
+      "rooms_count": 3,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "elevationwithfloorplan_398c88649e95f9986aa61683971e1817.json",
+      "category": "elevationwithfloorplan",
+      "rooms_count": 2,
+      "fenestrations_count": 1
+    },
+    {
+      "file": "elevationwithfloorplan_61226f4ab42e4b52c813106526ccc827.json",
+      "category": "elevationwithfloorplan",
+      "rooms_count": 2,
+      "fenestrations_count": 1
+    },
+    {
+      "file": "elevationwithfloorplan_675f407319c2d6eed1d2c61d530361c9.json",
+      "category": "elevationwithfloorplan",
+      "rooms_count": 4,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "elevationwithfloorplan_71922af1b45e5f7ca14241441872a016.json",
+      "category": "elevationwithfloorplan",
+      "rooms_count": 4,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "elevationwithfloorplan_81513a8ca9c060f2126004189e81091c.json",
+      "category": "elevationwithfloorplan",
+      "rooms_count": 8,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "elevationwithfloorplan_86399148a42ddbca11302439c90c409e.json",
+      "category": "elevationwithfloorplan",
+      "rooms_count": 8,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "elevationwithfloorplan_8cbb1b699d01f410e8e7d2392d2f6fc8.json",
+      "category": "elevationwithfloorplan",
+      "rooms_count": 4,
+      "fenestrations_count": 3
+    },
+    {
+      "file": "elevationwithfloorplan_aed07152cc4b597d1b017a8c14f5a39d.json",
+      "category": "elevationwithfloorplan",
+      "rooms_count": 3,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "elevationwithfloorplan_c59d91b5f34245ee794a3887050d1cb1.json",
+      "category": "elevationwithfloorplan",
+      "rooms_count": 8,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "elevationwithfloorplan_de853086339c0843ed6b203905ff130c.json",
+      "category": "elevationwithfloorplan",
+      "rooms_count": 8,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "elevationwithfloorplan_download (1).json",
+      "category": "elevationwithfloorplan",
+      "rooms_count": 6,
+      "fenestrations_count": 3
+    },
+    {
+      "file": "elevationwithfloorplan_download (2).json",
+      "category": "elevationwithfloorplan",
+      "rooms_count": 8,
+      "fenestrations_count": 3
+    },
+    {
+      "file": "elevationwithfloorplan_download.json",
+      "category": "elevationwithfloorplan",
+      "rooms_count": 8,
+      "fenestrations_count": 2
+    },
+    {
+      "file": "elevationwithfloorplan_f84fba145fb625afd6183342f7284944.json",
+      "category": "elevationwithfloorplan",
+      "rooms_count": 5,
+      "fenestrations_count": 2
+    }
+  ]
+}

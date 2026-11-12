@@ -324,38 +324,33 @@ class DesignDiversityEngine:
         if req_dirty:
             has_dirty = any("dirty" in r.room_name.lower() or "scullery" in r.room_name.lower() or r.metadata.get("is_dirty_kitchen") for r in plan.rooms)
             if not has_dirty:
-                # Find an auxiliary space near kitchen or dining to designate as dirty kitchen
+                main_k = next((r for r in plan.rooms if r.level_index == 0 and r.room_type == "kitchen"), None)
+                # Find an auxiliary space (utility, store, pantry) strictly NOT dining or drawing room
                 candidate = next(
-                    (r for r in plan.rooms if r.level_index == 0 and r.room_type in ("dining_room", "dressing_room", "utility", "store") and r.area_m2 >= 4.0),
+                    (r for r in plan.rooms if r.level_index == 0 and r.room_type in ("utility", "store", "pantry") and r.area_m2 >= 3.0),
                     None
                 )
-                if not candidate:
-                    # If no auxiliary room, check if an existing large kitchen can be paired with an adjoining space or subpartition
-                    main_k = next((r for r in plan.rooms if r.level_index == 0 and r.room_type == "kitchen"), None)
-                    if main_k and main_k.area_m2 >= 12.0:
-                        # Mark main kitchen as containing integrated scullery/dirty kitchen suite
-                        main_k.metadata["is_dirty_kitchen"] = True
-                        main_k.metadata["wet_kitchen"] = True
-                        main_k.room_name = "Chef's Kitchen with Integrated Dirty Scullery"
-                    else:
-                        candidate = next((r for r in plan.rooms if r.level_index == 0 and r.room_type in ("dressing_room", "closet", "corridor") and r.area_m2 >= 3.0), None)
-
-                if candidate:
-                    candidate.room_name = "Dirty Kitchen (Scullery Kitchen)"
+                if not candidate and main_k and main_k.area_m2 >= 10.0:
+                    # Mark main kitchen as containing integrated scullery/dirty kitchen suite
+                    main_k.metadata["is_dirty_kitchen"] = True
+                    main_k.metadata["wet_kitchen"] = True
+                    main_k.room_name = "Show Kitchen + Dirty Scullery Suite"
+                elif candidate:
+                    candidate.room_name = "Enclosed Scullery Dirty Kitchen"
                     candidate.room_type = "kitchen"
                     candidate.metadata["is_dirty_kitchen"] = True
                     candidate.metadata["wet_kitchen"] = True
-                    # F11 Rule: If this converted room shares a direct door with a bedroom, remove that illegal door
+                    # F11 Rule: Dirty kitchen must ONLY connect to main kitchen or exterior service OTS/courtyard/passage
+                    allowed_room_ids = {main_k.room_id} if main_k else set()
+                    for r in plan.rooms:
+                        if r.room_type == "outdoor" or any(k in r.room_name.lower() for k in ["ots", "passage", "yard", "service", "lawn", "porch"]):
+                            allowed_room_ids.add(r.room_id)
                     plan.openings = [
                         op for op in plan.openings
                         if not (
                             op.opening_type == "door"
                             and candidate.room_id in op.connects_rooms
-                            and any(
-                                r.room_type == "bedroom"
-                                for r in plan.rooms
-                                if r.room_id in op.connects_rooms and r.room_id != candidate.room_id
-                            )
+                            and not any(rid in allowed_room_ids for rid in op.connects_rooms if rid != candidate.room_id)
                         )
                     ]
 

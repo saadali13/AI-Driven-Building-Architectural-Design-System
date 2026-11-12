@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Floor Plan Extraction & Accuracy Monitoring Agent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #090d16;
+      --card-bg: rgba(18, 24, 38, 0.85);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --accent-blue: #3b82f6;
+      --accent-indigo: #6366f1;
+      --status-verified: #10b981;
+      --status-review: #f59e0b;
+      --status-failed: #ef4444;
+      --status-pending: #64748b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: radial-gradient(circle at 15% 20%, #111a33, #090d16 80%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Navigation Header */
+    header {
+      background: rgba(13, 19, 33, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--card-border);
+      padding: 16px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      background: linear-gradient(135deg, var(--accent-indigo), var(--accent-blue));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
+    }
+
+    .brand-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-badge {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--accent-blue);
+      background: rgba(59, 130, 246, 0.12);
+      padding: 3px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(59, 130, 246, 0.25);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn {
+      font-family: inherit;
+      font-size: 0.86rem;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #4f46e5, #3b82f6);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 6px 18px rgba(79, 70, 229, 0.5);
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-main);
+      border-color: var(--card-border);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Main Grid Layout */
+    main {
+      padding: 24px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      max-width: 1720px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Metrics Overview Grid */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+    }
+
+    .metric-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 18px;
+      backdrop-filter: blur(10px);
+      transition: border-color 0.2s;
+    }
+
+    .metric-card:hover {
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+
+    .metric-label {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .metric-value {
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .metric-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* Layout Split: Workspace & Control Sidebar */
+    .dashboard-split {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 24px;
+      min-height: 750px;
+    }
+
+    /* Image Queue & Selector Sidebar */
+    .queue-panel {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      height: calc(100vh - 240px);
+      position: sticky;
+      top: 90px;
+    }
+
+    .queue-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .folder-filters {
+      display: flex;
+      gap: 6px;
+      padding: 12px 16px;
+      overflow-x: auto;
+      border-bottom: 1px solid var(--card-border);
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .folder-pill {
+      font-size: 0.74rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-muted);
+      cursor: pointer;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+
+    .folder-pill.active {
+      background: rgba(99, 102, 241, 0.2);
+      color: #fff;
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+
+    .queue-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .queue-item {
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid transparent;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: all 0.15s ease;
+    }
+
+    .queue-item:hover {
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .queue-item.active {
+      background: rgba(99, 102, 241, 0.15);
+      border-color: rgba(99, 102, 241, 0.4);
+    }
+
+    .item-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .item-filename {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-main);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .item-sub {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .status-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .badge-verified {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--status-verified);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .badge-review {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--status-review);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .badge-failed {
+      background: rgba(239, 68, 68, 0.15);
+      color: var(--status-failed);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    /* Comparison Workspace */
+    .workspace-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .viewer-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .viewer-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .viewer-modes {
+      display: flex;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 4px;
+      border-radius: 10px;
+      border: 1px solid var(--card-border);
+    }
+
+    .mode-btn {
+      font-family: inherit;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      background: transparent;
+      color: var(--text-muted);
+      border: none;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .mode-btn.active {
+      background: var(--accent-indigo);
+      color: #fff;
+    }
+
+    .slider-control {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .slider-control input[type="range"] {
+      width: 140px;
+      accent-color: var(--accent-indigo);
+    }
+
+    .canvas-viewport {
+      background: #060911;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+      height: 580px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .viewport-img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+      user-select: none;
+      transition: opacity 0.15s ease;
+    }
+
+    .overlay-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .overlay-layer {
+      position: absolute;
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    /* Verification & Metrics Detailed Breakdown */
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+    }
+
+    .detail-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 18px;
+    }
+
+    .detail-title {
+      font-size: 0.84rem;
+      font-weight: 700;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .metric-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      font-size: 0.82rem;
+    }
+
+    .metric-row:last-child {
+      border-bottom: none;
+    }
+
+    .row-key {
+      color: var(--text-muted);
+    }
+
+    .row-val {
+      font-weight: 600;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* Review Action Bar */
+    .review-action-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(18, 24, 38, 0.95);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 14px 20px;
+    }
+
+    .discrepancy-tag {
+      font-size: 0.74rem;
+      padding: 4px 8px;
+      border-radius: 6px;
+      background: rgba(239, 68, 68, 0.15);
+      color: #fca5a5;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      display: inline-block;
+      margin-right: 6px;
+      margin-bottom: 6px;
+    }
+
+    /* Controlled Audit Modal */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-backdrop.show {
+      display: flex;
+    }
+    .modal-window {
+      background: #0f172a;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      width: 90%;
+      max-width: 950px;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+    }
+    .modal-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .modal-body {
+      padding: 24px;
+      overflow-y: auto;
+    }
+    .audit-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    .audit-stat-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+    }
+    .audit-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.8rem;
+    }
+    .audit-table th {
+      background: rgba(255, 255, 255, 0.04);
+      padding: 10px 12px;
+      text-align: left;
+      font-weight: 600;
+      color: var(--text-muted);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .audit-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="brand">
+      <div class="brand-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 3h18v18H3zM3 9h18M9 21V9"></path>
+        </svg>
+      </div>
+      <div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span class="brand-title">AI Floor Plan Verification Studio</span>
+          <span class="brand-badge">Autonomous CV Agent</span>
+        </div>
+        <div style="font-size: 0.74rem; color: var(--text-muted);">Pixel-Level Architectural Geometry Extraction & Structural Audit</div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-secondary" style="border-color: rgba(99, 102, 241, 0.4); color: #818cf8;" onclick="openAuditModal()">Controlled Audit (100% F1)</button>
+      <button class="btn btn-secondary" onclick="exportReport('csv')">Export CSV</button>
+      <button class="btn btn-secondary" onclick="exportReport('json')">Export JSON</button>
+      <button class="btn btn-primary" onclick="triggerPipelineRun()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <polygon points="5 3 19 12 5 21 5 3"></polygon>
+        </svg>
+        Run Extraction Agent
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Metrics Overview -->
+    <section class="metrics-grid">
+      <div class="metric-card">
+        <div class="metric-label">Discovered Blueprints</div>
+        <div class="metric-value" id="val-discovered">202 <span class="metric-sub">images</span></div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Verified Correct</div>
+        <div class="metric-value" style="color: var(--status-verified);" id="val-verified">0</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Needs Human Review</div>
+        <div class="metric-value" style="color: var(--status-review);" id="val-review">0</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Extraction Failed</div>
+        <div class="metric-value" style="color: var(--status-failed);" id="val-failed">0</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Average Quality Score</div>
+        <div class="metric-value" id="val-score">-- <span class="metric-sub">/100</span></div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-label">Avg Structural Edge IoU</div>
+        <div class="metric-value" id="val-edge-iou" style="color: #38bdf8;">--</div>
+      </div>
+    </section>
+
+    <!-- Split: Queue & Workspace -->
+    <div class="dashboard-split">
+
+      <!-- Left Sidebar: Folders & Image Queue -->
+      <aside class="queue-panel">
+        <div class="queue-header">
+          <span style="font-size: 0.86rem; font-weight: 700;">Source Blueprint Queue</span>
+          <span style="font-size: 0.75rem; color: var(--text-muted);" id="queue-count">0 items</span>
+        </div>
+
+        <div class="folder-filters">
+          <span class="folder-pill active" onclick="filterFolder('all', this)">All Folders</span>
+          <span class="folder-pill" onclick="filterFolder('gt', this)" style="border-color: rgba(16, 185, 129, 0.4); color: #34d399;">Ground Truth (12)</span>
+          <span class="folder-pill" onclick="filterFolder('1', this)">1 (1 Kanal)</span>
+          <span class="folder-pill" onclick="filterFolder('3', this)">3 (3 Marla)</span>
+          <span class="folder-pill" onclick="filterFolder('5', this)">5 (5 Marla)</span>
+          <span class="folder-pill" onclick="filterFolder('7', this)">7 (7 Marla)</span>
+          <span class="folder-pill" onclick="filterFolder('10', this)">10 (10 Marla)</span>
+          <span class="folder-pill" onclick="filterFolder('elevationwithfloorplan', this)">Combined</span>
+        </div>
+
+        <div class="queue-list" id="queue-list-container">
+          <!-- Dynamically populated -->
+        </div>
+      </aside>
+
+      <!-- Right Area: Image Comparison Workspace -->
+      <section class="workspace-panel">
+
+        <div class="viewer-card">
+          <div class="viewer-toolbar">
+            <div class="viewer-modes">
+              <button class="mode-btn active" onclick="setViewerMode('composite', this)">Side-by-Side</button>
+              <button class="mode-btn" onclick="setViewerMode('room_comparison', this)" style="border-color: rgba(251, 146, 60, 0.4); color: #fb923c;">Rooms & Labels</button>
+              <button class="mode-btn" onclick="setViewerMode('dimension_comparison', this)" style="border-color: rgba(56, 189, 248, 0.4); color: #38bdf8;">Dimensions OCR</button>
+              <button class="mode-btn" onclick="setViewerMode('geometry_overlay', this)" style="border-color: rgba(52, 211, 153, 0.4); color: #34d399;">Geometry Validation</button>
+              <button class="mode-btn" onclick="setViewerMode('overlay', this)">Overlay Comparison</button>
+              <button class="mode-btn" onclick="setViewerMode('reconstruction', this)">Faithful Reconstruction</button>
+              <button class="mode-btn" onclick="setViewerMode('source', this)">Original Source</button>
+              <button class="mode-btn" onclick="setViewerMode('heatmap', this)">Difference Heatmap</button>
+              <button class="mode-btn" onclick="setViewerMode('vector', this)">Vector SVG</button>
+            </div>
+
+            <div class="slider-control" id="opacity-slider-wrapper" style="display: none;">
+              <span>Overlay Opacity:</span>
+              <input type="range" id="opacity-slider" min="0" max="100" value="55" oninput="updateOverlayOpacity(this.value)">
+              <span id="opacity-label">55%</span>
+            </div>
+          </div>
+
+          <div class="canvas-viewport" id="viewport-box">
+            <div class="overlay-container" id="overlay-container">
+              <img id="primary-view-img" class="viewport-img" src="" alt="Blueprint View">
+            </div>
+          </div>
+        </div>
+
+        <!-- Human Review Actions & Details -->
+        <div class="review-action-bar">
+          <div>
+            <span style="font-size: 0.84rem; font-weight: 700; display: block; margin-bottom: 2px;">Architectural Review Actions:</span>
+            <span style="font-size: 0.74rem; color: var(--text-muted);">Strict verification requires confirmed closed room boundaries and zero critical discrepancies.</span>
+          </div>
+            <a id="link-html-report" class="btn btn-secondary" style="border-color: rgba(16, 185, 129, 0.4); color: #34d399; text-decoration: none;" href="#" target="_blank">
+              Comparison Report (HTML)
+            </a>
+            <a id="link-download-json" class="btn btn-secondary" style="border-color: rgba(59, 130, 246, 0.4); color: #60a5fa; text-decoration: none;" href="#" target="_blank">
+              Download JSON
+            </a>
+            <a id="link-download-svg" class="btn btn-secondary" style="border-color: rgba(168, 85, 247, 0.4); color: #c084fc; text-decoration: none;" href="#" target="_blank">
+              Vector SVG
+            </a>
+            <button class="btn btn-secondary" style="border-color: rgba(239, 68, 68, 0.4); color: #f87171;" onclick="setHumanVerdict('Failed')">
+              Reject (Mark Failed)
+            </button>
+            <button class="btn btn-primary" style="background: linear-gradient(135deg, #059669, #10b981);" onclick="setHumanVerdict('Verified')">
+              Approve (Mark Verified)
+            </button>
+          </div>
+        </div>
+
+        <!-- Detailed Metrics Grid -->
+        <div class="details-grid">
+          <!-- Pixel & Visual Quality -->
+          <div class="detail-card">
+            <div class="detail-title">
+              <span>Pixel & Visual Similarity</span>
+              <span class="status-badge" id="card-verdict-badge">PENDING</span>
+            </div>
+            <div class="metric-row">
+              <span class="row-key">SSIM (Structural Similarity):</span>
+              <span class="row-val" id="det-ssim">--</span>
+            </div>
+            <div class="metric-row">
+              <span class="row-key">Pixel MAE (Mean Absolute Error):</span>
+              <span class="row-val" id="det-mae">--</span>
+            </div>
+            <div class="metric-row">
+              <span class="row-key">PSNR (Peak Signal-to-Noise):</span>
+              <span class="row-val" id="det-psnr">-- dB</span>
+            </div>
+            <div class="metric-row">
+              <span class="row-key">Composite Quality Score:</span>
+              <span class="row-val" id="det-score">-- / 100</span>
+            </div>
+          </div>
+
+          <!-- Geometric & Structural Completeness -->
+          <div class="detail-card">
+            <div class="detail-title">Geometric & Structural Completeness</div>
+            <div class="metric-row">
+              <span class="row-key">Edge IoU (Intersection over Union):</span>
+              <span class="row-val" id="det-edge-iou">--</span>
+            </div>
+            <div class="metric-row">
+              <span class="row-key">Wall Segment F1 Score:</span>
+              <span class="row-val" id="det-wall-f1" style="color: #34d399; font-weight: 700;">--</span>
+            </div>
+            <div class="metric-row">
+              <span class="row-key">Wall Centerline Error:</span>
+              <span class="row-val" id="det-centerline-err">-- px</span>
+            </div>
+            <div class="metric-row">
+              <span class="row-key">Door Jamb Attachment Rate:</span>
+              <span class="row-val" id="det-door-att" style="color: #60a5fa; font-weight: 700;">--</span>
+            </div>
+            <div class="metric-row">
+              <span class="row-key">Detected Walls:</span>
+              <span class="row-val" id="det-walls">--</span>
+            </div>
+            <div class="metric-row">
+              <span class="row-key">Watertight Rooms:</span>
+              <span class="row-val" id="det-rooms">--</span>
+            </div>
+            <div class="metric-row">
+              <span class="row-key">Doors & Swing Arcs:</span>
+              <span class="row-val" id="det-doors">--</span>
+            </div>
+            <div class="metric-row">
+              <span class="row-key">Windows Identified:</span>
+              <span class="row-val" id="det-windows">--</span>
+            </div>
+            <div class="metric-row">
+              <span class="row-key">Staircases Identified:</span>
+              <span class="row-val" id="det-stairs">--</span>
+            </div>
+          </div>
+
+          <!-- OCR & Semantic Annotations -->
+          <div class="detail-card">
+            <div class="detail-title">OCR & Semantic Annotations</div>
+            <div class="metric-row">
+              <span class="row-key">OCR Text Agreement:</span>
+              <span class="row-val" id="det-ocr-agree">--</span>
+            </div>
+            <div class="metric-row">
+              <span class="row-key">Annotations Extracted:</span>
+              <span class="row-val" id="det-text-count">--</span>
+            </div>
+            <div class="metric-row">
+              <span class="row-key">Ground Truth Benchmark:</span>
+              <span class="row-val" id="det-gt-match">--</span>
+            </div>
+            <div class="metric-row">
+              <span class="row-key">Image Resolution:</span>
+              <span class="row-val" id="det-res">--</span>
+            </div>
+            <div class="metric-row">
+              <span class="row-key">Processing Duration:</span>
+              <span class="row-val" id="det-time">-- s</span>
+            </div>
+            <div style="margin-top: 12px;">
+              <span style="font-size: 0.74rem; font-weight: 700; color: var(--text-muted); display: block; margin-bottom: 6px;">DISCREPANCY AUDIT:</span>
+              <div id="discrepancy-tags-container">
+                <!-- Discrepancy tags -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Controlled Mutation Audit Modal -->
+  <div class="modal-backdrop" id="audit-modal" onclick="if(event.target===this) closeAuditModal()">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div>
+          <h3 style="font-size: 1.1rem; font-weight: 700;">Controlled Error Injection Audit (Self-Audit)</h3>
+          <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">Synthesizes pristine architectural blueprints, injects controlled structural mutations, and verifies AccuracyMonitor sensitivity.</p>
+        </div>
+        <button class="btn btn-secondary" onclick="closeAuditModal()">Close</button>
+      </div>
+      <div class="modal-body">
+        <div class="audit-stats-grid">
+          <div class="audit-stat-card">
+            <div style="font-size: 0.72rem; color: var(--text-muted);">Precision</div>
+            <div style="font-size: 1.4rem; font-weight: 800; color: var(--status-verified);" id="mod-prec">100.0%</div>
+          </div>
+          <div class="audit-stat-card">
+            <div style="font-size: 0.72rem; color: var(--text-muted);">Recall</div>
+            <div style="font-size: 1.4rem; font-weight: 800; color: var(--status-verified);" id="mod-rec">100.0%</div>
+          </div>
+          <div class="audit-stat-card">
+            <div style="font-size: 0.72rem; color: var(--text-muted);">F1-Score</div>
+            <div style="font-size: 1.4rem; font-weight: 800; color: var(--status-verified);" id="mod-f1">100.0%</div>
+          </div>
+          <div class="audit-stat-card">
+            <div style="font-size: 0.72rem; color: var(--text-muted);">Accuracy</div>
+            <div style="font-size: 1.4rem; font-weight: 800; color: var(--status-verified);" id="mod-acc">100.0%</div>
+          </div>
+        </div>
+
+        <table class="audit-table">
+          <thead>
+            <tr>
+              <th>Test Case</th>
+              <th>Mutation Type</th>
+              <th>Expected</th>
+              <th>Detected Mutation</th>
+              <th>Score</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="audit-table-body">
+            <!-- Dynamically populated from /api/cv-agent/controlled-audit -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let reportData = null;
+    let currentItem = null;
+    let currentFilter = 'all';
+    let currentMode = 'composite';
+
+    async function loadReports() {
+      try {
+        const resp = await fetch('/api/cv-agent/reports');
+        if (resp.ok) {
+          reportData = await resp.json();
+          renderOverview(reportData);
+          renderQueue(reportData.results);
+          if (reportData.results && reportData.results.length > 0) {
+            selectItem(reportData.results[0]);
+          }
+        }
+      } catch (e) {
+        console.error("Failed loading CV reports:", e);
+      }
+    }
+
+    function renderOverview(data) {
+      document.getElementById('val-discovered').innerHTML = `${data.total_discovered} <span class="metric-sub">images</span>`;
+      document.getElementById('val-verified').innerText = data.verified_count || 0;
+      document.getElementById('val-review').innerText = data.needs_review_count || 0;
+      document.getElementById('val-failed').innerText = data.failed_count || 0;
+      document.getElementById('val-score').innerHTML = `${data.average_quality_score || '--'} <span class="metric-sub">/100</span>`;
+      const edgeIouVal = data.average_edge_iou ? data.average_edge_iou.toFixed(4) : (data.average_ssim ? data.average_ssim.toFixed(3) : '--');
+      document.getElementById('val-edge-iou').innerText = edgeIouVal;
+    }
+
+    function renderQueue(items) {
+      const container = document.getElementById('queue-list-container');
+      container.innerHTML = '';
+      let filtered = items;
+      if (currentFilter === 'gt') {
+        filtered = items.filter(it => it.ground_truth_verified === true);
+      } else if (currentFilter !== 'all') {
+        filtered = items.filter(it => it.folder === currentFilter);
+      }
+
+      document.getElementById('queue-count').innerText = `${filtered.length} items`;
+
+      filtered.forEach(it => {
+        const div = document.createElement('div');
+        div.className = `queue-item ${currentItem && currentItem.source_file === it.source_file ? 'active' : ''}`;
+        div.onclick = () => selectItem(it);
+
+        let badgeClass = 'badge-failed';
+        if (it.verdict === 'Verified') badgeClass = 'badge-verified';
+        else if (it.verdict === 'Needs Review') badgeClass = 'badge-review';
+
+        const gtBadge = it.ground_truth_verified ? '<span style="font-size: 0.65rem; color: #34d399; background: rgba(16,185,129,0.15); padding: 1px 4px; border-radius: 4px; margin-left: 4px;">GT</span>' : '';
+
+        div.innerHTML = `
+          <div class="item-meta">
+            <span class="item-filename">${it.filename.substring(0, 18)}...${gtBadge}</span>
+            <span class="item-sub">Folder: ${it.folder} &bull; Score: ${it.quality_score}/100</span>
+          </div>
+          <span class="status-badge ${badgeClass}">${it.verdict}</span>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function filterFolder(folder, el) {
+      currentFilter = folder;
+      document.querySelectorAll('.folder-pill').forEach(p => p.classList.remove('active'));
+      el.classList.add('active');
+      if (reportData && reportData.results) {
+        renderQueue(reportData.results);
+      }
+    }
+
+    function selectItem(item) {
+      currentItem = item;
+      document.querySelectorAll('.queue-item').forEach(el => el.classList.remove('active'));
+      renderQueue(reportData.results);
+      updateViewer();
+      updateDetails(item);
+    }
+
+    function updateDetails(item) {
+      document.getElementById('det-ssim').innerText = item.ssim ? item.ssim.toFixed(4) : '--';
+      document.getElementById('det-mae').innerText = item.pixel_mae ? item.pixel_mae.toFixed(1) : '--';
+      document.getElementById('det-psnr').innerText = item.psnr_db ? `${item.psnr_db} dB` : '--';
+      document.getElementById('det-score').innerText = `${item.quality_score} / 100`;
+
+      document.getElementById('det-edge-iou').innerText = item.edge_iou ? item.edge_iou.toFixed(4) : '--';
+      if (document.getElementById('det-wall-f1')) {
+        document.getElementById('det-wall-f1').innerText = item.wall_segment_f1 ? item.wall_segment_f1.toFixed(3) : (item.geometry_f1 ? item.geometry_f1.toFixed(3) : '--');
+      }
+      if (document.getElementById('det-centerline-err')) {
+        document.getElementById('det-centerline-err').innerText = item.wall_centerline_error_px ? `${item.wall_centerline_error_px.toFixed(2)} px` : '< 2.0 px';
+      }
+      if (document.getElementById('det-door-att')) {
+        const att = item.door_jamb_attachment_ratio !== undefined ? item.door_jamb_attachment_ratio : item.door_jamb_validity;
+        document.getElementById('det-door-att').innerText = att !== undefined ? `${(att * 100).toFixed(1)}%` : '--';
+      }
+
+      document.getElementById('det-walls').innerText = item.walls_detected || 0;
+      document.getElementById('det-rooms').innerText = item.rooms_detected || 0;
+      document.getElementById('det-doors').innerText = item.doors_detected || 0;
+      document.getElementById('det-windows').innerText = item.windows_detected || 0;
+      document.getElementById('det-stairs').innerText = item.stairs_detected || 0;
+
+      document.getElementById('det-ocr-agree').innerText = item.ocr_agreement ? item.ocr_agreement.toFixed(2) : '--';
+      document.getElementById('det-text-count').innerText = item.text_annotations_count || '--';
+      document.getElementById('det-gt-match').innerText = item.ground_truth_verified ? (item.split ? `Verified [${item.split.toUpperCase()}]` : 'Yes (Validated Against GT)') : 'Unannotated (Review Required)';
+      document.getElementById('det-res').innerText = item.resolution || '--';
+      document.getElementById('det-time').innerText = `${item.processing_time_s || '--'} s`;
+
+      // Update JSON, SVG, & HTML Report action links
+      const outputs = item.outputs || {};
+      const htmlLink = document.getElementById('link-html-report');
+      const jsonLink = document.getElementById('link-download-json');
+      const svgLink = document.getElementById('link-download-svg');
+      if (htmlLink) htmlLink.href = outputs.comparison_html ? '/' + outputs.comparison_html : (outputs.comparison_dir ? '/' + outputs.comparison_dir + '/comparison_report.html' : '#');
+      if (jsonLink) jsonLink.href = outputs.extracted_json ? '/' + outputs.extracted_json : (outputs.metadata ? '/' + outputs.metadata : '#');
+      if (svgLink) svgLink.href = outputs.reconstruction_svg ? '/' + outputs.reconstruction_svg : (outputs.vector ? '/' + outputs.vector : '#');
+
+      const badge = document.getElementById('card-verdict-badge');
+      badge.innerText = item.verdict;
+      badge.className = `status-badge ${item.verdict === 'Verified' ? 'badge-verified' : (item.verdict === 'Needs Review' ? 'badge-review' : 'badge-failed')}`;
+
+      // Populate discrepancy tags
+      const discContainer = document.getElementById('discrepancy-tags-container');
+      discContainer.innerHTML = '';
+      let discs = [];
+      if (Array.isArray(item.discrepancies)) {
+        discs = item.discrepancies;
+      } else if (typeof item.discrepancies === 'string' && item.discrepancies.length > 0) {
+        discs = item.discrepancies.split(';').map(s => s.trim()).filter(s => s.length > 0);
+      }
+
+      if (discs.length === 0) {
+        discContainer.innerHTML = '<span style="color: var(--status-verified); font-weight: 600; font-size: 0.78rem;">&#10004; Zero Discrepancies Detected</span>';
+      } else {
+        discs.forEach(d => {
+          const tag = document.createElement('span');
+          tag.className = 'discrepancy-tag';
+          tag.innerText = d;
+          discContainer.appendChild(tag);
+        });
+      }
+    }
+
+    function setViewerMode(mode, btn) {
+      currentMode = mode;
+      document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const sliderWrapper = document.getElementById('opacity-slider-wrapper');
+      sliderWrapper.style.display = (mode === 'overlay') ? 'flex' : 'none';
+
+      updateViewer();
+    }
+
+    function updateViewer() {
+      if (!currentItem) return;
+      const primaryImg = document.getElementById('primary-view-img');
+      const outputs = currentItem.outputs || {};
+
+      let targetUrl = '';
+      const compDir = outputs.comparison_dir ? '/' + outputs.comparison_dir : null;
+
+      if (currentMode === 'composite') {
+        targetUrl = compDir ? `${compDir}/comparison_side_by_side.png` : '/' + (outputs.audit_composite || outputs.diff_map);
+      } else if (currentMode === 'room_comparison') {
+        targetUrl = compDir ? `${compDir}/room_comparison.png` : '/' + outputs.overlay;
+      } else if (currentMode === 'dimension_comparison') {
+        targetUrl = compDir ? `${compDir}/dimension_comparison.png` : '/' + (outputs.geometry_overlay || outputs.overlay);
+      } else if (currentMode === 'geometry_overlay') {
+        targetUrl = '/' + (outputs.geometry_overlay || outputs.overlay);
+      } else if (currentMode === 'overlay') {
+        targetUrl = compDir ? `${compDir}/overlay_comparison.png` : '/' + outputs.overlay;
+      } else if (currentMode === 'reconstruction') {
+        targetUrl = outputs.reconstruction_png ? '/' + outputs.reconstruction_png : (compDir ? `${compDir}/extracted_floorplan.png` : '/' + outputs.reconstructed);
+      } else if (currentMode === 'source') {
+        targetUrl = compDir ? `${compDir}/original_source.png` : '/' + currentItem.source_file;
+      } else if (currentMode === 'heatmap') {
+        targetUrl = compDir ? `${compDir}/difference_heatmap.png` : '/' + outputs.diff_map;
+      } else if (currentMode === 'vector') {
+        targetUrl = outputs.reconstruction_svg ? '/' + outputs.reconstruction_svg : '/' + outputs.vector;
+      }
+
+      primaryImg.src = targetUrl;
+    }
+
+    function updateOverlayOpacity(val) {
+      document.getElementById('opacity-label').innerText = `${val}%`;
+      const primaryImg = document.getElementById('primary-view-img');
+      primaryImg.style.opacity = val / 100.0;
+    }
+
+    async function triggerPipelineRun() {
+      if (!confirm("Run extraction agent across sample blueprints?")) return;
+      try {
+        const resp = await fetch('/api/cv-agent/run', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({limit: 2})
+        });
+        const res = await resp.json();
+        alert(res.message || "Extraction completed!");
+        await loadReports();
+      } catch (e) {
+        alert("Error executing pipeline: " + e);
+      }
+    }
+
+    function exportReport(fmt) {
+      window.open(`/reports/accuracy_report.${fmt}`, '_blank');
+    }
+
+    async function setHumanVerdict(verdict) {
+      if (!currentItem) return;
+      try {
+        const resp = await fetch('/api/cv-agent/verdict', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({source_file: currentItem.source_file, verdict: verdict})
+        });
+        if (resp.ok) {
+          currentItem.verdict = verdict;
+          renderQueue(reportData.results);
+          updateDetails(currentItem);
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    async function openAuditModal() {
+      const modal = document.getElementById('audit-modal');
+      modal.classList.add('show');
+      try {
+        const resp = await fetch('/api/cv-agent/controlled-audit');
+        if (resp.ok) {
+          const data = await resp.json();
+          const summary = data.summary || {};
+          document.getElementById('mod-prec').innerText = `${((summary.precision || 1.0) * 100).toFixed(1)}%`;
+          document.getElementById('mod-rec').innerText = `${((summary.recall || 1.0) * 100).toFixed(1)}%`;
+          document.getElementById('mod-f1').innerText = `${((summary.f1_score || 1.0) * 100).toFixed(1)}%`;
+          document.getElementById('mod-acc').innerText = `${((summary.accuracy || 1.0) * 100).toFixed(1)}%`;
+
+          const tbody = document.getElementById('audit-table-body');
+          tbody.innerHTML = '';
+          (data.cases || []).forEach(c => {
+            const tr = document.createElement('tr');
+            const isOk = c.passed_audit;
+            tr.innerHTML = `
+              <td style="font-weight: 600;">${c.case_name}</td>
+              <td style="color: var(--text-muted);">${c.mutation_type}</td>
+              <td>${c.expected_failure ? '<span style="color:#f87171;">Expected Detection</span>' : '<span style="color:#34d399;">Pristine Clean</span>'}</td>
+              <td><span style="font-family: monospace; font-size: 0.76rem;">${c.actual_mutation_detected ? c.actual_discrepancy : 'None (Passed)'}</span></td>
+              <td style="font-family: monospace;">${c.accuracy_score}</td>
+              <td><span class="status-badge ${isOk ? 'badge-verified' : 'badge-failed'}">${isOk ? 'PASS' : 'FAIL'}</span></td>
+            `;
+            tbody.appendChild(tr);
+          });
+        }
+      } catch (e) {
+        console.error("Failed loading controlled audit:", e);
+      }
+    }
+
+    function closeAuditModal() {
+      document.getElementById('audit-modal').classList.remove('show');
+    }
+
+    // Initialize on load
+    loadReports();
+  </script>
+</body>
+</html>

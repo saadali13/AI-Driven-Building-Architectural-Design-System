@@ -1,0 +1,368 @@
+{
+  "source_file": "7\\5f3dc234d56a2f170caf0322f06df811.jpg",
+  "category": "7",
+  "plot": {
+    "category": "7_marla",
+    "marla": 7.0,
+    "dimensions_ft": [
+      30.0,
+      52.5
+    ],
+    "setbacks_ft": {
+      "front": 5.0,
+      "rear": 5.0,
+      "side_left": 0.0,
+      "side_right": 0.0
+    }
+  },
+  "pixel_scale": {
+    "image_width_px": 1200,
+    "image_height_px": 1500,
+    "cropped_envelope_px": [
+      228,
+      78,
+      754,
+      1350
+    ],
+    "pixels_per_foot_x": 25.133,
+    "pixels_per_foot_y": 25.714
+  },
+  "rooms": [
+    {
+      "id": "room_1",
+      "name": "Formal Guest Drawing Room",
+      "type": "drawing_room",
+      "zoning": "Front-Public",
+      "bbox_ft": [
+        11.06,
+        0.7,
+        18.22,
+        5.68
+      ],
+      "area_sqft": 103.5,
+      "aspect_ratio": 3.21,
+      "polygon_coords": [
+        [
+          29.28,
+          0.7
+        ],
+        [
+          29.28,
+          6.38
+        ],
+        [
+          11.06,
+          6.38
+        ],
+        [
+          11.06,
+          0.7
+        ],
+        [
+          29.28,
+          0.7
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_2",
+      "name": "Front Veranda / Lawn",
+      "type": "balcony",
+      "zoning": "Front-Public",
+      "bbox_ft": [
+        16.75,
+        6.49,
+        10.03,
+        10.38
+      ],
+      "area_sqft": 104.1,
+      "aspect_ratio": 0.97,
+      "polygon_coords": [
+        [
+          26.78,
+          6.49
+        ],
+        [
+          26.78,
+          16.87
+        ],
+        [
+          16.75,
+          16.87
+        ],
+        [
+          16.75,
+          6.49
+        ],
+        [
+          26.78,
+          6.49
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_3",
+      "name": "Front Veranda / Lawn",
+      "type": "balcony",
+      "zoning": "Front-Public",
+      "bbox_ft": [
+        26.66,
+        6.49,
+        3.1,
+        39.12
+      ],
+      "area_sqft": 120.0,
+      "aspect_ratio": 0.08,
+      "polygon_coords": [
+        [
+          26.66,
+          45.61
+        ],
+        [
+          29.76,
+          45.61
+        ],
+        [
+          29.76,
+          6.49
+        ],
+        [
+          26.78,
+          6.49
+        ],
+        [
+          26.78,
+          16.87
+        ],
+        [
+          26.66,
+          16.87
+        ],
+        [
+          26.66,
+          45.61
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_4",
+      "name": "Car Porch & Driveway",
+      "type": "garage",
+      "zoning": "Front-Public",
+      "bbox_ft": [
+        3.54,
+        9.92,
+        4.66,
+        6.81
+      ],
+      "area_sqft": 31.7,
+      "aspect_ratio": 0.68,
+      "polygon_coords": [
+        [
+          8.2,
+          9.92
+        ],
+        [
+          8.2,
+          16.73
+        ],
+        [
+          3.54,
+          16.73
+        ],
+        [
+          3.54,
+          9.92
+        ],
+        [
+          8.2,
+          9.92
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_5",
+      "name": "Central Family TV Lounge",
+      "type": "living_room",
+      "zoning": "Mid-Living-Service",
+      "bbox_ft": [
+        1.15,
+        27.61,
+        13.81,
+        17.11
+      ],
+      "area_sqft": 236.3,
+      "aspect_ratio": 0.81,
+      "polygon_coords": [
+        [
+          14.96,
+          27.61
+        ],
+        [
+          14.96,
+          44.72
+        ],
+        [
+          1.15,
+          44.72
+        ],
+        [
+          1.15,
+          27.61
+        ],
+        [
+          14.96,
+          27.61
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_6",
+      "name": "Ensuite Bath 6",
+      "type": "bathroom",
+      "zoning": "Rear-Private",
+      "bbox_ft": [
+        8.24,
+        45.73,
+        20.61,
+        2.29
+      ],
+      "area_sqft": 47.2,
+      "aspect_ratio": 9.0,
+      "polygon_coords": [
+        [
+          28.85,
+          45.73
+        ],
+        [
+          28.85,
+          48.02
+        ],
+        [
+          8.24,
+          48.02
+        ],
+        [
+          8.24,
+          45.73
+        ],
+        [
+          28.85,
+          45.73
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_7",
+      "name": "Master Bedroom Suite 7",
+      "type": "bedroom",
+      "zoning": "Rear-Private",
+      "bbox_ft": [
+        1.15,
+        48.18,
+        27.69,
+        3.85
+      ],
+      "area_sqft": 106.6,
+      "aspect_ratio": 7.19,
+      "polygon_coords": [
+        [
+          28.84,
+          48.18
+        ],
+        [
+          28.84,
+          52.03
+        ],
+        [
+          1.15,
+          52.03
+        ],
+        [
+          1.15,
+          48.18
+        ],
+        [
+          28.84,
+          48.18
+        ]
+      ],
+      "floor_level": 0
+    }
+  ],
+  "fenestrations": [
+    {
+      "id": "win_room_1_front",
+      "type": "window",
+      "host_room": "room_1",
+      "wall": "front",
+      "position": [
+        20.17,
+        0.7,
+        3.0
+      ],
+      "width": 6.5,
+      "height": 5.5,
+      "sill_height": 2.5
+    },
+    {
+      "id": "door_room_4_main",
+      "type": "door",
+      "host_room": "room_4",
+      "wall": "rear",
+      "position": [
+        6.34,
+        16.73,
+        0.0
+      ],
+      "width": 3.5,
+      "height": 7.0,
+      "sill_height": 0.0
+    },
+    {
+      "id": "win_room_7_rear",
+      "type": "window",
+      "host_room": "room_7",
+      "wall": "rear",
+      "position": [
+        15.0,
+        52.03,
+        3.0
+      ],
+      "width": 4.5,
+      "height": 4.5,
+      "sill_height": 3.0
+    }
+  ],
+  "circulation_graph": {
+    "room_1": [
+      "room_2",
+      "room_3"
+    ],
+    "room_2": [
+      "room_1",
+      "room_3"
+    ],
+    "room_3": [
+      "room_1",
+      "room_2",
+      "room_6"
+    ],
+    "room_4": [],
+    "room_5": [],
+    "room_6": [
+      "room_3",
+      "room_7"
+    ],
+    "room_7": [
+      "room_6"
+    ]
+  },
+  "elevation_features": null
+}

@@ -1,0 +1,208 @@
+{
+  "source_file": "elevationwithfloorplan\\aed07152cc4b597d1b017a8c14f5a39d.jpg",
+  "category": "elevationwithfloorplan",
+  "plot": {
+    "category": "5_marla",
+    "marla": 5.0,
+    "dimensions_ft": [
+      25.0,
+      45.0
+    ],
+    "setbacks_ft": {
+      "front": 5.0,
+      "rear": 4.0,
+      "side_left": 0.0,
+      "side_right": 0.0
+    }
+  },
+  "pixel_scale": {
+    "image_width_px": 1080,
+    "image_height_px": 1350,
+    "cropped_envelope_px": [
+      0,
+      0,
+      1080,
+      770
+    ],
+    "pixels_per_foot_x": 43.2,
+    "pixels_per_foot_y": 17.111
+  },
+  "rooms": [
+    {
+      "id": "room_1",
+      "name": "Formal Guest Drawing Room",
+      "type": "drawing_room",
+      "zoning": "Front-Public",
+      "bbox_ft": [
+        17.04,
+        4.09,
+        2.75,
+        31.73
+      ],
+      "area_sqft": 87.3,
+      "aspect_ratio": 0.09,
+      "polygon_coords": [
+        [
+          19.79,
+          4.09
+        ],
+        [
+          19.79,
+          35.82
+        ],
+        [
+          17.04,
+          35.82
+        ],
+        [
+          17.04,
+          4.09
+        ],
+        [
+          19.79,
+          4.09
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_2",
+      "name": "Central Family TV Lounge",
+      "type": "living_room",
+      "zoning": "Front-Public",
+      "bbox_ft": [
+        2.87,
+        14.08,
+        11.9,
+        12.51
+      ],
+      "area_sqft": 148.9,
+      "aspect_ratio": 0.95,
+      "polygon_coords": [
+        [
+          14.77,
+          14.08
+        ],
+        [
+          14.77,
+          26.59
+        ],
+        [
+          2.87,
+          26.59
+        ],
+        [
+          2.87,
+          14.08
+        ],
+        [
+          14.77,
+          14.08
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_3",
+      "name": "Master Bedroom Suite",
+      "type": "bedroom",
+      "zoning": "Rear-Private",
+      "bbox_ft": [
+        0.09,
+        36.23,
+        4.42,
+        7.95
+      ],
+      "area_sqft": 35.1,
+      "aspect_ratio": 0.56,
+      "polygon_coords": [
+        [
+          4.51,
+          36.23
+        ],
+        [
+          4.51,
+          44.18
+        ],
+        [
+          0.09,
+          44.18
+        ],
+        [
+          0.09,
+          36.23
+        ],
+        [
+          4.51,
+          36.23
+        ]
+      ],
+      "floor_level": 0
+    }
+  ],
+  "fenestrations": [
+    {
+      "id": "win_room_1_front",
+      "type": "window",
+      "host_room": "room_1",
+      "wall": "front",
+      "position": [
+        18.41,
+        4.09,
+        3.0
+      ],
+      "width": 1.7875,
+      "height": 5.5,
+      "sill_height": 2.5
+    },
+    {
+      "id": "win_room_3_rear",
+      "type": "window",
+      "host_room": "room_3",
+      "wall": "rear",
+      "position": [
+        2.3,
+        44.18,
+        3.0
+      ],
+      "width": 4.5,
+      "height": 4.5,
+      "sill_height": 3.0
+    }
+  ],
+  "circulation_graph": {
+    "room_1": [],
+    "room_2": [],
+    "room_3": []
+  },
+  "elevation_features": {
+    "datum_levels": [
+      {
+        "name": "Natural Ground Level (NGL)",
+        "elevation_ft": 0.0
+      },
+      {
+        "name": "Plinth Level",
+        "elevation_ft": 1.5
+      },
+      {
+        "name": "Ground Floor Ceiling",
+        "elevation_ft": 11.0
+      },
+      {
+        "name": "First Floor Ceiling",
+        "elevation_ft": 22.0
+      },
+      {
+        "name": "Rooftop Parapet",
+        "elevation_ft": 25.5
+      },
+      {
+        "name": "Stair Mumty Tower",
+        "elevation_ft": 33.5
+      }
+    ],
+    "porch_column_detected": true,
+    "balcony_slab_detected": true
+  }
+}

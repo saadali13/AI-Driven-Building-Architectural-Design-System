@@ -1,0 +1,233 @@
+{
+  "source_file": "10\\660c56d57c30c57d2598ce074c644adf.jpg",
+  "category": "10",
+  "plot": {
+    "category": "10_marla",
+    "marla": 10.0,
+    "dimensions_ft": [
+      35.0,
+      65.0
+    ],
+    "setbacks_ft": {
+      "front": 10.0,
+      "rear": 5.0,
+      "side_left": 3.0,
+      "side_right": 0.0
+    }
+  },
+  "pixel_scale": {
+    "image_width_px": 362,
+    "image_height_px": 633,
+    "cropped_envelope_px": [
+      0,
+      7,
+      358,
+      626
+    ],
+    "pixels_per_foot_x": 10.229,
+    "pixels_per_foot_y": 9.631
+  },
+  "rooms": [
+    {
+      "id": "room_1",
+      "name": "Staircase Circulation Core",
+      "type": "staircase",
+      "zoning": "Mid-Living-Service",
+      "bbox_ft": [
+        6.55,
+        31.57,
+        7.33,
+        6.85
+      ],
+      "area_sqft": 50.2,
+      "aspect_ratio": 1.07,
+      "polygon_coords": [
+        [
+          13.88,
+          31.57
+        ],
+        [
+          13.88,
+          38.42
+        ],
+        [
+          6.55,
+          38.42
+        ],
+        [
+          6.55,
+          31.57
+        ],
+        [
+          13.88,
+          31.57
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_2",
+      "name": "Gourmet Kitchen",
+      "type": "kitchen",
+      "zoning": "Mid-Living-Service",
+      "bbox_ft": [
+        7.72,
+        39.04,
+        6.16,
+        13.5
+      ],
+      "area_sqft": 83.2,
+      "aspect_ratio": 0.46,
+      "polygon_coords": [
+        [
+          13.88,
+          39.04
+        ],
+        [
+          13.88,
+          52.54
+        ],
+        [
+          7.72,
+          52.54
+        ],
+        [
+          7.72,
+          39.04
+        ],
+        [
+          13.88,
+          39.04
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_3",
+      "name": "Master Bedroom Suite 3",
+      "type": "bedroom",
+      "zoning": "Rear-Private",
+      "bbox_ft": [
+        15.54,
+        52.75,
+        18.28,
+        10.59
+      ],
+      "area_sqft": 193.6,
+      "aspect_ratio": 1.73,
+      "polygon_coords": [
+        [
+          33.82,
+          52.75
+        ],
+        [
+          33.82,
+          63.34
+        ],
+        [
+          15.54,
+          63.34
+        ],
+        [
+          15.54,
+          52.75
+        ],
+        [
+          33.82,
+          52.75
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_4",
+      "name": "Master Bedroom Suite 4",
+      "type": "bedroom",
+      "zoning": "Rear-Private",
+      "bbox_ft": [
+        1.47,
+        54.41,
+        18.09,
+        10.18
+      ],
+      "area_sqft": 148.3,
+      "aspect_ratio": 1.78,
+      "polygon_coords": [
+        [
+          1.47,
+          54.41
+        ],
+        [
+          1.47,
+          64.59
+        ],
+        [
+          19.56,
+          64.59
+        ],
+        [
+          19.56,
+          63.34
+        ],
+        [
+          15.54,
+          63.34
+        ],
+        [
+          15.54,
+          54.41
+        ],
+        [
+          1.47,
+          54.41
+        ]
+      ],
+      "floor_level": 0
+    }
+  ],
+  "fenestrations": [
+    {
+      "id": "win_room_3_rear",
+      "type": "window",
+      "host_room": "room_3",
+      "wall": "rear",
+      "position": [
+        24.68,
+        63.34,
+        3.0
+      ],
+      "width": 4.5,
+      "height": 4.5,
+      "sill_height": 3.0
+    },
+    {
+      "id": "win_room_4_rear",
+      "type": "window",
+      "host_room": "room_4",
+      "wall": "rear",
+      "position": [
+        10.52,
+        64.59,
+        3.0
+      ],
+      "width": 4.5,
+      "height": 4.5,
+      "sill_height": 3.0
+    }
+  ],
+  "circulation_graph": {
+    "room_1": [
+      "room_2"
+    ],
+    "room_2": [
+      "room_1"
+    ],
+    "room_3": [
+      "room_4"
+    ],
+    "room_4": [
+      "room_3"
+    ]
+  },
+  "elevation_features": null
+}

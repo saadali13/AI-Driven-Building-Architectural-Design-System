@@ -1,0 +1,379 @@
+{
+  "source_file": "1\\00770eba64db20501bbd30bb21ce6aa5.jpg",
+  "category": "1",
+  "plot": {
+    "category": "1_kanal",
+    "marla": 20.0,
+    "dimensions_ft": [
+      50.0,
+      90.0
+    ],
+    "setbacks_ft": {
+      "front": 15.0,
+      "rear": 7.0,
+      "side_left": 5.0,
+      "side_right": 5.0
+    }
+  },
+  "pixel_scale": {
+    "image_width_px": 877,
+    "image_height_px": 1584,
+    "pixels_per_foot_x": 17.54,
+    "pixels_per_foot_y": 17.6
+  },
+  "rooms": [
+    {
+      "id": "room_1",
+      "name": "Car Porch & Driveway",
+      "type": "garage",
+      "zoning": "Front-Public",
+      "bbox_ft": [
+        0.0,
+        0.0,
+        14.0,
+        35.4
+      ],
+      "area_sqft": 495.6,
+      "floor_level": 0,
+      "polygon_coords": [
+        [
+          0.0,
+          0.0
+        ],
+        [
+          14.0,
+          0.0
+        ],
+        [
+          14.0,
+          35.4
+        ],
+        [
+          0.0,
+          35.4
+        ],
+        [
+          0.0,
+          0.0
+        ]
+      ],
+      "aspect_ratio": 0.4
+    },
+    {
+      "id": "room_2",
+      "name": "Formal Guest Drawing Room",
+      "type": "drawing_room",
+      "zoning": "Front-Public",
+      "bbox_ft": [
+        14.0,
+        15.0,
+        36.0,
+        20.4
+      ],
+      "area_sqft": 734.4,
+      "floor_level": 0,
+      "polygon_coords": [
+        [
+          14.0,
+          15.0
+        ],
+        [
+          50.0,
+          15.0
+        ],
+        [
+          50.0,
+          35.4
+        ],
+        [
+          14.0,
+          35.4
+        ],
+        [
+          14.0,
+          15.0
+        ]
+      ],
+      "aspect_ratio": 1.76
+    },
+    {
+      "id": "room_3",
+      "name": "Central Family TV Lounge",
+      "type": "living_room",
+      "zoning": "Mid-Living-Service",
+      "bbox_ft": [
+        0.0,
+        35.4,
+        42.0,
+        23.799999999999997
+      ],
+      "area_sqft": 999.6,
+      "floor_level": 0,
+      "polygon_coords": [
+        [
+          0.0,
+          35.4
+        ],
+        [
+          42.0,
+          35.4
+        ],
+        [
+          42.0,
+          59.199999999999996
+        ],
+        [
+          0.0,
+          59.199999999999996
+        ],
+        [
+          0.0,
+          35.4
+        ]
+      ],
+      "aspect_ratio": 1.76
+    },
+    {
+      "id": "room_4",
+      "name": "Staircase Circulation Core",
+      "type": "staircase",
+      "zoning": "Vertical-Circulation",
+      "bbox_ft": [
+        42.0,
+        35.4,
+        8.0,
+        23.799999999999997
+      ],
+      "area_sqft": 190.4,
+      "floor_level": 0,
+      "polygon_coords": [
+        [
+          42.0,
+          35.4
+        ],
+        [
+          50.0,
+          35.4
+        ],
+        [
+          50.0,
+          59.199999999999996
+        ],
+        [
+          42.0,
+          59.199999999999996
+        ],
+        [
+          42.0,
+          35.4
+        ]
+      ],
+      "aspect_ratio": 0.34
+    },
+    {
+      "id": "room_5",
+      "name": "Gourmet Kitchen",
+      "type": "kitchen",
+      "zoning": "Mid-Living-Service",
+      "bbox_ft": [
+        0.0,
+        59.2,
+        11.0,
+        23.799999999999997
+      ],
+      "area_sqft": 261.8,
+      "floor_level": 0,
+      "polygon_coords": [
+        [
+          0.0,
+          59.2
+        ],
+        [
+          11.0,
+          59.2
+        ],
+        [
+          11.0,
+          83.0
+        ],
+        [
+          0.0,
+          83.0
+        ],
+        [
+          0.0,
+          59.2
+        ]
+      ],
+      "aspect_ratio": 0.46
+    },
+    {
+      "id": "room_6",
+      "name": "Master Bedroom Suite 1",
+      "type": "bedroom",
+      "zoning": "Rear-Private",
+      "bbox_ft": [
+        11.0,
+        59.2,
+        32.5,
+        23.799999999999997
+      ],
+      "area_sqft": 773.5,
+      "floor_level": 0,
+      "polygon_coords": [
+        [
+          11.0,
+          59.2
+        ],
+        [
+          43.5,
+          59.2
+        ],
+        [
+          43.5,
+          83.0
+        ],
+        [
+          11.0,
+          83.0
+        ],
+        [
+          11.0,
+          59.2
+        ]
+      ],
+      "aspect_ratio": 1.37
+    },
+    {
+      "id": "room_7",
+      "name": "Master En-suite Bath 1",
+      "type": "bathroom",
+      "zoning": "Rear-Private",
+      "bbox_ft": [
+        43.5,
+        59.2,
+        6.5,
+        14.96
+      ],
+      "area_sqft": 97.2,
+      "floor_level": 0,
+      "polygon_coords": [
+        [
+          43.5,
+          59.2
+        ],
+        [
+          50.0,
+          59.2
+        ],
+        [
+          50.0,
+          74.16
+        ],
+        [
+          43.5,
+          74.16
+        ],
+        [
+          43.5,
+          59.2
+        ]
+      ],
+      "aspect_ratio": 0.43
+    },
+    {
+      "id": "room_8",
+      "name": "Rear OTS Lightwell",
+      "type": "ots",
+      "zoning": "Rear-Private",
+      "bbox_ft": [
+        43.5,
+        74.16,
+        6.5,
+        8.84
+      ],
+      "area_sqft": 57.5,
+      "floor_level": 0,
+      "polygon_coords": [
+        [
+          43.5,
+          74.16
+        ],
+        [
+          50.0,
+          74.16
+        ],
+        [
+          50.0,
+          83.0
+        ],
+        [
+          43.5,
+          83.0
+        ],
+        [
+          43.5,
+          74.16
+        ]
+      ],
+      "aspect_ratio": 0.74
+    }
+  ],
+  "fenestrations": [
+    {
+      "id": "win_dr_front",
+      "type": "window",
+      "host_room": "room_2",
+      "wall": "front",
+      "position": [
+        32.0,
+        15.0,
+        3.0
+      ],
+      "width": 6.5,
+      "height": 5.5,
+      "sill_height": 2.5
+    },
+    {
+      "id": "door_porch_main",
+      "type": "door",
+      "host_room": "room_1",
+      "wall": "rear",
+      "position": [
+        8.4,
+        35.4,
+        0.0
+      ],
+      "width": 3.5,
+      "height": 7.0,
+      "sill_height": 0.0
+    }
+  ],
+  "circulation_graph": {
+    "room_1": [
+      "room_2",
+      "room_3"
+    ],
+    "room_2": [
+      "room_1",
+      "room_3"
+    ],
+    "room_3": [
+      "room_1",
+      "room_4",
+      "room_5",
+      "room_6"
+    ],
+    "room_4": [
+      "room_3"
+    ],
+    "room_5": [
+      "room_3"
+    ],
+    "room_6": [
+      "room_3",
+      "room_7"
+    ]
+  },
+  "elevation_features": null
+}

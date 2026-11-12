@@ -97,17 +97,24 @@ class ElevationEngine:
         cls,
         plan: CanonicalFloorPlan,
         out_path: str,
-        variation_label: str = "A"
+        variation_label: str = "A",
+        style: Optional[str] = None
     ) -> str:
         """
         Renders Option A: Clean 2D Technical Front Elevation Drawing
-        with technical datum lines, materials, dimensions, and callouts.
+        derived directly from the interior floor plan geometry via FloorPlanToElevationMapper.
         """
-        info = cls.analyze_facade_zones(plan)
-        is_spanish = any(w in info.get("style", "").lower() for w in ["spanish", "mediterranean", "andalusian", "mission", "colonial"])
-        if is_spanish:
-            return cls._render_spanish_elevation(info, out_path, variation_label)
-        return cls._render_modern_elevation(info, out_path, variation_label)
+        try:
+            from generation.floor_plan_to_elevation_mapper import FloorPlanToElevationMapper
+            chosen_style = style or plan.metadata.provenance.get("architectural_style", "modern_contemporary")
+            return FloorPlanToElevationMapper.map_and_render_elevation(plan, out_path, style=chosen_style)
+        except Exception as e:
+            print(f"[ElevationEngine Fallback Notice]: {e}")
+            info = cls.analyze_facade_zones(plan)
+            is_spanish = any(w in (style or info.get("style", "")).lower() for w in ["spanish", "mediterranean", "andalusian", "mission", "colonial"])
+            if is_spanish:
+                return cls._render_spanish_elevation(info, out_path, variation_label)
+            return cls._render_modern_elevation(info, out_path, variation_label)
 
     @classmethod
     def _render_spanish_elevation(

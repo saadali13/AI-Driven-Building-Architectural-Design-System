@@ -1,0 +1,215 @@
+{
+  "source_file": "10\\3dd46b9a57d817703f8fbd60992cba19.jpg",
+  "category": "10",
+  "plot": {
+    "category": "10_marla",
+    "marla": 10.0,
+    "dimensions_ft": [
+      35.0,
+      65.0
+    ],
+    "setbacks_ft": {
+      "front": 10.0,
+      "rear": 5.0,
+      "side_left": 3.0,
+      "side_right": 0.0
+    }
+  },
+  "pixel_scale": {
+    "image_width_px": 735,
+    "image_height_px": 1174,
+    "cropped_envelope_px": [
+      71,
+      27,
+      594,
+      1111
+    ],
+    "pixels_per_foot_x": 16.971,
+    "pixels_per_foot_y": 17.092
+  },
+  "rooms": [
+    {
+      "id": "room_1",
+      "name": "Gourmet Kitchen",
+      "type": "kitchen",
+      "zoning": "Mid-Living-Service",
+      "bbox_ft": [
+        21.86,
+        37.15,
+        12.02,
+        5.97
+      ],
+      "area_sqft": 71.8,
+      "aspect_ratio": 2.01,
+      "polygon_coords": [
+        [
+          33.88,
+          37.15
+        ],
+        [
+          33.88,
+          43.12
+        ],
+        [
+          21.86,
+          43.12
+        ],
+        [
+          21.86,
+          37.15
+        ],
+        [
+          33.88,
+          37.15
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_2",
+      "name": "Central Family TV Lounge",
+      "type": "living_room",
+      "zoning": "Mid-Living-Service",
+      "bbox_ft": [
+        22.33,
+        43.29,
+        11.55,
+        15.68
+      ],
+      "area_sqft": 181.1,
+      "aspect_ratio": 0.74,
+      "polygon_coords": [
+        [
+          33.88,
+          43.29
+        ],
+        [
+          33.88,
+          58.97
+        ],
+        [
+          22.33,
+          58.97
+        ],
+        [
+          22.33,
+          43.29
+        ],
+        [
+          33.88,
+          43.29
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_3",
+      "name": "Master Bedroom Suite 3",
+      "type": "bedroom",
+      "zoning": "Rear-Private",
+      "bbox_ft": [
+        0.24,
+        53.36,
+        21.98,
+        11.41
+      ],
+      "area_sqft": 250.8,
+      "aspect_ratio": 1.93,
+      "polygon_coords": [
+        [
+          22.22,
+          53.36
+        ],
+        [
+          22.22,
+          64.77
+        ],
+        [
+          0.24,
+          64.77
+        ],
+        [
+          0.24,
+          53.36
+        ],
+        [
+          22.22,
+          53.36
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_4",
+      "name": "Ensuite Bath 4",
+      "type": "bathroom",
+      "zoning": "Rear-Private",
+      "bbox_ft": [
+        22.92,
+        59.15,
+        10.31,
+        5.62
+      ],
+      "area_sqft": 57.9,
+      "aspect_ratio": 1.83,
+      "polygon_coords": [
+        [
+          33.23,
+          59.15
+        ],
+        [
+          33.23,
+          64.77
+        ],
+        [
+          22.92,
+          64.77
+        ],
+        [
+          22.92,
+          59.15
+        ],
+        [
+          33.23,
+          59.15
+        ]
+      ],
+      "floor_level": 0
+    }
+  ],
+  "fenestrations": [
+    {
+      "id": "win_room_3_rear",
+      "type": "window",
+      "host_room": "room_3",
+      "wall": "rear",
+      "position": [
+        11.23,
+        64.77,
+        3.0
+      ],
+      "width": 4.5,
+      "height": 4.5,
+      "sill_height": 3.0
+    }
+  ],
+  "circulation_graph": {
+    "room_1": [
+      "room_2"
+    ],
+    "room_2": [
+      "room_1",
+      "room_3",
+      "room_4"
+    ],
+    "room_3": [
+      "room_2",
+      "room_4"
+    ],
+    "room_4": [
+      "room_2",
+      "room_3"
+    ]
+  },
+  "elevation_features": null
+}

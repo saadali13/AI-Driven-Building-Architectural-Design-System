@@ -1,0 +1,160 @@
+{
+  "source_file": "elevationwithfloorplan\\61226f4ab42e4b52c813106526ccc827.jpg",
+  "category": "elevationwithfloorplan",
+  "plot": {
+    "category": "5_marla",
+    "marla": 5.0,
+    "dimensions_ft": [
+      25.0,
+      45.0
+    ],
+    "setbacks_ft": {
+      "front": 5.0,
+      "rear": 4.0,
+      "side_left": 0.0,
+      "side_right": 0.0
+    }
+  },
+  "pixel_scale": {
+    "image_width_px": 1080,
+    "image_height_px": 1350,
+    "cropped_envelope_px": [
+      50,
+      0,
+      980,
+      708
+    ],
+    "pixels_per_foot_x": 39.2,
+    "pixels_per_foot_y": 15.733
+  },
+  "rooms": [
+    {
+      "id": "room_1",
+      "name": "Car Porch & Driveway",
+      "type": "garage",
+      "zoning": "Front-Public",
+      "bbox_ft": [
+        4.52,
+        3.5,
+        11.68,
+        23.58
+      ],
+      "area_sqft": 275.4,
+      "aspect_ratio": 0.5,
+      "polygon_coords": [
+        [
+          16.2,
+          3.5
+        ],
+        [
+          16.2,
+          27.08
+        ],
+        [
+          4.52,
+          27.08
+        ],
+        [
+          4.52,
+          3.5
+        ],
+        [
+          16.2,
+          3.5
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_2",
+      "name": "Central Family TV Lounge",
+      "type": "living_room",
+      "zoning": "Mid-Living-Service",
+      "bbox_ft": [
+        7.09,
+        27.2,
+        8.11,
+        4.32
+      ],
+      "area_sqft": 35.0,
+      "aspect_ratio": 1.88,
+      "polygon_coords": [
+        [
+          15.2,
+          27.2
+        ],
+        [
+          15.2,
+          31.52
+        ],
+        [
+          7.09,
+          31.52
+        ],
+        [
+          7.09,
+          27.2
+        ],
+        [
+          15.2,
+          27.2
+        ]
+      ],
+      "floor_level": 0
+    }
+  ],
+  "fenestrations": [
+    {
+      "id": "door_room_1_main",
+      "type": "door",
+      "host_room": "room_1",
+      "wall": "rear",
+      "position": [
+        11.53,
+        27.08,
+        0.0
+      ],
+      "width": 3.5,
+      "height": 7.0,
+      "sill_height": 0.0
+    }
+  ],
+  "circulation_graph": {
+    "room_1": [
+      "room_2"
+    ],
+    "room_2": [
+      "room_1"
+    ]
+  },
+  "elevation_features": {
+    "datum_levels": [
+      {
+        "name": "Natural Ground Level (NGL)",
+        "elevation_ft": 0.0
+      },
+      {
+        "name": "Plinth Level",
+        "elevation_ft": 1.5
+      },
+      {
+        "name": "Ground Floor Ceiling",
+        "elevation_ft": 11.0
+      },
+      {
+        "name": "First Floor Ceiling",
+        "elevation_ft": 22.0
+      },
+      {
+        "name": "Rooftop Parapet",
+        "elevation_ft": 25.5
+      },
+      {
+        "name": "Stair Mumty Tower",
+        "elevation_ft": 33.5
+      }
+    ],
+    "porch_column_detected": true,
+    "balcony_slab_detected": true
+  }
+}

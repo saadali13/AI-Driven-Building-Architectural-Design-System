@@ -1,0 +1,272 @@
+{
+  "source_file": "elevationwithfloorplan\\8cbb1b699d01f410e8e7d2392d2f6fc8.jpg",
+  "category": "elevationwithfloorplan",
+  "plot": {
+    "category": "5_marla",
+    "marla": 5.0,
+    "dimensions_ft": [
+      25.0,
+      45.0
+    ],
+    "setbacks_ft": {
+      "front": 5.0,
+      "rear": 4.0,
+      "side_left": 0.0,
+      "side_right": 0.0
+    }
+  },
+  "pixel_scale": {
+    "image_width_px": 736,
+    "image_height_px": 928,
+    "cropped_envelope_px": [
+      0,
+      0,
+      736,
+      520
+    ],
+    "pixels_per_foot_x": 29.44,
+    "pixels_per_foot_y": 11.556
+  },
+  "rooms": [
+    {
+      "id": "room_1",
+      "name": "Car Porch & Driveway",
+      "type": "garage",
+      "zoning": "Front-Public",
+      "bbox_ft": [
+        0.14,
+        0.35,
+        24.56,
+        31.07
+      ],
+      "area_sqft": 763.1,
+      "aspect_ratio": 0.79,
+      "polygon_coords": [
+        [
+          24.7,
+          0.35
+        ],
+        [
+          24.7,
+          31.42
+        ],
+        [
+          0.14,
+          31.42
+        ],
+        [
+          0.14,
+          0.35
+        ],
+        [
+          24.7,
+          0.35
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_2",
+      "name": "Formal Guest Drawing Room",
+      "type": "drawing_room",
+      "zoning": "Front-Public",
+      "bbox_ft": [
+        8.08,
+        10.99,
+        16.64,
+        27.17
+      ],
+      "area_sqft": 112.6,
+      "aspect_ratio": 0.61,
+      "polygon_coords": [
+        [
+          8.08,
+          38.16
+        ],
+        [
+          24.72,
+          38.16
+        ],
+        [
+          24.72,
+          10.99
+        ],
+        [
+          24.7,
+          10.99
+        ],
+        [
+          24.7,
+          31.42
+        ],
+        [
+          8.08,
+          31.42
+        ],
+        [
+          8.08,
+          38.16
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_3",
+      "name": "Master Bedroom Suite",
+      "type": "bedroom",
+      "zoning": "Rear-Private",
+      "bbox_ft": [
+        15.96,
+        40.41,
+        8.76,
+        4.24
+      ],
+      "area_sqft": 37.1,
+      "aspect_ratio": 2.07,
+      "polygon_coords": [
+        [
+          24.72,
+          40.41
+        ],
+        [
+          24.72,
+          44.65
+        ],
+        [
+          15.96,
+          44.65
+        ],
+        [
+          15.96,
+          40.41
+        ],
+        [
+          24.72,
+          40.41
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_4",
+      "name": "Ensuite Bath 4",
+      "type": "bathroom",
+      "zoning": "Rear-Private",
+      "bbox_ft": [
+        0.14,
+        40.5,
+        7.74,
+        4.15
+      ],
+      "area_sqft": 32.1,
+      "aspect_ratio": 1.87,
+      "polygon_coords": [
+        [
+          7.88,
+          40.5
+        ],
+        [
+          7.88,
+          44.65
+        ],
+        [
+          0.14,
+          44.65
+        ],
+        [
+          0.14,
+          40.5
+        ],
+        [
+          7.88,
+          40.5
+        ]
+      ],
+      "floor_level": 0
+    }
+  ],
+  "fenestrations": [
+    {
+      "id": "door_room_1_main",
+      "type": "door",
+      "host_room": "room_1",
+      "wall": "rear",
+      "position": [
+        14.88,
+        31.42,
+        0.0
+      ],
+      "width": 3.5,
+      "height": 7.0,
+      "sill_height": 0.0
+    },
+    {
+      "id": "win_room_2_front",
+      "type": "window",
+      "host_room": "room_2",
+      "wall": "front",
+      "position": [
+        16.4,
+        10.99,
+        3.0
+      ],
+      "width": 6.5,
+      "height": 5.5,
+      "sill_height": 2.5
+    },
+    {
+      "id": "win_room_3_rear",
+      "type": "window",
+      "host_room": "room_3",
+      "wall": "rear",
+      "position": [
+        20.34,
+        44.65,
+        3.0
+      ],
+      "width": 4.5,
+      "height": 4.5,
+      "sill_height": 3.0
+    }
+  ],
+  "circulation_graph": {
+    "room_1": [
+      "room_2"
+    ],
+    "room_2": [
+      "room_1"
+    ],
+    "room_3": [],
+    "room_4": []
+  },
+  "elevation_features": {
+    "datum_levels": [
+      {
+        "name": "Natural Ground Level (NGL)",
+        "elevation_ft": 0.0
+      },
+      {
+        "name": "Plinth Level",
+        "elevation_ft": 1.5
+      },
+      {
+        "name": "Ground Floor Ceiling",
+        "elevation_ft": 11.0
+      },
+      {
+        "name": "First Floor Ceiling",
+        "elevation_ft": 22.0
+      },
+      {
+        "name": "Rooftop Parapet",
+        "elevation_ft": 25.5
+      },
+      {
+        "name": "Stair Mumty Tower",
+        "elevation_ft": 33.5
+      }
+    ],
+    "porch_column_detected": true,
+    "balcony_slab_detected": true
+  }
+}

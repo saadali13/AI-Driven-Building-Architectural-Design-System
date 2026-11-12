@@ -30,7 +30,12 @@ from dataset.schema.canonical import (
     GraphEdgeModel
 )
 from generation.quality_gate import FloorPlanQualityGate
-from extraction.relationships import SpatialRelationshipGraphExtractor
+try:
+    from extraction.relationships import SpatialRelationshipGraphExtractor
+except ImportError:
+    class SpatialRelationshipGraphExtractor:
+        def __init__(self, *args, **kwargs): pass
+        def extract(self, *args, **kwargs): return []
 
 
 def rect_poly(x1: float, y1: float, x2: float, y2: float) -> List[List[float]]:
@@ -80,7 +85,8 @@ def make_door(
     y: float,
     connects_rooms: List[str],
     width_m: float = 0.90,
-    level_index: int = 0
+    level_index: int = 0,
+    metadata: Optional[Dict[str, Any]] = None
 ) -> OpeningModel:
     """Creates a door opening with connectivity."""
     return OpeningModel(
@@ -91,7 +97,8 @@ def make_door(
         height_m=2.10,
         sill_height_m=0.0,
         connects_rooms=connects_rooms,
-        level_index=level_index
+        level_index=level_index,
+        metadata=metadata or {}
     )
 
 

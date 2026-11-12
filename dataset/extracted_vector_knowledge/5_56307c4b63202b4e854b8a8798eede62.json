@@ -1,0 +1,139 @@
+{
+  "source_file": "5\\56307c4b63202b4e854b8a8798eede62.jpg",
+  "category": "5",
+  "plot": {
+    "category": "5_marla",
+    "marla": 5.0,
+    "dimensions_ft": [
+      25.0,
+      45.0
+    ],
+    "setbacks_ft": {
+      "front": 5.0,
+      "rear": 4.0,
+      "side_left": 0.0,
+      "side_right": 0.0
+    }
+  },
+  "pixel_scale": {
+    "image_width_px": 705,
+    "image_height_px": 1186,
+    "cropped_envelope_px": [
+      68,
+      54,
+      611,
+      1086
+    ],
+    "pixels_per_foot_x": 24.44,
+    "pixels_per_foot_y": 24.133
+  },
+  "rooms": [
+    {
+      "id": "room_1",
+      "name": "Car Porch & Driveway",
+      "type": "garage",
+      "zoning": "Front-Public",
+      "bbox_ft": [
+        0.49,
+        0.46,
+        23.98,
+        24.61
+      ],
+      "area_sqft": 590.1,
+      "aspect_ratio": 0.97,
+      "polygon_coords": [
+        [
+          24.47,
+          0.46
+        ],
+        [
+          24.47,
+          25.07
+        ],
+        [
+          0.49,
+          25.07
+        ],
+        [
+          0.49,
+          0.46
+        ],
+        [
+          24.47,
+          0.46
+        ]
+      ],
+      "floor_level": 0
+    },
+    {
+      "id": "room_2",
+      "name": "Central Family TV Lounge",
+      "type": "living_room",
+      "zoning": "Mid-Living-Service",
+      "bbox_ft": [
+        22.34,
+        17.49,
+        2.17,
+        19.31
+      ],
+      "area_sqft": 25.8,
+      "aspect_ratio": 0.11,
+      "polygon_coords": [
+        [
+          22.34,
+          36.8
+        ],
+        [
+          24.51,
+          36.8
+        ],
+        [
+          24.51,
+          17.49
+        ],
+        [
+          24.47,
+          17.49
+        ],
+        [
+          24.47,
+          25.07
+        ],
+        [
+          22.34,
+          25.07
+        ],
+        [
+          22.34,
+          36.8
+        ]
+      ],
+      "floor_level": 0
+    }
+  ],
+  "fenestrations": [
+    {
+      "id": "door_room_1_main",
+      "type": "door",
+      "host_room": "room_1",
+      "wall": "rear",
+      "position": [
+        14.88,
+        25.07,
+        0.0
+      ],
+      "width": 3.5,
+      "height": 7.0,
+      "sill_height": 0.0
+    }
+  ],
+  "circulation_graph": {
+    "room_1": [
+      "room_2"
+    ],
+    "room_2": [
+      "room_1"
+    ]
+  },
+  "elevation_features": null
+}
