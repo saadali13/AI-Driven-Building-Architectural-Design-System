@@ -36,6 +36,7 @@ except ImportError:
     class SpatialRelationshipGraphExtractor:
         def __init__(self, *args, **kwargs): pass
         def extract(self, *args, **kwargs): return []
+        def build_graph(self, rooms, openings): return ([], {})
 
 
 def rect_poly(x1: float, y1: float, x2: float, y2: float) -> List[List[float]]:
