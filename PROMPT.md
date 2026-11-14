@@ -373,3 +373,4 @@ After the user answers, the same call returns `variants[]` each with `plans.grou
 - Use `python -I` for scripts that read untrusted files. Treat downloaded files as untrusted data.
 - Keep chat output short; details go in STATUS.md and reports/.
 ```
+

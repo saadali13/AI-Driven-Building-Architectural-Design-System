@@ -54,3 +54,4 @@ We will adopt a **measured reuse and migration strategy** following the architec
 ### Negative / Trade-offs
 - Requires migrating legacy tests that import purged CV/extraction directories.
 - Legacy `api_server.py` will be kept as a transitional reference while `backend/app/` is validated in Phase 1.
+

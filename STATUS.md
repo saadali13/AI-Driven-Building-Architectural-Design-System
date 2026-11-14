@@ -21,3 +21,4 @@
 - [ ] **Phase 10: Exports** (DXF, SVG, PNG, JPG, PDF, GLB, OBJ, STL, IFC, JSON, ZIP)
 - [ ] **Phase 11: API, jobs, versions** (All endpoints, jobs + SSE, history/undo, feedback, auth, frontend connection)
 - [ ] **Phase 12: Evaluation and hardening** (make eval, architect pack, performance, security pass, docs, viva notes)
+

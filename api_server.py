@@ -24,6 +24,22 @@ import collections
 import concurrent.futures
 from http.server import HTTPServer, ThreadingHTTPServer, SimpleHTTPRequestHandler
 
+# Auto-load .env file from project root
+_project_root = os.path.abspath(os.path.dirname(__file__))
+_env_path = os.path.join(_project_root, ".env")
+if os.path.exists(_env_path):
+    try:
+        with open(_env_path, "r", encoding="utf-8") as _ef:
+            for _line in _ef:
+                _line = _line.strip()
+                if _line and not _line.startswith("#") and "=" in _line:
+                    _k, _v = _line.split("=", 1)
+                    _k, _v = _k.strip(), _v.strip().strip("'\"")
+                    if _k and _v and _k not in os.environ:
+                        os.environ[_k] = _v
+    except Exception:
+        pass
+
 if hasattr(sys.stdout, 'reconfigure'):
     sys.stdout.reconfigure(line_buffering=True)
 os.environ.setdefault("MPLCONFIGDIR", os.path.join(os.path.abspath(os.path.dirname(__file__)), "output", ".matplotlib"))
@@ -3318,6 +3334,33 @@ class ArchitecturalRequestHandler(SimpleHTTPRequestHandler):
                 custom_unit_prices=custom_prices
             )
             self._send_json(boq)
+            return
+
+        elif path == "/api/config/api-key":
+            new_key = payload.get("api_key", "").strip()
+            if not new_key or len(new_key) < 15:
+                self._send_json({"success": False, "error": "Invalid API key format"}, status_code=400)
+                return
+            os.environ["GEMINI_API_KEY"] = new_key
+            env_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".env")
+            try:
+                lines = []
+                found = False
+                if os.path.exists(env_file):
+                    with open(env_file, "r", encoding="utf-8") as f:
+                        for line in f:
+                            if line.strip().startswith("GEMINI_API_KEY="):
+                                lines.append(f"GEMINI_API_KEY={new_key}\n")
+                                found = True
+                            else:
+                                lines.append(line)
+                if not found:
+                    lines.append(f"GEMINI_API_KEY={new_key}\n")
+                with open(env_file, "w", encoding="utf-8") as f:
+                    f.writelines(lines)
+                self._send_json({"success": True, "message": "API key updated successfully"})
+            except Exception as e_env:
+                self._send_json({"success": True, "message": f"Key active in memory, but could not write .env: {e_env}"})
             return
 
         elif path == "/api/gemini/market-rates":

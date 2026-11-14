@@ -514,6 +514,7 @@ export const NewDesignPage: React.FC = () => {
       return '';
     }
   });
+  const [showApiKeyInput, setShowApiKeyInput] = useState(false);
   const [geminiCity, setGeminiCity] = useState('Islamabad / Lahore');
   const [isFetchingGeminiRates, setIsFetchingGeminiRates] = useState(false);
   const [rateSourceNotice, setRateSourceNotice] = useState('Verified 2026 Pakistan Construction Benchmark');
@@ -901,7 +902,7 @@ export const NewDesignPage: React.FC = () => {
   };
 
   // Generation Handler: Connects to Backend and persists to Database
-  const handleStartGeneration = async (customPrompt?: string) => {
+  const handleStartGeneration = async (customPrompt?: string, overrideApiKey?: string) => {
     if (isSubmitting) return;
     setIsSubmitting(true);
     setSynthesisError(null);
@@ -936,6 +937,7 @@ export const NewDesignPage: React.FC = () => {
     }, 1100);
 
     try {
+      const keyToUse = (overrideApiKey || geminiApiKey || '').trim();
       const backendRes = await apiService.generateDesign({
         prompt: activePrompt,
         plot_width: finalWidth,
@@ -948,6 +950,7 @@ export const NewDesignPage: React.FC = () => {
         currency: 'PKR',
         custom_room_dimensions: roomSchedule,
         seed: Math.floor(Math.random() * 90000) + 1000,
+        api_key: keyToUse || undefined,
       });
 
       clearInterval(stageInterval);
@@ -1498,10 +1501,63 @@ export const NewDesignPage: React.FC = () => {
               <label className="text-xs font-bold text-[#202923]">
                 Your Architectural Prompt
               </label>
-              <span className="text-[11px] text-[#68736C] font-mono">
-                {promptText.length} characters
-              </span>
+              <div className="flex items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => setShowApiKeyInput(!showApiKeyInput)}
+                  className="text-[11px] text-[#23483D] hover:underline flex items-center gap-1 font-semibold"
+                >
+                  <Key className="h-3 w-3" />
+                  <span>{geminiApiKey ? 'API Key Configured' : 'Configure Gemini API Key'}</span>
+                </button>
+                <span className="text-[11px] text-[#68736C] font-mono">
+                  {promptText.length} characters
+                </span>
+              </div>
             </div>
+
+            {showApiKeyInput && (
+              <div className="p-3.5 rounded-xl bg-amber-50/80 border border-amber-200 text-xs space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-amber-900 flex items-center gap-1.5">
+                    <Key className="h-3.5 w-3.5 text-amber-700" />
+                    Custom Gemini API Key
+                  </span>
+                  <a
+                    href="https://aistudio.google.com/app/apikey"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="text-[10px] text-amber-800 underline font-semibold"
+                  >
+                    Get free key &rarr;
+                  </a>
+                </div>
+                <div className="flex gap-2">
+                  <input
+                    type="password"
+                    placeholder="AIzaSy..."
+                    value={geminiApiKey}
+                    onChange={(e) => setGeminiApiKey(e.target.value)}
+                    className="flex-1 bg-white border border-amber-300 rounded-lg px-3 py-1.5 text-xs font-mono text-[#202923] focus:outline-none focus:border-[#23483D]"
+                  />
+                  <button
+                    type="button"
+                    onClick={async () => {
+                      const k = geminiApiKey.trim();
+                      if (k) {
+                        try { sessionStorage.setItem('archai_gemini_key', k); } catch {}
+                        await apiService.saveApiKey(k);
+                      }
+                      setShowApiKeyInput(false);
+                    }}
+                    className="px-3.5 py-1.5 bg-[#23483D] hover:bg-[#1A372E] text-white text-xs font-bold rounded-lg"
+                  >
+                    Save Key
+                  </button>
+                </div>
+              </div>
+            )}
+
             <textarea
               rows={5}
               value={promptText}
@@ -2900,6 +2956,55 @@ export const NewDesignPage: React.FC = () => {
                 <p className="text-xs text-rose-800 bg-rose-50 p-3 rounded-xl border border-rose-200 text-left font-mono leading-relaxed">
                   {synthesisError}
                 </p>
+
+                {/* Direct API Key Recovery Card */}
+                {(synthesisError.toLowerCase().includes('api key') ||
+                  synthesisError.toLowerCase().includes('permission_denied') ||
+                  synthesisError.toLowerCase().includes('leaked') ||
+                  synthesisError.toLowerCase().includes('403')) && (
+                  <div className="p-4 rounded-xl bg-amber-50 border border-amber-200 text-left space-y-3 mt-3">
+                    <div className="flex items-center gap-2 text-amber-900 font-bold text-xs">
+                      <Key className="h-4 w-4 text-amber-700" />
+                      <span>Enter Your Google Gemini API Key</span>
+                    </div>
+                    <p className="text-[11px] text-amber-800 leading-relaxed">
+                      Google automatically revoked the shared default key because it was reported as leaked. Provide your own free Gemini API key below to continue generation:
+                    </p>
+                    <div className="flex gap-2">
+                      <input
+                        type="password"
+                        placeholder="Paste AIzaSy... key here"
+                        value={geminiApiKey}
+                        onChange={(e) => setGeminiApiKey(e.target.value)}
+                        className="flex-1 bg-white border border-amber-300 rounded-lg px-3 py-2 text-xs font-mono text-[#202923] focus:outline-none focus:border-[#23483D]"
+                      />
+                      <button
+                        type="button"
+                        onClick={async () => {
+                          const k = geminiApiKey.trim();
+                          if (!k) return;
+                          try { sessionStorage.setItem('archai_gemini_key', k); } catch {}
+                          await apiService.saveApiKey(k);
+                          handleStartGeneration(undefined, k);
+                        }}
+                        className="px-4 py-2 bg-[#23483D] hover:bg-[#1A372E] text-white text-xs font-bold rounded-lg shadow-sm shrink-0 transition-colors"
+                      >
+                        Save &amp; Generate
+                      </button>
+                    </div>
+                    <p className="text-[10px] text-amber-700">
+                      Get a free Gemini API key in 30 seconds at{' '}
+                      <a
+                        href="https://aistudio.google.com/app/apikey"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="underline font-bold text-amber-900 hover:text-amber-950"
+                      >
+                        Google AI Studio (aistudio.google.com)
+                      </a>
+                    </p>
+                  </div>
+                )}
               </div>
               <div className="flex items-center justify-center gap-3 pt-2">
                 <button

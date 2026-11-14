@@ -40,15 +40,30 @@ from google.genai import types
 
 from generation.pakistan_rag_guardrails import PakistanRAGGuardrails
 
-# ---------------------------------------------------------------------------
-# GEMINI CONFIGURATION
-# ---------------------------------------------------------------------------
-DEFAULT_API_KEY = os.environ.get("GEMINI_API_KEY", "AIzaSyCsSV015VNIub_0rvVy2S1Dojs40DFS0sU")
-ACTIVE_MODELS = ["gemini-3.1-flash-lite", "gemini-3.5-flash-lite", "gemini-flash-lite-latest"]
-
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUTPUT_DIR = os.path.join(PROJECT_ROOT, "output", "web_generated")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+# Auto-load .env if available
+_env_file = os.path.join(PROJECT_ROOT, ".env")
+if os.path.exists(_env_file):
+    try:
+        with open(_env_file, "r", encoding="utf-8") as _ef:
+            for _line in _ef:
+                _line = _line.strip()
+                if _line and not _line.startswith("#") and "=" in _line:
+                    _k, _v = _line.split("=", 1)
+                    _k, _v = _k.strip(), _v.strip().strip("'\"")
+                    if _k == "GEMINI_API_KEY" and _v and _k not in os.environ:
+                        os.environ[_k] = _v
+    except Exception:
+        pass
+
+# ---------------------------------------------------------------------------
+# GEMINI CONFIGURATION
+# ---------------------------------------------------------------------------
+DEFAULT_API_KEY = os.environ.get("GEMINI_API_KEY", "")
+ACTIVE_MODELS = ["gemini-3.1-flash-lite", "gemini-3.5-flash-lite", "gemini-flash-lite-latest"]
 
 # ---------------------------------------------------------------------------
 # MONOCHROME INK PALETTE — Pure Pakistani CAD Drawing Style

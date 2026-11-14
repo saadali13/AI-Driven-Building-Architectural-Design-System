@@ -27,10 +27,27 @@ export interface GenerateDesignPayload {
   strategy?: string;
   variant_index?: number;
   custom_room_dimensions?: any[];
+  api_key?: string;
 }
 
 class ApiService {
   private baseUrl: string = '';
+
+  /**
+   * Save Gemini API key to backend .env and memory
+   */
+  async saveApiKey(apiKey: string): Promise<{ success: boolean; message?: string; error?: string }> {
+    try {
+      const res = await fetch(`${this.baseUrl}/api/config/api-key`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ api_key: apiKey }),
+      });
+      return await res.json();
+    } catch (e: any) {
+      return { success: false, error: e?.message || 'Failed to reach server' };
+    }
+  }
 
   /**
    * Ping backend health & readiness
