@@ -6,6 +6,8 @@ interface FloorPlanViewerProps {
   type: '5_marla_modern' | '10_marla_luxury' | '1_kanal_estate' | '7_marla_compact';
   title?: string;
   rooms?: RoomSpec[];
+  layoutJson?: any;
+  planLayer?: 'structural' | 'furnishing';
   showControls?: boolean;
   selectedFloor?: 'Ground' | 'First' | 'Rooftop';
   onFloorChange?: (floor: 'Ground' | 'First' | 'Rooftop') => void;
@@ -15,6 +17,8 @@ export const FloorPlanViewer: React.FC<FloorPlanViewerProps> = ({
   type = '10_marla_luxury',
   title = 'Architectural 2D Floor Plan',
   rooms = [],
+  layoutJson,
+  planLayer = 'structural',
   showControls = true,
   selectedFloor,
   onFloorChange,
@@ -30,10 +34,250 @@ export const FloorPlanViewer: React.FC<FloorPlanViewerProps> = ({
   const [selectedRoom, setSelectedRoom] = useState<string | null>(null);
   const [showGrid, setShowGrid] = useState(true);
 
+  const fmtFtIn = (val: number) => {
+    const ft = Math.floor(val);
+    const ins = Math.round((val - ft) * 12);
+    if (ins === 12) return `${ft + 1}'-0"`;
+    return `${ft}'-${ins}"`;
+  };
+
+  // Dynamic AI CAD Vector SVG Renderer when layoutJson is present
+  const renderDynamicAiSvg = () => {
+    const plotW = Number(layoutJson?.plot_width_ft || 25);
+    const plotL = Number(layoutJson?.plot_length_ft || 45);
+    const floorsArr: any[] = Array.isArray(layoutJson?.floors) ? layoutJson.floors : [];
+    const floorIdx = activeFloor === 'First' ? Math.min(1, Math.max(0, floorsArr.length - 1)) : 0;
+    const activeFloorObj = floorsArr[floorIdx] || floorsArr[0];
+    const aiRooms: any[] = Array.isArray(activeFloorObj?.rooms) ? activeFloorObj.rooms : [];
+
+    // Scale plot into 560 x 720 drawing box
+    const scale = Math.min(540 / Math.max(10, plotW), 700 / Math.max(10, plotL));
+    const drawW = plotW * scale;
+    const drawH = plotL * scale;
+    const offX = (740 - drawW) / 2;
+    const offY = (880 - drawH) / 2;
+
+    // Convert CAD coords (y=0 South/bottom -> y=plotL North/top) to SVG coords (y=0 top -> y=drawH bottom)
+    const toSvgRect = (rx: number, ry: number, rw: number, rl: number) => ({
+      x: rx * scale,
+      y: (plotL - (ry + rl)) * scale,
+      w: rw * scale,
+      h: rl * scale,
+    });
+
+    return (
+      <svg viewBox="0 0 740 920" className="w-full h-full max-h-[620px] drop-shadow-sm select-none">
+        <defs>
+          <pattern id="archGridAi" width="20" height="20" patternUnits="userSpaceOnUse">
+            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#E2E8F0" strokeWidth="0.6" />
+          </pattern>
+          <pattern id="wallHatchAi" width="6" height="6" patternTransform="rotate(45 0 0)" patternUnits="userSpaceOnUse">
+            <line x1="0" y1="0" x2="0" y2="6" stroke="#334155" strokeWidth="1.2" />
+          </pattern>
+          <pattern id="otsHatchAi" width="12" height="12" patternUnits="userSpaceOnUse">
+            <path d="M 0 0 L 12 12 M 12 0 L 0 12" stroke="#64748B" strokeWidth="0.6" />
+          </pattern>
+        </defs>
+
+        <rect width="740" height="920" fill="#FFFFFF" rx="8" />
+        {showGrid && <rect width="740" height="920" fill="url(#archGridAi)" />}
+
+        <g transform={`translate(${offX}, ${offY})`}>
+          {/* Plot Outer Wall Envelope */}
+          <rect x={0} y={0} width={drawW} height={drawH} fill="#FFFFFF" stroke="#0F172A" strokeWidth="3.5" />
+
+          {aiRooms.map((r: any, idx: number) => {
+            const rx = Number(r.x_ft || 0);
+            const ry = Number(r.y_ft || 0);
+            const rw = Number(r.w_ft || 10);
+            const rl = Number(r.l_ft || 10);
+            const { x, y, w, h } = toSvgRect(rx, ry, rw, rl);
+            const rawCat = `${r.type || ''} ${r.name || ''}`.toLowerCase();
+            const isOts = rawCat.includes('ots') || rawCat.includes('shaft') || rawCat.includes('void');
+            const isOutdoor = rawCat.includes('lawn') || rawCat.includes('terrace') || rawCat.includes('balcony');
+            const isPorch = rawCat.includes('porch') || rawCat.includes('garage');
+            const isStair = rawCat.includes('stair') || rawCat.includes('mumty');
+            const isBath = rawCat.includes('bath') || rawCat.includes('powder') || rawCat.includes('toilet');
+            const isKitchen = rawCat.includes('kitchen');
+            const isBed = rawCat.includes('bed') || rawCat.includes('master');
+            const isLounge = rawCat.includes('lounge') || rawCat.includes('living') || rawCat.includes('drawing');
+            const wt = Math.max(4, 0.55 * scale);
+
+            // Door symbol
+            const door = r.door;
+            let doorEl = null;
+            if (door && !isOts) {
+              const dWall = String(door.wall || 'south').toLowerCase();
+              const dW = Math.min(Math.max(2.5, Number(door.width_ft || 3.0)) * scale, Math.min(w, h) * 0.45);
+              const dOff = Math.min(Math.max(wt, Number(door.offset_ft || 1.5) * scale), (dWall === 'north' || dWall === 'south' ? w : h) - dW - wt);
+              if (dWall === 'south') {
+                const dx = x + dOff;
+                const dy = y + h;
+                doorEl = (
+                  <g>
+                    <rect x={dx} y={dy - wt} width={dW} height={wt * 1.4} fill="#FFFFFF" />
+                    <line x1={dx} y1={dy - wt / 2} x2={dx} y2={dy - wt / 2 - dW} stroke="#0F172A" strokeWidth="1.6" />
+                    <path d={`M ${dx} ${dy - wt / 2 - dW} A ${dW} ${dW} 0 0 1 ${dx + dW} ${dy - wt / 2}`} fill="none" stroke="#475569" strokeWidth="1" strokeDasharray="3 2" />
+                  </g>
+                );
+              } else if (dWall === 'north') {
+                const dx = x + dOff;
+                const dy = y;
+                doorEl = (
+                  <g>
+                    <rect x={dx} y={dy - wt * 0.2} width={dW} height={wt * 1.4} fill="#FFFFFF" />
+                    <line x1={dx} y1={dy + wt / 2} x2={dx} y2={dy + wt / 2 + dW} stroke="#0F172A" strokeWidth="1.6" />
+                    <path d={`M ${dx} ${dy + wt / 2 + dW} A ${dW} ${dW} 0 0 0 ${dx + dW} ${dy + wt / 2}`} fill="none" stroke="#475569" strokeWidth="1" strokeDasharray="3 2" />
+                  </g>
+                );
+              } else if (dWall === 'east') {
+                const dx = x + w;
+                const dy = y + dOff;
+                doorEl = (
+                  <g>
+                    <rect x={dx - wt} y={dy} width={wt * 1.4} height={dW} fill="#FFFFFF" />
+                    <line x1={dx - wt / 2} y1={dy} x2={dx - wt / 2 - dW} y2={dy} stroke="#0F172A" strokeWidth="1.6" />
+                    <path d={`M ${dx - wt / 2 - dW} ${dy} A ${dW} ${dW} 0 0 0 ${dx - wt / 2} ${dy + dW}`} fill="none" stroke="#475569" strokeWidth="1" strokeDasharray="3 2" />
+                  </g>
+                );
+              } else if (dWall === 'west') {
+                const dx = x;
+                const dy = y + dOff;
+                doorEl = (
+                  <g>
+                    <rect x={dx - wt * 0.2} y={dy} width={wt * 1.4} height={dW} fill="#FFFFFF" />
+                    <line x1={dx + wt / 2} y1={dy} x2={dx + wt / 2 + dW} y2={dy} stroke="#0F172A" strokeWidth="1.6" />
+                    <path d={`M ${dx + wt / 2 + dW} ${dy} A ${dW} ${dW} 0 0 1 ${dx + wt / 2} ${dy + dW}`} fill="none" stroke="#475569" strokeWidth="1" strokeDasharray="3 2" />
+                  </g>
+                );
+              }
+            }
+
+            return (
+              <g
+                key={r.id || idx}
+                className="cursor-pointer"
+                onClick={() => setSelectedRoom(`${r.name} (${fmtFtIn(rw)} × ${fmtFtIn(rl)})`)}
+              >
+                {/* Room Base & Double-Line Hatched Walls */}
+                <rect
+                  x={x}
+                  y={y}
+                  width={w}
+                  height={h}
+                  fill={isOts ? 'url(#otsHatchAi)' : '#FFFFFF'}
+                  stroke="#0F172A"
+                  strokeWidth={isOutdoor ? '1.2' : '2.2'}
+                  strokeDasharray={isOutdoor || isPorch ? '5 3' : undefined}
+                />
+                {!isOutdoor && !isPorch && !isOts && w > wt * 3 && h > wt * 3 && (
+                  <>
+                    <rect x={x} y={y} width={w} height={h} fill="url(#wallHatchAi)" stroke="#0F172A" strokeWidth="1.8" />
+                    <rect x={x + wt} y={y + wt} width={w - 2 * wt} height={h - 2 * wt} fill="#FFFFFF" stroke="#0F172A" strokeWidth="1.2" />
+                    {/* Corner RCC Columns */}
+                    <rect x={x} y={y} width={wt * 1.15} height={wt * 1.15} fill="#0F172A" />
+                    <rect x={x + w - wt * 1.15} y={y} width={wt * 1.15} height={wt * 1.15} fill="#0F172A" />
+                    <rect x={x} y={y + h - wt * 1.15} width={wt * 1.15} height={wt * 1.15} fill="#0F172A" />
+                    <rect x={x + w - wt * 1.15} y={y + h - wt * 1.15} width={wt * 1.15} height={wt * 1.15} fill="#0F172A" />
+                  </>
+                )}
+
+                {/* Staircase Treads */}
+                {isStair && w > wt * 3 && h > wt * 3 && (
+                  <g>
+                    {[1, 2, 3, 4, 5, 6, 7].map((ti) => {
+                      const ty = y + wt + (ti * (h - 2 * wt)) / 8;
+                      return <line key={ti} x1={x + wt} y1={ty} x2={x + w - wt} y2={ty} stroke="#334155" strokeWidth="1" />;
+                    })}
+                  </g>
+                )}
+
+                {/* Furniture CAD Blocks (when planLayer === 'furnishing') */}
+                {planLayer === 'furnishing' && w > wt * 4 && h > wt * 4 && (
+                  <g opacity="0.85">
+                    {isBed && (
+                      <g>
+                        <rect x={x + w * 0.24} y={y + wt + 3} width={w * 0.52} height={Math.min(h * 0.48, 6.2 * scale)} fill="#FFFFFF" stroke="#1E293B" strokeWidth="1.2" />
+                        <rect x={x + w * 0.24} y={y + wt + 3} width={w * 0.52} height={Math.max(4, 0.45 * scale)} fill="#CBD5E1" stroke="#0F172A" strokeWidth="1" />
+                      </g>
+                    )}
+                    {isLounge && (
+                      <g>
+                        <rect x={x + w * 0.22} y={y + h - wt - 2.4 * scale} width={w * 0.56} height={2.1 * scale} fill="#F8FAFC" stroke="#0F172A" strokeWidth="1.2" />
+                        <rect x={x + w * 0.34} y={y + h * 0.44} width={w * 0.32} height={1.6 * scale} fill="#FFFFFF" stroke="#334155" strokeWidth="1" />
+                      </g>
+                    )}
+                    {isKitchen && (
+                      <g>
+                        <rect x={x + wt} y={y + wt} width={w - 2 * wt} height={1.8 * scale} fill="#F8FAFC" stroke="#0F172A" strokeWidth="1.1" />
+                        <circle cx={x + wt + 1.2 * scale} cy={y + wt + 0.9 * scale} r={0.35 * scale} fill="none" stroke="#0F172A" strokeWidth="1" />
+                        <circle cx={x + wt + 2.1 * scale} cy={y + wt + 0.9 * scale} r={0.35 * scale} fill="none" stroke="#0F172A" strokeWidth="1" />
+                      </g>
+                    )}
+                    {isBath && (
+                      <g>
+                        <rect x={x + wt + 2} y={y + h - wt - 1.6 * scale} width={1.3 * scale} height={1.4 * scale} rx="3" fill="#FFFFFF" stroke="#0F172A" strokeWidth="1" />
+                      </g>
+                    )}
+                    {isPorch && (
+                      <rect x={x + w * 0.22} y={y + h * 0.16} width={w * 0.56} height={h * 0.68} rx="8" fill="#F8FAFC" stroke="#0F172A" strokeWidth="1.2" />
+                    )}
+                  </g>
+                )}
+
+                {doorEl}
+
+                {/* Room Label & Dimensions */}
+                <g transform={`translate(${x + w / 2}, ${y + h / 2})`}>
+                  <rect x={-Math.min(w * 0.44, 58)} y={-14} width={Math.min(w * 0.88, 116)} height={28} fill="#FFFFFF" fillOpacity="0.92" stroke="#CBD5E1" strokeWidth="0.6" rx="2" />
+                  <text y={-2} textAnchor="middle" fill="#0F172A" fontSize={Math.max(7.5, Math.min(10.5, Math.min(w, h) * 0.11))} fontWeight="bold" fontFamily="JetBrains Mono, monospace">
+                    {String(r.name || 'ROOM').toUpperCase()}
+                  </text>
+                  <text y={9} textAnchor="middle" fill="#334155" fontSize={Math.max(6.5, Math.min(9.0, Math.min(w, h) * 0.095))} fontFamily="JetBrains Mono, monospace">
+                    {fmtFtIn(rw)} &times; {fmtFtIn(rl)}
+                  </text>
+                </g>
+              </g>
+            );
+          })}
+
+          {/* Exterior Overall Dimension Lines */}
+          <g>
+            <line x1={0} y1={drawH + 22} x2={drawW} y2={drawH + 22} stroke="#0F172A" strokeWidth="1.2" />
+            <line x1={0} y1={drawH + 14} x2={0} y2={drawH + 30} stroke="#0F172A" strokeWidth="1.2" />
+            <line x1={drawW} y1={drawH + 14} x2={drawW} y2={drawH + 30} stroke="#0F172A" strokeWidth="1.2" />
+            <text x={drawW / 2} y={drawH + 36} textAnchor="middle" fill="#0F172A" fontSize="10.5" fontWeight="bold" fontFamily="JetBrains Mono, monospace">
+              OVERALL WIDTH: {fmtFtIn(plotW)} &bull; ROAD / STREET FRONTAGE
+            </text>
+
+            <line x1={drawW + 22} y1={0} x2={drawW + 22} y2={drawH} stroke="#0F172A" strokeWidth="1.2" />
+            <line x1={drawW + 14} y1={0} x2={drawW + 30} y2={0} stroke="#0F172A" strokeWidth="1.2" />
+            <line x1={drawW + 14} y1={drawH} x2={drawW + 30} y2={drawH} stroke="#0F172A" strokeWidth="1.2" />
+            <text
+              x={drawW + 36}
+              y={drawH / 2}
+              textAnchor="middle"
+              fill="#0F172A"
+              fontSize="10.5"
+              fontWeight="bold"
+              fontFamily="JetBrains Mono, monospace"
+              transform={`rotate(90, ${drawW + 36}, ${drawH / 2})`}
+            >
+              OVERALL DEPTH: {fmtFtIn(plotL)}
+            </text>
+          </g>
+        </g>
+      </svg>
+    );
+  };
+
   // Coordinated Architectural Floor Plan SVGs
   const renderFloorPlanSvg = () => {
     const isRooftop = activeFloor === 'Rooftop';
     const isFirst = activeFloor === 'First';
+    if (!isRooftop && layoutJson && Array.isArray(layoutJson.floors) && layoutJson.floors.length > 0) {
+      return renderDynamicAiSvg();
+    }
 
     return (
       <svg viewBox="0 0 740 920" className="w-full h-full max-h-[620px] drop-shadow-sm select-none">

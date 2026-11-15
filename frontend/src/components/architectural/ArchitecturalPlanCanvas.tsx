@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { ZoomIn, ZoomOut, Maximize2, Minimize2, Move, Grid, RotateCcw } from 'lucide-react';
+import { ZoomIn, ZoomOut, Maximize2, Minimize2, Move, Grid, RotateCcw, Download, RefreshCw } from 'lucide-react';
 
 interface ArchitecturalPlanCanvasProps {
   imageSrc?: string | null;
@@ -150,6 +150,32 @@ export const ArchitecturalPlanCanvas: React.FC<ArchitecturalPlanCanvasProps> = (
     handleReset();
   };
 
+  const handleDownloadImage = async () => {
+    if (!imageSrc) return;
+    try {
+      const resp = await fetch(imageSrc);
+      const blob = await resp.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      const cleanName = `${(levelLabel || 'floor_plan').toLowerCase().replace(/\s+/g, '_')}.png`;
+      a.download = cleanName;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch {
+      // Fallback direct link download
+      const a = document.createElement('a');
+      a.href = imageSrc;
+      a.download = `${(levelLabel || 'floor_plan').toLowerCase().replace(/\s+/g, '_')}.png`;
+      a.target = '_blank';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+  };
+
   const hasImage = renderMode === 'backend_png' && Boolean(imageSrc) && !imageError;
 
   return (
@@ -183,6 +209,17 @@ export const ArchitecturalPlanCanvas: React.FC<ArchitecturalPlanCanvasProps> = (
               className="px-2.5 py-1 text-[11px] font-semibold text-[#23483D] hover:bg-[#EEF4F0] rounded-lg transition-colors border border-transparent hover:border-[#DCE7DE]"
             >
               {renderMode === 'backend_png' ? 'Switch to Vector SVG' : 'Switch to Blueprint PNG'}
+            </button>
+          )}
+
+          {hasImage && (
+            <button
+              onClick={handleDownloadImage}
+              title="Download this Floor Plan (PNG)"
+              className="px-2.5 py-1 text-[11px] font-semibold text-[#23483D] bg-[#EEF4F0] hover:bg-[#DCE7DE] rounded-lg transition-colors border border-[#DCE7DE] flex items-center gap-1.5"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span>Download PNG</span>
             </button>
           )}
 
