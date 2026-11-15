@@ -862,8 +862,19 @@ def _draw_floor_on_axis(ax, layout: Dict[str, Any], floor_idx: int, is_furnishin
     for w in windows:
         draw_window(ax, w, lw_gen)
 
-    # 8. Labels
+    # 8. Labels (a space written in several parts is one space: one label, on its largest part, under its own name)
+    by_room_id = {r.get("id"): r for r in rooms}
+    part_groups: Dict[Any, List[Dict[str, Any]]] = {}
+    for r in rooms:
+        if r.get("part_of") in by_room_id:
+            part_groups.setdefault(r["part_of"], [by_room_id[r["part_of"]]]).append(r)
+    label_part = {root: max(ms, key=lambda m: float(m["w_ft"]) * float(m["l_ft"])) for root, ms in part_groups.items()}
     for room in rooms:
+        root_id = room.get("part_of") if room.get("part_of") in part_groups else (room.get("id") if room.get("id") in part_groups else None)
+        if root_id is not None:
+            if label_part[root_id] is not room:
+                continue
+            room = dict(room, name=by_room_id[root_id].get("name"))
         try:
             draw_room_label(ax, room, floor_idx, scale, is_furnishing, furniture if is_furnishing else None)
         except Exception as e_lbl:
@@ -1680,7 +1691,7 @@ def _add_fix_hints(geo: Dict[str, Any], v: Dict[str, Any]) -> None:
         elif i["code"] == "STAIR_TOO_SMALL":
             i["message"] += (" - fix: give the STAIR a rectangle at least 3.5 ft by 9 ft (a dog-leg stair is about "
                              "7 x 10 ft, a straight flight about 3.5 x 14 ft) and take the area from the lounge / passage")
-        elif i["code"].startswith("WALK_THROUGH"):
+        elif i["code"].startswith("WALK_THROUGH") and i["code"] != "WALK_THROUGH_STAIR":
             i["message"] += (" - fix: give that room its own door: to the lounge / lobby / corridor / gallery (move it "
                              "so it shares a 3 ft wall with one), or put a corridor beside the bedroom")
         elif i["code"] == "LANDLOCKED" and "no window fits" in i["message"]:
@@ -1749,14 +1760,15 @@ def _evaluate_script(script: str, ctx: Dict[str, Any], rnd: int, source: str, mo
             info = parsed["rooms"].get((w.get("floor"), w.get("room")))
             where = f"line {info['line']} ({info['name']}): " if info else ""
             notes.append(f"- [{w['code']}] {where}{w['message']}")
-            major += w["code"] in ("PROPORTION", "WASTED_SPACE")
+            major += w["code"] in ("PROPORTION", "WASTED_SPACE", "BALANCE", "TIGHT_ROOM")
     return {"round": rnd, "source": source, "model": model, "script": parsed["normalised_script"], "geo": geo,
             "parsed": parsed, "errors": len(errs), "warnings": len(warns), "requirements": report,
             "unmet": len(unmet), "quality": len(key_missing), "key_missing_items": key_items, "problems": problems,
             "notes": notes, "major_notes": major, "front_sb": fsb, "rear_sb": rsb}
 
 
-LAYOUT_NOTE_CODES = ("PROPORTION", "WASTED_SPACE", "DOOR_SWING_CLASH", "BATH_NO_VENT", "OTS_COVERED")
+LAYOUT_NOTE_CODES = ("PROPORTION", "WASTED_SPACE", "BALANCE", "TIGHT_ROOM", "DOOR_SWING_CLASH", "BATH_NO_VENT",
+                     "OTS_COVERED")
 
 
 def _furniture_family(item: str) -> str:
@@ -2153,16 +2165,38 @@ def _staged_synthesis(ctx: Dict[str, Any], api_key: Optional[str], style_label: 
             # passes and differs from the floor below
             text = [base + _concept_text(concept) + _upper_variation(k, i) for i in range(max(1, SCRIPT_CANDIDATES_FIRST))]
         stage: List[Dict[str, Any]] = []
-        for rnd in range(1, STAGE_ROUNDS + 2):
+        for rnd in range(1, STAGE_ROUNDS + 4):
             temps = [0.5, 0.65, 0.8][:max(1, SCRIPT_CANDIDATES_FIRST)] if rnd == 1 else \
                 [0.2, 0.5, 0.75][:max(1, SCRIPT_CANDIDATES_REPAIR)]
-            if rnd > STAGE_ROUNDS:
+            if rnd == STAGE_ROUNDS + 1:
                 # one extra, careful round only for a level that is nearly right (1-3 things left): a small
                 # fix is likely to land, while a level with many problems would not be saved by one more try
                 top = min(stage, key=_attempt_rank)
                 if not 0 < top["errors"] + top["unmet"] + top["quality"] <= 3:
-                    break
+                    continue                    # too far off for a small fix: go to the fresh start
                 temps = [0.1, 0.3]
+            elif rnd == STAGE_ROUNDS + 2:
+                # FRESH START: the repairs did not converge, which means the skeleton itself is wrong (a small
+                # change cannot move a courtyard). Design the level again on a different skeleton, knowing what
+                # failed, then give that design one repair round.
+                top = min(stage, key=_attempt_rank)
+                if not top["errors"] + top["unmet"]:
+                    break
+                lesson = ("\n=== AN EARLIER DESIGN OF THIS LEVEL COULD NOT BE REPAIRED ===\n" + top["level_block"] +
+                          "\nWhat the engine found in it:\n" + "\n".join(top["problems"][:8]) +
+                          "\nDo NOT repair that script. Its skeleton caused these problems - start again from a "
+                          "different, simpler skeleton in which they cannot happen: every room sits beside the shared "
+                          "space it opens onto, and every bedroom / lounge / kitchen has one wall on open air.\n")
+                if k == 0:
+                    fresh = [c for c in concepts if c is not top.get("concept")][:2] or [top.get("concept")]
+                    text = [base + _concept_text(c) + lesson for c in fresh]
+                    used = list(fresh)
+                else:
+                    text = [base + _concept_text(concept) + (_upper_variation(k, i + 1) if not req.get("same_layout") else "")
+                            + lesson for i in range(2)]
+                    used = [concept, concept]
+                temps = [0.4, 0.7][:len(text)]
+                print(f"[Gemini levels] level {k}: repairs did not converge ({top['errors']} errors) - fresh start")
             answers = _parallel_scripts(text, api_key, temps)
             good = [(a, used[i] if i < len(used) else None) for i, a in enumerate(answers) if not isinstance(a, Exception)]
             if not good:

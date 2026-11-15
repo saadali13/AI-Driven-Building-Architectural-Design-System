@@ -489,7 +489,7 @@ def script_issue_lines(validation: Dict[str, Any], rooms_map: Dict[Tuple[int, st
 ENGINEERING_NOTIONS = """
 === HOW THIS SYSTEM WORKS (this is not a rule list - it is the machine you are driving; picture it as you write) ===
 You do not draw. You write a short script that CUTS THE PLOT INTO RECTANGLES. A CAD engine turns those rectangles
-into a building and then moves through it the way a person would. Everything it reports back comes from the six
+into a building and then moves through it the way a person would. Everything it reports back comes from the seven
 things below. If you can see them in your head, the design passes.
 
 1. CUTTING. The plot is one rectangle. ROWS cuts a rectangle into bands from the street to the back; COLS cuts it
@@ -509,7 +509,9 @@ things below. If you can see them in your head, the design passes.
    `door: STREET` when a room stands on the front edge), upstairs from the STAIR - only through the openings. A room
    it cannot walk to is unreachable, and one missing door near the entrance cuts off everything behind it. If the
    only way to a room leads through somebody's bedroom or bath, it reports that too: a home needs a shared space
-   (lounge, lobby, corridor, gallery) that the rooms open onto.
+   (lounge, lobby, corridor, gallery) that the rooms open onto. The STAIR rectangle is filled with steps: a person
+   steps onto it from the shared space and comes off it on the next floor - nobody walks across it to reach a
+   room, so the way from the entrance to the lounge never leads through the stair.
 
 4. LIGHT. Windows are placed by the engine too. For each room it looks for a wall that faces open air: the street
    edge of the plot, or a space that has no roof (lawn, car porch, open strip, gallery, terrace, balcony, OTS).
@@ -527,6 +529,12 @@ things below. If you can see them in your head, the design passes.
    floors, so it is the same rectangle on every level. A shaft only brings light down if it stays open (type ots)
    on every level above. A room upstairs needs something built under it - over a lawn or a shaft it would hang in
    the air, so that area upstairs is a terrace, balcony or open.
+
+7. BALANCE. Last, it compares the spaces with each other, because the plot is a fixed amount of floor: every
+   foot one space takes, another loses. It tells you when a stair holds more floor than its steps use, when a
+   bath or a passage is larger than its use, when the kitchen is bigger than the lounge the family sits in, when
+   a room is so long and thin that it works like a corridor, or when a bedroom is so narrow that the bed leaves
+   no way past. These come back as notes, not failures - a size the client states always wins.
 
 WHO DECIDES WHAT. The client decides what is built: which rooms, how many, where, what sizes, setbacks or none.
 Nothing above is a bylaw or a standard size. The engine only reports whether a person could walk in, get

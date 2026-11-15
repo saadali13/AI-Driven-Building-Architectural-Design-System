@@ -396,6 +396,8 @@ def _plan_door(a: Dict[str, Any], b: Dict[str, Any], rooms: List[Dict[str, Any]]
     want = _door_width(a["category"], kind)
     if kind == "arch":
         want = min(5.0, max(3.5, (hi - lo) - 2.0))
+        if (a.get("part_of") or a["id"]) == (b.get("part_of") or b["id"]):
+            want = hi - lo                      # two parts of one space: no wall between them
     min_w = 2.33 if a["category"] in ("bath", "dressing") else 2.75
 
     pts = _junctions(orient, coord, lo, hi, rooms)
@@ -1497,6 +1499,25 @@ def validate_floor(rooms, doors, windows, furniture, plot_w, plot_l, front_sb, r
                     continue
                 out.append(_issue("WALK_THROUGH_" + r["category"].upper(), "error", level, q,
                                   f"{q} is reached by walking through {r['category']} {r['id']} ({r['name']})"))
+        # The stair rectangle is filled with steps: it is entered at its foot and left at the top. On the ground
+        # floor nothing may lie behind it (a store under the flight is the one exception).
+        if level == 0:
+            name_of = {r["id"]: r["name"] for r in rooms}
+            for st in stairs:
+                if st["id"] not in reach:
+                    continue
+                H = G.copy()
+                H.remove_node(st["id"])
+                reach2 = nx.node_connected_component(H, root) if root in H else set()
+                cut = [q for q in reach if q not in (st["id"], root) and q not in reach2 and q in cat_of
+                       and is_enclosed(cat_of[q]) and "STORE" not in name_of[q]]
+                if cut:
+                    names = ", ".join(sorted(name_of[q] for q in cut)[:5])
+                    out.append(_issue("WALK_THROUGH_STAIR", "error", level, st["id"],
+                                      f"{names} can only be reached by walking across {st['name']} - the stair "
+                                      f"rectangle is filled with steps, nobody can cross it. Fix: connect the entrance "
+                                      f"side to the lounge / lobby directly (a door or arch on a wall they share), and "
+                                      f"let the stair open onto that shared space from one side only"))
 
     # Daylight: a habitable room without a window is a physical failure, whatever the brief asks for
     win_rooms = {w["room_id"] for w in windows}
@@ -1555,9 +1576,45 @@ def validate_floor(rooms, doors, windows, furniture, plot_w, plot_l, front_sb, r
                               f"{r['id']} ({nm}) passage is {ft_in(min(float(r['w_ft']), float(r['l_ft'])))} wide - "
                               f"wider than walking needs; give the extra width to the rooms beside it"))
 
-    # Proportion (relative - no fixed size): a long thin habitable room works like a corridor
+    # Balance (relative): the floor is a fixed amount of area - what one space takes, another loses
+    def _area(r):
+        return float(r["w_ft"]) * float(r["l_ft"])
+    by_rid = {r["id"]: r for r in rooms}
+    lounge_area: Dict[str, float] = {}
     for r in rooms:
-        if r["category"] in HABITABLE:
+        if r["category"] == "lounge":
+            k = r.get("part_of") or r["id"]
+            lounge_area[k] = lounge_area.get(k, 0.0) + _area(r)
+    for r in rooms:
+        cat, nm = r["category"], r["name"]
+        if cat == "stair" and _area(r) > 120.0:
+            out.append(_issue("WASTED_SPACE", "warning", level, r["id"],
+                              f"{r['id']} ({nm}) is {ft_in(r['w_ft'])} x {ft_in(r['l_ft'])} = {_area(r):.0f} sq ft - its "
+                              f"steps use about 7 x 10 ft; the rest is floor nobody can stand on. Shrink the stair "
+                              f"rectangle and give the area to the lounge or a room beside it"))
+        elif cat == "kitchen" and "DIRTY" not in nm and lounge_area and _area(r) > max(lounge_area.values()):
+            out.append(_issue("BALANCE", "warning", level, r["id"],
+                              f"{r['id']} ({nm}) is {_area(r):.0f} sq ft - larger than the lounge the family sits in "
+                              f"({max(lounge_area.values()):.0f} sq ft); unless the brief asks for a big kitchen, move "
+                              f"the cut between them"))
+        elif cat == "bath":
+            host = by_rid.get(r.get("door_from"))
+            if host is not None and host["category"] == "bedroom" and _area(r) > 0.45 * _area(host):
+                out.append(_issue("BALANCE", "warning", level, r["id"],
+                                  f"{r['id']} ({nm}) is {_area(r):.0f} sq ft - nearly half of its bedroom {host['name']} "
+                                  f"({_area(host):.0f} sq ft); narrow the bath and give the strip to the bedroom or put "
+                                  f"a dressing / store beside the bath"))
+        elif cat == "bedroom" and min(float(r["w_ft"]), float(r["l_ft"])) < 9.0:
+            a_ = min(float(r["w_ft"]), float(r["l_ft"]))
+            out.append(_issue("TIGHT_ROOM", "warning", level, r["id"],
+                              f"{r['id']} ({nm}) is only {ft_in(a_)} across before its walls are taken off - a bed is "
+                              f"6'-9\" long, so almost nothing is left to walk past its foot; widen the room unless "
+                              f"the brief gives this size"))
+
+    # Proportion (relative - no fixed size): a long thin habitable room works like a corridor
+    _part_ids = {r["id"] for r in rooms if r.get("part_of")} | {r.get("part_of") for r in rooms if r.get("part_of")}
+    for r in rooms:
+        if r["category"] in HABITABLE and r["id"] not in _part_ids:     # a part is not the whole space
             a, b = sorted((float(r["w_ft"]), float(r["l_ft"])))
             lim = 3.0 if r["category"] == "kitchen" else 2.5
             if a > 0 and b / a > lim:
