@@ -1748,6 +1748,27 @@ def validate_vertical(floors: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
             if covered > 2.0:
                 out.append(_issue("OTS_COVERED", "warning", lvl, o["id"],
                                   f"ground-floor OTS {o['id']} is roofed over by level-{lvl} rooms ({covered:.0f} sq ft) - it no longer ventilates"))
+    # A terrace / balcony needs a floor to stand on: built space (a room or the car porch) on the level below.
+    # A balcony up to 8 ft deep may project on its own slab and brackets.
+    for idx in range(1, len(floors)):
+        fl, below = floors[idx], floors[idx - 1]
+        lvl = fl.get("level", idx)
+        built = [_box(r) for r in below["rooms"] if is_enclosed(r["category"]) or r["category"] == "porch"]
+        built_u = unary_union(built) if built else None
+        for r in fl["rooms"]:
+            nm = str(r.get("name", "")).upper()
+            if r["category"] != "outdoor" or not any(k in nm for k in ("TERRACE", "BALCONY", "DECK")):
+                continue
+            if min(float(r["w_ft"]), float(r["l_ft"])) <= 8.0:
+                continue
+            area = float(r["w_ft"]) * float(r["l_ft"])
+            held = _box(r).intersection(built_u).area if built_u is not None else 0.0
+            if held < 0.5 * area:
+                out.append(_issue("TERRACE_UNSUPPORTED", "error", lvl, r["id"],
+                                  f"{r['id']} ({r['name']}) is {float(r['w_ft']):g} x {float(r['l_ft']):g} ft but only "
+                                  f"{held:.0f} of its {area:.0f} sq ft stand on built space below - a terrace cannot hang "
+                                  f"in the air. Fix: put it over the rooms or the car porch of the level below, make it "
+                                  f"a balcony no deeper than 8 ft, or mark the area open (type open)"))
     return out
 
 
@@ -1817,6 +1838,19 @@ def analyse_layout(layout: Dict[str, Any], plot_w: float, plot_l: float, front_s
             _grp.setdefault(r_.get("part_of") or r_["id"], []).append(r_)
         _minor = {m["id"] for ms in _grp.values() if len(ms) > 1
                   for m in ms if m is not max(ms, key=lambda q: float(q["w_ft"]) * float(q["l_ft"]))}
+        # what makes a room that room: a bedroom holds a bed, a kitchen a counter, a bath a WC, a sitting room a seat
+        _have: Dict[str, set] = {}
+        for f_ in furniture:
+            _have.setdefault(f_.get("room_id"), set()).add(str(f_.get("type", "")))
+        _reported = {u["room"] for u in unplaced}
+        _need = {"bedroom": ("bed", "bed_queen"), "kitchen": ("counter", "kitchen_counter"), "bath": ("wc", "wc"),
+                 "lounge": ("sofa|seating|armchair|settee", "sofa_3"), "drawing": ("sofa|seating|armchair|settee", "sofa_3")}
+        for r_ in rooms:
+            want = _need.get(r_["category"])
+            if not want or r_["id"] in _minor or r_["id"] in _reported:
+                continue
+            if not any(any(k in t for k in want[0].split("|")) for t in _have.get(r_["id"], ())):
+                unplaced.append({"room": r_["id"], "item": want[1]})
         for u in unplaced:
             if u["room"] in _minor:
                 continue

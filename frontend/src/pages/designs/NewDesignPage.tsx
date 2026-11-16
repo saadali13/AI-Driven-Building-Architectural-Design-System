@@ -42,6 +42,7 @@ import { useAuth } from '../../context/AuthContext';
 import { PlotPreset, ArchitecturalStyle, BuildingType, DesignAlternative, PakistaniSpecs } from '../../types';
 import { FloorPlanViewer } from '../../components/architectural/FloorPlanViewer';
 import { GuidedInterview } from '../../components/architectural/GuidedInterview';
+import Massing3DViewer from '../../components/architectural/Massing3DViewer';
 import { ArchitecturalPlanCanvas } from '../../components/architectural/ArchitecturalPlanCanvas';
 import { formatPKR, DETAILED_MATERIALS_CATALOG } from '../../services/costEstimatorService';
 import { apiService } from '../../services/apiService';
@@ -301,7 +302,7 @@ export const NewDesignPage: React.FC = () => {
 
   // 'ground' | 'first' | 'floor_2' | 'floor_3' ... (one per storey the backend drew) | 'rooftop' | 'all'
   const [activeFloorView, setActiveFloorView] = useState<string>('ground');
-  const [view3d, setView3d] = useState<'front_right' | 'front_left'>('front_right');
+  const [view3d, setView3d] = useState<'interactive' | 'front_right' | 'front_left'>('interactive');
   const [planLayer, setPlanLayer] = useState<'structural' | 'furnishing'>('structural');
   const [renderMode, setRenderMode] = useState<'backend_png' | 'interactive_svg'>('backend_png');
 
@@ -312,6 +313,8 @@ export const NewDesignPage: React.FC = () => {
 
   // Version history, spatial conflicts & CAD package exports
   const [designHistory, setDesignHistory] = useState<Array<{ version: number; label: string; design: any }>>([]);
+  // every change request made on this design: what was asked, whether it was applied, and what really changed
+  const [changeLog, setChangeLog] = useState<Array<{ request: string; applied: boolean; message: string; changes: string[] }>>([]);
   const [activeConflict, setActiveConflict] = useState<{ reason: string; alternative: string } | null>(null);
   const [exportModalOpen, setExportModalOpen] = useState(false);
   const [exportFormat, setExportFormat] = useState<'pdf' | 'dxf' | 'svg' | 'blend' | 'obj' | 'png'>('pdf');
@@ -321,6 +324,7 @@ export const NewDesignPage: React.FC = () => {
   useEffect(() => {
     if (backendDesign && (!designHistory || designHistory.length === 0)) {
       setDesignHistory([{ version: 1, label: 'v1 (Original)', design: backendDesign }]);
+      setChangeLog([]);
     }
   }, [backendDesign]);
 
@@ -542,6 +546,7 @@ export const NewDesignPage: React.FC = () => {
     try {
       const pid = backendDesign?.project_id || backendDesign?.plan_id || createdProjectId || 'archi_design';
       const result = await apiService.exportFile(exportFormat, {
+        ...(backendDesign || {}),
         project_title: backendDesign?.project_title || projectName,
         project_id: pid,
         version: revisionNumber,
@@ -569,22 +574,6 @@ export const NewDesignPage: React.FC = () => {
     setIsRegeneratePageOpen(false);
     setActiveConflict(null);
 
-    const lower = (refinementPrompt || '').toLowerCase();
-    const isExtremeEnlarge = lower.includes('200%') || lower.includes('double') || lower.includes('300%');
-    const isExtremeShrink = lower.includes('shrink') && (lower.includes('70%') || lower.includes('80%'));
-
-    if (isExtremeEnlarge || isExtremeShrink) {
-      setActiveConflict({
-        reason: isExtremeEnlarge
-          ? "Expanding master bedroom by 200% exceeds statutory maximum plot coverage (70%) and encroaches 14'-6\" into mandatory front and rear setbacks."
-          : "Shrinking master bathroom by 70% reduces area below LDA statutory minimum of 35 sq ft.",
-        alternative: isExtremeEnlarge
-          ? "Expand master bedroom width by up to 2'-0\" (15%) or extend towards interior courtyard without violating external building envelopes."
-          : "Maintain minimum 5'-0\" x 7'-0\" (35 sq ft) footprint for functional ensuite ventilation."
-      });
-      return;
-    }
-
     try {
       const planId = backendDesign?.project_id || backendDesign?.plan_id || createdProjectId;
       if (planId) {
@@ -592,11 +581,39 @@ export const NewDesignPage: React.FC = () => {
         setSynthesisStage('Evaluating architectural refinement and re-hosting door openings...');
         setCurrentStep(4);
 
+        // the change is applied to the design on screen: its own script, brief and plot go with the request
+        const parsedReq = backendDesign?.requirements?.parsed || {};
         const res = await apiService.regenerateWithImprovement({
           plan_id: planId,
           improvement_text: refinementPrompt,
-          base_version: revisionNumber
+          base_version: revisionNumber,
+          script: backendDesign?.design_script || '',
+          prompt: backendDesign?.brief || promptText,
+          plot_width: Number(backendDesign?.plot?.width_ft) || plotWidthFt,
+          plot_length: Number(backendDesign?.plot?.length_ft) || plotLengthFt,
+          floors: Number(parsedReq.floors) || (Array.isArray(backendDesign?.floors_detail) ? backendDesign.floors_detail.filter((f: any) => !f.is_roof_level).length : floors) || floors,
+          bedrooms: Number(parsedReq.bedrooms) || bedrooms,
+          bathrooms: Number(parsedReq.bathrooms) || 0,
+          style,
+          requirements: backendDesign?.requirements?.parsed,
+          history: changeLog.map((c) => ({ role: 'user', text: c.request })),
         });
+        setChangeLog((prev) => [...prev, {
+          request: refinementPrompt,
+          applied: Boolean(res?.change_applied),
+          message: String(res?.assistant_message || res?.error || ''),
+          changes: Array.isArray(res?.changes) ? res.changes : [],
+        }]);
+        if (res?.change_applied === false) {
+          // the previous design was kept: say why, and do not create a new version
+          setActiveConflict({
+            reason: String(res?.assistant_message || 'The change was not applied.'),
+            alternative: '',
+          });
+          setCurrentStep(5);
+          setIsSubmitting(false);
+          return;
+        }
 
         if (res?.success === false && res?.conflicts && res.conflicts.length > 0) {
           setActiveConflict({
@@ -640,8 +657,8 @@ export const NewDesignPage: React.FC = () => {
     } catch (e: any) {
       console.warn("Regenerate notice:", e);
       setActiveConflict({
-        reason: "Requested spatial adjustment violates municipal setbacks or room clearance bylaws.",
-        alternative: "Try an adjustment under 20% or specify expanding towards the rear courtyard."
+        reason: `The change could not be made: ${e?.message || 'the design server did not answer'}. Your current design is unchanged.`,
+        alternative: ''
       });
       setCurrentStep(5);
       setIsSubmitting(false);
@@ -1339,7 +1356,7 @@ export const NewDesignPage: React.FC = () => {
             </div>
           )}
 
-          {/* SPATIAL & STATUTORY BYLAW CONFLICT BANNER */}
+          {/* A CHANGE REQUEST THAT WAS NOT APPLIED (the design on screen is unchanged) */}
           {activeConflict && (
             <div className="bg-rose-50 border-2 border-rose-500 rounded-2xl p-5 shadow-sm space-y-3 animate-in fade-in duration-200">
               <div className="flex items-start gap-3">
@@ -1349,30 +1366,32 @@ export const NewDesignPage: React.FC = () => {
                 <div className="flex-1 space-y-1.5">
                   <div className="flex items-center gap-2">
                     <span className="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-rose-600 text-white">
-                      Spatial & Statutory Bylaw Conflict
+                      Change not applied - your design is unchanged
                     </span>
                   </div>
                   <p className="text-xs sm:text-sm font-bold text-rose-900 leading-relaxed">
                     {activeConflict.reason}
                   </p>
-                  <div className="p-3 bg-white/80 rounded-xl border border-rose-200 mt-2 space-y-1">
-                    <span className="text-[10px] font-bold uppercase text-emerald-800 tracking-wider block">
-                      Suggested Valid Alternative:
-                    </span>
-                    <p className="text-xs text-[#202923]">
-                      {activeConflict.alternative}
-                    </p>
-                  </div>
+                  {activeConflict.alternative && (
+                    <div className="p-3 bg-white/80 rounded-xl border border-rose-200 mt-2 space-y-1">
+                      <span className="text-[10px] font-bold uppercase text-emerald-800 tracking-wider block">
+                        You could ask for this instead:
+                      </span>
+                      <p className="text-xs text-[#202923]">
+                        {activeConflict.alternative}
+                      </p>
+                    </div>
+                  )}
                   <div className="flex items-center gap-2 pt-2">
                     <button
                       onClick={() => {
-                        setRefinementPrompt(activeConflict.alternative);
+                        if (activeConflict.alternative) setRefinementPrompt(activeConflict.alternative);
                         setActiveConflict(null);
                         setIsRegeneratePageOpen(true);
                       }}
                       className="px-3 py-1.5 bg-rose-600 text-white text-[11px] font-bold rounded-lg hover:bg-rose-700 transition-colors"
                     >
-                      Apply Recommended Alternative
+                      {activeConflict.alternative ? 'Use this request' : 'Ask again differently'}
                     </button>
                     <button
                       onClick={() => setActiveConflict(null)}
@@ -1549,6 +1568,53 @@ export const NewDesignPage: React.FC = () => {
                 </div>
               </div>
 
+            </div>
+          )}
+
+          {/* CHANGE HISTORY: every version can be opened again; every request shows what it really changed */}
+          {(designHistory.length > 1 || changeLog.length > 0) && (
+            <div className="bg-white border border-[#E2E7E1] rounded-2xl p-5 shadow-xs space-y-3">
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <span className="text-xs font-bold text-[#202923] uppercase tracking-wider flex items-center gap-1.5">
+                  <History className="h-4 w-4 text-[#23483D]" /> Versions and changes
+                </span>
+                <div className="flex flex-wrap items-center gap-1.5">
+                  {designHistory.map((item) => (
+                    <button
+                      key={item.version}
+                      onClick={() => handleRestoreVersion(item.version)}
+                      title={revisionNumber === item.version ? 'This version is on screen' : `Go back to ${item.label}`}
+                      className={`px-3 py-1 rounded-lg text-[11px] font-bold transition-all ${revisionNumber === item.version
+                        ? 'bg-[#23483D] text-white'
+                        : 'bg-white border border-[#DCE7DE] text-[#23483D] hover:bg-[#EEF4F0]'}`}
+                    >
+                      {revisionNumber === item.version ? `${item.label} (on screen)` : `Go back to ${item.label}`}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              {changeLog.length > 0 && (
+                <div className="space-y-2 max-h-[260px] overflow-y-auto pr-1">
+                  {[...changeLog].reverse().map((c, i) => (
+                    <div key={i} className={`p-3 rounded-xl border text-[11px] space-y-1 ${c.applied ? 'border-[#DCE7DE] bg-[#F7F7F2]' : 'border-rose-200 bg-rose-50'}`}>
+                      <div className="flex items-start justify-between gap-2">
+                        <span className="font-semibold text-[#202923]">You asked: &ldquo;{c.request}&rdquo;</span>
+                        <span className={`px-1.5 py-0.5 rounded font-bold font-mono text-[10px] shrink-0 ${c.applied ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}`}>
+                          {c.applied ? 'APPLIED' : 'NOT APPLIED'}
+                        </span>
+                      </div>
+                      {c.message && <p className="text-[#68736C]">{c.message}</p>}
+                      {c.changes.length > 0 && (
+                        <pre className="mt-1 p-2 rounded-lg bg-white border border-[#E2E7E1] text-[10px] leading-relaxed font-mono overflow-x-auto whitespace-pre">
+                          {c.changes.map((ln, k) => (
+                            <span key={k} className={ln.startsWith('+') ? 'text-emerald-700' : 'text-rose-700'}>{ln + '\n'}</span>
+                          ))}
+                        </pre>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
           )}
 
@@ -1908,17 +1974,17 @@ export const NewDesignPage: React.FC = () => {
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="flex items-center gap-1 bg-[#F7F7F2] p-1 rounded-xl border border-[#E2E7E1] text-xs">
-                        {(['front_right', 'front_left'] as const).map((v) => (
+                        {(['interactive', 'front_right', 'front_left'] as const).map((v) => (
                           <button
                             key={v}
                             onClick={() => setView3d(v)}
                             className={`px-3 py-1 rounded-lg font-semibold transition-colors ${view3d === v ? 'bg-[#23483D] text-white' : 'text-[#68736C] hover:text-[#202923]'}`}
                           >
-                            {v === 'front_right' ? 'Front-Right' : 'Front-Left'}
+                            {v === 'interactive' ? 'Rotate (live)' : v === 'front_right' ? 'Front-Right image' : 'Front-Left image'}
                           </button>
                         ))}
                       </div>
-                      {backendDesign?.images?.[`view3d_${view3d}`] && (
+                      {view3d !== 'interactive' && backendDesign?.images?.[`view3d_${view3d}`] && (
                         <a
                           href={backendDesign.images[`view3d_${view3d}`]}
                           download={`3d_view_${view3d}.png`}
@@ -1934,9 +2000,17 @@ export const NewDesignPage: React.FC = () => {
                   </div>
 
                   <div className="border border-[#E2E7E1] rounded-xl overflow-hidden bg-white p-4 flex items-center justify-center min-h-[420px]">
-                    {backendDesign?.images?.[`view3d_${view3d}`] ? (
+                    {view3d === 'interactive' && Array.isArray(backendDesign?.three_d_model?.nodes) && backendDesign.three_d_model.nodes.length > 0 ? (
+                      <div className="w-full">
+                        <Massing3DViewer
+                          nodes={backendDesign.three_d_model.nodes}
+                          plotWidth={Number(backendDesign?.plot?.width_ft) || plotWidthFt}
+                          plotLength={Number(backendDesign?.plot?.length_ft) || plotLengthFt}
+                        />
+                      </div>
+                    ) : backendDesign?.images?.[`view3d_${view3d === 'interactive' ? 'front_right' : view3d}`] ? (
                       <img
-                        src={backendDesign.images[`view3d_${view3d}`]}
+                        src={backendDesign.images[`view3d_${view3d === 'interactive' ? 'front_right' : view3d}`]}
                         alt={`3D view ${view3d}`}
                         className="max-h-[560px] w-auto mx-auto object-contain rounded-lg"
                       />
@@ -1988,6 +2062,12 @@ export const NewDesignPage: React.FC = () => {
                           )}
                         </div>
                         <p className="text-[11px] text-[#202923] leading-relaxed">{backendDesign.architect_review.verdict}</p>
+                        {backendDesign.improved_after_review && (
+                          <p className="text-[10px] font-semibold text-[#23483D]">
+                            The design was improved once after the AI's first review
+                            {backendDesign.architect_review_before?.score != null ? ` (its own score went from ${backendDesign.architect_review_before.score} to ${backendDesign.architect_review.score})` : ''}.
+                          </p>
+                        )}
                         {([['Strengths', 'strengths'], ['Concerns', 'concerns'], ['Suggestions you can ask for', 'suggestions']] as const).map(([label, key]) => (
                           Array.isArray(backendDesign.architect_review[key]) && backendDesign.architect_review[key].length > 0 && (
                             <div key={key}>

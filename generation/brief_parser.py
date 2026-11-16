@@ -134,6 +134,21 @@ def parse_brief(prompt: str, plot_w: float = 0, plot_l: float = 0, floors: int =
         for n, lv in re.findall(r"\b(\d+|" + "|".join(_COUNT_WORDS) + r")\s+(?:(?:bed\s*rooms?|bedrooms?|rooms?)\s+)?(?:on|in)\s+"
                                 r"(?:the\s+)?(ground|first|second|third)\s+floor", sentence):
             per.setdefault(lvl_of[lv], _to_int(n) or 0)
+    if not per:
+        # "each floor has its own lounge, kitchen, 3 bedrooms" / "3 bedrooms on each floor": the count is per floor
+        num = r"(\d+|" + "|".join(_COUNT_WORDS) + r")"
+        m_each = (re.search(r"\b(?:each|every|per|both)\s+(?:floors?|storeys?|stories|levels?|portions?)\b[^.;\n]{0,90}?\b"
+                            + num + r"\s+(?:bed\s*rooms?|bedrooms?)", t) or
+                  re.search(r"\b" + num + r"\s+(?:bed\s*rooms?|bedrooms?)\s+(?:on|in|per|for)\s+(?:each|every|both)?\s*"
+                            r"(?:floors?|storeys?|stories|levels?|portions?)\b", t))
+        m_nf = re.search(r"\b(\d+|" + "|".join(_COUNT_WORDS) + r")\s*[- ]?\s*(?:floors?|storeys?|stories|storied|levels)\b", t)
+        n_floors = (_to_int(m_nf.group(1)) or 0) if m_nf else 0
+        if not n_floors:
+            n_floors = 2 if re.search(r"\b(double|two)[- ]?(storey|story|storied|floor)", t) else \
+                3 if re.search(r"\b(triple|three)[- ]?(storey|story|storied|floor)", t) else 0
+        n_each = (_to_int(m_each.group(1)) or 0) if m_each else 0
+        if n_each and 2 <= n_floors <= 6:
+            per = {i: n_each for i in range(n_floors)}
     if per:
         req["beds_per_level"] = {str(k): v for k, v in sorted(per.items())}
 

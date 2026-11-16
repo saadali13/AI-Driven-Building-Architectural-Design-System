@@ -155,6 +155,17 @@ class ApiService {
     plan_id: string;
     improvement_text: string;
     base_version?: number;
+    // the design being changed: its script, the brief it was made from and its plot
+    script?: string;
+    prompt?: string;
+    plot_width?: number;
+    plot_length?: number;
+    floors?: number;
+    bedrooms?: number;
+    bathrooms?: number;
+    style?: string;
+    requirements?: any;
+    history?: Array<{ role: string; text: string }>;
   }): Promise<any> {
     const res = await fetch(`${this.baseUrl}/api/regenerate`, {
       method: 'POST',

@@ -1522,6 +1522,9 @@ def call_gemini_text(prompt_text: str, api_key: Optional[str] = None, temperatur
             text = resp.text or ""
             if re.search(r"\bLEVEL\b", text, re.I) and "|" in text:
                 return text, model_name
+            # a repair asked for as line edits is answered with edits, not with a whole script
+            if re.search(r"^\s*[-*]?\s*(REPLACE|INSERT AFTER|DELETE)\s+(LINE\s+)?\d+", text, re.I | re.M):
+                return text, model_name
             last_error = ValueError(f"{model_name} answered without an ArchiScript")
             print(f"[Gemini script] {last_error}")
         except Exception as e:
@@ -1770,6 +1773,12 @@ def _evaluate_script(script: str, ctx: Dict[str, Any], rnd: int, source: str, mo
             if m:
                 key_items.append({"floor": w.get("floor"), "room": w.get("room"), "item": m.group(1),
                               "name": info["name"] if info else w.get("room"), "problem": key_missing[-1]})
+    for w in warns:
+        if w["code"] == "DOOR_SWING_CLASH":
+            info = parsed["rooms"].get((w.get("floor"), w.get("room")))
+            where = f"line {info['line']} ({info['name']}): " if info else ""
+            key_missing.append(f"- [DOOR_SWING_CLASH] {where}{w['message']} - two doors cannot swing through the same "
+                               f"floor space: move one of them along its wall or onto another wall")
     problems = script_issue_lines({"errors": errs}, parsed["rooms"]) + \
         [f"- [REQUIREMENT_MISSING] {r['item']}: {r['detail']}" for r in unmet] + key_missing
     # layout notes: relative quality checks (proportion, wasted area, door clashes, unventilated baths) - advice
@@ -1786,8 +1795,7 @@ def _evaluate_script(script: str, ctx: Dict[str, Any], rnd: int, source: str, mo
             "notes": notes, "major_notes": major, "front_sb": fsb, "rear_sb": rsb}
 
 
-LAYOUT_NOTE_CODES = ("PROPORTION", "WASTED_SPACE", "BALANCE", "TIGHT_ROOM", "DOOR_SWING_CLASH", "BATH_NO_VENT",
-                     "OTS_COVERED")
+LAYOUT_NOTE_CODES = ("PROPORTION", "WASTED_SPACE", "BALANCE", "TIGHT_ROOM", "BATH_NO_VENT", "OTS_COVERED")
 
 
 def _furniture_family(item: str) -> str:
@@ -1832,15 +1840,43 @@ def synthesize_design(
         # fixed while each upper level is designed on top of it
         best, attempts = _staged_synthesis(ctx, api_key, kwargs.get("style_label", style))
         _remember_concept(ctx, best.get("concept"))
-        return _design_response(best, attempts, ctx, style, mode="generate")
+        improved = _improve_from_review(ctx, best, base, api_key)
+        if improved is not best:
+            attempts.append(improved)
+        return _design_response(improved, attempts, ctx, style, mode="generate")
     attempts: List[Dict[str, Any]] = []
     concepts = propose_concepts(ctx, api_key, max(1, SCRIPT_CANDIDATES_FIRST))
     text: Any = [base + _concept_text(c) for c in concepts] or base
     used: List[Optional[Dict[str, Any]]] = list(concepts)
     polished = False
-    for rnd in range(1, MAX_SCRIPT_ROUNDS + 1):
+    patch_src: Optional[str] = None
+    for rnd in range(1, MAX_SCRIPT_ROUNDS + 1 + 2 * FRESH_STARTS):
         temps = [0.5, 0.65, 0.8][:max(1, SCRIPT_CANDIDATES_FIRST)] if rnd == 1 else \
             [0.2, 0.5, 0.75][:max(1, SCRIPT_CANDIDATES_REPAIR)]
+        if rnd > MAX_SCRIPT_ROUNDS and (rnd - MAX_SCRIPT_ROUNDS) % 2 == 1:
+            # FRESH START: the repairs did not converge - the skeleton is wrong. Design again on another layout idea,
+            # knowing what failed; the round after it repairs that new design.
+            top = min(attempts, key=_attempt_rank)
+            if not top["errors"] + top["unmet"]:
+                break
+            lesson = ("\n=== AN EARLIER DESIGN COULD NOT BE REPAIRED ===\n" + top["script"] +
+                      "\nWhat the engine found in it:\n" + "\n".join(top["problems"][:8]) +
+                      "\nDo NOT repair that script. Its skeleton caused these problems - start again from a "
+                      "different, simpler skeleton in which they cannot happen: every room sits beside the shared "
+                      "space it opens onto, and every bedroom / lounge / kitchen has one wall on open air.\n")
+            if rnd > MAX_SCRIPT_ROUNDS + 1:
+                try:
+                    concepts = concepts + propose_concepts(ctx, api_key, 2)
+                except Exception as e_c:
+                    print(f"[Concepts] second proposal failed: {e_c}")
+            tried = {id(a.get("concept")) for a in attempts}
+            fresh = ([c for c in concepts if id(c) not in tried] or
+                     [c for c in concepts if c is not top.get("concept")])[:2] or [top.get("concept")]
+            text = [base + _concept_text(c) + lesson for c in fresh]
+            used = list(fresh)
+            temps = [0.4, 0.7][:len(text)]
+            patch_src = None
+            print(f"[Gemini script] repairs did not converge ({top['errors']} errors) - fresh start")
         answers = _parallel_scripts(text, api_key, temps)
         good = [(a, used[i] if i < len(used) else None) for i, a in enumerate(answers) if not isinstance(a, Exception)]
         if not good:
@@ -1851,7 +1887,7 @@ def synthesize_design(
         # the engine tests every candidate of the round and keeps the best one
         round_cands = []
         for (ans, model), concept in good:
-            c = _evaluate_script(extract_script(ans)[0], ctx, rnd, "gemini", model)
+            c = _evaluate_script(_answer_script(ans, patch_src), ctx, rnd, "gemini", model)
             c["concept"] = concept
             round_cands.append(c)
         cand = min(round_cands, key=_attempt_rank)
@@ -1868,11 +1904,16 @@ def synthesize_design(
         # always repair the BEST script so far - a round that made things worse is not built upon
         top = min(attempts, key=_attempt_rank)
         used = [top.get("concept")] * SCRIPT_CANDIDATES_REPAIR      # a repair keeps the concept of the script it repairs
-        text = build_script_repair_prompt(base + _concept_text(top.get("concept")), top["script"], top["problems"],
-                                          top["notes"][:12 if clean else 6], picture=_ascii_map(top["geo"]))
+        text, patch_src = _repair_text(base + _concept_text(top.get("concept")), top, ctx, rnd, top["script"],
+                                       _ascii_map(top["geo"]), top["notes"][:12 if clean else 6])
+        if patch_src:
+            print(f"[Gemini script] {top['errors'] + top['unmet'] + top['quality']} problem(s) left - asking for line edits")
     best = min(attempts, key=_attempt_rank)
     _remember_concept(ctx, best.get("concept"))
-    return _design_response(best, attempts, ctx, style, mode="generate")
+    improved = _improve_from_review(ctx, best, base, api_key)
+    if improved is not best:
+        attempts.append(improved)
+    return _design_response(improved, attempts, ctx, style, mode="generate")
 
 
 
@@ -2186,6 +2227,7 @@ def _staged_synthesis(ctx: Dict[str, Any], api_key: Optional[str], style_label: 
             # passes and differs from the floor below
             text = [base + _concept_text(concept) + _upper_variation(k, i) for i in range(max(1, SCRIPT_CANDIDATES_FIRST))]
         stage: List[Dict[str, Any]] = []
+        patch_src: Optional[str] = None         # set while a repair is asked for as line edits of this script
         for rnd in range(1, STAGE_ROUNDS + 2 + 2 * FRESH_STARTS):
             temps = [0.5, 0.65, 0.8][:max(1, SCRIPT_CANDIDATES_FIRST)] if rnd == 1 else \
                 [0.2, 0.5, 0.75][:max(1, SCRIPT_CANDIDATES_REPAIR)]
@@ -2226,6 +2268,7 @@ def _staged_synthesis(ctx: Dict[str, Any], api_key: Optional[str], style_label: 
                             + lesson for i in range(2)]
                     used = [concept, concept]
                 temps = [0.4, 0.7][:len(text)]
+                patch_src = None
                 print(f"[Gemini levels] level {k}: repairs did not converge ({top['errors']} errors) - fresh start")
             answers = _parallel_scripts(text, api_key, temps)
             good = [(a, used[i] if i < len(used) else None) for i, a in enumerate(answers) if not isinstance(a, Exception)]
@@ -2236,7 +2279,7 @@ def _staged_synthesis(ctx: Dict[str, Any], api_key: Optional[str], style_label: 
                 raise answers[0]
             cands = []
             for (ans, model), cand_concept in good:
-                script, _ = extract_script(ans)
+                script = _answer_script(ans, patch_src)
                 _, blocks, comments = _split_levels(script)
                 mine = [b for b in blocks if b[0] == k and not b[1]]
                 roofs = [b for b in blocks if b[1]] if last and roof else []
@@ -2283,8 +2326,14 @@ def _staged_synthesis(ctx: Dict[str, Any], api_key: Optional[str], style_label: 
             top = min(stage, key=_attempt_rank)
             shown = {k - 1, k} | {f.get("level") for f in top["geo"].get("floors", []) if f.get("roof")}
             used = [top.get("concept")] * SCRIPT_CANDIDATES_REPAIR
-            text = build_script_repair_prompt(base + _concept_text(top.get("concept")), header + "\n" + top["level_block"],
-                                              top["problems"], top["notes"][:6], picture=_ascii_map(top["geo"], shown))
+            text, patch_src = _repair_text(
+                base + _concept_text(top.get("concept")), top, ctx, rnd, header + "\n" + top["level_block"],
+                _ascii_map(top["geo"], shown), top["notes"][:6],
+                eval_kwargs={"scope": {k} | {f.get("level") for f in top["geo"].get("floors", []) if f.get("roof")},
+                             "req_level": k, "req_whole": last}, only_level=k)
+            if patch_src:
+                print(f"[Gemini levels] level {k}: {top['errors'] + top['unmet'] + top['quality']} problem(s) left - "
+                      f"asking for line edits")
         best = min(stage, key=_attempt_rank)
         if k == 0:
             concept = best.get("concept")
@@ -2327,6 +2376,195 @@ def _parallel_scripts(text: Any, api_key: Optional[str], temps: List[float]) -> 
             except Exception as e:
                 out.append(e)
     return out
+
+
+PATCH_MAX_PROBLEMS = 3        # with this many problems or fewer left, the repair is asked for as LINE EDITS
+
+
+def _numbered(script: str) -> str:
+    return "\n".join(f"{i:>3}| {ln}" for i, ln in enumerate(script.split("\n"), 1))
+
+
+def apply_line_edits(script: str, answer: str) -> Optional[str]:
+    """Applies REPLACE n: / INSERT AFTER n: / DELETE n edits (line numbers of `script`) and returns the new script,
+    or None when the answer holds no edit. Indentation carries the nesting of a script, so an edit written
+    without indentation takes the indentation of the line it replaces / follows."""
+    lines = script.split("\n")
+    ops: List[Tuple[str, int, str]] = []
+    for raw in (answer or "").replace("\r\n", "\n").split("\n"):
+        m = re.match(r"\s*[-*]?\s*(REPLACE|INSERT AFTER|DELETE)\s+(?:LINE\s+)?(\d+)\s*:?[ ]?(.*)$", raw, re.I)
+        if not m:
+            continue
+        n = int(m.group(2))
+        if not 1 <= n <= len(lines):
+            continue
+        txt = re.sub(r"^\s*\d+\|\s?", lambda mm: " " * 0, m.group(3).rstrip()) if re.match(r"^\s*\d+\|", m.group(3)) else m.group(3).rstrip()
+        txt = txt.strip("`")
+        op = m.group(1).upper()
+        if op != "DELETE":
+            if not txt.strip():
+                continue
+            if txt == txt.lstrip():             # no indentation given: keep the nesting of the line it belongs to
+                ref = lines[n - 1]
+                txt = ref[:len(ref) - len(ref.lstrip())] + txt
+        ops.append((op, n, txt))
+    if not ops:
+        return None
+    replaced: Dict[int, str] = {}
+    deleted = set()
+    inserts: Dict[int, List[str]] = {}
+    for op, n, txt in ops:
+        if op == "REPLACE":
+            replaced[n] = txt
+        elif op == "DELETE":
+            deleted.add(n)
+        else:
+            inserts.setdefault(n, []).append(txt)
+    out: List[str] = []
+    for i, ln in enumerate(lines, 1):
+        if i not in deleted:
+            out.append(replaced.get(i, ln))
+        out.extend(inserts.get(i, []))
+    return "\n".join(out)
+
+
+def _patch_prompt(base_prompt: str, script: str, problems: List[str], picture: str = "",
+                  only_level: Optional[int] = None) -> str:
+    scope = (f"Only the lines of LEVEL {only_level} may change - the levels below are built and fixed.\n"
+             if only_level is not None and only_level > 0 else "")
+    seen = (f"=== WHAT THE SCRIPT BUILT (letters = rooms; a door needs two rooms side by side along at least 3 ft) ===\n"
+            f"{picture}\n") if picture else ""
+    return f"""{base_prompt}
+
+=== SMALL REPAIR BY LINE EDITS ===
+Your script below is nearly right: only the problems listed remain. Do NOT write the script again - every rewrite so
+far broke rooms that were working. Give ONLY the line edits that fix these problems; every other line stays exactly
+as it is.
+{scope}
+=== YOUR SCRIPT, WITH LINE NUMBERS ===
+{_numbered(script)}
+
+{seen}=== PROBLEMS LEFT (fix all of them) ===
+{chr(10).join(problems)}
+
+Before you answer, find for each problem the wall it is about (use the x-ranges of the two bands) and the smallest
+edit that fixes it: a different door: target that really touches, an `extra door:` on a neighbour, a size number
+changed in ONE ROWS / COLS group (then its neighbours in that group change too, so the group still adds up), a room
+swapped with its neighbour, or one leaf added / removed.
+
+Answer with edits only, one per line, in exactly this form (the text after the colon is the complete new line,
+with the same indentation as the line it replaces):
+REPLACE <line number>: <new line>
+INSERT AFTER <line number>: <new line>
+DELETE <line number>
+"""
+
+
+def _answer_script(answer: str, patch_src: Optional[str]) -> str:
+    """The script an answer stands for: the edited script when line edits were asked for, else the fenced script."""
+    if patch_src:
+        edited = apply_line_edits(patch_src, answer)
+        if edited:
+            return edited
+    return extract_script(answer)[0]
+
+
+def _repair_text(base_prompt: str, top: Dict[str, Any], ctx: Dict[str, Any], rnd: int, shown_script: str,
+                 picture: str, notes: List[str], eval_kwargs: Optional[Dict[str, Any]] = None,
+                 only_level: Optional[int] = None) -> Tuple[str, Optional[str]]:
+    """The next repair prompt for the best script so far: line edits when only a few problems are left (returns the
+    script the line numbers refer to), a full repair otherwise (returns None)."""
+    left = top["errors"] + top["unmet"] + top["quality"]
+    if 0 < left <= PATCH_MAX_PROBLEMS:
+        src = top["script"]
+        try:    # line numbers must be those of the listing shown, so the script is measured once more as shown
+            pv = _evaluate_script(src, ctx, rnd, "gemini", top.get("model"), **(eval_kwargs or {}))
+            probs = pv["problems"] + [q for q in top["problems"]
+                                      if not re.search(r"\bline \d+", q) and q not in pv["problems"]]
+        except Exception:
+            probs = top["problems"]
+        if probs:
+            return _patch_prompt(base_prompt, src, probs, picture, only_level), src
+    return build_script_repair_prompt(base_prompt, shown_script, top["problems"], notes, picture=picture), None
+
+
+def _improve_from_review(ctx: Dict[str, Any], best: Dict[str, Any], base_prompt: str,
+                         api_key: Optional[str]) -> Dict[str, Any]:
+    """The LLM reviews its finished design as the family's architect; when it has concerns of its own, it gets one
+    round to answer them. The improved design is kept only if the engine still finds no problem in it, no
+    furniture was lost, no floor became a copy, and the LLM's own second review does not score it lower."""
+    if not ARCHITECT_REVIEW:
+        return best
+    review = architect_review(ctx, best)
+    best["review"] = review
+    if best["errors"] or best["unmet"] or not review:
+        return best
+    if int(review.get("score") or 0) >= 8 or not (review.get("concerns") or review.get("suggestions")):
+        return best
+    try:
+        prompt = base_prompt + _concept_text(best.get("concept")) + f"""
+=== YOUR OWN REVIEW OF YOUR DESIGN ===
+The script below passed every physical check of the engine. Then you looked at it as the family's architect and said:
+{review.get('verdict', '')}
+Your concerns:
+{chr(10).join('- ' + c for c in review.get('concerns', []))}
+Your ideas:
+{chr(10).join('- ' + c for c in review.get('suggestions', []))}
+
+=== THE SCRIPT, WITH LINE NUMBERS ===
+{_numbered(best['script'])}
+
+=== WHAT THE SCRIPT BUILT (letters = rooms) ===
+{_ascii_map(best['geo'])}
+
+Improve the design so that it answers the most important of your own concerns, as far as the client's brief and
+this plot allow. Do NOT write the script again - a rewrite breaks rooms that work. Give LINE EDITS only (at most
+12): move a cut by changing size numbers inside ONE ROWS / COLS group (the group must still add up), swap two
+neighbours, re-target a door, rename or re-type a space. Keep every client item and every count the brief gives
+(do not remove a bedroom or bath the client asked for); keep the STAIR in the same rectangle on every level.
+The engine will run the result: a version that breaks a door, a walking route, daylight or loses furniture is
+thrown away, so prefer two safe edits to six risky ones.
+
+Answer with edits only, one per line, in exactly this form (the text after the colon is the complete new line,
+with the same indentation as the line it replaces):
+REPLACE <line number>: <new line>
+INSERT AFTER <line number>: <new line>
+DELETE <line number>
+"""
+        answers = _parallel_scripts(prompt, api_key, [0.3, 0.6])
+        ok = []
+        for a in answers:
+            if isinstance(a, Exception):
+                continue
+            edited = apply_line_edits(best["script"], a[0])
+            if not edited or edited == best["script"]:
+                continue
+            c = _evaluate_script(edited, ctx, int(best.get("round") or 0) + 1, "gemini", a[1])
+            n_lv = len([f for f in c["geo"].get("floors", []) if not f.get("roof")])
+            sims = {str(lv): round(_floor_similarity(c["geo"], lv), 2) for lv in range(1, n_lv)}
+            copied = (not ctx["req"].get("same_layout")) and any(v > COPY_LIMIT for v in sims.values())
+            if c["errors"] or c["unmet"] or c["quality"] > best["quality"] or copied:
+                continue
+            c["floor_similarity"] = sims
+            ok.append(c)
+        print(f"[Architect review] score {review.get('score')} - {len(ok)} improved design(s) passed the engine")
+        if not ok:
+            return best
+        cand = min(ok, key=_attempt_rank)
+        second = architect_review(ctx, cand)
+        if not second or int(second.get("score") or 0) < int(review.get("score") or 0):
+            return best
+        for key in ("concept", "levels_designed", "level_plan", "concepts_tried"):
+            if key in best:
+                cand[key] = best[key]
+        cand["review"] = second
+        cand["review_before"] = review
+        cand["improved_after_review"] = True
+        print(f"[Architect review] improved design kept: own score {review.get('score')} -> {second.get('score')}")
+        return cand
+    except Exception as e:
+        print(f"[Architect review] improvement skipped: {str(e)[:160]}")
+        return best
 
 
 def _attempt_rank(a: Dict[str, Any]) -> Tuple:
@@ -2468,9 +2706,13 @@ def converse_design_script(script: str, message: str, prompt: str = "", history:
     attempts: List[Dict[str, Any]] = []
     reply = ""
     text = base
+    patch_src: Optional[str] = None
     for rnd in range(1, MAX_CONVERSE_ROUNDS + 1):
         answer, model = call_gemini_text(text, api_key, temperature=0.25)
-        new_script, notes = extract_script(answer)
+        if patch_src:                           # a repair asked for as line edits of the changed script
+            new_script, notes = _answer_script(answer, patch_src), ""
+        else:
+            new_script, notes = extract_script(answer)
         if rnd == 1:
             reply = notes
         cand = _evaluate_script(new_script, ctx, rnd, "conversation", model, enforce_setbacks=False)
@@ -2482,7 +2724,14 @@ def converse_design_script(script: str, message: str, prompt: str = "", history:
             break
         problems = cand["problems"] + [f"- [FURNITURE_LOST_BY_CHANGE] the {m['item']} in {m['name']} fitted in the "
                                        f"client's current design - keep that room big enough for it" for m in cand["lost"]]
-        text = build_script_repair_prompt(base, cand["script"], problems)
+        # what the change broke is repaired on the best changed script so far - by line edits when little is left
+        top = min(attempts, key=lambda a: (a["errors"], a["unmet"], len(a["lost"]), a["quality"], -a["round"]))
+        if top is cand and 0 < len(problems) <= PATCH_MAX_PROBLEMS:
+            patch_src = cand["script"]
+            text = _patch_prompt(base, patch_src, problems, _ascii_map(cand["geo"]))
+        else:
+            patch_src = None
+            text = build_script_repair_prompt(base, top["script"], top["problems"] if top is not cand else problems)
     best = min(attempts, key=lambda a: (a["errors"], a["unmet"], len(a["lost"]), a["quality"], -a["round"]))
     # A change must not make the design worse: if every attempt broke rules, dropped client items or took away
     # furniture that fitted before, keep the current design and explain why (the proposal is returned to inspect).
@@ -2501,13 +2750,40 @@ def converse_design_script(script: str, message: str, prompt: str = "", history:
         res["change_applied"] = False
         res["design_source"] = "previous_design_kept"
         return res
+    changes = _script_changes(current["script"], best["script"])
+    if not changes:
+        # the model answered but changed nothing: say so instead of presenting the old plan as a new version
+        current["round"], current["source"], current["model"] = 0, "kept_previous", None
+        current["lost"] = []
+        res = _design_response(current, attempts + [current], ctx, style, mode="converse")
+        res["assistant_message"] = ((reply + " ") if reply else "") + \
+            "Nothing in the plan was changed by that request. Say what should change and where " \
+            "(for example: 'make BED ROOM 2 3 ft wider and take the width from the lounge')."
+        res["change_applied"] = False
+        res["changes"] = []
+        res["design_source"] = "previous_design_kept"
+        return res
     res = _design_response(best, attempts, ctx, style, mode="converse")
     msg = reply or "I updated the script."
     if best["errors"]:
         msg += f" The engine still reports {best['errors']} problem(s) - they are listed under the script."
     res["assistant_message"] = msg
     res["change_applied"] = True
+    res["changes"] = changes
     return res
+
+
+def _script_changes(old: str, new: str) -> List[str]:
+    """What a change request really changed, as short '- old line' / '+ new line' entries (empty = nothing)."""
+    import difflib
+    a = [ln.rstrip() for ln in (old or "").split("\n") if ln.strip()]
+    b = [ln.rstrip() for ln in (new or "").split("\n") if ln.strip()]
+    out: List[str] = []
+    for ln in difflib.unified_diff(a, b, lineterm="", n=0):
+        if ln.startswith(("---", "+++", "@@")):
+            continue
+        out.append(("- " if ln.startswith("-") else "+ ") + ln[1:].strip())
+    return out[:60]
 
 
 ARCHITECT_REVIEW = True       # after a design is made, the LLM reviews it itself (its own opinion, no rule list)
@@ -2621,6 +2897,8 @@ def _design_response(best: Dict[str, Any], attempts: List[Dict[str, Any]], ctx: 
                 "dimensions_ft": f"{_ft_in_str(rw)} × {_ft_in_str(rl)}", "area_sqft": sqft,
                 "door": r.get("door"), "windows": r.get("windows", []), "furniture": r.get("furniture", []),
                 "furniture_layout": r.get("furniture_layout", []),
+                # the same rectangle under the names the DXF / SVG / PDF exporters read
+                "x": float(r.get("x_ft", 0)), "y": float(r.get("y_ft", 0)), "width": rw, "length": rl,
             }
             room_schedule.append(rm_entry)
             fl_rooms.append(rm_entry)
@@ -2714,7 +2992,10 @@ def _design_response(best: Dict[str, Any], attempts: List[Dict[str, Any]], ctx: 
                          else f"{n_err} problem(s) remain - edit the script or ask for a change"),
         "quality_gate": quality_gate,
         "validation": validation,
-        "architect_review": architect_review(ctx, best) if (ARCHITECT_REVIEW and mode == "generate") else None,
+        "architect_review": best["review"] if "review" in best else (
+            architect_review(ctx, best) if (ARCHITECT_REVIEW and mode == "generate") else None),
+        "improved_after_review": bool(best.get("improved_after_review")),
+        "architect_review_before": best.get("review_before"),
         "requirements": {"checklist": req["checklist"], "report": best["requirements"], "notes": requirement_notes,
                          "understood_as": req.get("understood_as", ""),
                          "read_by": ("rules + " + str(ctx["llm_reading"].get("_model"))) if ctx.get("llm_reading") else "rules",

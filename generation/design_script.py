@@ -533,7 +533,8 @@ things below. If you can see them in your head, the design passes.
 6. STACKING. Each level is cut separately, but they stand on each other. The stair is one hole through all the
    floors, so it is the same rectangle on every level. A shaft only brings light down if it stays open (type ots)
    on every level above. A room upstairs needs something built under it - over a lawn or a shaft it would hang in
-   the air, so that area upstairs is a terrace, balcony or open.
+   the air, so that area upstairs is a terrace, balcony or open. A terrace needs a floor too: it stands on the
+   rooms or the car porch of the level below (only a balcony up to 8 ft deep can project on its own slab).
 
 7. YOUR OWN JUDGEMENT. The engine checks only the physical things above - it has no opinion about sizes,
    proportions or style, and no bylaw is given to you. Whether this is a GOOD home is yours to judge, from what you

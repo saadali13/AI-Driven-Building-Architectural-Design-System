@@ -693,3 +693,59 @@ def test_elevation_and_3d_views_come_from_the_plan(tmp_path):
         assert os.path.getsize(f) > 5000
     nodes = mr.three_d_nodes(geo)
     assert len(nodes) == len(m["solids"]) and all(n["width"] > 0 and n["height"] > 0 and n["depth"] > 0 for n in nodes)
+
+
+def test_small_repairs_are_line_edits_that_leave_the_rest_alone():
+    """A nearly-right script is repaired by line edits: only the named lines change, an edit written without
+    indentation keeps the nesting of its line, and an answer without edits is not mistaken for one."""
+    from generation import gemini_cad_engine as gce
+    src = "\n".join(["PLOT 30 x 50", 'LEVEL 0 "G"', "ROWS", "  20 COLS", "    15 | A | bedroom | door: B",
+                     "    15 | B | lounge", "  30 | C | lawn"])
+    out = gce.apply_line_edits(src, "Sure:\nREPLACE 5: 15 | A | bedroom | door: C\nINSERT AFTER 6:     5 | X | store\nDELETE 7\n")
+    lines = out.split("\n")
+    assert lines[:4] == src.split("\n")[:4] and lines[5] == "    15 | B | lounge"
+    assert lines[4] == "    15 | A | bedroom | door: C" and lines[6] == "    5 | X | store" and len(lines) == 7
+    assert gce.apply_line_edits(src, "I would move the lounge.") is None
+    assert gce.apply_line_edits(src, "REPLACE 99: x") is None
+    prompt = gce._patch_prompt("BASE", src, ["- [DOOR] line 5 (A): no shared wall"], only_level=1)
+    assert "  5|     15 | A | bedroom | door: B" in prompt and "Only the lines of LEVEL 1 may change" in prompt
+    assert gce._answer_script("REPLACE 5: 15 | A | bedroom | door: C", src).split("\n")[4].endswith("door: C")
+    assert gce._answer_script("```archiscript\nPLOT 1 x 1\n```", None) == "PLOT 1 x 1"
+
+
+def test_a_deep_terrace_needs_built_space_below_and_rooms_need_their_essentials():
+    """A terrace deeper than a balcony must stand on rooms / the porch of the level below; a bedroom too small
+    for any bed is reported as furniture that does not fit."""
+    from generation.design_script import parse_script
+    from generation.plan_geometry_engine import analyse_layout
+    src = "\n".join([
+        "PLOT 30 x 50", "SETBACKS front 0 rear 0",
+        'LEVEL 0 "G"', "ROWS",
+        "  20 COLS", "    15 | CAR PORCH | car_porch | furniture: car", "    15 | DRAWING ROOM | drawing | door: LOUNGE",
+        "  15 COLS", "    22 | LOUNGE | lounge | door: CAR PORCH", "    8 | STAIR | stair | door: LOUNGE",
+        "  15 | REAR LAWN | lawn",
+        'LEVEL 1 "F"', "ROWS",
+        "  20 COLS", "    15 | FRONT TERRACE | terrace", "    15 | BED ROOM 1 | bedroom | door: UPPER LOUNGE",
+        "  15 COLS", "    22 | UPPER LOUNGE | lounge | door: STAIR | extra door: FRONT TERRACE | extra door: REAR TERRACE",
+        "    8 | STAIR | stair | door: UPPER LOUNGE",
+        "  15 | REAR TERRACE | terrace",
+    ]) + "\n"
+    geo = analyse_layout({"floors": parse_script(src, 30, 50)["floors"]}, 30, 50, 0, 0, 1, 0)
+    errs = {(e["code"], e.get("room")) for e in geo["validation"]["errors"]}
+    assert ("TERRACE_UNSUPPORTED", "ff_rear_terrace") in errs            # hangs over the rear lawn
+    assert ("TERRACE_UNSUPPORTED", "ff_front_terrace") not in errs       # stands on the car porch
+
+    tiny = "\n".join(["PLOT 20 x 30", 'LEVEL 0 "G"', "ROWS", "  10 | LAWN | lawn", "  16 COLS",
+                      "    17 | LOUNGE | lounge | door: LAWN", "    3 | BED ROOM 1 | bedroom | door: LOUNGE",
+                      "  4 | REAR OPEN | open"]) + "\n"
+    g2 = analyse_layout({"floors": parse_script(tiny, 20, 30)["floors"]}, 20, 30, 0, 0, 1, 0)
+    assert any(w["code"] == "FURNITURE_UNPLACED" and w.get("room") == "gf_bed_room_1" and "bed" in w["message"]
+               for w in g2["validation"]["warnings"])
+
+
+def test_change_requests_report_what_really_changed():
+    from generation import gemini_cad_engine as gce
+    old = "PLOT 30 x 50\nROWS\n  20 | A | lounge\n  30 | B | lawn\n"
+    assert gce._script_changes(old, old) == []
+    ch = gce._script_changes(old, old.replace("20 | A | lounge", "24 | A | lounge").replace("30 | B", "26 | B"))
+    assert "- 20 | A | lounge" in ch and "+ 24 | A | lounge" in ch and len(ch) == 4

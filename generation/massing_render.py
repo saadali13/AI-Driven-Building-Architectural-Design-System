@@ -124,7 +124,7 @@ def build_massing(layout: Dict[str, Any]) -> Dict[str, Any]:
                          if _enclosed(o) or o.get("category") == "porch"]
                 me = sbox(x0, y0, x1, y1)
                 if not below or unary_union(below).intersection(me).area < 0.5 * me.area:
-                    if min(x1 - x0, y1 - y0) > 5.5:
+                    if min(x1 - x0, y1 - y0) > 8.0:
                         continue
                     # a shallow balcony may project on its own slab
                     solids.append(_solid("slab", x0, y0, x1, y1, z0 - 0.4, z0))

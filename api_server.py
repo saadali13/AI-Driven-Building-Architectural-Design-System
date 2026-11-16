@@ -689,7 +689,7 @@ class ArchitecturalExporters:
 
         floors = design.get("floors", [])
         if not isinstance(floors, list):       # prompt-designed houses: "floors" is a count
-            floors = design.get("floors_summary") or []
+            floors = design.get("floors_detail") or design.get("floors_summary") or []
         if not floors:
             for p_dir in [os.path.join(OUTPUT_DIR, pid, f"v{v_num}"), os.path.join(OUTPUT_DIR, pid), os.path.join(OUTPUT_DIR, "web_generated", pid)]:
                 pf = os.path.join(p_dir, "plan.json")
@@ -767,8 +767,8 @@ class ArchitecturalExporters:
 
         # Render rooms for ground floor (and first floor offset)
         _fls = design.get("floors")
-        if not isinstance(_fls, list):          # prompt-designed houses carry the storeys in floors_summary
-            _fls = design.get("floors_summary") or []
+        if not isinstance(_fls, list) or not _fls:   # prompt-designed houses carry the storeys in floors_detail
+            _fls = design.get("floors_detail") or design.get("floors_summary") or []
         for fl_idx, fl in enumerate(_fls):
             offset_x = fl_idx * (pw + 15.0)
 
@@ -903,7 +903,7 @@ class ArchitecturalExporters:
         pl = float(design["plot"]["length_ft"])
         floors = design.get("floors", [])
         if not isinstance(floors, list):       # prompt-designed houses: "floors" is a count
-            floors = design.get("floors_summary") or []
+            floors = design.get("floors_detail") or design.get("floors_summary") or []
 
         # SVG layout canvas: 1200 x 900
         svg_w = 1200
@@ -1339,7 +1339,32 @@ class ArchitecturalRequestHandler(SimpleHTTPRequestHandler):
         except Exception:
             payload = {}
 
-        if path == "/api/regenerate":
+        if path == "/api/regenerate" and str(payload.get("script") or payload.get("design_script") or "").strip():
+            # REGENERATE = change the design the client is looking at. The current script is edited by the LLM, the
+            # engine re-checks it, and the previous design is kept when the change would break it.
+            message = str(payload.get("improvement_text") or payload.get("message") or "").strip()
+            if not message:
+                self._send_json({"success": False, "error": "Write what you want to change."}, status_code=400)
+                return
+            try:
+                from generation import gemini_cad_engine as gce_mod
+                design = gce_mod.converse_design_script(
+                    str(payload.get("script") or payload.get("design_script")), message,
+                    prompt=payload.get("prompt", ""), history=payload.get("history") or [],
+                    plot_width=float(payload.get("plot_width", 35.0)), plot_length=float(payload.get("plot_length", 65.0)),
+                    floors=int(payload.get("floors", 1)), bedrooms=int(payload.get("bedrooms", 3)),
+                    bathrooms=int(payload.get("bathrooms", 3)), style=payload.get("style", "Modern Contemporary"),
+                    requirements=payload.get("requirements") if isinstance(payload.get("requirements"), dict) else None,
+                    api_key=payload.get("api_key") or payload.get("gemini_api_key"))
+                design["version"] = int(payload.get("base_version") or 1) + (1 if design.get("change_applied") else 0)
+                self._send_json(design)
+            except Exception as e_gen:
+                import traceback
+                traceback.print_exc()
+                self._send_json({"success": False, "error": f"The change could not be made: {str(e_gen)}"}, status_code=500)
+            return
+
+        elif path == "/api/regenerate":
             improvement_text = payload.get("improvement_text")
             prompt = payload.get("prompt", "")
             pw = float(payload.get("plot_width", 25.0))
