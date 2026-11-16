@@ -3006,7 +3006,7 @@ export const NewDesignPage: React.FC = () => {
                   </div>
                 )}
               </div>
-              <div className="flex items-center justify-center gap-3 pt-2">
+              <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
                 <button
                   type="button"
                   onClick={() => setCurrentStep(creationMode === 'prompt' ? 3 : 5)}
