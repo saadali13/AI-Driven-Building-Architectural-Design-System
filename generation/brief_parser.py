@@ -1199,7 +1199,7 @@ def compliance_checklist(report: List[Dict[str, Any]], req: Dict[str, Any], fron
                          "statutory_role": "Daylight & ventilation of the kitchen / lounge", "status": "APPLIED"})
     out = {"all_passed": passed == total, "score_pct": int(round(100.0 * passed / max(1, total))),
            "passed_count": passed, "total_count": total, "requested_items": items, "items": items,
-           "bylaw_defaults": defaults, "has_fail": passed < total}
+           "bylaw_defaults": [], "has_fail": passed < total}      # no rule list is applied: the prompt decides
     if req.get("understood_as"):
         out["understood_as"] = req["understood_as"]
     return out

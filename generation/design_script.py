@@ -535,13 +535,13 @@ things below. If you can see them in your head, the design passes.
    on every level above. A room upstairs needs something built under it - over a lawn or a shaft it would hang in
    the air, so that area upstairs is a terrace, balcony or open.
 
-7. BALANCE. Last, it compares the spaces with each other, because the plot is a fixed amount of floor: every
-   foot one space takes, another loses. It tells you when a stair holds more floor than its steps use, when a
-   bath or a passage is larger than its use, when the kitchen is bigger than the lounge the family sits in, when
-   a room is so long and thin that it works like a corridor, or when a bedroom is so narrow that the bed leaves
-   no way past, or when strips, shafts and open passages eat a large share of the ground floor (a window needs
-   only a small shaft beside the room). These come back as notes, not failures - a size the client states
-   always wins.
+7. YOUR OWN JUDGEMENT. The engine checks only the physical things above - it has no opinion about sizes,
+   proportions or style, and no bylaw is given to you. Whether this is a GOOD home is yours to judge, from what you
+   know of houses built and lived in in Pakistan: room sizes that suit this plot and this family; the drawing room
+   where guests are received without walking through the family's rooms; where the kitchen, the baths, the stair,
+   the wash area and the car porch sit; cross-ventilation in a hot climate; how the house faces the street.
+   Before you answer, walk through your own plan once as the family that will live in it, and correct whatever
+   you would not accept as their architect.
 
 WHO DECIDES WHAT. The client decides what is built: which rooms, how many, where, what sizes, setbacks or none.
 Nothing above is a bylaw or a standard size. The engine only reports whether a person could walk in, get

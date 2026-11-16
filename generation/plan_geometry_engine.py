@@ -57,6 +57,13 @@ MIN_PART_FT = 3.0        # smallest slice the tree builder will create
 OPEN_AIR = {"porch", "outdoor", "ots", "pool"}
 HABITABLE = {"bedroom", "drawing", "lounge", "dining", "kitchen", "study"}
 
+# The engine checks what is physical: can a person walk in, does the room get daylight, do the doors have a wall,
+# does the stair hold its steps, does the listed furniture fit. Opinions about sizes and proportions (what a
+# standard or a bylaw would say) are NOT reported - the designing LLM judges those itself. Set to True to get the
+# size advice back as warnings.
+SIZE_ADVICE = False
+_SIZE_ADVICE_CODES = {"WASTED_SPACE", "BALANCE", "TIGHT_ROOM", "PROPORTION", "UNDERSIZED", "CAR_PORCH_TOO_SMALL"}
+
 _TYPE_CATEGORY = {
     "car_porch": "porch", "porch": "porch", "garage": "porch", "carport": "porch",
     "driveway": "outdoor", "lawn": "outdoor", "garden": "outdoor", "balcony": "outdoor",
@@ -993,55 +1000,76 @@ def furnish_room(room: Dict[str, Any], building, doors: List[Dict[str, Any]],
                 long_side = (y1 - c[1] >= 1.75) or (c[3] - y2 >= 1.75)
             return foot and long_side
 
-        bed, bside = p.against_wall(bed_t, BW, BD, _side_rank(p), check=bed_ok)
-        if bed is None and bed_t != "bed_single":
-            p.unplaced.pop()
-            bed_t, BW, BD = ("bed_queen", 5.0, 6.75) if bed_t == "bed_king" else ("bed_single", 3.5, 6.5)
-            bed, bside = p.against_wall(bed_t, BW, BD, _side_rank(p), check=bed_ok)
-        if bed is None:
-            # Compact room fallback: place a compact bed against any clear wall without full walking-zone margin
-            p.unplaced.pop()
-            for ct, cw_b, cd_b in (("bed_queen", 4.5, 6.0), ("bed_single", 3.0, 5.8)):
-                bed, bside = p.against_wall(ct, cw_b, cd_b, _side_rank(p), check=None)
-                if bed is not None:
-                    bed_t, BW, BD = ct, cw_b, cd_b
+        def bed_and_wardrobe(sides, align):
+            """Places the bed (with its nightstands and walking zones) and then the wardrobe.
+            Returns (bed, wall side of the bed, bed type, wardrobe placed?)."""
+            bt, bw_, bd_ = bed_t, BW, BD
+            bed, bside = p.against_wall(bt, bw_, bd_, sides, align=align, check=bed_ok)
+            if bed is None and bt != "bed_single":
+                p.unplaced.pop()
+                bt, bw_, bd_ = ("bed_queen", 5.0, 6.75) if bt == "bed_king" else ("bed_single", 3.5, 6.5)
+                bed, bside = p.against_wall(bt, bw_, bd_, sides, align=align, check=bed_ok)
+            if bed is None:
+                # Compact room fallback: place a compact bed against any clear wall without full walking-zone margin
+                p.unplaced.pop()
+                for ct, cw_b, cd_b in (("bed_queen", 4.5, 6.0), ("bed_single", 3.0, 5.8)):
+                    bed, bside = p.against_wall(ct, cw_b, cd_b, sides, align=align, check=None)
+                    if bed is not None:
+                        bt = ct
+                        break
+                    p.unplaced.pop()
+                if bed is None:
+                    p.unplaced.append("bed_single")
+            if bed is not None:
+                bb = (bed["x"], bed["y"], bed["x"] + bed["w"], bed["y"] + bed["h"])
+                for off in (-1.6, 1.6):
+                    ns = 1.5
+                    if bside in ("S", "N"):
+                        nx0 = bb[0] - ns - 0.1 if off < 0 else bb[2] + 0.1
+                        ny0 = bb[1] if bside == "S" else bb[3] - ns
+                        nb = (nx0, ny0, nx0 + ns, ny0 + ns)
+                    else:
+                        ny0 = bb[1] - ns - 0.1 if off < 0 else bb[3] + 0.1
+                        nx0 = bb[0] if bside == "W" else bb[2] - ns
+                        nb = (nx0, ny0, nx0 + ns, ny0 + ns)
+                    if p._ok(nb):
+                        p.add("nightstand", nb, _SIDE_FACING[bside], ns, ns)
+                # keep the bed's walking zones free for the wardrobe etc.
+                x1, y1, x2, y2 = bb
+                c = p.clear
+                if bside in ("S", "N"):
+                    p.hard.append(box(max(c[0], x1 - 1.75), y1, x1, y2))
+                    p.hard.append(box(x2, y1, min(c[2], x2 + 1.75), y2))
+                    p.hard.append(box(x1, y2, x2, min(c[3], y2 + 2.0)) if bside == "S" else box(x1, max(c[1], y1 - 2.0), x2, y1))
+                else:
+                    p.hard.append(box(x1, max(c[1], y1 - 1.75), x2, y1))
+                    p.hard.append(box(x1, y2, x2, min(c[3], y2 + 1.75)))
+                    p.hard.append(box(x2, y1, min(c[2], x2 + 2.0), y2) if bside == "W" else box(max(c[0], x1 - 2.0), y1, x1, y2))
+            placed = False
+            for L in (6.0, 5.0, 4.0, 3.0, 2.5, 2.0):
+                order = [sd for sd in _side_rank(p, prefer_opposite_door=False) if sd != bside] + ([bside] if bside else [])
+                wr, _ = p.against_wall("wardrobe", L, 2.0, order, tall=True, align="start")
+                if wr is not None:
+                    placed = True
                     break
                 p.unplaced.pop()
-            if bed is None:
-                p.unplaced.append("bed_single")
-        if bed is not None:
-            bb = (bed["x"], bed["y"], bed["x"] + bed["w"], bed["y"] + bed["h"])
-            for off in (-1.6, 1.6):
-                ns = 1.5
-                if bside in ("S", "N"):
-                    nx0 = bb[0] - ns - 0.1 if off < 0 else bb[2] + 0.1
-                    ny0 = bb[1] if bside == "S" else bb[3] - ns
-                    nb = (nx0, ny0, nx0 + ns, ny0 + ns)
-                else:
-                    ny0 = bb[1] - ns - 0.1 if off < 0 else bb[3] + 0.1
-                    nx0 = bb[0] if bside == "W" else bb[2] - ns
-                    nb = (nx0, ny0, nx0 + ns, ny0 + ns)
-                if p._ok(nb):
-                    p.add("nightstand", nb, _SIDE_FACING[bside], ns, ns)
-            # keep the bed's walking zones free for the wardrobe etc.
-            x1, y1, x2, y2 = bb
-            c = p.clear
-            if bside in ("S", "N"):
-                p.hard.append(box(max(c[0], x1 - 1.75), y1, x1, y2))
-                p.hard.append(box(x2, y1, min(c[2], x2 + 1.75), y2))
-                p.hard.append(box(x1, y2, x2, min(c[3], y2 + 2.0)) if bside == "S" else box(x1, max(c[1], y1 - 2.0), x2, y1))
+            return bed, bside, bt, placed
+
+        # The first bed position that works is not always one that leaves a wall for the wardrobe: when the
+        # wardrobe finds no place, the bed is tried on the other walls / ends before the wardrobe is given up.
+        snap = (list(p.items), list(p.hard), list(p.unplaced))
+        ranked = _side_rank(p)
+        bed, bside, bed_t, placed_wr = bed_and_wardrobe(ranked, "center")
+        if bed is not None and not placed_wr:
+            for alt_side, alt_align in [(sd, al) for al in ("center", "start", "end") for sd in ranked]:
+                p.items[:], p.hard[:], p.unplaced[:] = list(snap[0]), list(snap[1]), list(snap[2])
+                bed2, bside2, bt2, ok2 = bed_and_wardrobe([alt_side], alt_align)
+                if bed2 is not None and ok2 and bt2 == bed_t:
+                    bed, bside, placed_wr = bed2, bside2, True
+                    break
             else:
-                p.hard.append(box(x1, max(c[1], y1 - 1.75), x2, y1))
-                p.hard.append(box(x1, y2, x2, min(c[3], y2 + 1.75)))
-                p.hard.append(box(x2, y1, min(c[2], x2 + 2.0), y2) if bside == "W" else box(max(c[0], x1 - 2.0), y1, x1, y2))
-        placed_wr = False
-        for L in (6.0, 5.0, 4.0, 3.0):
-            order = [s for s in _side_rank(p, prefer_opposite_door=False) if s != bside] + ([bside] if bside else [])
-            wr, _ = p.against_wall("wardrobe", L, 2.0, order, tall=True, align="start")
-            if wr is not None:
-                placed_wr = True
-                break
-            p.unplaced.pop()
+                p.items[:], p.hard[:], p.unplaced[:] = list(snap[0]), list(snap[1]), list(snap[2])
+                bed, bside, bed_t, placed_wr = bed_and_wardrobe(ranked, "center")
         if not placed_wr:
             p.unplaced.append("wardrobe")
         if (_requested(room, "desk", "study") or "STUDY" in room["name"]) and area > 90:
@@ -1672,6 +1700,8 @@ def validate_floor(rooms, doors, windows, furniture, plot_w, plot_l, front_sb, r
         fb = box(f["x"], f["y"], f["x"] + f["w"], f["y"] + f["h"])
         if _collides(fb, swings, tol=0.1):
             out.append(_issue("FURNITURE_IN_SWING", "error", level, f["room_id"], f"{f['type']} intrudes into a door swing"))
+    if not SIZE_ADVICE:
+        out = [i for i in out if i["code"] not in _SIZE_ADVICE_CODES]
     return out
 
 
@@ -1781,7 +1811,15 @@ def analyse_layout(layout: Dict[str, Any], plot_w: float, plot_l: float, front_s
         issues.extend(door_issues)
         fixes.extend(door_fixes)
         issues.extend(validate_floor(rooms, doors, windows, furniture, plot_w, plot_l, front_sb, rear_sb, level))
+        # a space written in several parts is furnished as one space: only its largest part must hold the furniture
+        _grp: Dict[str, List[Dict[str, Any]]] = {}
+        for r_ in rooms:
+            _grp.setdefault(r_.get("part_of") or r_["id"], []).append(r_)
+        _minor = {m["id"] for ms in _grp.values() if len(ms) > 1
+                  for m in ms if m is not max(ms, key=lambda q: float(q["w_ft"]) * float(q["l_ft"]))}
         for u in unplaced:
+            if u["room"] in _minor:
+                continue
             issues.append(_issue("FURNITURE_UNPLACED", "warning", level, u["room"],
                                  f"{u['item']} omitted in {u['room']} - no position clear of doors/windows"))
 

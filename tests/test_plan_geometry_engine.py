@@ -431,6 +431,7 @@ def _patch_pipeline(monkeypatch, tmp_path, responses, llm_reading=None, candidat
     monkeypatch.setattr(gce, "call_gemini_text", fake_text)
     monkeypatch.setattr(gce, "extract_requirements_llm", lambda brief, api_key=None: dict(llm_reading or {}))
     monkeypatch.setattr(gce, "OUTPUT_DIR", str(tmp_path))
+    monkeypatch.setattr(gce, "ARCHITECT_REVIEW", False)
     return gce, prompts
 
 
@@ -646,3 +647,49 @@ ROWS
     codes = {(e["code"], e["room"]) for e in geo["validation"]["errors"]}
     assert ("LANDLOCKED", "gf_tv_lounge_2") not in codes
     assert not any(c in ("DOOR_NO_SHARED_WALL", "UNREACHABLE") for c, _ in codes), geo["validation"]["errors"]
+
+
+def _three_storey_script() -> str:
+    out = ["PLOT 30 x 50", "SETBACKS front 0 rear 0"]
+    for k in range(3):
+        out += [f'LEVEL {k} "L{k}"', "ROWS", "  20 COLS"]
+        if k == 0:
+            out += ["    15 | CAR PORCH | car_porch | furniture: car",
+                    "    15 | DRAWING ROOM | drawing | door: LOUNGE"]
+        else:
+            out += ["    15 | FRONT TERRACE | terrace",
+                    f"    15 | BED ROOM {k}0 | bedroom | door: LOUNGE"]
+        out += ["  15 COLS",
+                "    22 | LOUNGE | lounge | door: " + ("CAR PORCH" if k == 0 else "STAIR | extra door: FRONT TERRACE"),
+                "    8 | STAIR | stair | door: LOUNGE",
+                "  15 COLS",
+                f"    15 | BED ROOM {k}1 | bedroom | door: LOUNGE",
+                "    15 | REAR OPEN | open"]
+    return "\n".join(out) + "\n"
+
+
+def test_elevation_and_3d_views_come_from_the_plan(tmp_path):
+    """Every storey of the plan appears in the massing model; street-side windows keep their plan position; the
+    elevation and both 3D views are drawn."""
+    from generation import massing_render as mr
+    from generation.design_script import parse_script
+    from generation.plan_geometry_engine import analyse_layout
+    p = parse_script(_three_storey_script(), 30, 50)
+    geo = analyse_layout({"floors": p["floors"]}, 30, 50, 0, 0, 5, 0)
+    geo["plot_width_ft"], geo["plot_length_ft"] = 30.0, 50.0
+    m = mr.build_massing(geo)
+    assert m["storeys"] == 3 and len(m["base"]) == 3 and m["base"][2] > m["base"][1] > m["base"][0]
+    walls = [s for s in m["solids"] if s["role"] == "wall"]
+    assert {s["level"] for s in walls} == {0, 1, 2}
+    # a street-side window of the plan is an opening on the front face of its room, at the same x
+    w = next(w for w in geo["floors"][0]["windows"] if w["orient"] == "h" and w["coord"] == 0.0)
+    fronts = [o for s in walls if s["level"] == 0 for o in s["open"] if o["face"] == "front" and o["kind"] == "window"]
+    assert any(abs(o["a0"] - w["s"]) < 1e-6 and abs(o["a1"] - w["e"]) < 1e-6 for o in fronts)
+    assert any(s["role"] == "rail" for s in m["solids"]) and any(s["role"] == "mumty" for s in m["solids"])
+    assert m["total_height"] > m["top"] > m["base"][2]
+    elev = mr.render_front_elevation(geo, "t", "modern", str(tmp_path), dpi=50)
+    views = mr.render_3d_views(geo, "t", "modern", str(tmp_path), dpi=50)
+    for f in [elev] + list(views.values()):
+        assert os.path.getsize(f) > 5000
+    nodes = mr.three_d_nodes(geo)
+    assert len(nodes) == len(m["solids"]) and all(n["width"] > 0 and n["height"] > 0 and n["depth"] > 0 for n in nodes)

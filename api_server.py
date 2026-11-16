@@ -688,6 +688,8 @@ class ArchitecturalExporters:
         v_num = design.get("version", 1)
 
         floors = design.get("floors", [])
+        if not isinstance(floors, list):       # prompt-designed houses: "floors" is a count
+            floors = design.get("floors_summary") or []
         if not floors:
             for p_dir in [os.path.join(OUTPUT_DIR, pid, f"v{v_num}"), os.path.join(OUTPUT_DIR, pid), os.path.join(OUTPUT_DIR, "web_generated", pid)]:
                 pf = os.path.join(p_dir, "plan.json")
@@ -764,7 +766,10 @@ class ArchitecturalExporters:
         )
 
         # Render rooms for ground floor (and first floor offset)
-        for fl_idx, fl in enumerate(design.get("floors", [])):
+        _fls = design.get("floors")
+        if not isinstance(_fls, list):          # prompt-designed houses carry the storeys in floors_summary
+            _fls = design.get("floors_summary") or []
+        for fl_idx, fl in enumerate(_fls):
             offset_x = fl_idx * (pw + 15.0)
 
             # Sub-title
@@ -813,43 +818,77 @@ class ArchitecturalExporters:
         doc.layers.add("A-ELEV-TEXT", color=2, lineweight=25)  # Yellow 0.25mm
 
         # Front Elevation Drawing Space (Offset to the right of floor plans)
-        elev_offset_x = len(design.get("floors", [])) * (pw + 15.0)
+        elev_offset_x = len(_fls) * (pw + 15.0)
         msp.add_text(
             f"FRONT ELEVATION - {design['style_display'].upper()} STYLE",
             dxfattribs={"layer": "A-TITLE", "height": 0.9}
         ).set_placement((elev_offset_x, pl + 2.0), align=TextEntityAlignment.LEFT)
 
-        # Ground line
-        msp.add_lwpolyline([(elev_offset_x - 5.0, 0), (elev_offset_x + pw + 5.0, 0)], dxfattribs={"layer": "A-ELEV-WALL"})
-        # Plinth box (+2 ft)
-        msp.add_lwpolyline([(elev_offset_x, 0), (elev_offset_x + pw, 0), (elev_offset_x + pw, 2.0), (elev_offset_x, 2.0)], close=True, dxfattribs={"layer": "A-ELEV-WALL"})
-        # Ground floor facade (+13.5 ft)
-        msp.add_lwpolyline([(elev_offset_x, 2.0), (elev_offset_x + pw, 2.0), (elev_offset_x + pw, 13.5), (elev_offset_x, 13.5)], close=True, dxfattribs={"layer": "A-ELEV-WALL"})
-        # Upper floor facade (+25.0 ft)
-        msp.add_lwpolyline([(elev_offset_x, 13.5), (elev_offset_x + pw, 13.5), (elev_offset_x + pw, 25.0), (elev_offset_x, 25.0)], close=True, dxfattribs={"layer": "A-ELEV-WALL"})
-        # Parapet wall (+28.7 ft)
-        msp.add_lwpolyline([(elev_offset_x, 25.0), (elev_offset_x + pw, 25.0), (elev_offset_x + pw, 28.7), (elev_offset_x, 28.7)], close=True, dxfattribs={"layer": "A-ELEV-ROOF"})
+        # The elevation is the front projection of the same massing model as the PNG elevation and the 3D views
+        # (every storey, street-side doors and windows at their plan positions). Older designs without stored
+        # geometry fall back to the simple two-storey outline.
+        _geo = None
+        try:
+            _gp = os.path.join(OUTPUT_DIR, "web_generated", str(design.get("project_id", "")), "layout_geometry.json")
+            if os.path.exists(_gp):
+                with open(_gp, "r", encoding="utf-8") as _gf:
+                    _geo = json.load(_gf)
+        except Exception as _ge:
+            print(f"[DXF] stored geometry not readable: {_ge}")
+        if _geo:
+            from generation import massing_render as _mr
+            _m = _mr.build_massing(_geo)
+            ex = elev_offset_x
+            msp.add_lwpolyline([(ex - 5.0, 0), (ex + pw + 5.0, 0)], dxfattribs={"layer": "A-ELEV-WALL"})
+            _sol = sorted(_mr._merge_front([q for q in _m["solids"] if q["z1"] > 0.4]), key=lambda q: (-q["y0"], q["z0"]))
+            for q in _sol:
+                lay = "A-ELEV-ROOF" if q["role"] in ("parapet", "mumty", "cap") else "A-ELEV-WALL"
+                msp.add_lwpolyline([(ex + q["x0"], q["z0"]), (ex + q["x1"], q["z0"]), (ex + q["x1"], q["z1"]),
+                                    (ex + q["x0"], q["z1"])], close=True, dxfattribs={"layer": lay})
+                for o in q["open"]:
+                    if o["face"] != "front":
+                        continue
+                    msp.add_lwpolyline([(ex + o["a0"], o["z0"]), (ex + o["a1"], o["z0"]), (ex + o["a1"], o["z1"]),
+                                        (ex + o["a0"], o["z1"])], close=True, dxfattribs={"layer": "A-ELEV-GLAZ"})
+            _levels = [(0.0, "ROAD LVL")] + [(z, "PLINTH / GROUND FFL" if i == 0 else f"LEVEL {i} FFL")
+                                              for i, z in enumerate(_m["base"])] + \
+                      [(_m["top"], "ROOF SLAB"), (_m["top"] + _mr.PARAPET_H, "PARAPET TOP")]
+            for z, name in _levels:
+                msp.add_text(f"{name} (+{z:.1f} ft)", dxfattribs={"layer": "A-ELEV-DIMS", "height": 0.45}
+                             ).set_placement((ex + pw + 1.5, z), align=TextEntityAlignment.LEFT)
+        else:
+            # Ground line
+            msp.add_lwpolyline([(elev_offset_x - 5.0, 0), (elev_offset_x + pw + 5.0, 0)], dxfattribs={"layer": "A-ELEV-WALL"})
+            # Plinth box (+2 ft)
+            msp.add_lwpolyline([(elev_offset_x, 0), (elev_offset_x + pw, 0), (elev_offset_x + pw, 2.0), (elev_offset_x, 2.0)], close=True, dxfattribs={"layer": "A-ELEV-WALL"})
+            # Ground floor facade (+13.5 ft)
+            msp.add_lwpolyline([(elev_offset_x, 2.0), (elev_offset_x + pw, 2.0), (elev_offset_x + pw, 13.5), (elev_offset_x, 13.5)], close=True, dxfattribs={"layer": "A-ELEV-WALL"})
+            # Upper floor facade (+25.0 ft)
+            msp.add_lwpolyline([(elev_offset_x, 13.5), (elev_offset_x + pw, 13.5), (elev_offset_x + pw, 25.0), (elev_offset_x, 25.0)], close=True, dxfattribs={"layer": "A-ELEV-WALL"})
+            # Parapet wall (+28.7 ft)
+            msp.add_lwpolyline([(elev_offset_x, 25.0), (elev_offset_x + pw, 25.0), (elev_offset_x + pw, 28.7), (elev_offset_x, 28.7)], close=True, dxfattribs={"layer": "A-ELEV-ROOF"})
 
-        # Stair mumty atop stair core
-        stair_rooms = [r for fl in design.get("floors", []) for r in fl.get("rooms", []) if "stair" in str(r.get("name", "")).lower()]
-        if stair_rooms:
-            sr = stair_rooms[0]
-            sx = elev_offset_x + float(sr.get("x", 0.0))
-            sw = float(sr.get("width", 8.0))
-            msp.add_lwpolyline([(sx, 25.0), (sx + sw, 25.0), (sx + sw, 33.7), (sx, 33.7)], close=True, dxfattribs={"layer": "A-ELEV-ROOF"})
-            msp.add_text("STAIR MUMTY", dxfattribs={"layer": "A-ELEV-TEXT", "height": 0.5}).set_placement((sx + sw/2.0, 29.5), align=TextEntityAlignment.MIDDLE_CENTER)
-            # OHT atop mumty
-            ow = min(sw * 0.8, 6.0)
-            ox = sx + (sw - ow) * 0.5
-            msp.add_lwpolyline([(ox, 33.7), (ox + ow, 33.7), (ox + ow, 37.6), (ox, 37.6)], close=True, dxfattribs={"layer": "A-ELEV-ROOF"})
-            msp.add_text("OHT (1500 GAL)", dxfattribs={"layer": "A-ELEV-TEXT", "height": 0.4}).set_placement((ox + ow/2.0, 35.6), align=TextEntityAlignment.MIDDLE_CENTER)
+            # Stair mumty atop stair core
+            stair_rooms = [r for fl in _fls for r in fl.get("rooms", []) if "stair" in str(r.get("name", "")).lower()]
+            if stair_rooms:
+                sr = stair_rooms[0]
+                sx = elev_offset_x + float(sr.get("x", 0.0))
+                sw = float(sr.get("width", 8.0))
+                msp.add_lwpolyline([(sx, 25.0), (sx + sw, 25.0), (sx + sw, 33.7), (sx, 33.7)], close=True, dxfattribs={"layer": "A-ELEV-ROOF"})
+                msp.add_text("STAIR MUMTY", dxfattribs={"layer": "A-ELEV-TEXT", "height": 0.5}).set_placement((sx + sw/2.0, 29.5), align=TextEntityAlignment.MIDDLE_CENTER)
+                # OHT atop mumty
+                ow = min(sw * 0.8, 6.0)
+                ox = sx + (sw - ow) * 0.5
+                msp.add_lwpolyline([(ox, 33.7), (ox + ow, 33.7), (ox + ow, 37.6), (ox, 37.6)], close=True, dxfattribs={"layer": "A-ELEV-ROOF"})
+                msp.add_text("OHT (1500 GAL)", dxfattribs={"layer": "A-ELEV-TEXT", "height": 0.4}).set_placement((ox + ow/2.0, 35.6), align=TextEntityAlignment.MIDDLE_CENTER)
 
-        # Elevation Datum Dimension String
-        msp.add_text("PARAPET TOP (+28'-7\")", dxfattribs={"layer": "A-ELEV-DIMS", "height": 0.45}).set_placement((elev_offset_x + pw + 1.5, 28.7), align=TextEntityAlignment.LEFT)
-        msp.add_text("ROOF SLAB (+25'-0\")", dxfattribs={"layer": "A-ELEV-DIMS", "height": 0.45}).set_placement((elev_offset_x + pw + 1.5, 25.0), align=TextEntityAlignment.LEFT)
-        msp.add_text("FIRST FLOOR (+13'-6\")", dxfattribs={"layer": "A-ELEV-DIMS", "height": 0.45}).set_placement((elev_offset_x + pw + 1.5, 13.5), align=TextEntityAlignment.LEFT)
-        msp.add_text("PLINTH (+2'-0\")", dxfattribs={"layer": "A-ELEV-DIMS", "height": 0.45}).set_placement((elev_offset_x + pw + 1.5, 2.0), align=TextEntityAlignment.LEFT)
-        msp.add_text("GROUND (0'-0\")", dxfattribs={"layer": "A-ELEV-DIMS", "height": 0.45}).set_placement((elev_offset_x + pw + 1.5, 0.0), align=TextEntityAlignment.LEFT)
+            # Elevation Datum Dimension String
+            msp.add_text("PARAPET TOP (+28'-7\")", dxfattribs={"layer": "A-ELEV-DIMS", "height": 0.45}).set_placement((elev_offset_x + pw + 1.5, 28.7), align=TextEntityAlignment.LEFT)
+            msp.add_text("ROOF SLAB (+25'-0\")", dxfattribs={"layer": "A-ELEV-DIMS", "height": 0.45}).set_placement((elev_offset_x + pw + 1.5, 25.0), align=TextEntityAlignment.LEFT)
+            msp.add_text("FIRST FLOOR (+13'-6\")", dxfattribs={"layer": "A-ELEV-DIMS", "height": 0.45}).set_placement((elev_offset_x + pw + 1.5, 13.5), align=TextEntityAlignment.LEFT)
+            msp.add_text("PLINTH (+2'-0\")", dxfattribs={"layer": "A-ELEV-DIMS", "height": 0.45}).set_placement((elev_offset_x + pw + 1.5, 2.0), align=TextEntityAlignment.LEFT)
+            msp.add_text("GROUND (0'-0\")", dxfattribs={"layer": "A-ELEV-DIMS", "height": 0.45}).set_placement((elev_offset_x + pw + 1.5, 0.0), align=TextEntityAlignment.LEFT)
+
 
         pid = design["project_id"]
         out_path = os.path.join(OUTPUT_DIR, f"{pid}_blueprint.dxf")
@@ -863,6 +902,8 @@ class ArchitecturalExporters:
         pw = float(design["plot"]["width_ft"])
         pl = float(design["plot"]["length_ft"])
         floors = design.get("floors", [])
+        if not isinstance(floors, list):       # prompt-designed houses: "floors" is a count
+            floors = design.get("floors_summary") or []
 
         # SVG layout canvas: 1200 x 900
         svg_w = 1200

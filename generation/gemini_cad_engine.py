@@ -52,6 +52,7 @@ from google import genai
 from google.genai import types
 
 from config.gemini_config import GeminiConfig
+from generation import massing_render
 from generation.plan_geometry_engine import (
     EXT_WALL, _pt, analyse_layout, build_wall_geometry, classify_room,
     format_issues_for_llm, is_enclosed, room_clear_rect,
@@ -1464,8 +1465,12 @@ def _render_design_package(layout_data: Dict[str, Any], style: str, project_id: 
     images["rooftop_slab_plan"] = images["rooftop"]
     comp_path = render_composite_multi_floor_cad_sheet(layout_data, pid, proj_dir, is_furnishing=True)
     images["all"] = images["multiFloor"] = images["presentation"] = f"{web_prefix}/{os.path.basename(comp_path)}"
-    elev_path = render_front_elevation_cad(layout_data, pid, style, proj_dir)
+    # elevation and 3D views are projections of ONE massing model built from the plan geometry
+    elev_path = massing_render.render_front_elevation(layout_data, pid, style, proj_dir, dpi=RENDER_DPI)
     images["elevation"] = f"{web_prefix}/{os.path.basename(elev_path)}"
+    for key, path in massing_render.render_3d_views(layout_data, pid, style, proj_dir, dpi=min(170, RENDER_DPI)).items():
+        images[f"view3d_{key}"] = f"{web_prefix}/{os.path.basename(path)}"
+    images["render3d"] = images.get("view3d_front_right", "")
     return {"project_id": pid, "proj_dir": proj_dir, "images": images}
 
 # ---------------------------------------------------------------------------
@@ -2086,6 +2091,8 @@ def _floor_similarity(geo: Dict[str, Any], level: int) -> float:
     return same / total if total else 0.0
 
 
+GROUND_CANDIDATES = 4        # ground-floor designs asked for in parallel, each on its own layout concept
+FRESH_STARTS = 2             # times a level is redesigned from scratch when its repairs do not converge
 STAGE_ROUNDS = 3             # rounds per level when a house is designed level by level
 
 
@@ -2141,7 +2148,7 @@ def _staged_synthesis(ctx: Dict[str, Any], api_key: Optional[str], style_label: 
     program: List[str] = []
     attempts: List[Dict[str, Any]] = []
     prev_geo: Dict[str, Any] = {}
-    concepts = propose_concepts(ctx, api_key, max(1, SCRIPT_CANDIDATES_FIRST))
+    concepts = propose_concepts(ctx, api_key, max(1, GROUND_CANDIDATES))
     concept: Optional[Dict[str, Any]] = None      # the concept of the ground floor that won - upper levels follow it
     done = {"beds": 0, "attached": 0, "baths": 0}
     auto_budget = not req.get("beds_per_level")
@@ -2179,9 +2186,11 @@ def _staged_synthesis(ctx: Dict[str, Any], api_key: Optional[str], style_label: 
             # passes and differs from the floor below
             text = [base + _concept_text(concept) + _upper_variation(k, i) for i in range(max(1, SCRIPT_CANDIDATES_FIRST))]
         stage: List[Dict[str, Any]] = []
-        for rnd in range(1, STAGE_ROUNDS + 4):
+        for rnd in range(1, STAGE_ROUNDS + 2 + 2 * FRESH_STARTS):
             temps = [0.5, 0.65, 0.8][:max(1, SCRIPT_CANDIDATES_FIRST)] if rnd == 1 else \
                 [0.2, 0.5, 0.75][:max(1, SCRIPT_CANDIDATES_REPAIR)]
+            if rnd == 1 and k == 0:             # the ground floor decides the whole house: more ideas in parallel
+                temps = [0.45, 0.6, 0.75, 0.9][:max(1, min(GROUND_CANDIDATES, len(concepts) or 1))]
             if rnd == STAGE_ROUNDS + 1:
                 # one extra, careful round only for a level that is nearly right (1-3 things left): a small
                 # fix is likely to land, while a level with many problems would not be saved by one more try
@@ -2189,7 +2198,7 @@ def _staged_synthesis(ctx: Dict[str, Any], api_key: Optional[str], style_label: 
                 if not 0 < top["errors"] + top["unmet"] + top["quality"] <= 3:
                     continue                    # too far off for a small fix: go to the fresh start
                 temps = [0.1, 0.3]
-            elif rnd == STAGE_ROUNDS + 2:
+            elif rnd > STAGE_ROUNDS + 1 and (rnd - STAGE_ROUNDS) % 2 == 0:
                 # FRESH START: the repairs did not converge, which means the skeleton itself is wrong (a small
                 # change cannot move a courtyard). Design the level again on a different skeleton, knowing what
                 # failed, then give that design one repair round.
@@ -2202,7 +2211,14 @@ def _staged_synthesis(ctx: Dict[str, Any], api_key: Optional[str], style_label: 
                           "different, simpler skeleton in which they cannot happen: every room sits beside the shared "
                           "space it opens onto, and every bedroom / lounge / kitchen has one wall on open air.\n")
                 if k == 0:
-                    fresh = [c for c in concepts if c is not top.get("concept")][:2] or [top.get("concept")]
+                    if rnd > STAGE_ROUNDS + 2:      # second fresh start: ask for new layout ideas altogether
+                        try:
+                            concepts = concepts + propose_concepts(ctx, api_key, 2)
+                        except Exception as e_c:
+                            print(f"[Concepts] second proposal failed: {e_c}")
+                    tried = {id(a.get("concept")) for a in stage}
+                    fresh = ([c for c in concepts if id(c) not in tried] or
+                             [c for c in concepts if c is not top.get("concept")])[:2] or [top.get("concept")]
                     text = [base + _concept_text(c) + lesson for c in fresh]
                     used = list(fresh)
                 else:
@@ -2494,6 +2510,66 @@ def converse_design_script(script: str, message: str, prompt: str = "", history:
     return res
 
 
+ARCHITECT_REVIEW = True       # after a design is made, the LLM reviews it itself (its own opinion, no rule list)
+
+
+def architect_review(ctx: Dict[str, Any], best: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+    """The LLM looks at the finished design - the script, the map the engine drew and what the engine measured -
+    and gives its OWN review as an architect who builds homes in Pakistan. No bylaws or rule lists are supplied."""
+    try:
+        v = best["geo"].get("validation", {})
+        found = [f"- [{e['code']}] {e['message']}" for e in v.get("errors", [])][:12]
+        missing = [f"- {w['message']}" for w in v.get("warnings", []) if w["code"] == "FURNITURE_UNPLACED"][:8]
+        rooms = []
+        for fl in best["geo"].get("floors", []):
+            for r in fl.get("rooms", []):
+                rooms.append(f"L{fl.get('level')} {r['name']}: {float(r['w_ft']):g} x {float(r['l_ft']):g} ft")
+        prompt = f"""You are a senior residential architect who designs and builds family homes in Pakistan.
+Below is a house design made for a client. Review it yourself, from your own knowledge of how homes are built and
+lived in in Pakistan. No bylaws are given to you and none should be cited - this is your professional opinion.
+
+CLIENT BRIEF: "{ctx['brief'].strip()}"
+PLOT: {ctx['W']:g} x {ctx['L']:g} ft ({ctx.get('marla_label', '')}), {ctx['floors']} storey(s). The street is at the bottom of the map (y = 0).
+
+DESIGN SCRIPT (ROWS = bands from the street to the back, COLS = left to right, numbers in feet):
+{best['script']}
+
+MAP THE CAD ENGINE DREW (letters = rooms):
+{_ascii_map(best['geo'])}
+
+ROOM SIZES:
+{chr(10).join(rooms[:90])}
+
+WHAT THE CAD ENGINE MEASURED (physical checks only: walking routes, daylight, doors, stair, furniture):
+{chr(10).join(found) if found else '- no physical problem found'}
+{('Furniture that did not fit:' + chr(10) + chr(10).join(missing)) if missing else ''}
+
+Think about: where guests are received and whether the family keeps its privacy; the drawing room, lounge, kitchen,
+baths and stair - where they sit and how they connect; room sizes for this plot and this family; daylight and
+cross-ventilation in a hot climate; the car porch and entrance; terraces and wash area; how the house faces the street.
+
+Return ONLY JSON:
+{{"verdict": "<one or two plain sentences>", "score": <1-10>,
+  "strengths": ["<up to 5, each names the room or feature>"],
+  "concerns": ["<up to 6, each names the room and says why it matters to the family>"],
+  "suggestions": ["<up to 5 concrete changes the client could ask for>"]}}"""
+        raw = _call_interview_llm_json(prompt)
+        if not raw:
+            return None
+        data = json.loads(re.sub(r"^```[a-z]*|```$", "", raw.strip(), flags=re.M).strip())
+        if not isinstance(data, dict):
+            return None
+        out = {"verdict": str(data.get("verdict", ""))[:600],
+               "score": max(1, min(10, int(float(data.get("score", 0) or 0)))) if data.get("score") is not None else None,
+               "source": "the designing LLM's own opinion - not a bylaw check and not a professional certificate"}
+        for k, n in (("strengths", 5), ("concerns", 6), ("suggestions", 5)):
+            out[k] = [str(x)[:400] for x in (data.get(k) or []) if str(x).strip()][:n]
+        return out
+    except Exception as e:
+        print(f"[Architect review] skipped: {str(e)[:160]}")
+        return None
+
+
 def _design_response(best: Dict[str, Any], attempts: List[Dict[str, Any]], ctx: Dict[str, Any], style: str,
                      mode: str) -> Dict[str, Any]:
     req = ctx["req"]
@@ -2522,7 +2598,7 @@ def _design_response(best: Dict[str, Any], attempts: List[Dict[str, Any]], ctx: 
     with open(os.path.join(proj_dir, "layout_geometry.json"), "w", encoding="utf-8") as f_geo:
         json.dump(layout_data, f_geo, indent=2)
 
-    three_d_nodes = generate_three_d_nodes(layout_data)
+    three_d_nodes = massing_render.three_d_nodes(layout_data)
 
     total_covered_sqft = 0
     room_schedule = []
@@ -2607,7 +2683,7 @@ def _design_response(best: Dict[str, Any], attempts: List[Dict[str, Any]], ctx: 
                 "No room reached through a bedroom or bath; stair at least 3'-6\" x 9'-0\"",
                 "Doors only on walls shared by two spaces (or street frontage when front setback is 0)",
                 "Reachability checked with a NetworkX circulation graph",
-                "Stair stacked in the same rectangle on every level",
+                "Stair kept in the same place on every level; listed furniture placed in every room",
                 "Single 9\" external / 4.5\" internal walls with true door and window cut-outs",
             ],
             "quality_gate_fixes": [f"[UNDERSTOOD] {req.get('understood_as', '')}"] + (
@@ -2638,6 +2714,7 @@ def _design_response(best: Dict[str, Any], attempts: List[Dict[str, Any]], ctx: 
                          else f"{n_err} problem(s) remain - edit the script or ask for a change"),
         "quality_gate": quality_gate,
         "validation": validation,
+        "architect_review": architect_review(ctx, best) if (ARCHITECT_REVIEW and mode == "generate") else None,
         "requirements": {"checklist": req["checklist"], "report": best["requirements"], "notes": requirement_notes,
                          "understood_as": req.get("understood_as", ""),
                          "read_by": ("rules + " + str(ctx["llm_reading"].get("_model"))) if ctx.get("llm_reading") else "rules",
@@ -2645,7 +2722,8 @@ def _design_response(best: Dict[str, Any], attempts: List[Dict[str, Any]], ctx: 
         "brief": ctx["brief"],
         "plot": {"width_ft": plot_width, "length_ft": plot_length, "front_setback_ft": front_sb, "rear_setback_ft": rear_sb},
         "front_elevation": {"image_url": images["elevation"]},
-        "three_d_model": {"nodes": three_d_nodes, "source": "gemini_cad_engine"},
+        "three_d_model": {"nodes": three_d_nodes, "source": "massing_render",
+                          "views": {k: v for k, v in images.items() if k.startswith("view3d_")}},
         "llm_rag": {"source": "gemini_live", "model": model_used},
         "timestamp": datetime.datetime.now().isoformat(),
     }

@@ -196,7 +196,7 @@ export const NewDesignPage: React.FC = () => {
     if (backendDesign) {
       try {
         sessionStorage.setItem('archai_active_design', JSON.stringify(backendDesign));
-      } catch {}
+      } catch { }
     }
   }, [backendDesign]);
 
@@ -207,7 +207,7 @@ export const NewDesignPage: React.FC = () => {
         if (cached) {
           setBackendDesign(JSON.parse(cached));
         }
-      } catch {}
+      } catch { }
     }
   }, []);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -229,7 +229,7 @@ export const NewDesignPage: React.FC = () => {
         setCustomUnitPrices(res.rates);
         setRateSourceNotice(res.source === 'gemini_live' ? `Live Gemini 1.5 Flash Rates (${res.city})` : `Verified Benchmark Rates (${res.city})`);
         if (keyToUse) {
-          try { sessionStorage.setItem('archai_gemini_key', keyToUse); } catch {}
+          try { sessionStorage.setItem('archai_gemini_key', keyToUse); } catch { }
         }
         const area = Math.round(plotWidthFt * plotLengthFt * (floors === 1 ? 0.75 : 1.55));
         const updatedBoq = await apiService.calculateCost({
@@ -299,7 +299,9 @@ export const NewDesignPage: React.FC = () => {
     handleUnitPriceChange(apiId, variety.defaultPricePKR);
   };
 
-  const [activeFloorView, setActiveFloorView] = useState<'ground' | 'first' | 'rooftop' | 'all'>('ground');
+  // 'ground' | 'first' | 'floor_2' | 'floor_3' ... (one per storey the backend drew) | 'rooftop' | 'all'
+  const [activeFloorView, setActiveFloorView] = useState<string>('ground');
+  const [view3d, setView3d] = useState<'front_right' | 'front_left'>('front_right');
   const [planLayer, setPlanLayer] = useState<'structural' | 'furnishing'>('structural');
   const [renderMode, setRenderMode] = useState<'backend_png' | 'interactive_svg'>('backend_png');
 
@@ -455,7 +457,7 @@ export const NewDesignPage: React.FC = () => {
       setGenerationSource('live');
       try {
         sessionStorage.setItem('archai_active_design', JSON.stringify(backendRes));
-      } catch {}
+      } catch { }
 
       const proj = createProject({
         title: backendRes?.project_title || projectName,
@@ -649,34 +651,49 @@ export const NewDesignPage: React.FC = () => {
   // Dynamic Steps definition based on chosen mode
   const steps = creationMode === 'prompt'
     ? [
-        { num: 1, label: 'Mode' },
-        { num: 2, label: 'AI Prompt' },
-        { num: 3, label: 'Review Brief' },
-        { num: 4, label: 'Synthesis' },
-        { num: 5, label: 'Floor Plan' },
-      ]
+      { num: 1, label: 'Mode' },
+      { num: 2, label: 'AI Prompt' },
+      { num: 3, label: 'Review Brief' },
+      { num: 4, label: 'Synthesis' },
+      { num: 5, label: 'Floor Plan' },
+    ]
     : [
-        { num: 1, label: 'Mode' },
-        { num: 2, label: 'Interview' },
-        { num: 3, label: 'Review Brief' },
-        { num: 4, label: 'Synthesis' },
-        { num: 5, label: 'Floor Plan' },
-      ];
+      { num: 1, label: 'Mode' },
+      { num: 2, label: 'Interview' },
+      { num: 3, label: 'Review Brief' },
+      { num: 4, label: 'Synthesis' },
+      { num: 5, label: 'Floor Plan' },
+    ];
 
   const totalSteps = steps.length;
   const isSynthesisStep = currentStep === 4;
   const isResultStep = currentStep === 5;
 
   // Active Floor Plan Image from Backend (Guarantees Rooftop Blueprint PNG is always found)
-  const rooftopUrl = backendDesign?.images?.rooftop || 
-    backendDesign?.images?.rooftop_slab_plan || 
+  const rooftopUrl = backendDesign?.images?.rooftop ||
+    backendDesign?.images?.rooftop_slab_plan ||
     (backendDesign?.images?.ground ? backendDesign.images.ground.replace('_ground_floor_2d.png', '_rooftop_slab_plan_2d.png') : null);
 
-  const backendFloorImage = 
-    activeFloorView === 'ground' ? (planLayer === 'furnishing' ? (backendDesign?.images?.ground_furnishing || backendDesign?.images?.ground) : (backendDesign?.images?.ground_structural || backendDesign?.images?.ground)) :
-    activeFloorView === 'first' ? (planLayer === 'furnishing' ? (backendDesign?.images?.first_furnishing || backendDesign?.images?.first) : (backendDesign?.images?.first_structural || backendDesign?.images?.first)) :
+  // One view per storey the backend actually drew (ground, first, floor_2, ...)
+  const storeyKeyOf = (i: number) => (i === 0 ? 'ground' : i === 1 ? 'first' : `floor_${i}`);
+  const storeyNames = ['Ground', 'First', 'Second', 'Third', 'Fourth', 'Fifth'];
+  const storeyKeys: string[] = [];
+  for (let i = 0; i < 8; i += 1) {
+    if (backendDesign?.images?.[storeyKeyOf(i)]) storeyKeys.push(storeyKeyOf(i));
+    else break;
+  }
+  if (storeyKeys.length === 0) {
+    for (let i = 0; i < Math.max(1, floors); i += 1) storeyKeys.push(storeyKeyOf(i));
+  }
+  const activeLevel = Math.max(0, storeyKeys.indexOf(activeFloorView));
+  const storeyLabel = (i: number) => `${storeyNames[i] || `Level ${i}`} Floor`;
+
+  const backendFloorImage =
     activeFloorView === 'rooftop' ? rooftopUrl :
-    (backendDesign?.images?.all || backendDesign?.images?.multiFloor || backendDesign?.images?.presentation);
+      activeFloorView === 'all' ? (backendDesign?.images?.all || backendDesign?.images?.multiFloor || backendDesign?.images?.presentation) :
+        (planLayer === 'furnishing'
+          ? (backendDesign?.images?.[`${storeyKeys[activeLevel]}_furnishing`] || backendDesign?.images?.[storeyKeys[activeLevel]])
+          : (backendDesign?.images?.[`${storeyKeys[activeLevel]}_structural`] || backendDesign?.images?.[storeyKeys[activeLevel]]));
 
   const elevationImage = backendDesign?.images?.elevation;
 
@@ -697,7 +714,7 @@ export const NewDesignPage: React.FC = () => {
             </h1>
             <p className="text-xs text-[#68736C] mt-1">
               Step {currentStep} of {totalSteps} &bull; {
-                creationMode === 'prompt' 
+                creationMode === 'prompt'
                   ? (currentStep === 4 ? 'Synthesizing bylaw-compliant spatial layout' : currentStep === 5 ? 'Architectural blueprints & technical elevation' : 'Describing intent in natural language')
                   : (currentStep === 4 ? 'Synthesizing bylaw-compliant spatial layout' : currentStep === 5 ? 'Architectural blueprints & technical elevation' : 'The architect asks what your brief leaves open')
               }
@@ -719,13 +736,12 @@ export const NewDesignPage: React.FC = () => {
           {steps.map((s) => (
             <div key={s.num} className="flex-1 flex flex-col items-center gap-1">
               <div
-                className={`h-2 w-full rounded-full transition-all ${
-                  s.num < currentStep
+                className={`h-2 w-full rounded-full transition-all ${s.num < currentStep
                     ? 'bg-[#23483D]'
                     : s.num === currentStep
-                    ? 'bg-[#B86F50]'
-                    : 'bg-[#E2E7E1]'
-                }`}
+                      ? 'bg-[#B86F50]'
+                      : 'bg-[#E2E7E1]'
+                  }`}
               />
               <span className={`text-[10px] hidden sm:block ${s.num === currentStep ? 'font-bold text-[#202923]' : 'text-[#68736C]'}`}>
                 {s.label}
@@ -753,11 +769,10 @@ export const NewDesignPage: React.FC = () => {
             {/* Option 1: AI Prompt Flow */}
             <div
               onClick={() => handleSwitchMode('prompt')}
-              className={`p-6 rounded-2xl border-2 cursor-pointer transition-all flex flex-col justify-between ${
-                creationMode === 'prompt'
+              className={`p-6 rounded-2xl border-2 cursor-pointer transition-all flex flex-col justify-between ${creationMode === 'prompt'
                   ? 'border-[#23483D] bg-[#EEF4F0] shadow-sm'
                   : 'border-[#E2E7E1] bg-white hover:border-[#D0D8CF]'
-              }`}
+                }`}
             >
               <div className="space-y-4">
                 <div className="h-12 w-12 rounded-xl bg-[#23483D] text-white flex items-center justify-center shadow-xs">
@@ -788,11 +803,10 @@ export const NewDesignPage: React.FC = () => {
             {/* Option 2: Guided Interview with the Architect */}
             <div
               onClick={() => handleSwitchMode('form')}
-              className={`p-6 rounded-2xl border-2 cursor-pointer transition-all flex flex-col justify-between ${
-                creationMode === 'form'
+              className={`p-6 rounded-2xl border-2 cursor-pointer transition-all flex flex-col justify-between ${creationMode === 'form'
                   ? 'border-[#23483D] bg-[#EEF4F0] shadow-sm'
                   : 'border-[#E2E7E1] bg-white hover:border-[#D0D8CF]'
-              }`}
+                }`}
             >
               <div className="space-y-4">
                 <div className="h-12 w-12 rounded-xl bg-[#F7F7F2] border border-[#E2E7E1] text-[#23483D] flex items-center justify-center">
@@ -977,7 +991,7 @@ export const NewDesignPage: React.FC = () => {
             </button>
           </div>
 
-{briefReading ? (
+          {briefReading ? (
             <div className="space-y-4 text-xs">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 p-4 rounded-2xl bg-[#F7F7F2] border border-[#E2E7E1]">
                 <span className="text-[#68736C] font-semibold">Project Title</span>
@@ -1249,11 +1263,10 @@ export const NewDesignPage: React.FC = () => {
                     <button
                       key={item.version}
                       onClick={() => handleRestoreVersion(item.version)}
-                      className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold transition-all ${
-                        revisionNumber === item.version
+                      className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold transition-all ${revisionNumber === item.version
                           ? 'bg-[#23483D] text-white shadow-xs'
                           : 'bg-white border border-[#DCE7DE] text-[#23483D] hover:bg-[#EEF4F0]'
-                      }`}
+                        }`}
                     >
                       {item.label}
                     </button>
@@ -1317,8 +1330,8 @@ export const NewDesignPage: React.FC = () => {
                     )}
                   </div>
                   <p className="text-xs sm:text-sm font-bold text-red-900 leading-relaxed">
-                    {typeof backendDesign.statutory_red_note === 'string' 
-                      ? backendDesign.statutory_red_note 
+                    {typeof backendDesign.statutory_red_note === 'string'
+                      ? backendDesign.statutory_red_note
                       : backendDesign.statutory_red_note.message}
                   </p>
                 </div>
@@ -1326,7 +1339,7 @@ export const NewDesignPage: React.FC = () => {
             </div>
           )}
 
-                    {/* SPATIAL & STATUTORY BYLAW CONFLICT BANNER */}
+          {/* SPATIAL & STATUTORY BYLAW CONFLICT BANNER */}
           {activeConflict && (
             <div className="bg-rose-50 border-2 border-rose-500 rounded-2xl p-5 shadow-sm space-y-3 animate-in fade-in duration-200">
               <div className="flex items-start gap-3">
@@ -1394,11 +1407,10 @@ export const NewDesignPage: React.FC = () => {
                     <div
                       key={v.id}
                       onClick={() => handleSelectVariant(v)}
-                      className={`p-4 rounded-2xl border transition-all cursor-pointer space-y-2 ${
-                        isSelected
+                      className={`p-4 rounded-2xl border transition-all cursor-pointer space-y-2 ${isSelected
                           ? 'bg-white border-2 border-[#23483D] shadow-sm'
                           : 'bg-[#F7F7F2] border-[#E2E7E1] hover:bg-white hover:border-[#23483D]'
-                      }`}
+                        }`}
                     >
                       <div className="flex items-center justify-between">
                         <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold uppercase bg-[#EEF4F0] text-[#23483D]">
@@ -1466,7 +1478,7 @@ export const NewDesignPage: React.FC = () => {
                 <div className="space-y-2">
                   <div>
                     <span className="text-[10px] font-bold text-[#23483D] uppercase tracking-wider block">
-                      Statutory Bylaw Rules Applied:
+                      What the CAD engine checks:
                     </span>
                     <ul className="list-disc list-inside text-[11px] text-[#68736C] space-y-0.5 mt-0.5">
                       {(backendDesign.explainability.bylaw_rules_applied || []).slice(0, 4).map((rule: string, idx: number) => (
@@ -1500,11 +1512,10 @@ export const NewDesignPage: React.FC = () => {
                   </h3>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
-                    backendDesign.compliance_checklist.all_passed
+                  <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${backendDesign.compliance_checklist.all_passed
                       ? 'bg-emerald-100 text-emerald-800 border border-emerald-300'
                       : 'bg-amber-100 text-amber-800 border border-amber-300'
-                  }`}>
+                    }`}>
                     {backendDesign.compliance_checklist.score_pct}% Match ({backendDesign.compliance_checklist.passed_count}/{backendDesign.compliance_checklist.total_count} Passed)
                   </span>
                 </div>
@@ -1525,13 +1536,12 @@ export const NewDesignPage: React.FC = () => {
                         </p>
                         {item.detail && <p className="text-[9px] text-[#8C9890]">{item.detail}</p>}
                       </div>
-                      <span className={`px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider shrink-0 mt-0.5 ${
-                        item.status === 'PASS'
+                      <span className={`px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider shrink-0 mt-0.5 ${item.status === 'PASS'
                           ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
                           : item.status === 'PARTIAL'
-                          ? 'bg-amber-50 text-amber-700 border border-amber-200'
-                          : 'bg-rose-50 text-rose-700 border border-rose-200'
-                      }`}>
+                            ? 'bg-amber-50 text-amber-700 border border-amber-200'
+                            : 'bg-rose-50 text-rose-700 border border-rose-200'
+                        }`}>
                         {item.status}
                       </span>
                     </div>
@@ -1539,32 +1549,10 @@ export const NewDesignPage: React.FC = () => {
                 </div>
               </div>
 
-              {/* ADDED BY BYLAWS / DEFAULTS */}
-              {backendDesign.compliance_checklist.bylaw_defaults && backendDesign.compliance_checklist.bylaw_defaults.length > 0 && (
-                <div className="space-y-1.5 pt-2 border-t border-[#E2E7E1]">
-                  <span className="text-[10px] font-bold text-[#68736C] uppercase tracking-wider block">
-                    Added by Bylaws / Engineering Defaults:
-                  </span>
-                  <div className="divide-y divide-[#E2E7E1] max-h-[120px] overflow-y-auto pr-1 text-xs">
-                    {backendDesign.compliance_checklist.bylaw_defaults.map((bItem: any, idx: number) => (
-                      <div key={idx} className="py-1 flex items-start justify-between gap-2">
-                        <div className="space-y-0.5">
-                          <span className="font-semibold text-[#202923] text-[11px]">{bItem.name}</span>
-                          <p className="text-[10px] text-[#68736C]">{bItem.delivered}</p>
-                          <p className="text-[9px] text-[#8C9890] italic">{bItem.statutory_role}</p>
-                        </div>
-                        <span className="px-2 py-0.5 rounded text-[9px] font-bold uppercase tracking-wider shrink-0 mt-0.5 bg-blue-50 text-blue-700 border border-blue-200">
-                          {bItem.status}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
             </div>
           )}
 
-{/* DEDICATED REGENERATE & REFINE OVERLAY PAGE */}
+          {/* DEDICATED REGENERATE & REFINE OVERLAY PAGE */}
           {isRegeneratePageOpen && (
             <div className="bg-white border-2 border-[#23483D] rounded-2xl p-6 sm:p-8 shadow-lg space-y-6 animate-in fade-in duration-200">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E2E7E1] pb-4">
@@ -1721,11 +1709,10 @@ export const NewDesignPage: React.FC = () => {
           <div className="flex items-center gap-2 border-b border-[#E2E7E1] pb-2 text-xs">
             <button
               onClick={() => setResultTab('floor_plan')}
-              className={`px-4 py-2 rounded-xl font-bold transition-colors flex items-center gap-1.5 ${
-                resultTab === 'floor_plan'
+              className={`px-4 py-2 rounded-xl font-bold transition-colors flex items-center gap-1.5 ${resultTab === 'floor_plan'
                   ? 'bg-[#23483D] text-white shadow-xs'
                   : 'bg-white border border-[#E2E7E1] text-[#68736C] hover:text-[#202923]'
-              }`}
+                }`}
             >
               <Compass className="h-4 w-4" />
               <span>2D Floor Plans</span>
@@ -1733,47 +1720,43 @@ export const NewDesignPage: React.FC = () => {
 
             <button
               onClick={() => setResultTab('elevation')}
-              className={`px-4 py-2 rounded-xl font-bold transition-colors flex items-center gap-1.5 ${
-                resultTab === 'elevation'
+              className={`px-4 py-2 rounded-xl font-bold transition-colors flex items-center gap-1.5 ${resultTab === 'elevation'
                   ? 'bg-[#23483D] text-white shadow-xs'
                   : 'bg-white border border-[#E2E7E1] text-[#68736C] hover:text-[#202923]'
-              }`}
+                }`}
             >
               <ImageIcon className="h-4 w-4" />
-              <span>Technical Front Elevation</span>
+              <span>Front Elevation</span>
             </button>
 
             <button
               onClick={() => setResultTab('3d_model')}
-              className={`px-4 py-2 rounded-xl font-bold transition-colors flex items-center gap-1.5 ${
-                resultTab === '3d_model'
+              className={`px-4 py-2 rounded-xl font-bold transition-colors flex items-center gap-1.5 ${resultTab === '3d_model'
                   ? 'bg-[#23483D] text-white shadow-xs'
                   : 'bg-white border border-[#E2E7E1] text-[#68736C] hover:text-[#202923]'
-              }`}
+                }`}
             >
               <Box className="h-4 w-4" />
-              <span>3D Spatial Geometry</span>
+              <span>3D Views</span>
             </button>
 
             <button
               onClick={() => setResultTab('audit')}
-              className={`px-4 py-2 rounded-xl font-bold transition-colors flex items-center gap-1.5 ${
-                resultTab === 'audit'
+              className={`px-4 py-2 rounded-xl font-bold transition-colors flex items-center gap-1.5 ${resultTab === 'audit'
                   ? 'bg-[#23483D] text-white shadow-xs'
                   : 'bg-white border border-[#E2E7E1] text-[#68736C] hover:text-[#202923]'
-              }`}
+                }`}
             >
               <Shield className="h-4 w-4" />
-              <span>Senior Architect Audit</span>
+              <span>Checks &amp; AI Review</span>
             </button>
 
             <button
               onClick={() => setResultTab('boq')}
-              className={`px-4 py-2 rounded-xl font-bold transition-colors flex items-center gap-1.5 ${
-                resultTab === 'boq'
+              className={`px-4 py-2 rounded-xl font-bold transition-colors flex items-center gap-1.5 ${resultTab === 'boq'
                   ? 'bg-[#23483D] text-white shadow-xs'
                   : 'bg-white border border-[#E2E7E1] text-[#68736C] hover:text-[#202923]'
-              }`}
+                }`}
             >
               <Calculator className="h-4 w-4" />
               <span>Cost Estimation & Material BOQ</span>
@@ -1789,38 +1772,28 @@ export const NewDesignPage: React.FC = () => {
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E2E7E1] pb-3">
                     {/* Floor selector buttons */}
                     <div className="flex items-center gap-1.5 bg-[#F7F7F2] p-1 rounded-xl border border-[#E2E7E1] text-xs">
-                      <button
-                        onClick={() => setActiveFloorView('ground')}
-                        className={`px-3 py-1 rounded-lg font-semibold transition-colors ${
-                          activeFloorView === 'ground' ? 'bg-[#23483D] text-white' : 'text-[#68736C] hover:text-[#202923]'
-                        }`}
-                      >
-                        Ground Floor
-                      </button>
-                      {floors >= 2 && (
+                      {storeyKeys.map((key, i) => (
                         <button
-                          onClick={() => setActiveFloorView('first')}
-                          className={`px-3 py-1 rounded-lg font-semibold transition-colors ${
-                            activeFloorView === 'first' ? 'bg-[#23483D] text-white' : 'text-[#68736C] hover:text-[#202923]'
-                          }`}
+                          key={key}
+                          onClick={() => setActiveFloorView(key)}
+                          className={`px-3 py-1 rounded-lg font-semibold transition-colors ${(activeFloorView === key || (i === 0 && !storeyKeys.includes(activeFloorView) && activeFloorView !== 'rooftop' && activeFloorView !== 'all')) ? 'bg-[#23483D] text-white' : 'text-[#68736C] hover:text-[#202923]'
+                            }`}
                         >
-                          First Floor
+                          {storeyLabel(i)}
                         </button>
-                      )}
+                      ))}
                       {/* ROOFTOP SLAB BUTTON */}
                       <button
                         onClick={() => setActiveFloorView('rooftop')}
-                        className={`px-3 py-1 rounded-lg font-semibold transition-colors ${
-                          activeFloorView === 'rooftop' ? 'bg-[#23483D] text-white' : 'text-[#68736C] hover:text-[#202923]'
-                        }`}
+                        className={`px-3 py-1 rounded-lg font-semibold transition-colors ${activeFloorView === 'rooftop' ? 'bg-[#23483D] text-white' : 'text-[#68736C] hover:text-[#202923]'
+                          }`}
                       >
                         Rooftop Slab
                       </button>
                       <button
                         onClick={() => setActiveFloorView('all')}
-                        className={`px-3 py-1 rounded-lg font-semibold transition-colors ${
-                          activeFloorView === 'all' ? 'bg-[#23483D] text-white' : 'text-[#68736C] hover:text-[#202923]'
-                        }`}
+                        className={`px-3 py-1 rounded-lg font-semibold transition-colors ${activeFloorView === 'all' ? 'bg-[#23483D] text-white' : 'text-[#68736C] hover:text-[#202923]'
+                          }`}
                       >
                         Composite View
                       </button>
@@ -1831,17 +1804,15 @@ export const NewDesignPage: React.FC = () => {
                       <div className="flex items-center gap-1 bg-[#EEF4F0] p-1 rounded-xl border border-[#DCE7DE] text-xs">
                         <button
                           onClick={() => setPlanLayer('structural')}
-                          className={`px-2.5 py-1 rounded-lg font-semibold transition-colors ${
-                            planLayer === 'structural' ? 'bg-[#23483D] text-white shadow-xs' : 'text-[#68736C] hover:text-[#202923]'
-                          }`}
+                          className={`px-2.5 py-1 rounded-lg font-semibold transition-colors ${planLayer === 'structural' ? 'bg-[#23483D] text-white shadow-xs' : 'text-[#68736C] hover:text-[#202923]'
+                            }`}
                         >
                           📐 2D Structural Plan
                         </button>
                         <button
                           onClick={() => setPlanLayer('furnishing')}
-                          className={`px-2.5 py-1 rounded-lg font-semibold transition-colors ${
-                            planLayer === 'furnishing' ? 'bg-[#23483D] text-white shadow-xs' : 'text-[#68736C] hover:text-[#202923]'
-                          }`}
+                          className={`px-2.5 py-1 rounded-lg font-semibold transition-colors ${planLayer === 'furnishing' ? 'bg-[#23483D] text-white shadow-xs' : 'text-[#68736C] hover:text-[#202923]'
+                            }`}
                         >
                           🛋️ Inner Furnishing Plan
                         </button>
@@ -1861,7 +1832,7 @@ export const NewDesignPage: React.FC = () => {
                     <ArchitecturalPlanCanvas
                       imageSrc={renderMode === 'backend_png' ? backendFloorImage : null}
                       alt={`${activeFloorView} Floor Plan`}
-                      levelLabel={activeFloorView === 'rooftop' ? 'ROOFTOP SLAB PLAN' : activeFloorView === 'first' ? 'FIRST FLOOR PLAN' : activeFloorView === 'all' ? 'COMPOSITE ALL FLOORS' : 'GROUND FLOOR PLAN'}
+                      levelLabel={activeFloorView === 'rooftop' ? 'ROOFTOP SLAB PLAN' : activeFloorView === 'all' ? 'COMPOSITE ALL FLOORS' : `${storeyLabel(activeLevel).toUpperCase()} PLAN`}
                       dimensionsText={`${plotWidthFt}×${plotLengthFt} ft • Scale 1:100 • ${style.toUpperCase()}`}
                       renderMode={renderMode}
                       onSwitchMode={() => setRenderMode(renderMode === 'backend_png' ? 'interactive_svg' : 'backend_png')}
@@ -1885,8 +1856,8 @@ export const NewDesignPage: React.FC = () => {
                 <div className="space-y-4">
                   <div className="border-b border-[#E2E7E1] pb-2 flex items-center justify-between">
                     <div>
-                      <h3 className="font-bold text-[#202923] text-sm">Technical Front Elevation (Option A)</h3>
-                      <p className="text-[11px] text-[#68736C]">Architectural heights, window datum lines, and material palette</p>
+                      <h3 className="font-bold text-[#202923] text-sm">Front Elevation</h3>
+                      <p className="text-[11px] text-[#68736C]">Drawn from the floor plans: every storey, with street-side doors and windows at their plan positions</p>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-xs font-mono font-bold text-[#23483D] bg-[#EEF4F0] px-2 py-0.5 rounded">
@@ -1925,74 +1896,162 @@ export const NewDesignPage: React.FC = () => {
                 </div>
               )}
 
-              {/* TAB 3: 3D SPATIAL GEOMETRY MODEL */}
+              {/* TAB 3: 3D VIEWS - drawn by the backend from the same geometry as the floor plans */}
               {resultTab === '3d_model' && (
                 <div className="space-y-4">
-                  <div className="border-b border-[#E2E7E1] pb-2">
-                    <h3 className="font-bold text-[#202923] text-sm">3D Spatial Volume & Building Envelope</h3>
-                    <p className="text-[11px] text-[#68736C]">Synthesized wireframe geometry and spatial zoning blocks</p>
-                  </div>
-
-                  <div className="border border-[#E2E7E1] rounded-xl overflow-hidden bg-[#1E2522] p-8 text-center text-white min-h-[420px] flex flex-col justify-center items-center space-y-4">
-                    <div className="h-20 w-20 rounded-2xl bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 flex items-center justify-center">
-                      <Box className="h-10 w-10 animate-bounce" />
-                    </div>
-                    <div className="max-w-md space-y-1">
-                      <h4 className="font-bold text-base text-white">3D Parametric Mesh Synthesized</h4>
-                      <p className="text-xs text-slate-300 leading-relaxed">
-                        Building massing envelope: {plotWidthFt} ft wide &times; {plotLengthFt} ft depth with {floors} storeys (height: {floors * 11} ft).
+                  <div className="border-b border-[#E2E7E1] pb-2 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <div>
+                      <h3 className="font-bold text-[#202923] text-sm">3D Building Views</h3>
+                      <p className="text-[11px] text-[#68736C]">
+                        Built from the same rooms, doors and windows as the floor plans and the elevation
                       </p>
                     </div>
-                    <div className="p-3 rounded-xl bg-slate-900/90 border border-slate-700 text-[11px] font-mono text-emerald-300 text-left max-w-sm w-full">
-                      <p>&bull; LOD-300 Solid Geometry: Ready</p>
-                      <p>&bull; Blender Script (.blend): Generated</p>
-                      <p>&bull; Statutory Setbacks Enforced: Yes</p>
+                    <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-1 bg-[#F7F7F2] p-1 rounded-xl border border-[#E2E7E1] text-xs">
+                        {(['front_right', 'front_left'] as const).map((v) => (
+                          <button
+                            key={v}
+                            onClick={() => setView3d(v)}
+                            className={`px-3 py-1 rounded-lg font-semibold transition-colors ${view3d === v ? 'bg-[#23483D] text-white' : 'text-[#68736C] hover:text-[#202923]'}`}
+                          >
+                            {v === 'front_right' ? 'Front-Right' : 'Front-Left'}
+                          </button>
+                        ))}
+                      </div>
+                      {backendDesign?.images?.[`view3d_${view3d}`] && (
+                        <a
+                          href={backendDesign.images[`view3d_${view3d}`]}
+                          download={`3d_view_${view3d}.png`}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="px-2.5 py-1 text-[11px] font-semibold text-[#23483D] bg-[#EEF4F0] hover:bg-[#DCE7DE] rounded-lg transition-colors border border-[#DCE7DE] flex items-center gap-1.5"
+                        >
+                          <Download className="w-3.5 h-3.5" />
+                          <span>Download PNG</span>
+                        </a>
+                      )}
                     </div>
                   </div>
+
+                  <div className="border border-[#E2E7E1] rounded-xl overflow-hidden bg-white p-4 flex items-center justify-center min-h-[420px]">
+                    {backendDesign?.images?.[`view3d_${view3d}`] ? (
+                      <img
+                        src={backendDesign.images[`view3d_${view3d}`]}
+                        alt={`3D view ${view3d}`}
+                        className="max-h-[560px] w-auto mx-auto object-contain rounded-lg"
+                      />
+                    ) : (
+                      <div className="text-center p-8 space-y-2 text-xs text-[#68736C]">
+                        <Box className="h-10 w-10 mx-auto text-[#68736C]/40" />
+                        <p className="font-bold text-[#202923]">No 3D view for this design</p>
+                        <p>Generate the design again to draw its 3D views.</p>
+                      </div>
+                    )}
+                  </div>
+                  <p className="text-[10px] text-[#8C9890]">
+                    Massing visualisation for design review. Not a structural or municipal approval drawing.
+                  </p>
                 </div>
               )}
 
-              {/* TAB 4: SENIOR ARCHITECT QUALITY VERDICT */}
-              {resultTab === 'audit' && (
-                <div className="space-y-4 text-xs">
-                  <div className="border-b border-[#E2E7E1] pb-2 flex items-center justify-between">
-                    <div>
-                      <h3 className="font-bold text-[#202923] text-sm">Senior Architect Code Review Verdict</h3>
-                      <p className="text-[11px] text-[#68736C]">Evaluated against CDA/LDA bylaws and architectural spatial standards</p>
+              {/* TAB 4: WHAT THE CAD ENGINE ACTUALLY FOUND (no canned verdicts) */}
+              {resultTab === 'audit' && (() => {
+                const v = backendDesign?.validation || {};
+                const errs: any[] = Array.isArray(v.errors) ? v.errors : [];
+                const warns: any[] = Array.isArray(v.warnings) ? v.warnings.filter((w: any) => w.code !== 'SCRIPT_DUPLICATE_NAME') : [];
+                const report: any[] = Array.isArray(backendDesign?.requirements?.report) ? backendDesign.requirements.report : [];
+                const passed = v.status === 'PASS';
+                return (
+                  <div className="space-y-4 text-xs">
+                    <div className="border-b border-[#E2E7E1] pb-2 flex items-center justify-between">
+                      <div>
+                        <h3 className="font-bold text-[#202923] text-sm flex items-center gap-1.5">
+                          <Shield className="h-4 w-4 text-[#23483D]" /> CAD Engine Check Report
+                        </h3>
+                        <p className="text-[11px] text-[#68736C]">
+                          What the geometry engine measured in this design: walking routes, daylight, doors, furniture
+                        </p>
+                      </div>
+                      <span className={`px-2.5 py-1 rounded-lg font-bold font-mono ${passed ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}`}>
+                        {v.status || 'NOT CHECKED'} &middot; {errs.length} error(s) &middot; {warns.length} note(s)
+                      </span>
                     </div>
-                    <span className="px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800 font-bold font-mono">
-                      PASS (98% Score)
-                    </span>
-                  </div>
 
-                  <div className="p-4 rounded-xl bg-[#EEF4F0] border border-[#DCE7DE] space-y-2">
-                    <span className="font-bold text-[#23483D] flex items-center gap-1.5">
-                      <Shield className="h-4 w-4" /> Professional Architect Commentary
-                    </span>
-                    <p className="text-[#202923] leading-relaxed text-[11px]">
-                      "The provided residential floor plan layout is exceptionally well-conceived, perfectly balancing privacy zoning with efficient circulation. Public reception rooms (guest drawing & powder room) remain segregated from family living areas. Mandatory municipal setbacks and internal light shafts (OTS) are strictly enforced."
+                    {backendDesign?.architect_review && (
+                      <div className="p-4 rounded-xl bg-[#EEF4F0] border border-[#DCE7DE] space-y-2">
+                        <div className="flex items-center justify-between gap-2">
+                          <span className="font-bold text-[#23483D]">The AI architect's own review of this design</span>
+                          {backendDesign.architect_review.score != null && (
+                            <span className="px-2 py-0.5 rounded bg-white border border-[#DCE7DE] font-mono font-bold text-[#23483D]">
+                              {backendDesign.architect_review.score} / 10
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-[11px] text-[#202923] leading-relaxed">{backendDesign.architect_review.verdict}</p>
+                        {([['Strengths', 'strengths'], ['Concerns', 'concerns'], ['Suggestions you can ask for', 'suggestions']] as const).map(([label, key]) => (
+                          Array.isArray(backendDesign.architect_review[key]) && backendDesign.architect_review[key].length > 0 && (
+                            <div key={key}>
+                              <span className="text-[10px] font-bold uppercase tracking-wider text-[#23483D]">{label}</span>
+                              <ul className="list-disc list-inside text-[11px] text-[#202923] space-y-0.5 mt-0.5">
+                                {backendDesign.architect_review[key].map((t: string, i: number) => <li key={i}>{t}</li>)}
+                              </ul>
+                            </div>
+                          )
+                        ))}
+                        <p className="text-[10px] text-[#68736C]">
+                          This is the language model's own opinion from its knowledge of homes in Pakistan. No bylaws were applied.
+                        </p>
+                      </div>
+                    )}
+
+                    {report.length > 0 && (
+                      <div className="space-y-1.5">
+                        <span className="font-bold text-[#202923]">What you asked for</span>
+                        {report.map((r: any, i: number) => (
+                          <div key={i} className="p-2.5 rounded-lg border border-[#E2E7E1] bg-[#F7F7F2] flex items-start justify-between gap-3">
+                            <span className="text-[11px] text-[#202923]"><strong>{r.item}</strong> &mdash; {r.detail}</span>
+                            <span className={`px-1.5 py-0.5 rounded font-bold font-mono text-[10px] shrink-0 ${r.met ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-800'}`}>
+                              {r.met ? 'MET' : 'NOT MET'}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {errs.length > 0 && (
+                      <div className="space-y-1.5">
+                        <span className="font-bold text-red-800">Errors (the design does not work as drawn)</span>
+                        {errs.map((e: any, i: number) => (
+                          <div key={i} className="p-2.5 rounded-lg border border-red-200 bg-red-50 text-[11px] text-[#202923]">
+                            <span className="font-mono font-bold text-red-800">{e.code}</span> &mdash; {e.message}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {warns.length > 0 && (
+                      <div className="space-y-1.5">
+                        <span className="font-bold text-[#202923]">Notes (advice, not failures)</span>
+                        <div className="max-h-[260px] overflow-y-auto space-y-1.5 pr-1">
+                          {warns.map((w: any, i: number) => (
+                            <div key={i} className="p-2.5 rounded-lg border border-[#E2E7E1] bg-white text-[11px] text-[#202923]">
+                              <span className="font-mono font-bold text-amber-700">{w.code}</span> &mdash; {w.message}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {errs.length === 0 && warns.length === 0 && report.length === 0 && (
+                      <p className="text-[#68736C]">No check results were returned for this design.</p>
+                    )}
+
+                    <p className="text-[10px] text-[#8C9890]">
+                      Software CAD validation only. It is not a structural engineering certificate or a municipal building approval.
                     </p>
                   </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                    {[
-                      { code: 'F01', title: 'Plot Boundary Envelope Containment', status: 'PASS' },
-                      { code: 'F02', title: 'Zero Negative Coordinate Feasibility', status: 'PASS' },
-                      { code: 'F04', title: 'Wet Zone Vertical Stacking Alignment', status: 'PASS' },
-                      { code: 'F05', title: 'Egress & Door Width Clearances (3-ft)', status: 'PASS' },
-                      { code: 'F06', title: 'Natural Daylight & Cross Ventilation (OTS)', status: 'PASS' },
-                      { code: 'F10', title: 'Front (7.5ft) & Rear (5ft) Setback Compliance', status: 'PASS' },
-                    ].map((check) => (
-                      <div key={check.code} className="p-2.5 rounded-lg border border-[#E2E7E1] bg-[#F7F7F2] flex items-center justify-between">
-                        <span className="font-semibold text-[#202923] text-[11px]">{check.title}</span>
-                        <span className="px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold font-mono text-[10px]">
-                          {check.status}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
+                );
+              })()}
 
               {/* TAB 5: INTERACTIVE COST ESTIMATION & MATERIAL BOQ */}
               {resultTab === 'boq' && (
@@ -2290,11 +2349,11 @@ export const NewDesignPage: React.FC = () => {
                 {Array.isArray(backendDesign?.room_schedule) && backendDesign.room_schedule.length > 0 && (
                   <div className="pt-3 border-t border-[#E2E7E1] space-y-2">
                     <span className="text-[10px] font-bold text-[#23483D] uppercase tracking-wider block">
-                      AI Synthesized Room Dimensions ({activeFloorView === 'first' ? 'First Floor' : 'Ground Floor'}):
+                      AI Synthesized Room Dimensions ({storeyLabel(activeLevel)}):
                     </span>
                     <div className="max-h-[180px] overflow-y-auto divide-y divide-[#E2E7E1]/60 pr-1 text-[11px]">
                       {backendDesign.room_schedule
-                        .filter((rm: any) => (activeFloorView === 'first' ? rm.level === 1 : rm.level === 0))
+                        .filter((rm: any) => rm.level === activeLevel)
                         .map((rm: any, rIdx: number) => (
                           <div key={rm.id || rIdx} className="py-1.5 flex items-center justify-between gap-2">
                             <span className="font-semibold text-[#202923] truncate">{rm.name}</span>
@@ -2364,11 +2423,10 @@ export const NewDesignPage: React.FC = () => {
                   key={fmt.id}
                   type="button"
                   onClick={() => setExportFormat(fmt.id as any)}
-                  className={`p-3 rounded-xl border text-left transition-all ${
-                    exportFormat === fmt.id
+                  className={`p-3 rounded-xl border text-left transition-all ${exportFormat === fmt.id
                       ? 'border-2 border-[#23483D] bg-[#EEF4F0]'
                       : 'border-[#E2E7E1] hover:border-[#23483D] bg-white'
-                  }`}
+                    }`}
                 >
                   <div className="font-bold text-xs text-[#202923]">{fmt.title}</div>
                   <div className="text-[10px] text-[#68736C] mt-0.5">{fmt.desc}</div>
