@@ -511,7 +511,9 @@ things below. If you can see them in your head, the design passes.
    only way to a room leads through somebody's bedroom or bath, it reports that too: a home needs a shared space
    (lounge, lobby, corridor, gallery) that the rooms open onto. The STAIR rectangle is filled with steps: a person
    steps onto it from the shared space and comes off it on the next floor - nobody walks across it to reach a
-   room, so the way from the entrance to the lounge never leads through the stair.
+   room, so the way from the entrance to the lounge never leads through the stair. And the family climbs it from
+   inside the house: the stair opens onto the lounge / lobby / corridor, not only onto the porch or the lawn -
+   unless the brief asks for a separate outside entrance to the upper floors.
 
 4. LIGHT. Windows are placed by the engine too. For each room it looks for a wall that faces open air: the street
    edge of the plot, or a space that has no roof (lawn, car porch, open strip, gallery, terrace, balcony, OTS).
@@ -523,7 +525,10 @@ things below. If you can see them in your head, the design passes.
 
 5. FURNISHING. It then moves real furniture in. A queen bed is about 5 x 6.75 ft (king 6 ft wide, single 3.5 ft)
    and needs one wall free of doors and windows with space to walk beside it; a car is about 6 x 15 ft; a stair
-   needs 3.5 x 9 ft at the very least to hold its steps. If the furniture you listed cannot be placed, it says so.
+   needs 3.5 x 9 ft at the very least to hold its steps. EVERY piece you list must find a place - bed, wardrobe,
+   sofa, table, counter, WC alike: a piece that cannot be placed comes back as a failure of that room, so give
+   each room the clear walls its furniture stands against (a wardrobe needs about 4 ft of wall, 2 ft deep), and
+   list for every room the furniture a home really has there.
 
 6. STACKING. Each level is cut separately, but they stand on each other. The stair is one hole through all the
    floors, so it is the same rectangle on every level. A shaft only brings light down if it stays open (type ots)
@@ -534,7 +539,9 @@ things below. If you can see them in your head, the design passes.
    foot one space takes, another loses. It tells you when a stair holds more floor than its steps use, when a
    bath or a passage is larger than its use, when the kitchen is bigger than the lounge the family sits in, when
    a room is so long and thin that it works like a corridor, or when a bedroom is so narrow that the bed leaves
-   no way past. These come back as notes, not failures - a size the client states always wins.
+   no way past, or when strips, shafts and open passages eat a large share of the ground floor (a window needs
+   only a small shaft beside the room). These come back as notes, not failures - a size the client states
+   always wins.
 
 WHO DECIDES WHAT. The client decides what is built: which rooms, how many, where, what sizes, setbacks or none.
 Nothing above is a bylaw or a standard size. The engine only reports whether a person could walk in, get

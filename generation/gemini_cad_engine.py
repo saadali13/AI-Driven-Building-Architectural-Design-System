@@ -1712,6 +1712,11 @@ def _add_fix_hints(geo: Dict[str, Any], v: Dict[str, Any]) -> None:
                                  f"BESIDE the room instead of across its free wall, or move a door")
 
 
+_OUTSIDE_STAIR_RE = re.compile(r"separate (entrance|entry|access|portion|stair)|independent (entrance|entry|access|portion)"
+                               r"|(external|outside|outdoor|outer) stair|stairs? (from|in|at) (the )?(porch|outside|street|lawn|front)"
+                               r"|rent|tenant", re.I)
+
+
 def _evaluate_script(script: str, ctx: Dict[str, Any], rnd: int, source: str, model: Optional[str],
                      enforce_setbacks: bool = False, scope: Optional[set] = None,
                      with_requirements: bool = True, req_level: Optional[int] = None,
@@ -1729,6 +1734,13 @@ def _evaluate_script(script: str, ctx: Dict[str, Any], rnd: int, source: str, mo
     geo = analyse_layout(layout, ctx["W"], ctx["L"], fsb, rsb, ctx["bedrooms"], ctx["bathrooms"])
     v = geo["validation"]
     _add_fix_hints(geo, v)
+    if not _OUTSIDE_STAIR_RE.search(str(ctx.get("brief") or "")):
+        # a stair reached only from outside is a failure unless the brief asks for a separate entrance upstairs
+        moved = [w for w in v.get("warnings", []) if w["code"] == "STAIR_OUTSIDE_ONLY"]
+        for w in moved:
+            w["severity"] = "error"
+        v["warnings"] = [w for w in v.get("warnings", []) if w["code"] != "STAIR_OUTSIDE_ONLY"]
+        v["errors"] = v["errors"] + moved
     v["errors"] = parsed["errors"] + v["errors"]
     v["warnings"] = parsed["warnings"] + v["warnings"]
     v["status"] = "PASS" if not v["errors"] else "FAIL"
@@ -1745,11 +1757,13 @@ def _evaluate_script(script: str, ctx: Dict[str, Any], rnd: int, source: str, mo
     key_missing, key_items = [], []
     for w in warns:
         m = re.search(r"\b(bed_\w+|sofa_bed|kitchen_counter|wc|prayer_mat|floor_seating)\b", w["message"])
-        if w["code"] == "FURNITURE_UNPLACED" and m:
+        if w["code"] == "FURNITURE_UNPLACED":
             info = parsed["rooms"].get((w.get("floor"), w.get("room")))
             where = f"line {info['line']} ({info['name']}): " if info else ""
-            key_missing.append(f"- [FURNITURE_DOES_NOT_FIT] {where}{w['message']} - enlarge the room or move its doors")
-            key_items.append({"floor": w.get("floor"), "room": w.get("room"), "item": m.group(1),
+            key_missing.append(f"- [FURNITURE_DOES_NOT_FIT] {where}{w['message']} - give the room a longer clear wall "
+                               f"(widen it or move its doors off that wall); do not drop the furniture")
+            if m:
+                key_items.append({"floor": w.get("floor"), "room": w.get("room"), "item": m.group(1),
                               "name": info["name"] if info else w.get("room"), "problem": key_missing[-1]})
     problems = script_issue_lines({"errors": errs}, parsed["rooms"]) + \
         [f"- [REQUIREMENT_MISSING] {r['item']}: {r['detail']}" for r in unmet] + key_missing

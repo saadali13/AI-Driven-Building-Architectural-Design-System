@@ -1540,6 +1540,35 @@ def validate_floor(rooms, doors, windows, furniture, plot_w, plot_l, front_sb, r
             out.append(_issue("BATH_NO_VENT", "warning", level, r["id"],
                               f"{r['id']} ({r['name']}) has no outside wall - needs an exhaust fan / ventilation duct"))
 
+    # The stair of a family house is climbed from inside it (reported as a warning; the designer turns it into a
+    # failure unless the brief asks for a separate outside entrance to the upper floors)
+    if level == 0:
+        by_id_ = {r["id"]: r for r in rooms}
+        for st in stairs:
+            sides = [by_id_.get(d["from_id"] if d["room_id"] == st["id"] else d["room_id"])
+                     for d in doors if st["id"] in (d.get("room_id"), d.get("from_id"))]
+            sides = [o for o in sides if o is not None]
+            if sides and not any(is_enclosed(o["category"]) or "GALLERY" in o["name"] or "VERANDAH" in o["name"]
+                                 for o in sides):
+                out.append(_issue("STAIR_OUTSIDE_ONLY", "warning", level, st["id"],
+                                  f"{st['name']} opens only onto {', '.join(o['name'] for o in sides)} - the family "
+                                  f"would leave the house to go upstairs. Fix: place the stair beside the lounge / "
+                                  f"lobby / corridor and write its door: to that space"))
+
+    # Floor left open (ground floor): strips, shafts and open passages take width away from the rooms
+    if level == 0:
+        soft = ("LAWN", "GARDEN", "TERRACE", "BALCONY", "WASH", "DRIVE", "PORCH", "LAUNDRY", "DECK", "POOL")
+        left_open = [r for r in rooms if r["category"] == "ots" or
+                     (r["category"] == "outdoor" and not any(k in r["name"] for k in soft))]
+        open_area = sum(float(r["w_ft"]) * float(r["l_ft"]) for r in left_open)
+        if left_open and open_area > 0.15 * plot_w * plot_l:
+            big = max(left_open, key=lambda r: float(r["w_ft"]) * float(r["l_ft"]))
+            out.append(_issue("BALANCE", "warning", level, big["id"],
+                              f"{open_area:.0f} sq ft of this floor ({open_area / (plot_w * plot_l) * 100:.0f}% of the plot) "
+                              f"is left open as strips / shafts / open passages "
+                              f"({', '.join(sorted({r['name'] for r in left_open})[:5])}). A window only needs a shaft about "
+                              f"4 x 5 ft beside the room; give the rest of that width to the rooms"))
+
     # Stair size
     for s in stairs:
         a, b = sorted((float(s["w_ft"]), float(s["l_ft"])))
