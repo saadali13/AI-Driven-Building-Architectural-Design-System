@@ -1,28 +1,20 @@
 """
-Gemini CAD Engine — Reference-Typology Floor Plans with Engineering-Grade Geometry
-=================================================================================
+Gemini CAD Engine - prompt-driven residential design
+=====================================================
 
-Pipeline (each stage owns one responsibility):
+  1. Brief    - the client's words are read (plot, storeys, rooms, must-haves); the guided interview asks about gaps.
+  2. Concepts - Gemini proposes several different layout ideas for the brief.
+  3. Script   - Gemini writes an ArchiScript (generation.design_script): the plot cut into rectangles, one level
+                at a time. The prompt explains how the engine works; it carries no bylaw list and no RAG.
+  4. Engine   - generation.plan_geometry_engine (Shapely + NetworkX) builds walls, doors, windows and furniture
+                and checks only physical things: doors on shared walls, walking routes, daylight, the stair,
+                furniture that fits, terraces that stand on something.
+  5. Repair   - problems go back to Gemini by line number: line edits when few are left, a fresh start on another
+                concept when repairs stall.
+  6. Review   - Gemini reviews its own finished design as an architect in Pakistan and may improve it.
+  7. Drawings - plans, elevation and 3D views (generation.massing_render) all come from the one checked model.
 
-  1. RAG context — statutory setbacks and dimensional benchmarks from
-     ``PakistanRAGGuardrails`` plus nearby dataset reference plans.
-  2. Gemini — designs the ZONING / TOPOLOGY only: a slicing tree per floor
-     (bands front→rear, columns left→right) and, per room, the neighbour it is
-     entered from. The prompt carries the typology analysed from the client's
-     reference drawings (``generation.reference_design_knowledge``). Gemini no
-     longer emits coordinates, which is what produced overlapping rooms, voids,
-     doors on the plot boundary and missing stairs.
-  3. ``generation.plan_geometry_engine`` (Shapely + NetworkX) — exact room
-     rectangles, single shared walls with true cut-outs, doors on genuinely shared
-     walls, windows only on open-air walls, furniture clear of door swings, and a
-     validation report (setbacks, reachability, walk-through, daylight, stair
-     stacking, structure below upper rooms).
-  4. Repair loop — validation errors are fed back to Gemini (bounded rounds); the
-     best attempt is rendered and its real validation report is returned.
-  5. Monochrome CAD sheets — working plan, furnished plan, rooftop, composite and a
-     front elevation whose windows / porch / balcony / mumty come from the plan.
-
-Software CAD validation only — not structural certification or municipal approval.
+Software CAD validation only - not a structural certificate or a municipal approval.
 """
 
 import os
