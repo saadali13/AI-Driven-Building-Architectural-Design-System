@@ -18,6 +18,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import Polygon as MplPolygon, Rectangle
+import numpy as np
 from shapely.geometry import box as sbox
 from shapely.ops import unary_union
 
@@ -229,8 +230,61 @@ INK_MID = "#334155"
 INK_LIGHT = "#94A3B8"
 PAPER = "#FFFFFF"
 
-_ELEV_FILL = {"wall": "#FFFFFF", "plinth": "#E2E8F0", "slab": "#CBD5E1", "column": "#CBD5E1", "rail": "#F8FAFC",
-              "parapet": "#F1F5F9", "mumty": "#FFFFFF", "cap": "#000000"}
+_ELEV_FILL = {
+    "wall": "#FFFFFF", "plinth": "#E2E8F0", "slab": "#CBD5E1", "column": "#CBD5E1", "rail": "#F8FAFC",
+    "parapet": "#F1F5F9", "mumty": "#FFFFFF", "cap": "#000000"
+}
+
+# ---------------------------------------------------------------------------
+# 3 DISTINCT ELEVATION STYLE THEMES (all strictly bound to the 2D layout solids)
+# ---------------------------------------------------------------------------
+ELEVATION_THEMES = {
+    "modern_contemporary": {
+        "id": "modern_contemporary",
+        "name": "Modern Contemporary",
+        "description": "Clean minimalist lines, charcoal architectural frames, large glass apertures, and subtle groove reveals.",
+        "bg_paper": "#FFFFFF",
+        "wall_fill": "#F8FAFC",
+        "feature_fill": "#E2E8F0",
+        "frame_color": "#1E293B",
+        "accent_color": "#334155",
+        "slab_fill": "#0F172A",
+        "rail_style": "glass",         # full-panel glass balustrade with top rail
+        "window_style": "picture",     # slim mullions, corner/frame focus
+        "grooves": True,
+        "texture": "groove",
+    },
+    "classical_traditional": {
+        "id": "classical_traditional",
+        "name": "Classical & Traditional",
+        "description": "Timeless symmetrical mouldings, dentil cornice bands, fluted pilasters, arched lintel details, and wrought balusters.",
+        "bg_paper": "#FAF9F6",
+        "wall_fill": "#FFFDF7",
+        "feature_fill": "#EFE8DA",
+        "frame_color": "#3E2723",
+        "accent_color": "#5D4037",
+        "slab_fill": "#D7CCC8",
+        "rail_style": "wrought",       # ornate vertical balusters with intermediate spindles
+        "window_style": "arched",      # classic divided lites with moulded sill brackets
+        "grooves": False,
+        "texture": "cornice",
+    },
+    "minimalist_timber": {
+        "id": "minimalist_timber",
+        "name": "Minimalist Timber & Stone",
+        "description": "Warm organic cedar louvers, slate accent cladding, floating monolithic parapet coping, and dark bronze mullions.",
+        "bg_paper": "#FCFCFA",
+        "wall_fill": "#F5F3EF",
+        "feature_fill": "#E8DFC8",
+        "frame_color": "#27272A",
+        "accent_color": "#8C6D46",
+        "slab_fill": "#3F3F46",
+        "rail_style": "louver",        # warm architectural horizontal/vertical timber screen
+        "window_style": "deep_recess", # deep shadow reveal casings
+        "grooves": True,
+        "texture": "timber_louvers",
+    }
+}
 
 
 def _ft_in(v: float) -> str:
@@ -238,32 +292,76 @@ def _ft_in(v: float) -> str:
     return f"{total // 12}'-{total % 12}\""
 
 
-def _elev_window(ax, x, z, w, h, lw, vent=False, zo=5.0):
-    ax.add_patch(Rectangle((x, z), w, h, facecolor="#F8FAFC", edgecolor=INK, linewidth=lw, zorder=zo))
+def _elev_window(ax, x, z, w, h, lw, vent=False, zo=5.0, theme=None):
+    t = theme or ELEVATION_THEMES["modern_contemporary"]
+    frame_col = t.get("frame_color", INK)
+    w_style = t.get("window_style", "picture")
+
+    # Main window opening
+    ax.add_patch(Rectangle((x, z), w, h, facecolor="#F8FAFC", edgecolor=frame_col, linewidth=lw, zorder=zo))
     if w > 1.0 and h > 1.0:
-        ax.add_patch(Rectangle((x + 0.2, z + 0.2), w - 0.4, h - 0.4, facecolor=PAPER, edgecolor=INK_MID,
+        ax.add_patch(Rectangle((x + 0.2, z + 0.2), w - 0.4, h - 0.4, facecolor="#FFFFFF", edgecolor=t.get("accent_color", INK_MID),
                                linewidth=lw * 0.55, zorder=zo))
+
     if vent:
         for k in range(1, 4):
-            ax.plot([x + 0.2, x + w - 0.2], [z + h * k / 4.0] * 2, color=INK_MID, linewidth=lw * 0.5, zorder=zo)
+            ax.plot([x + 0.2, x + w - 0.2], [z + h * k / 4.0] * 2, color=t.get("accent_color", INK_MID), linewidth=lw * 0.5, zorder=zo)
     else:
-        n = 3 if w >= 5.5 else 2
-        for k in range(1, n):
-            ax.plot([x + w * k / n] * 2, [z + 0.2, z + h - 0.2], color=INK, linewidth=lw * 0.6, zorder=zo)
-        ax.plot([x + 0.2, x + w - 0.2], [z + h * 0.72] * 2, color=INK_MID, linewidth=lw * 0.5, zorder=zo)
-    ax.add_patch(Rectangle((x - 0.3, z - 0.3), w + 0.6, 0.3, facecolor="#CBD5E1", edgecolor=INK, linewidth=lw * 0.6, zorder=zo))
-    ax.add_patch(Rectangle((x - 0.35, z + h), w + 0.7, 0.35, facecolor=INK, edgecolor=INK, linewidth=lw * 0.6, zorder=zo))
+        if w_style == "arched" and w >= 2.5:
+            # Classical style: upper arch/divided lite decorative transom
+            arch_h = min(1.4, h * 0.28)
+            ax.plot([x + 0.2, x + w - 0.2], [z + h - arch_h, z + h - arch_h], color=frame_col, linewidth=lw * 0.65, zorder=zo)
+            # 3 vertical panes in top transom
+            for k in range(1, 4):
+                ax.plot([x + w * k / 4.0, x + w * k / 4.0], [z + h - arch_h, z + h - 0.2], color=frame_col, linewidth=lw * 0.5, zorder=zo)
+            # central mullion below
+            ax.plot([x + w / 2.0, x + w / 2.0], [z + 0.2, z + h - arch_h], color=frame_col, linewidth=lw * 0.6, zorder=zo)
+        elif w_style == "deep_recess":
+            # Timber/Stone style: deep horizontal shadow louvers on upper glass
+            n = 3 if w >= 5.5 else 2
+            for k in range(1, n):
+                ax.plot([x + w * k / n] * 2, [z + 0.2, z + h - 0.2], color=frame_col, linewidth=lw * 0.65, zorder=zo)
+            for ly in [z + h * 0.55, z + h * 0.75, z + h * 0.9]:
+                ax.plot([x + 0.25, x + w - 0.25], [ly, ly], color=t.get("accent_color", "#8C6D46"), linewidth=lw * 0.5, zorder=zo)
+        else:
+            # Modern picture window
+            n = 3 if w >= 5.5 else 2
+            for k in range(1, n):
+                ax.plot([x + w * k / n] * 2, [z + 0.2, z + h - 0.2], color=frame_col, linewidth=lw * 0.6, zorder=zo)
+            ax.plot([x + 0.2, x + w - 0.2], [z + h * 0.72] * 2, color=t.get("accent_color", INK_MID), linewidth=lw * 0.5, zorder=zo)
+
+    # Sill & Lintel
+    sill_color = t.get("slab_fill", "#CBD5E1")
+    lintel_color = t.get("frame_color", INK)
+    if w_style == "arched":
+        # Classical moulded projecting bracket
+        ax.add_patch(Rectangle((x - 0.45, z - 0.45), w + 0.9, 0.45, facecolor="#EFE8DA", edgecolor=frame_col, linewidth=lw * 0.65, zorder=zo))
+        ax.add_patch(Rectangle((x - 0.3, z + h), w + 0.6, 0.4, facecolor="#D7CCC8", edgecolor=frame_col, linewidth=lw * 0.65, zorder=zo))
+    elif w_style == "deep_recess":
+        # Heavy timber projecting casing
+        ax.add_patch(Rectangle((x - 0.4, z - 0.35), w + 0.8, 0.35, facecolor="#8C6D46", edgecolor=frame_col, linewidth=lw * 0.65, zorder=zo))
+        ax.add_patch(Rectangle((x - 0.45, z + h), w + 0.9, 0.45, facecolor="#3F3F46", edgecolor=frame_col, linewidth=lw * 0.65, zorder=zo))
+    else:
+        # Modern slim projecting cantilever
+        ax.add_patch(Rectangle((x - 0.3, z - 0.3), w + 0.6, 0.3, facecolor=sill_color, edgecolor=frame_col, linewidth=lw * 0.6, zorder=zo))
+        ax.add_patch(Rectangle((x - 0.35, z + h), w + 0.7, 0.35, facecolor=lintel_color, edgecolor=lintel_color, linewidth=lw * 0.6, zorder=zo))
 
 
-def _elev_door(ax, x, z, w, h, lw, main=False, zo=5.0):
-    ax.add_patch(Rectangle((x, z), w, h, facecolor="#F8FAFC", edgecolor=INK, linewidth=lw, zorder=zo))
+def _elev_door(ax, x, z, w, h, lw, main=False, zo=5.0, theme=None):
+    t = theme or ELEVATION_THEMES["modern_contemporary"]
+    frame_col = t.get("frame_color", INK)
+    door_bg = t.get("wall_fill", "#F8FAFC")
+    ax.add_patch(Rectangle((x, z), w, h, facecolor=door_bg, edgecolor=frame_col, linewidth=lw, zorder=zo))
     leaves = 2 if (main and w >= 3.6) else 1
     for k in range(leaves):
         lx = x + k * w / leaves
-        ax.add_patch(Rectangle((lx + 0.2, z + 0.35), w / leaves - 0.4, h - 0.7, facecolor=PAPER, edgecolor=INK_MID,
+        ax.add_patch(Rectangle((lx + 0.2, z + 0.35), w / leaves - 0.4, h - 0.7, facecolor="#FFFFFF", edgecolor=t.get("accent_color", INK_MID),
                                linewidth=lw * 0.55, zorder=zo))
+        # Handle / lockset indicator
+        hx = lx + (w / leaves - 0.6) if k == 0 else lx + 0.5
+        ax.plot([hx, hx], [z + 3.2, z + 3.7], color=frame_col, linewidth=lw * 1.1, zorder=zo + 0.05)
     if leaves == 2:
-        ax.plot([x + w / 2.0] * 2, [z, z + h], color=INK, linewidth=lw * 0.7, zorder=zo)
+        ax.plot([x + w / 2.0] * 2, [z, z + h], color=frame_col, linewidth=lw * 0.7, zorder=zo)
 
 
 def _merge_front(solids: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
@@ -291,50 +389,149 @@ def _merge_front(solids: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     return out
 
 
-def render_front_elevation(layout: Dict[str, Any], project_id: str, style: str, out_dir: str, dpi: int = 220) -> str:
+def _resolve_theme(style: str, variant_key: Optional[str] = None) -> Dict[str, Any]:
+    """Selects one of the 3 distinct elevation themes based on variant key or style hint."""
+    if variant_key and variant_key in ELEVATION_THEMES:
+        return ELEVATION_THEMES[variant_key]
+    s = (style or "").lower()
+    if any(k in s for k in ("classic", "spanish", "traditional", "victorian", "colonial")):
+        return ELEVATION_THEMES["classical_traditional"]
+    if any(k in s for k in ("timber", "wood", "stone", "minimal", "zen", "japandi", "warm")):
+        return ELEVATION_THEMES["minimalist_timber"]
+    return ELEVATION_THEMES["modern_contemporary"]
+
+
+def render_front_elevation(
+    layout: Dict[str, Any],
+    project_id: str,
+    style: str,
+    out_dir: str,
+    dpi: int = 220,
+    variant_key: Optional[str] = None
+) -> str:
     m = build_massing(layout)
+    theme = _resolve_theme(style, variant_key)
     W, total = m["W"], m["total_height"]
     fig_w = max(12.0, min(17.0, (W + 16.0) * 0.28))
     fig_h = max(9.0, min(17.0, (total + 10.0) * 0.28))
     fig, ax = plt.subplots(figsize=(fig_w, fig_h), dpi=dpi)
-    fig.patch.set_facecolor(PAPER)
-    ax.set_facecolor(PAPER)
+    bg_paper = theme.get("bg_paper", PAPER)
+    fig.patch.set_facecolor(bg_paper)
+    ax.set_facecolor(bg_paper)
     scale = max(0.7, min(1.3, 35.0 / max(W, total)))
     lw_h, lw_m, lw_l = 2.0 * scale, 1.2 * scale, 0.7 * scale
 
-    ax.plot([-1.35, W + 4.0], [0, 0], color=INK, linewidth=lw_h * 1.4, zorder=30)
+    frame_col = theme.get("frame_color", INK)
+    accent_col = theme.get("accent_color", INK_MID)
+    wall_fill = theme.get("wall_fill", "#FFFFFF")
+    feature_fill = theme.get("feature_fill", "#E2E8F0")
+    slab_fill = theme.get("slab_fill", "#CBD5E1")
+
+    # Road line
+    ax.plot([-1.35, W + 4.0], [0, 0], color=frame_col, linewidth=lw_h * 1.4, zorder=30)
     ax.add_patch(Rectangle((-1.35, -1.0), W + 3.35, 1.0, facecolor="#F1F5F9", edgecolor="none", zorder=1))
 
     # far solids first: what stands nearer the street is drawn over what stands behind it.
-    # Rooms that stand side by side in the same wall plane are one wall in an elevation - no seam between them.
     solids = sorted(_merge_front([s for s in m["solids"] if s["z1"] > 0.4]), key=lambda s: (-s["y0"], s["z0"]))
     for k_, s in enumerate(solids):
         x, z, w, h = s["x0"], s["z0"], s["x1"] - s["x0"], s["z1"] - s["z0"]
         role = s["role"]
         heavy = role in ("wall", "mumty")
-        zo = 4.0 + k_ * 0.02               # nearer solids (later in the list) cover farther ones, openings included
-        ax.add_patch(Rectangle((x, z), w, h, facecolor=_ELEV_FILL.get(role, PAPER), edgecolor=INK,
+        zo = 4.0 + k_ * 0.02
+
+        # Role-based color adaptation per theme
+        if role == "wall":
+            fc = wall_fill
+        elif role == "plinth":
+            fc = feature_fill
+        elif role in ("slab", "column"):
+            fc = slab_fill
+        elif role == "parapet":
+            fc = feature_fill
+        elif role == "mumty":
+            fc = wall_fill
+        elif role == "cap":
+            fc = frame_col
+        else:
+            fc = _ELEV_FILL.get(role, PAPER)
+
+        ax.add_patch(Rectangle((x, z), w, h, facecolor=fc, edgecolor=frame_col,
                                linewidth=lw_h if heavy else lw_m, zorder=zo))
+
+        # Architectural Facade Texture / Surface Details
+        if role == "wall" and w >= 2.0 and h >= 3.0:
+            if theme.get("texture") == "groove":
+                # Modern horizontal reveals
+                for gy in np.arange(z + 1.6, z + h - 0.5, 1.6):
+                    ax.plot([x + 0.1, x + w - 0.1], [gy, gy], color="#E2E8F0", linewidth=lw_l * 0.65, zorder=zo + 0.005)
+            elif theme.get("texture") == "timber_louvers":
+                # Cedar vertical screening panel on wall piers (width between 2.0 and 8.0 ft)
+                if 2.0 <= w <= 8.5:
+                    for vx in np.arange(x + 0.35, x + w - 0.2, 0.45):
+                        ax.plot([vx, vx], [z + 0.2, z + h - 0.2], color="#8C6D46", linewidth=lw_l * 0.9, zorder=zo + 0.006)
+            elif theme.get("texture") == "cornice":
+                # Classical decorative string course & quoins
+                ax.plot([x, x + w], [z + h - 0.3, z + h - 0.3], color=accent_col, linewidth=lw_m * 0.9, zorder=zo + 0.005)
+                ax.plot([x, x + w], [z + h - 0.5, z + h - 0.5], color=accent_col, linewidth=lw_l * 0.6, zorder=zo + 0.005)
+                # Corner quoin stones
+                if w >= 4.0:
+                    for qy in np.arange(z + 0.5, z + h - 0.8, 1.4):
+                        qw = min(1.2, w * 0.18)
+                        ax.add_patch(Rectangle((x + 0.05, qy), qw, 0.6, facecolor="#EFE8DA", edgecolor=frame_col, linewidth=lw_l * 0.55, zorder=zo + 0.006))
+                        ax.add_patch(Rectangle((x + w - qw - 0.05, qy), qw, 0.6, facecolor="#EFE8DA", edgecolor=frame_col, linewidth=lw_l * 0.55, zorder=zo + 0.006))
+
+        # Classical parapet dentil moulding band
+        if role == "parapet" and theme.get("texture") == "cornice" and w >= 3.0:
+            for dx in np.arange(x + 0.3, x + w - 0.3, 0.8):
+                ax.add_patch(Rectangle((dx, z + h - 0.55), 0.35, 0.3, facecolor="#D7CCC8", edgecolor=frame_col, linewidth=lw_l * 0.5, zorder=zo + 0.006))
+
+        # Balustrade Railing Styling
         if role == "rail":
-            for bx in [x + k * 0.9 for k in range(1, int(w / 0.9) + 1) if x + k * 0.9 < x + w - 0.1]:
-                ax.plot([bx, bx], [z, z + h], color=INK_MID, linewidth=lw_l * 0.8, zorder=zo)
-            ax.plot([x, x + w], [z + h, z + h], color=INK, linewidth=lw_m * 1.3, zorder=zo)
+            r_style = theme.get("rail_style", "glass")
+            if r_style == "glass":
+                # Modern seamless glass balustrade with stainless top handrail
+                ax.add_patch(Rectangle((x + 0.1, z + 0.1), w - 0.2, h - 0.2, facecolor="#86BEDD", alpha=0.35,
+                                       edgecolor=accent_col, linewidth=lw_l, zorder=zo + 0.005))
+                # Spigots / posts every 4.0 ft
+                for bx in np.arange(x + 1.5, x + w - 0.5, 4.0):
+                    ax.plot([bx, bx], [z, z + 0.5], color=frame_col, linewidth=lw_m * 1.5, zorder=zo + 0.008)
+                ax.plot([x, x + w], [z + h, z + h], color=frame_col, linewidth=lw_m * 1.5, zorder=zo + 0.01)
+            elif r_style == "wrought":
+                # Classical wrought iron spindles with intermediate circles/spears
+                for bx in np.arange(x + 0.4, x + w, 0.55):
+                    ax.plot([bx, bx], [z, z + h], color=frame_col, linewidth=lw_l * 0.9, zorder=zo + 0.005)
+                ax.plot([x, x + w], [z + h, z + h], color=frame_col, linewidth=lw_m * 1.4, zorder=zo + 0.008)
+                ax.plot([x, x + w], [z + h - 0.4, z + h - 0.4], color=accent_col, linewidth=lw_l * 0.7, zorder=zo + 0.006)
+            elif r_style == "louver":
+                # Warm architectural horizontal timber slats
+                for ly in np.arange(z + 0.4, z + h, 0.45):
+                    ax.plot([x + 0.1, x + w - 0.1], [ly, ly], color="#8C6D46", linewidth=lw_m * 1.2, zorder=zo + 0.005)
+                # Vertical stanchions
+                for sx in np.arange(x + 0.8, x + w, 2.2):
+                    ax.plot([sx, sx], [z, z + h], color=frame_col, linewidth=lw_m * 1.3, zorder=zo + 0.006)
+                ax.plot([x, x + w], [z + h, z + h], color=frame_col, linewidth=lw_m * 1.5, zorder=zo + 0.008)
+            else:
+                for bx in [x + k * 0.9 for k in range(1, int(w / 0.9) + 1) if x + k * 0.9 < x + w - 0.1]:
+                    ax.plot([bx, bx], [z, z + h], color=INK_MID, linewidth=lw_l * 0.8, zorder=zo)
+                ax.plot([x, x + w], [z + h, z + h], color=INK, linewidth=lw_m * 1.3, zorder=zo)
+
+        # Openings on front face (windows, vents, doors)
         for o in s["open"]:
             if o["face"] != "front":
                 continue
             ow, oh = o["a1"] - o["a0"], o["z1"] - o["z0"]
             if o["kind"] in ("door", "main"):
-                _elev_door(ax, o["a0"], o["z0"], ow, oh, lw_m, main=o["kind"] == "main", zo=zo + 0.01)
+                _elev_door(ax, o["a0"], o["z0"], ow, oh, lw_m, main=o["kind"] == "main", zo=zo + 0.01, theme=theme)
             else:
-                _elev_window(ax, o["a0"], o["z0"], ow, oh, lw_m, vent=o["kind"] == "vent", zo=zo + 0.01)
+                _elev_window(ax, o["a0"], o["z0"], ow, oh, lw_m, vent=o["kind"] == "vent", zo=zo + 0.01, theme=theme)
 
     # datum levels on the left
     def datum(z, label):
         ax.plot([-4.2, W + 1.2], [z, z], color=INK_LIGHT, linewidth=lw_l * 0.75, linestyle=(0, (6, 4)), zorder=2)
-        ax.add_patch(MplPolygon([[-1.4, z], [-2.1, z + 0.55], [-2.1, z - 0.55]], closed=True, facecolor=INK,
-                                edgecolor=INK, zorder=31))
+        ax.add_patch(MplPolygon([[-1.4, z], [-2.1, z + 0.55], [-2.1, z - 0.55]], closed=True, facecolor=frame_col,
+                                edgecolor=frame_col, zorder=31))
         txt = f"{label}  (+{_ft_in(z)})" if z > 0 else f"{label}  (±0'-0\")"
-        ax.text(-2.4, z, txt, ha="right", va="center", fontsize=max(5.5, 6.8 * scale), fontweight="bold", color=INK,
+        ax.text(-2.4, z, txt, ha="right", va="center", fontsize=max(5.5, 6.8 * scale), fontweight="bold", color=frame_col,
                 zorder=32)
 
     ordinal = ["GROUND", "FIRST", "SECOND", "THIRD", "FOURTH", "FIFTH"]
@@ -348,31 +545,60 @@ def render_front_elevation(layout: Dict[str, Any], project_id: str, style: str, 
 
     # overall height (right) and width (bottom)
     dx = W + 3.0
-    ax.plot([dx, dx], [0, total], color=INK, linewidth=lw_l, zorder=12)
+    ax.plot([dx, dx], [0, total], color=frame_col, linewidth=lw_l, zorder=12)
     for py in (0, total):
-        ax.plot([dx - 0.4, dx + 0.4], [py - 0.4, py + 0.4], color=INK, linewidth=lw_m, zorder=13)
+        ax.plot([dx - 0.4, dx + 0.4], [py - 0.4, py + 0.4], color=frame_col, linewidth=lw_m, zorder=13)
     ax.text(dx + 0.9, total / 2.0, f"TOTAL HEIGHT: {_ft_in(total)}", ha="center", va="center", rotation=90,
-            fontsize=max(6.0, 7.5 * scale), fontweight="bold", color=INK)
+            fontsize=max(6.0, 7.5 * scale), fontweight="bold", color=frame_col)
     dy = -2.2
-    ax.plot([0, W], [dy, dy], color=INK, linewidth=lw_l, zorder=12)
+    ax.plot([0, W], [dy, dy], color=frame_col, linewidth=lw_l, zorder=12)
     for px in (0, W):
-        ax.plot([px - 0.4, px + 0.4], [dy - 0.4, dy + 0.4], color=INK, linewidth=lw_m, zorder=13)
+        ax.plot([px - 0.4, px + 0.4], [dy - 0.4, dy + 0.4], color=frame_col, linewidth=lw_m, zorder=13)
     ax.text(W / 2.0, dy - 0.5, f"OVERALL WIDTH: {_ft_in(W)}", ha="center", va="top", fontsize=max(6.0, 7.5 * scale),
-            fontweight="bold", color=INK)
+            fontweight="bold", color=frame_col)
+
+    theme_label = theme.get("name", style).upper()
     ax.text(W / 2.0, -4.6,
             f"FRONT ELEVATION (STREET SIDE)   |   {m['storeys']} STOREY(S)   |   PLOT: {_ft_in(W)} × {_ft_in(m['L'])}"
-            f"   |   STYLE: {style.upper()}   |   SCALE: 1/8\" = 1'-0\"",
-            ha="center", va="top", fontsize=max(7.0, 9.0 * scale), fontweight="bold", color=INK)
+            f"   |   STYLE: {theme_label}   |   SCALE: 1/8\" = 1'-0\"",
+            ha="center", va="top", fontsize=max(7.0, 9.0 * scale), fontweight="bold", color=frame_col)
 
     ax.set_xlim(-13.5, W + 6.5)
     ax.set_ylim(-6.6, total + 3.0)
     ax.set_aspect("equal")
     ax.axis("off")
     plt.tight_layout(pad=0.4)
-    fpath = os.path.join(out_dir, f"{project_id}_front_elevation_2d.png")
-    plt.savefig(fpath, dpi=dpi, bbox_inches="tight", facecolor=PAPER)
+
+    # Filename suffix distinguishes the variant
+    suffix = f"_{variant_key}" if variant_key else ""
+    fpath = os.path.join(out_dir, f"{project_id}_front_elevation_2d{suffix}.png")
+    plt.savefig(fpath, dpi=dpi, bbox_inches="tight", facecolor=bg_paper)
     plt.close(fig)
     return fpath
+
+
+def render_all_elevation_styles(
+    layout: Dict[str, Any],
+    project_id: str,
+    style: str,
+    out_dir: str,
+    dpi: int = 220
+) -> Dict[str, str]:
+    """
+    Renders 3 distinct architectural front elevation styles for the exact same layout solids:
+    1. Modern Contemporary
+    2. Classical & Traditional
+    3. Minimalist Timber & Stone
+    Returns a dict mapping style key to output file path.
+    """
+    res: Dict[str, str] = {}
+    for v_key in ELEVATION_THEMES.keys():
+        path = render_front_elevation(layout, project_id, style, out_dir, dpi=dpi, variant_key=v_key)
+        res[v_key] = path
+    # Also ensure the primary elevation is always available
+    primary_theme = _resolve_theme(style)
+    res["primary"] = res.get(primary_theme["id"]) or render_front_elevation(layout, project_id, style, out_dir, dpi=dpi)
+    return res
 
 
 # ---------------------------------------------------------------------------

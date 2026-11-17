@@ -1458,8 +1458,19 @@ def _render_design_package(layout_data: Dict[str, Any], style: str, project_id: 
     comp_path = render_composite_multi_floor_cad_sheet(layout_data, pid, proj_dir, is_furnishing=True)
     images["all"] = images["multiFloor"] = images["presentation"] = f"{web_prefix}/{os.path.basename(comp_path)}"
     # elevation and 3D views are projections of ONE massing model built from the plan geometry
-    elev_path = massing_render.render_front_elevation(layout_data, pid, style, proj_dir, dpi=RENDER_DPI)
+    # We render all 3 dynamic elevation style variations matching the exact 2D layout solids:
+    # 1. Modern Contemporary  2. Classical & Traditional  3. Minimalist Timber & Stone
+    elev_styles = massing_render.render_all_elevation_styles(layout_data, pid, style, proj_dir, dpi=RENDER_DPI)
+    elev_path = elev_styles.get("primary") or elev_styles.get("modern_contemporary")
     images["elevation"] = f"{web_prefix}/{os.path.basename(elev_path)}"
+    images["elevation_modern"] = f"{web_prefix}/{os.path.basename(elev_styles['modern_contemporary'])}"
+    images["elevation_classical"] = f"{web_prefix}/{os.path.basename(elev_styles['classical_traditional'])}"
+    images["elevation_timber"] = f"{web_prefix}/{os.path.basename(elev_styles['minimalist_timber'])}"
+    images["elevation_styles"] = {
+        "modern_contemporary": images["elevation_modern"],
+        "classical_traditional": images["elevation_classical"],
+        "minimalist_timber": images["elevation_timber"],
+    }
     for key, path in massing_render.render_3d_views(layout_data, pid, style, proj_dir, dpi=min(170, RENDER_DPI)).items():
         images[f"view3d_{key}"] = f"{web_prefix}/{os.path.basename(path)}"
     images["render3d"] = images.get("view3d_front_right", "")
@@ -2994,7 +3005,10 @@ def _design_response(best: Dict[str, Any], attempts: List[Dict[str, Any]], ctx: 
                          "parsed": {k: v for k, v in req.items() if k not in ("raw_brief", "checklist", "llm_reading")}},
         "brief": ctx["brief"],
         "plot": {"width_ft": plot_width, "length_ft": plot_length, "front_setback_ft": front_sb, "rear_setback_ft": rear_sb},
-        "front_elevation": {"image_url": images["elevation"]},
+        "front_elevation": {
+            "image_url": images["elevation"],
+            "styles": images.get("elevation_styles", {})
+        },
         "three_d_model": {"nodes": three_d_nodes, "source": "massing_render",
                           "views": {k: v for k, v in images.items() if k.startswith("view3d_")}},
         "llm_rag": {"source": "gemini_live", "model": model_used},
