@@ -14,8 +14,12 @@ export interface BackendStatus {
 
 export interface GenerateDesignPayload {
   prompt: string;
-  plot_width: number;
-  plot_length: number;
+  /** AI-prompt flow: the prompt is the only input (plot, storeys, rooms and sizes are read from it) */
+  prompt_only?: boolean;
+  /** what /api/brief/read returned for this prompt (saves reading it twice) */
+  reading?: any;
+  plot_width?: number;
+  plot_length?: number;
   floors?: number;
   bedrooms?: number;
   bathrooms?: number;
@@ -97,6 +101,51 @@ class ApiService {
   }
 
   /**
+   * Design script (ArchiScript): run a script the user edited, or ask Gemini for a change in plain words.
+   */
+  private async postScript(path: string, payload: Record<string, any>): Promise<any> {
+    const res = await fetch(`${this.baseUrl}${path}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    let data: any = null;
+    try {
+      data = await res.json();
+    } catch {
+      throw new Error(`Design script request failed (HTTP ${res.status})`);
+    }
+    if (!res.ok || (data && data.success === false)) {
+      throw new Error((data && (data.error || data.message)) || `Design script request failed (HTTP ${res.status})`);
+    }
+    return data;
+  }
+
+  /** What the design will be built from, read from the prompt alone (plot, storeys, setbacks, every item). */
+  async readBrief(prompt: string): Promise<any> {
+    return this.postScript('/api/brief/read', { prompt });
+  }
+
+  /** Text-based AI Civil Architect interview bot: conducts a conversational interview to build the brief. */
+  async interviewBrief(payload: {
+    prompt: string;
+    history?: Array<{ role: string; text: string }>;
+    message?: string;
+    skipped?: string[];
+    answers?: Record<string, string>;
+  }): Promise<any> {
+    return this.postScript('/api/brief/interview', payload);
+  }
+
+  async runDesignScript(payload: Record<string, any>): Promise<any> {
+    return this.postScript('/api/script/run', payload);
+  }
+
+  async converseDesignScript(payload: Record<string, any>): Promise<any> {
+    return this.postScript('/api/script/converse', payload);
+  }
+
+  /**
    * Regenerate variation using diversity engine
    */
   async regenerateDesign(payload: GenerateDesignPayload): Promise<any> {
@@ -123,6 +172,17 @@ class ApiService {
     plan_id: string;
     improvement_text: string;
     base_version?: number;
+    // the design being changed: its script, the brief it was made from and its plot
+    script?: string;
+    prompt?: string;
+    plot_width?: number;
+    plot_length?: number;
+    floors?: number;
+    bedrooms?: number;
+    bathrooms?: number;
+    style?: string;
+    requirements?: any;
+    history?: Array<{ role: string; text: string }>;
   }): Promise<any> {
     const res = await fetch(`${this.baseUrl}/api/regenerate`, {
       method: 'POST',
