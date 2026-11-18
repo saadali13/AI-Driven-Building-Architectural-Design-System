@@ -222,6 +222,8 @@ export const NewDesignPage: React.FC = () => {
 
   // Result display active tab
   const [resultTab, setResultTab] = useState<'floor_plan' | 'elevation' | '3d_model' | 'audit' | 'boq'>('floor_plan');
+  // Dynamic Elevation Style Selection (Modern Contemporary, Classical & Traditional, Minimalist Timber & Stone)
+  const [activeElevationStyle, setActiveElevationStyle] = useState<'modern_contemporary' | 'classical_traditional' | 'minimalist_timber'>('modern_contemporary');
 
   const handleFetchGeminiMarketRates = async (keyToUse = geminiApiKey, cityToUse = geminiCity) => {
     setIsFetchingGeminiRates(true);
@@ -715,7 +717,12 @@ export const NewDesignPage: React.FC = () => {
           ? (backendDesign?.images?.[`${storeyKeys[activeLevel]}_furnishing`] || backendDesign?.images?.[storeyKeys[activeLevel]])
           : (backendDesign?.images?.[`${storeyKeys[activeLevel]}_structural`] || backendDesign?.images?.[storeyKeys[activeLevel]]));
 
-  const elevationImage = backendDesign?.images?.elevation;
+  const elevationImage =
+    activeElevationStyle === 'classical_traditional'
+      ? (backendDesign?.images?.elevation_classical || backendDesign?.images?.elevation_styles?.classical_traditional || backendDesign?.images?.elevation)
+      : activeElevationStyle === 'minimalist_timber'
+      ? (backendDesign?.images?.elevation_timber || backendDesign?.images?.elevation_styles?.minimalist_timber || backendDesign?.images?.elevation)
+      : (backendDesign?.images?.elevation_modern || backendDesign?.images?.elevation_styles?.modern_contemporary || backendDesign?.images?.elevation);
 
   return (
     <div className="space-y-8 pb-16 max-w-5xl mx-auto">
@@ -2025,10 +2032,10 @@ export const NewDesignPage: React.FC = () => {
               {/* TAB 2: TECHNICAL FRONT ELEVATION */}
               {resultTab === 'elevation' && (
                 <div className="space-y-4">
-                  <div className="border-b border-[#E2E7E1] pb-2 flex items-center justify-between">
+                  <div className="border-b border-[#E2E7E1] pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                     <div>
                       <h3 className="font-bold text-[#202923] text-sm">Front Elevation</h3>
-                      <p className="text-[11px] text-[#68736C]">Drawn from the floor plans: every storey, with street-side doors and windows at their plan positions</p>
+                      <p className="text-[11px] text-[#68736C]">Drawn from the floor plans: every storey, with street-side doors and windows strictly at their plan positions</p>
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-xs font-mono font-bold text-[#23483D] bg-[#EEF4F0] px-2 py-0.5 rounded">
@@ -2037,7 +2044,7 @@ export const NewDesignPage: React.FC = () => {
                       {elevationImage && (
                         <a
                           href={elevationImage}
-                          download="front_elevation.png"
+                          download={`front_elevation_${activeElevationStyle}.png`}
                           target="_blank"
                           rel="noreferrer"
                           className="px-2.5 py-1 text-[11px] font-semibold text-[#23483D] bg-[#EEF4F0] hover:bg-[#DCE7DE] rounded-lg transition-colors border border-[#DCE7DE] flex items-center gap-1.5"
@@ -2046,6 +2053,65 @@ export const NewDesignPage: React.FC = () => {
                           <span>Download Elevation PNG</span>
                         </a>
                       )}
+                    </div>
+                  </div>
+
+                  {/* 3 DYNAMIC ELEVATION STYLE CARDS / SELECTOR */}
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold text-[#202923]">Choose Elevation Style Theme:</span>
+                      <span className="text-[10px] text-[#68736C]">3 Distinct Styles &bull; 100% Plan Aligned</span>
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                      {[
+                        {
+                          id: 'modern_contemporary',
+                          name: 'Modern Contemporary',
+                          badge: 'Charcoal & Glass',
+                          desc: 'Sleek dark frames, seamless glass balustrade, refined horizontal reveals'
+                        },
+                        {
+                          id: 'classical_traditional',
+                          name: 'Classical & Traditional',
+                          badge: 'Mouldings & Cornice',
+                          desc: 'Dentil parapet band, divided lite transom windows, corner quoin stones'
+                        },
+                        {
+                          id: 'minimalist_timber',
+                          name: 'Minimalist Timber & Stone',
+                          badge: 'Cedar Louvers',
+                          desc: 'Warm architectural timber screens, louvered balustrade, bronze casing'
+                        }
+                      ].map((item) => {
+                        const isSelected = activeElevationStyle === item.id;
+                        return (
+                          <button
+                            key={item.id}
+                            type="button"
+                            onClick={() => setActiveElevationStyle(item.id as any)}
+                            className={`p-3 rounded-xl border text-left transition-all flex flex-col justify-between ${
+                              isSelected
+                                ? 'bg-white border-2 border-[#23483D] shadow-sm'
+                                : 'bg-[#F7F7F2] border-[#E2E7E1] hover:bg-white hover:border-[#23483D]'
+                            }`}
+                          >
+                            <div className="space-y-1">
+                              <div className="flex items-center justify-between">
+                                <span className="font-bold text-xs text-[#202923]">{item.name}</span>
+                                <span className={`text-[9px] font-mono px-1.5 py-0.5 rounded font-bold ${
+                                  isSelected ? 'bg-[#23483D] text-white' : 'bg-white border border-[#E2E7E1] text-[#68736C]'
+                                }`}>
+                                  {item.badge}
+                                </span>
+                              </div>
+                              <p className="text-[10px] text-[#68736C] leading-snug line-clamp-2">{item.desc}</p>
+                            </div>
+                            <div className="pt-2 text-[10px] font-semibold flex items-center gap-1 text-[#23483D]">
+                              {isSelected ? '✓ Active Theme' : 'Click to View'}
+                            </div>
+                          </button>
+                        );
+                      })}
                     </div>
                   </div>
 

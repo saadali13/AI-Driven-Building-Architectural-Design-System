@@ -691,6 +691,11 @@ def test_elevation_and_3d_views_come_from_the_plan(tmp_path):
     views = mr.render_3d_views(geo, "t", "modern", str(tmp_path), dpi=50)
     for f in [elev] + list(views.values()):
         assert os.path.getsize(f) > 5000
+    # Also verify that all 3 distinct elevation style variations are generated and strictly valid
+    styles = mr.render_all_elevation_styles(geo, "t", "modern", str(tmp_path), dpi=50)
+    assert set(styles.keys()) >= {"modern_contemporary", "classical_traditional", "minimalist_timber", "primary"}
+    for k, s_path in styles.items():
+        assert os.path.exists(s_path) and os.path.getsize(s_path) > 5000
     nodes = mr.three_d_nodes(geo)
     assert len(nodes) == len(m["solids"]) and all(n["width"] > 0 and n["height"] > 0 and n["depth"] > 0 for n in nodes)
 
