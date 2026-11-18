@@ -64,7 +64,7 @@ OUTPUT_DIR = os.path.join(PROJECT_ROOT, "output", "web_generated")
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
 # Strongest spatial reasoner first; the lite model is only a last resort (verified 2026-11-12 on v1beta)
-ACTIVE_MODELS = ["gemini-3-flash-preview", "gemini-2.5-flash", "gemini-3.1-flash-lite"]
+ACTIVE_MODELS = ["gemini-3-flash-preview", "gemini-2.5-flash-lite", "gemini-3.1-flash-lite", "gemini-2.0-flash"]
 
 # ---------------------------------------------------------------------------
 # STANDARD ARCHITECTURAL CAD PALETTE (Monochrome Technical Ink on Paper)
