@@ -17,7 +17,7 @@ from typing import Any, Dict, List, Optional, Tuple
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from matplotlib.patches import Polygon as MplPolygon, Rectangle
+from matplotlib.patches import Circle, Polygon as MplPolygon, Rectangle, Wedge
 import numpy as np
 from shapely.geometry import box as sbox
 from shapely.ops import unary_union
@@ -236,55 +236,95 @@ _ELEV_FILL = {
 }
 
 # ---------------------------------------------------------------------------
-# 3 DISTINCT ELEVATION STYLE THEMES (all strictly bound to the 2D layout solids)
+# 4 DISTINCT ARCHITECTURAL FACADE MODELS (all 100% aligned to 2D plan solids)
 # ---------------------------------------------------------------------------
-ELEVATION_THEMES = {
-    "modern_contemporary": {
-        "id": "modern_contemporary",
-        "name": "Modern Contemporary",
-        "description": "Clean minimalist lines, charcoal architectural frames, large glass apertures, and subtle groove reveals.",
+ELEVATION_MODELS = {
+    "modern_cantilever": {
+        "id": "modern_cantilever",
+        "name": "Modern Cantilever & Frame Grid",
+        "badge": "Box Frame & Glass",
+        "description": "Bold cantilevered dark-charcoal portal frames, recessed shadow-gap soffits, pergola porch canopy, and frameless glass balustrades.",
         "bg_paper": "#FFFFFF",
+        "sky_tint": "#F1F7FB",
         "wall_fill": "#F8FAFC",
-        "feature_fill": "#E2E8F0",
+        "upper_wall_fill": "#FFFFFF",
+        "feature_fill": "#CBD5E1",
         "frame_color": "#1E293B",
-        "accent_color": "#334155",
-        "slab_fill": "#0F172A",
-        "rail_style": "glass",         # full-panel glass balustrade with top rail
-        "window_style": "picture",     # slim mullions, corner/frame focus
-        "grooves": True,
-        "texture": "groove",
+        "accent_color": "#0F172A",
+        "slab_fill": "#1E293B",
+        "glass_fill": "#CFE6F5",
+        "door_fill": "#5C4033",
+        "rail_style": "glass",
+        "window_style": "cantilever_box",
+        "roof_style": "cantilever_portal",
     },
-    "classical_traditional": {
-        "id": "classical_traditional",
-        "name": "Classical & Traditional",
-        "description": "Timeless symmetrical mouldings, dentil cornice bands, fluted pilasters, arched lintel details, and wrought balusters.",
-        "bg_paper": "#FAF9F6",
-        "wall_fill": "#FFFDF7",
-        "feature_fill": "#EFE8DA",
-        "frame_color": "#3E2723",
-        "accent_color": "#5D4037",
-        "slab_fill": "#D7CCC8",
-        "rail_style": "wrought",       # ornate vertical balusters with intermediate spindles
-        "window_style": "arched",      # classic divided lites with moulded sill brackets
-        "grooves": False,
-        "texture": "cornice",
+    "spanish_neoclassical": {
+        "id": "spanish_neoclassical",
+        "name": "Spanish / Neoclassical Villa",
+        "badge": "Arches & Terracotta",
+        "description": "Sculpted arched window crowns, fluted pilasters with capitals, dentil cornice bands, pitched terracotta roof hoods, and wrought-iron balustrades.",
+        "bg_paper": "#FCFBF7",
+        "sky_tint": "#F5F8FC",
+        "wall_fill": "#FFFDF6",
+        "upper_wall_fill": "#FDF8EC",
+        "feature_fill": "#EAE0CE",
+        "frame_color": "#4A3222",
+        "accent_color": "#A34828",
+        "slab_fill": "#D9CCB8",
+        "glass_fill": "#D8EAF4",
+        "door_fill": "#6B3E26",
+        "rail_style": "wrought",
+        "window_style": "arched_pediment",
+        "roof_style": "terracotta_pitched",
     },
-    "minimalist_timber": {
-        "id": "minimalist_timber",
-        "name": "Minimalist Timber & Stone",
-        "description": "Warm organic cedar louvers, slate accent cladding, floating monolithic parapet coping, and dark bronze mullions.",
+    "brick_timber_sloped": {
+        "id": "brick_timber_sloped",
+        "name": "Contemporary Brick, Timber & Sloped Roof",
+        "badge": "Brick & Sloped Canopy",
+        "description": "Exposed terracotta-brick masonry piers, vertical cedar timber louvers, sloped standing-seam porch & mumty canopies, and horizontal timber railings.",
         "bg_paper": "#FCFCFA",
-        "wall_fill": "#F5F3EF",
-        "feature_fill": "#E8DFC8",
+        "sky_tint": "#F2F6F9",
+        "wall_fill": "#F4F1EA",
+        "upper_wall_fill": "#EFEBE2",
+        "feature_fill": "#D9CBB8",
         "frame_color": "#27272A",
-        "accent_color": "#8C6D46",
+        "accent_color": "#9A4B31",
+        "timber_color": "#9B6B3B",
         "slab_fill": "#3F3F46",
-        "rail_style": "louver",        # warm architectural horizontal/vertical timber screen
-        "window_style": "deep_recess", # deep shadow reveal casings
-        "grooves": True,
-        "texture": "timber_louvers",
-    }
+        "glass_fill": "#C9DFEE",
+        "door_fill": "#6E4726",
+        "rail_style": "timber_louver",
+        "window_style": "deep_bronze",
+        "roof_style": "sloped_canopy",
+    },
+    "jaali_courtyard": {
+        "id": "jaali_courtyard",
+        "name": "Pakistani Jaali & Travertine Stone",
+        "badge": "Jaali & Planters",
+        "description": "Geometric perforated jaali privacy screens, travertine ashlar stone bands, cantilevered upper planter boxes, and recessed entrance portal.",
+        "bg_paper": "#FAF9F5",
+        "sky_tint": "#F3F7F4",
+        "wall_fill": "#F6F3EB",
+        "upper_wall_fill": "#FAF8F2",
+        "feature_fill": "#E2D9C5",
+        "frame_color": "#26322B",
+        "accent_color": "#23483D",
+        "slab_fill": "#CBBFA8",
+        "glass_fill": "#CFE2DD",
+        "door_fill": "#4E3829",
+        "rail_style": "jaali_screen",
+        "window_style": "travertine_recess",
+        "roof_style": "stepped_crown",
+    },
 }
+
+# Backward-compatible aliases so existing callers/tests keep working seamlessly
+_STYLE_ALIASES = {
+    "modern_contemporary": "modern_cantilever",
+    "classical_traditional": "spanish_neoclassical",
+    "minimalist_timber": "brick_timber_sloped",
+}
+ELEVATION_THEMES = ELEVATION_MODELS
 
 
 def _ft_in(v: float) -> str:
@@ -292,76 +332,186 @@ def _ft_in(v: float) -> str:
     return f"{total // 12}'-{total % 12}\""
 
 
-def _elev_window(ax, x, z, w, h, lw, vent=False, zo=5.0, theme=None):
-    t = theme or ELEVATION_THEMES["modern_contemporary"]
-    frame_col = t.get("frame_color", INK)
-    w_style = t.get("window_style", "picture")
+def _draw_shadow(ax, x, z, w, h, zo, alpha=0.14):
+    ax.add_patch(Rectangle((x, z), w, h, facecolor="#0F172A", edgecolor="none", alpha=alpha, zorder=zo))
 
-    # Main window opening
-    ax.add_patch(Rectangle((x, z), w, h, facecolor="#F8FAFC", edgecolor=frame_col, linewidth=lw, zorder=zo))
-    if w > 1.0 and h > 1.0:
-        ax.add_patch(Rectangle((x + 0.2, z + 0.2), w - 0.4, h - 0.4, facecolor="#FFFFFF", edgecolor=t.get("accent_color", INK_MID),
-                               linewidth=lw * 0.55, zorder=zo))
+
+def _draw_jaali_pattern(ax, x, z, w, h, frame_col, accent_col, lw, zo):
+    """Draws a crisp geometric Islamic/Pakistani perforated jaali lattice inside (x, z, w, h)."""
+    ax.add_patch(Rectangle((x, z), w, h, facecolor="#EFE9DC", edgecolor=frame_col, linewidth=lw * 0.85, zorder=zo))
+    step = max(0.55, min(0.85, min(w, h) / 4.0))
+    nx = max(1, int(w / step))
+    nz = max(1, int(h / step))
+    dx, dz = w / nx, h / nz
+    for ix in range(nx):
+        for iz in range(nz):
+            cx = x + (ix + 0.5) * dx
+            cz = z + (iz + 0.5) * dz
+            diamond = MplPolygon(
+                [(cx, cz + dz * 0.36), (cx + dx * 0.36, cz), (cx, cz - dz * 0.36), (cx - dx * 0.36, cz)],
+                closed=True, facecolor="#3A4740", edgecolor=accent_col, alpha=0.45, linewidth=lw * 0.35, zorder=zo + 0.004
+            )
+            ax.add_patch(diamond)
+
+
+def _draw_brick_panel(ax, x, z, w, h, lw, zo):
+    """Draws exposed terracotta-brick courses over a solid masonry pier."""
+    ax.add_patch(Rectangle((x, z), w, h, facecolor="#B85D43", edgecolor="#5A2A1C", linewidth=lw * 0.7, zorder=zo))
+    course_h = 0.42
+    brick_w = 1.05
+    row = 0
+    y = z + course_h
+    while y < z + h - 0.05:
+        ax.plot([x, x + w], [y, y], color="#EADCD2", linewidth=lw * 0.38, alpha=0.75, zorder=zo + 0.003)
+        offset = (brick_w * 0.5) if (row % 2 == 1) else 0.0
+        bx = x + offset + brick_w
+        while bx < x + w - 0.1:
+            ax.plot([bx, bx], [y - course_h, y], color="#EADCD2", linewidth=lw * 0.32, alpha=0.65, zorder=zo + 0.003)
+            bx += brick_w
+        y += course_h
+        row += 1
+
+
+def _draw_terracotta_roof_band(ax, x, z, w, pitch_h, frame_col, lw, zo):
+    """Draws a pitched Spanish terracotta roof hood with clay-tile ribs."""
+    poly = MplPolygon(
+        [(x - 0.5, z), (x + w + 0.5, z), (x + w - 0.8, z + pitch_h), (x + 0.8, z + pitch_h)],
+        closed=True, facecolor="#B64B2C", edgecolor=frame_col, linewidth=lw * 0.9, zorder=zo
+    )
+    ax.add_patch(poly)
+    # Clay tile ribs
+    n_ribs = max(4, int(w / 0.85))
+    for i in range(1, n_ribs):
+        t = i / n_ribs
+        bx = (x - 0.3) + t * (w + 0.6)
+        tx = (x + 0.8) + t * (w - 1.6)
+        ax.plot([bx, tx], [z, z + pitch_h], color="#7A2D18", linewidth=lw * 0.45, alpha=0.75, zorder=zo + 0.005)
+    # Ridge cap
+    ax.plot([x + 0.75, x + w - 0.75], [z + pitch_h, z + pitch_h], color="#5A2010", linewidth=lw * 1.1, zorder=zo + 0.006)
+    _draw_shadow(ax, x - 0.35, z - 0.4, w + 0.7, 0.4, zo - 0.001, alpha=0.18)
+
+
+def _draw_sloped_metal_canopy(ax, x, z, w, rise_h, frame_col, lw, zo, slope_right=True):
+    """Draws a contemporary sloped standing-seam architectural canopy."""
+    if slope_right:
+        pts = [(x - 0.4, z), (x + w + 0.4, z), (x + w + 0.4, z + rise_h * 0.32), (x - 0.4, z + rise_h)]
+    else:
+        pts = [(x - 0.4, z), (x + w + 0.4, z), (x + w + 0.4, z + rise_h), (x - 0.4, z + rise_h * 0.32)]
+    ax.add_patch(MplPolygon(pts, closed=True, facecolor="#3F444A", edgecolor=frame_col, linewidth=lw * 0.95, zorder=zo))
+    # Standing seam lines
+    for sx in np.arange(x + 0.5, x + w, 1.3):
+        frac = (sx - (x - 0.4)) / (w + 0.8)
+        top_y = (z + rise_h * (1.0 - 0.68 * frac)) if slope_right else (z + rise_h * (0.32 + 0.68 * frac))
+        ax.plot([sx, sx], [z + 0.05, top_y - 0.05], color="#9CA3AF", linewidth=lw * 0.45, alpha=0.7, zorder=zo + 0.004)
+    _draw_shadow(ax, x - 0.35, z - 0.45, w + 0.7, 0.45, zo - 0.001, alpha=0.2)
+
+
+def _elev_window(ax, x, z, w, h, lw, vent=False, zo=5.0, theme=None):
+    t = theme or ELEVATION_MODELS["modern_cantilever"]
+    frame_col = t.get("frame_color", INK)
+    accent_col = t.get("accent_color", INK_MID)
+    glass_col = t.get("glass_fill", "#D6E8F5")
+    w_style = t.get("window_style", "cantilever_box")
+
+    # Drop shadow beneath opening
+    _draw_shadow(ax, x + 0.15, z - 0.45, w, 0.45, zo - 0.002, alpha=0.14)
+
+    # Outer casing + glass
+    ax.add_patch(Rectangle((x, z), w, h, facecolor=frame_col, edgecolor=frame_col, linewidth=lw * 0.9, zorder=zo))
+    if w > 0.8 and h > 0.8:
+        ax.add_patch(Rectangle((x + 0.22, z + 0.22), w - 0.44, h - 0.44, facecolor=glass_col,
+                               edgecolor=frame_col, linewidth=lw * 0.5, zorder=zo + 0.002))
+        # Subtle glass reflection sheen
+        ax.plot([x + 0.45, x + min(w - 0.45, 1.45)], [z + 0.55, z + min(h - 0.45, 1.95)],
+                color="#FFFFFF", linewidth=lw * 0.9, alpha=0.75, zorder=zo + 0.004)
+        ax.plot([x + 0.85, x + min(w - 0.45, 1.65)], [z + 0.55, z + min(h - 0.45, 1.55)],
+                color="#FFFFFF", linewidth=lw * 0.55, alpha=0.65, zorder=zo + 0.004)
 
     if vent:
         for k in range(1, 4):
-            ax.plot([x + 0.2, x + w - 0.2], [z + h * k / 4.0] * 2, color=t.get("accent_color", INK_MID), linewidth=lw * 0.5, zorder=zo)
+            ax.plot([x + 0.22, x + w - 0.22], [z + h * k / 4.0] * 2, color=frame_col, linewidth=lw * 0.55, zorder=zo + 0.005)
     else:
-        if w_style == "arched" and w >= 2.5:
-            # Classical style: upper arch/divided lite decorative transom
-            arch_h = min(1.4, h * 0.28)
-            ax.plot([x + 0.2, x + w - 0.2], [z + h - arch_h, z + h - arch_h], color=frame_col, linewidth=lw * 0.65, zorder=zo)
-            # 3 vertical panes in top transom
-            for k in range(1, 4):
-                ax.plot([x + w * k / 4.0, x + w * k / 4.0], [z + h - arch_h, z + h - 0.2], color=frame_col, linewidth=lw * 0.5, zorder=zo)
-            # central mullion below
-            ax.plot([x + w / 2.0, x + w / 2.0], [z + 0.2, z + h - arch_h], color=frame_col, linewidth=lw * 0.6, zorder=zo)
-        elif w_style == "deep_recess":
-            # Timber/Stone style: deep horizontal shadow louvers on upper glass
-            n = 3 if w >= 5.5 else 2
-            for k in range(1, n):
-                ax.plot([x + w * k / n] * 2, [z + 0.2, z + h - 0.2], color=frame_col, linewidth=lw * 0.65, zorder=zo)
-            for ly in [z + h * 0.55, z + h * 0.75, z + h * 0.9]:
-                ax.plot([x + 0.25, x + w - 0.25], [ly, ly], color=t.get("accent_color", "#8C6D46"), linewidth=lw * 0.5, zorder=zo)
+        if w_style == "arched_pediment" and w >= 2.2:
+            # Spanish/Neoclassical: semicircular moulded arch hood + keystone + French divided panes
+            arch_r = min(w * 0.46, 1.6)
+            cx = x + w / 2.0
+            ax.add_patch(Wedge((cx, z + h), arch_r, 0, 180, width=0.42, facecolor="#EAE0CE",
+                               edgecolor=frame_col, linewidth=lw * 0.7, zorder=zo + 0.006))
+            ax.add_patch(Wedge((cx, z + h), max(0.1, arch_r - 0.42), 0, 180, facecolor=glass_col,
+                               edgecolor=frame_col, linewidth=lw * 0.45, zorder=zo + 0.005))
+            # Keystone at arch apex
+            ax.add_patch(Rectangle((cx - 0.22, z + h + arch_r - 0.45), 0.44, 0.55, facecolor="#D9CCB8",
+                                   edgecolor=frame_col, linewidth=lw * 0.55, zorder=zo + 0.007))
+            # French muntins
+            n_v = 3 if w >= 5.0 else 2
+            for k in range(1, n_v):
+                ax.plot([x + w * k / n_v] * 2, [z + 0.22, z + h - 0.22], color=frame_col, linewidth=lw * 0.55, zorder=zo + 0.005)
+            for frac in (0.36, 0.68):
+                ax.plot([x + 0.22, x + w - 0.22], [z + h * frac] * 2, color=frame_col, linewidth=lw * 0.45, zorder=zo + 0.005)
+            # Moulded sill with corbel brackets
+            ax.add_patch(Rectangle((x - 0.45, z - 0.42), w + 0.9, 0.42, facecolor="#EAE0CE", edgecolor=frame_col, linewidth=lw * 0.65, zorder=zo + 0.006))
+            for bx in (x - 0.25, x + w - 0.15):
+                ax.add_patch(Rectangle((bx, z - 0.82), 0.4, 0.4, facecolor="#D9CCB8", edgecolor=frame_col, linewidth=lw * 0.5, zorder=zo + 0.005))
+        elif w_style == "deep_bronze":
+            # Deep cantilevered bronze window box + upper timber sun-breaker fins
+            ax.add_patch(Rectangle((x - 0.38, z - 0.35), w + 0.76, h + 0.72, facecolor="none",
+                                   edgecolor=frame_col, linewidth=lw * 1.45, zorder=zo + 0.006))
+            ax.add_patch(Rectangle((x - 0.42, z + h), w + 0.84, 0.42, facecolor=t.get("timber_color", "#9B6B3B"),
+                                   edgecolor=frame_col, linewidth=lw * 0.65, zorder=zo + 0.007))
+            n_v = 3 if w >= 5.5 else 2
+            for k in range(1, n_v):
+                ax.plot([x + w * k / n_v] * 2, [z + 0.22, z + h - 0.22], color=frame_col, linewidth=lw * 0.65, zorder=zo + 0.005)
+            ax.plot([x + 0.22, x + w - 0.22], [z + h * 0.75] * 2, color=frame_col, linewidth=lw * 0.55, zorder=zo + 0.005)
+        elif w_style == "travertine_recess":
+            # Deep travertine stone surround + slender vertical sun-louvers on one edge
+            ax.add_patch(Rectangle((x - 0.35, z - 0.35), w + 0.7, h + 0.7, facecolor="none",
+                                   edgecolor="#B8A98E", linewidth=lw * 1.5, zorder=zo + 0.005))
+            n_v = 3 if w >= 5.2 else 2
+            for k in range(1, n_v):
+                ax.plot([x + w * k / n_v] * 2, [z + 0.22, z + h - 0.22], color=frame_col, linewidth=lw * 0.6, zorder=zo + 0.005)
+            ax.add_patch(Rectangle((x - 0.42, z + h), w + 0.84, 0.42, facecolor=accent_col, edgecolor=frame_col, linewidth=lw * 0.6, zorder=zo + 0.007))
+            ax.add_patch(Rectangle((x - 0.38, z - 0.35), w + 0.76, 0.35, facecolor="#D6CCB8", edgecolor=frame_col, linewidth=lw * 0.55, zorder=zo + 0.006))
         else:
-            # Modern picture window
-            n = 3 if w >= 5.5 else 2
-            for k in range(1, n):
-                ax.plot([x + w * k / n] * 2, [z + 0.2, z + h - 0.2], color=frame_col, linewidth=lw * 0.6, zorder=zo)
-            ax.plot([x + 0.2, x + w - 0.2], [z + h * 0.72] * 2, color=t.get("accent_color", INK_MID), linewidth=lw * 0.5, zorder=zo)
-
-    # Sill & Lintel
-    sill_color = t.get("slab_fill", "#CBD5E1")
-    lintel_color = t.get("frame_color", INK)
-    if w_style == "arched":
-        # Classical moulded projecting bracket
-        ax.add_patch(Rectangle((x - 0.45, z - 0.45), w + 0.9, 0.45, facecolor="#EFE8DA", edgecolor=frame_col, linewidth=lw * 0.65, zorder=zo))
-        ax.add_patch(Rectangle((x - 0.3, z + h), w + 0.6, 0.4, facecolor="#D7CCC8", edgecolor=frame_col, linewidth=lw * 0.65, zorder=zo))
-    elif w_style == "deep_recess":
-        # Heavy timber projecting casing
-        ax.add_patch(Rectangle((x - 0.4, z - 0.35), w + 0.8, 0.35, facecolor="#8C6D46", edgecolor=frame_col, linewidth=lw * 0.65, zorder=zo))
-        ax.add_patch(Rectangle((x - 0.45, z + h), w + 0.9, 0.45, facecolor="#3F3F46", edgecolor=frame_col, linewidth=lw * 0.65, zorder=zo))
-    else:
-        # Modern slim projecting cantilever
-        ax.add_patch(Rectangle((x - 0.3, z - 0.3), w + 0.6, 0.3, facecolor=sill_color, edgecolor=frame_col, linewidth=lw * 0.6, zorder=zo))
-        ax.add_patch(Rectangle((x - 0.35, z + h), w + 0.7, 0.35, facecolor=lintel_color, edgecolor=lintel_color, linewidth=lw * 0.6, zorder=zo))
+            # Modern Cantilever Box: projecting charcoal sunshade canopy + crisp picture mullions
+            n_v = 3 if w >= 5.5 else 2
+            for k in range(1, n_v):
+                ax.plot([x + w * k / n_v] * 2, [z + 0.22, z + h - 0.22], color=frame_col, linewidth=lw * 0.65, zorder=zo + 0.005)
+            ax.plot([x + 0.22, x + w - 0.22], [z + h * 0.76] * 2, color=frame_col, linewidth=lw * 0.5, zorder=zo + 0.005)
+            ax.add_patch(Rectangle((x - 0.35, z - 0.28), w + 0.7, 0.28, facecolor="#CBD5E1", edgecolor=frame_col, linewidth=lw * 0.6, zorder=zo + 0.006))
+            ax.add_patch(Rectangle((x - 0.48, z + h), w + 0.96, 0.48, facecolor=accent_col, edgecolor=frame_col, linewidth=lw * 0.7, zorder=zo + 0.007))
+            _draw_shadow(ax, x - 0.35, z + h - 0.35, w + 0.7, 0.35, zo + 0.004, alpha=0.18)
 
 
 def _elev_door(ax, x, z, w, h, lw, main=False, zo=5.0, theme=None):
-    t = theme or ELEVATION_THEMES["modern_contemporary"]
+    t = theme or ELEVATION_MODELS["modern_cantilever"]
     frame_col = t.get("frame_color", INK)
-    door_bg = t.get("wall_fill", "#F8FAFC")
-    ax.add_patch(Rectangle((x, z), w, h, facecolor=door_bg, edgecolor=frame_col, linewidth=lw, zorder=zo))
+    door_fill = t.get("door_fill", "#6B4423")
+    r_style = t.get("roof_style", "cantilever_portal")
+
+    # Portal surround for main entrance door
+    if main:
+        ax.add_patch(Rectangle((x - 0.45, z), w + 0.9, h + 0.55, facecolor=t.get("feature_fill", "#CBD5E1"),
+                               edgecolor=frame_col, linewidth=lw * 0.9, zorder=zo - 0.002))
+        if r_style == "terracotta_pitched":
+            arch_r = min(w * 0.48, 1.8)
+            ax.add_patch(Wedge((x + w / 2.0, z + h), arch_r, 0, 180, width=0.45, facecolor="#EAE0CE",
+                               edgecolor=frame_col, linewidth=lw * 0.75, zorder=zo + 0.004))
+
+    ax.add_patch(Rectangle((x, z), w, h, facecolor=door_fill, edgecolor=frame_col, linewidth=lw, zorder=zo))
     leaves = 2 if (main and w >= 3.6) else 1
     for k in range(leaves):
         lx = x + k * w / leaves
-        ax.add_patch(Rectangle((lx + 0.2, z + 0.35), w / leaves - 0.4, h - 0.7, facecolor="#FFFFFF", edgecolor=t.get("accent_color", INK_MID),
-                               linewidth=lw * 0.55, zorder=zo))
-        # Handle / lockset indicator
-        hx = lx + (w / leaves - 0.6) if k == 0 else lx + 0.5
-        ax.plot([hx, hx], [z + 3.2, z + 3.7], color=frame_col, linewidth=lw * 1.1, zorder=zo + 0.05)
+        lw_leaf = w / leaves
+        ax.add_patch(Rectangle((lx + 0.22, z + 0.35), lw_leaf - 0.44, h - 0.7, facecolor=door_fill,
+                               edgecolor="#D9C3A3", linewidth=lw * 0.5, zorder=zo + 0.003))
+        # Horizontal modern grooves on door leaf
+        for gy in np.arange(z + 1.4, z + h - 0.8, 1.3):
+            ax.plot([lx + 0.3, lx + lw_leaf - 0.3], [gy, gy], color="#3A2314", linewidth=lw * 0.4, alpha=0.6, zorder=zo + 0.004)
+        # Tall architectural pull handle
+        hx = lx + (lw_leaf - 0.55) if k == 0 else lx + 0.55
+        ax.plot([hx, hx], [z + 2.6, z + 4.2], color="#E2E8F0", linewidth=lw * 1.4, zorder=zo + 0.006)
     if leaves == 2:
-        ax.plot([x + w / 2.0] * 2, [z, z + h], color=frame_col, linewidth=lw * 0.7, zorder=zo)
+        ax.plot([x + w / 2.0] * 2, [z, z + h], color=frame_col, linewidth=lw * 0.8, zorder=zo + 0.005)
 
 
 def _merge_front(solids: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
@@ -390,15 +540,19 @@ def _merge_front(solids: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
 
 
 def _resolve_theme(style: str, variant_key: Optional[str] = None) -> Dict[str, Any]:
-    """Selects one of the 3 distinct elevation themes based on variant key or style hint."""
-    if variant_key and variant_key in ELEVATION_THEMES:
-        return ELEVATION_THEMES[variant_key]
+    """Selects one of the 4 distinct architectural facade models (with backward-compatible aliases)."""
+    if variant_key:
+        vk = _STYLE_ALIASES.get(variant_key, variant_key)
+        if vk in ELEVATION_MODELS:
+            return ELEVATION_MODELS[vk]
     s = (style or "").lower()
-    if any(k in s for k in ("classic", "spanish", "traditional", "victorian", "colonial")):
-        return ELEVATION_THEMES["classical_traditional"]
-    if any(k in s for k in ("timber", "wood", "stone", "minimal", "zen", "japandi", "warm")):
-        return ELEVATION_THEMES["minimalist_timber"]
-    return ELEVATION_THEMES["modern_contemporary"]
+    if any(k in s for k in ("classic", "spanish", "traditional", "victorian", "colonial", "neoclassic")):
+        return ELEVATION_MODELS["spanish_neoclassical"]
+    if any(k in s for k in ("brick", "timber", "wood", "sloped", "pitched", "chalet", "hill")):
+        return ELEVATION_MODELS["brick_timber_sloped"]
+    if any(k in s for k in ("jaali", "islamic", "courtyard", "travertine", "stone", "pakistani")):
+        return ELEVATION_MODELS["jaali_courtyard"]
+    return ELEVATION_MODELS["modern_cantilever"]
 
 
 def render_front_elevation(
@@ -411,9 +565,11 @@ def render_front_elevation(
 ) -> str:
     m = build_massing(layout)
     theme = _resolve_theme(style, variant_key)
+    model_id = theme["id"]
     W, total = m["W"], m["total_height"]
-    fig_w = max(12.0, min(17.0, (W + 16.0) * 0.28))
-    fig_h = max(9.0, min(17.0, (total + 10.0) * 0.28))
+    extra_top = 3.2 if model_id in ("spanish_neoclassical", "brick_timber_sloped") else 1.5
+    fig_w = max(12.5, min(17.5, (W + 16.0) * 0.29))
+    fig_h = max(9.5, min(17.5, (total + extra_top + 10.0) * 0.29))
     fig, ax = plt.subplots(figsize=(fig_w, fig_h), dpi=dpi)
     bg_paper = theme.get("bg_paper", PAPER)
     fig.patch.set_facecolor(bg_paper)
@@ -424,24 +580,30 @@ def render_front_elevation(
     frame_col = theme.get("frame_color", INK)
     accent_col = theme.get("accent_color", INK_MID)
     wall_fill = theme.get("wall_fill", "#FFFFFF")
+    upper_wall_fill = theme.get("upper_wall_fill", wall_fill)
     feature_fill = theme.get("feature_fill", "#E2E8F0")
     slab_fill = theme.get("slab_fill", "#CBD5E1")
 
-    # Road line
-    ax.plot([-1.35, W + 4.0], [0, 0], color=frame_col, linewidth=lw_h * 1.4, zorder=30)
-    ax.add_patch(Rectangle((-1.35, -1.0), W + 3.35, 1.0, facecolor="#F1F5F9", edgecolor="none", zorder=1))
+    # Subtle architectural sky wash behind the building envelope
+    ax.add_patch(Rectangle((-2.5, 0.0), W + 5.5, total + extra_top + 1.5,
+                           facecolor=theme.get("sky_tint", "#F4F8FB"), edgecolor="none", zorder=0.5))
 
-    # far solids first: what stands nearer the street is drawn over what stands behind it.
+    # Ground road plane & subtle pavement texture
+    ax.plot([-1.35, W + 4.0], [0, 0], color=frame_col, linewidth=lw_h * 1.45, zorder=30)
+    ax.add_patch(Rectangle((-1.35, -1.1), W + 3.55, 1.1, facecolor="#E2E8F0", edgecolor="none", zorder=1))
+
+    # Far solids first: nearer solids cover farther ones (exact 2D plan depth order)
     solids = sorted(_merge_front([s for s in m["solids"] if s["z1"] > 0.4]), key=lambda s: (-s["y0"], s["z0"]))
+
     for k_, s in enumerate(solids):
         x, z, w, h = s["x0"], s["z0"], s["x1"] - s["x0"], s["z1"] - s["z0"]
         role = s["role"]
+        lvl = int(s.get("level") or 0)
         heavy = role in ("wall", "mumty")
         zo = 4.0 + k_ * 0.02
 
-        # Role-based color adaptation per theme
         if role == "wall":
-            fc = wall_fill
+            fc = upper_wall_fill if lvl >= 1 else wall_fill
         elif role == "plinth":
             fc = feature_fill
         elif role in ("slab", "column"):
@@ -449,7 +611,7 @@ def render_front_elevation(
         elif role == "parapet":
             fc = feature_fill
         elif role == "mumty":
-            fc = wall_fill
+            fc = upper_wall_fill
         elif role == "cap":
             fc = frame_col
         else:
@@ -458,74 +620,183 @@ def render_front_elevation(
         ax.add_patch(Rectangle((x, z), w, h, facecolor=fc, edgecolor=frame_col,
                                linewidth=lw_h if heavy else lw_m, zorder=zo))
 
-        # Architectural Facade Texture / Surface Details
+        # --- MODEL-SPECIFIC ARCHITECTURAL FACADE MASSING & DETAILING ---
+        front_opens = [o for o in s["open"] if o["face"] == "front"]
+
+        # 1. Plinth detailing
+        if role == "plinth" and w >= 3.0:
+            if model_id == "spanish_neoclassical":
+                for px in np.arange(x + 1.5, x + w - 0.5, 2.0):
+                    ax.plot([px, px], [z, z + h], color=frame_col, linewidth=lw_l * 0.5, alpha=0.45, zorder=zo + 0.004)
+            elif model_id == "jaali_courtyard":
+                ax.plot([x, x + w], [z + h * 0.5, z + h * 0.5], color=frame_col, linewidth=lw_l * 0.5, alpha=0.4, zorder=zo + 0.004)
+
+        # 2. Porch Canopy Slab & Columns
+        if role == "slab":
+            _draw_shadow(ax, x, z - 0.65, w, 0.65, zo - 0.002, alpha=0.20)
+            if model_id == "modern_cantilever" and w >= 5.0:
+                # Sleek pergola louver slats above porch canopy
+                for lx in np.arange(x + 0.7, x + w - 0.5, 1.1):
+                    ax.add_patch(Rectangle((lx, z + h), 0.35, 0.45, facecolor=accent_col, edgecolor=frame_col, linewidth=lw_l * 0.5, zorder=zo + 0.006))
+            elif model_id == "brick_timber_sloped" and w >= 6.0 and z < (m["base"][0] + (m["heights"][0] if m["heights"] else 11.0) + 1.0):
+                # Sloped standing-seam architectural porch canopy
+                _draw_sloped_metal_canopy(ax, x, z + h, w, min(2.0, max(1.2, w * 0.12)), frame_col, lw_m, zo + 0.007, slope_right=True)
+            elif model_id == "spanish_neoclassical" and w >= 5.0:
+                # Stepped moulded porch entablature
+                ax.add_patch(Rectangle((x - 0.35, z + h), w + 0.7, 0.45, facecolor="#EAE0CE", edgecolor=frame_col, linewidth=lw_m * 0.8, zorder=zo + 0.006))
+
+        if role == "column":
+            if model_id == "spanish_neoclassical":
+                # Classical column base & capital + fluting
+                ax.add_patch(Rectangle((x - 0.2, z), w + 0.4, 0.65, facecolor="#EAE0CE", edgecolor=frame_col, linewidth=lw_l * 0.8, zorder=zo + 0.005))
+                ax.add_patch(Rectangle((x - 0.25, z + h - 0.65), w + 0.5, 0.65, facecolor="#EAE0CE", edgecolor=frame_col, linewidth=lw_l * 0.8, zorder=zo + 0.005))
+                ax.plot([x + w * 0.5, x + w * 0.5], [z + 0.7, z + h - 0.7], color=frame_col, linewidth=lw_l * 0.5, alpha=0.5, zorder=zo + 0.004)
+            elif model_id == "brick_timber_sloped":
+                # Brick-clad porch pier
+                _draw_brick_panel(ax, x, z, w, h, lw_l, zo + 0.003)
+
+        # 3. Wall Facade Articulation (Model-Specific)
         if role == "wall" and w >= 2.0 and h >= 3.0:
-            if theme.get("texture") == "groove":
-                # Modern horizontal reveals
-                for gy in np.arange(z + 1.6, z + h - 0.5, 1.6):
-                    ax.plot([x + 0.1, x + w - 0.1], [gy, gy], color="#E2E8F0", linewidth=lw_l * 0.65, zorder=zo + 0.005)
-            elif theme.get("texture") == "timber_louvers":
-                # Cedar vertical screening panel on wall piers (width between 2.0 and 8.0 ft)
-                if 2.0 <= w <= 8.5:
-                    for vx in np.arange(x + 0.35, x + w - 0.2, 0.45):
-                        ax.plot([vx, vx], [z + 0.2, z + h - 0.2], color="#8C6D46", linewidth=lw_l * 0.9, zorder=zo + 0.006)
-            elif theme.get("texture") == "cornice":
-                # Classical decorative string course & quoins
-                ax.plot([x, x + w], [z + h - 0.3, z + h - 0.3], color=accent_col, linewidth=lw_m * 0.9, zorder=zo + 0.005)
-                ax.plot([x, x + w], [z + h - 0.5, z + h - 0.5], color=accent_col, linewidth=lw_l * 0.6, zorder=zo + 0.005)
-                # Corner quoin stones
-                if w >= 4.0:
-                    for qy in np.arange(z + 0.5, z + h - 0.8, 1.4):
-                        qw = min(1.2, w * 0.18)
-                        ax.add_patch(Rectangle((x + 0.05, qy), qw, 0.6, facecolor="#EFE8DA", edgecolor=frame_col, linewidth=lw_l * 0.55, zorder=zo + 0.006))
-                        ax.add_patch(Rectangle((x + w - qw - 0.05, qy), qw, 0.6, facecolor="#EFE8DA", edgecolor=frame_col, linewidth=lw_l * 0.55, zorder=zo + 0.006))
+            if model_id == "modern_cantilever":
+                # Subtle horizontal reveals + bold cantilevered dark portal frame on upper storeys
+                for gy in np.arange(z + 2.0, z + h - 0.5, 2.0):
+                    ax.plot([x + 0.1, x + w - 0.1], [gy, gy], color="#CBD5E1", linewidth=lw_l * 0.55, zorder=zo + 0.003)
+                if lvl >= 1 and w >= 6.0:
+                    # Cantilevered charcoal architectural box frame wrapping the upper volume
+                    t_f = 0.55
+                    ax.add_patch(Rectangle((x - 0.35, z + h - t_f), w + 0.7, t_f + 0.15, facecolor=accent_col, edgecolor=frame_col, linewidth=lw_m, zorder=zo + 0.006))
+                    ax.add_patch(Rectangle((x - 0.35, z - 0.15), w + 0.7, t_f, facecolor=accent_col, edgecolor=frame_col, linewidth=lw_m, zorder=zo + 0.006))
+                    ax.add_patch(Rectangle((x - 0.35, z), t_f, h, facecolor=accent_col, edgecolor=frame_col, linewidth=lw_m, zorder=zo + 0.006))
+                    ax.add_patch(Rectangle((x + w - t_f + 0.35, z), t_f, h, facecolor=accent_col, edgecolor=frame_col, linewidth=lw_m, zorder=zo + 0.006))
+                    _draw_shadow(ax, x - 0.2, z - 0.85, w + 0.4, 0.7, zo + 0.001, alpha=0.18)
 
-        # Classical parapet dentil moulding band
-        if role == "parapet" and theme.get("texture") == "cornice" and w >= 3.0:
-            for dx in np.arange(x + 0.3, x + w - 0.3, 0.8):
-                ax.add_patch(Rectangle((dx, z + h - 0.55), 0.35, 0.3, facecolor="#D7CCC8", edgecolor=frame_col, linewidth=lw_l * 0.5, zorder=zo + 0.006))
+            elif model_id == "spanish_neoclassical":
+                # Classical string-course cornice + fluted corner pilasters + quoining
+                ax.add_patch(Rectangle((x - 0.25, z + h - 0.55), w + 0.5, 0.55, facecolor="#EAE0CE", edgecolor=frame_col, linewidth=lw_m * 0.85, zorder=zo + 0.005))
+                if w >= 5.0:
+                    pw = min(1.3, w * 0.11)
+                    for px in (x + 0.05, x + w - pw - 0.05):
+                        ax.add_patch(Rectangle((px, z), pw, h - 0.55, facecolor="#F5EFE2", edgecolor=frame_col, linewidth=lw_l * 0.75, zorder=zo + 0.004))
+                        ax.plot([px + pw * 0.35] * 2, [z + 0.6, z + h - 1.0], color=frame_col, linewidth=lw_l * 0.4, alpha=0.45, zorder=zo + 0.005)
+                        ax.plot([px + pw * 0.65] * 2, [z + 0.6, z + h - 1.0], color=frame_col, linewidth=lw_l * 0.4, alpha=0.45, zorder=zo + 0.005)
+                        # Pilaster capital
+                        ax.add_patch(Rectangle((px - 0.15, z + h - 1.05), pw + 0.3, 0.5, facecolor="#D9CCB8", edgecolor=frame_col, linewidth=lw_l * 0.7, zorder=zo + 0.006))
 
-        # Balustrade Railing Styling
+            elif model_id == "brick_timber_sloped":
+                # Exposed brick feature zone on clear solid wall intervals + vertical cedar louvers
+                intervals = sorted([(o["a0"], o["a1"]) for o in front_opens])
+                solid_spans: List[Tuple[float, float]] = []
+                cur_x = x
+                for a0, a1 in intervals:
+                    if a0 - cur_x >= 2.2:
+                        solid_spans.append((cur_x + 0.2, a0 - 0.2))
+                    cur_x = max(cur_x, a1)
+                if x + w - cur_x >= 2.2:
+                    solid_spans.append((cur_x + 0.2, x + w - 0.2))
+                for idx_sp, (sx0, sx1) in enumerate(solid_spans):
+                    sw = sx1 - sx0
+                    if sw >= 3.2 and idx_sp % 2 == 0:
+                        _draw_brick_panel(ax, sx0, z + 0.15, min(sw, 7.5), h - 0.3, lw_l, zo + 0.003)
+                    elif sw >= 2.0:
+                        # Vertical cedar timber louver screen
+                        ax.add_patch(Rectangle((sx0, z + 0.2), min(sw, 5.5), h - 0.4, facecolor="#EDE6D6", edgecolor="none", zorder=zo + 0.002))
+                        for vx in np.arange(sx0 + 0.25, sx0 + min(sw, 5.5) - 0.15, 0.42):
+                            ax.plot([vx, vx], [z + 0.25, z + h - 0.25], color="#9B6B3B", linewidth=lw_m * 0.9, zorder=zo + 0.004)
+                # Concrete slab shadow band
+                ax.add_patch(Rectangle((x - 0.2, z + h - 0.45), w + 0.4, 0.45, facecolor=slab_fill, edgecolor=frame_col, linewidth=lw_m * 0.85, zorder=zo + 0.005))
+
+            elif model_id == "jaali_courtyard":
+                # Travertine ashlar horizontal stone bands + geometric jaali accent pier
+                for gy in np.arange(z + 1.4, z + h - 0.3, 1.4):
+                    ax.plot([x + 0.1, x + w - 0.1], [gy, gy], color="#CBBFA8", linewidth=lw_l * 0.65, zorder=zo + 0.003)
+                intervals = sorted([(o["a0"], o["a1"]) for o in front_opens])
+                cur_x = x
+                for a0, a1 in intervals:
+                    if a0 - cur_x >= 2.6:
+                        jw = min(4.2, a0 - cur_x - 0.6)
+                        _draw_jaali_pattern(ax, cur_x + 0.3, z + 0.5, jw, h - 1.0, frame_col, accent_col, lw_l, zo + 0.004)
+                        break
+                    cur_x = max(cur_x, a1)
+                else:
+                    if x + w - cur_x >= 2.6:
+                        jw = min(4.2, x + w - cur_x - 0.6)
+                        _draw_jaali_pattern(ax, cur_x + 0.3, z + 0.5, jw, h - 1.0, frame_col, accent_col, lw_l, zo + 0.004)
+
+        # 4. Parapet Crown & Roofline Treatment
+        if role == "parapet" and w >= 2.5:
+            if model_id == "spanish_neoclassical":
+                # Dentil moulding + pitched terracotta roof hood above parapet
+                for dx_d in np.arange(x + 0.35, x + w - 0.35, 0.75):
+                    ax.add_patch(Rectangle((dx_d, z + h - 0.6), 0.35, 0.32, facecolor="#D9CCB8", edgecolor=frame_col, linewidth=lw_l * 0.5, zorder=zo + 0.005))
+                _draw_terracotta_roof_band(ax, x, z + h, w, min(2.4, max(1.4, w * 0.075)), frame_col, lw_m, zo + 0.006)
+            elif model_id == "modern_cantilever":
+                # Floating dark monolithic parapet coping with shadow reveal
+                ax.add_patch(Rectangle((x - 0.55, z + h - 0.55), w + 1.1, 0.65, facecolor=accent_col, edgecolor=frame_col, linewidth=lw_m, zorder=zo + 0.006))
+                _draw_shadow(ax, x - 0.4, z + h - 0.95, w + 0.8, 0.4, zo + 0.004, alpha=0.18)
+            elif model_id == "jaali_courtyard":
+                # Stepped double-coping crown + perforated parapet breeze strip
+                ax.add_patch(Rectangle((x - 0.35, z + h - 0.45), w + 0.7, 0.5, facecolor=accent_col, edgecolor=frame_col, linewidth=lw_m * 0.9, zorder=zo + 0.006))
+                if w >= 5.0:
+                    _draw_jaali_pattern(ax, x + 0.8, z + 0.45, w - 1.6, max(1.2, h - 1.1), frame_col, accent_col, lw_l * 0.85, zo + 0.004)
+            elif model_id == "brick_timber_sloped":
+                # Timber fascia band along parapet top
+                ax.add_patch(Rectangle((x - 0.4, z + h - 0.5), w + 0.8, 0.55, facecolor="#9B6B3B", edgecolor=frame_col, linewidth=lw_m * 0.9, zorder=zo + 0.006))
+
+        # 5. Stair Mumty Tower Roof Treatment
+        if role == "mumty" and w >= 2.5:
+            # Clerestory daylight ribbon window on mumty
+            cw = min(w * 0.55, 5.5)
+            cx = x + (w - cw) / 2.0
+            ax.add_patch(Rectangle((cx, z + h * 0.48), cw, min(2.6, h * 0.32), facecolor=theme.get("glass_fill", "#D6E8F5"),
+                                   edgecolor=frame_col, linewidth=lw_m * 0.8, zorder=zo + 0.005))
+            if model_id == "spanish_neoclassical":
+                _draw_terracotta_roof_band(ax, x, z + h, w, min(2.8, max(1.6, w * 0.22)), frame_col, lw_m, zo + 0.008)
+            elif model_id == "brick_timber_sloped":
+                _draw_sloped_metal_canopy(ax, x, z + h, w, min(2.6, max(1.6, w * 0.22)), frame_col, lw_m, zo + 0.008, slope_right=False)
+            elif model_id == "jaali_courtyard":
+                _draw_jaali_pattern(ax, cx, z + h * 0.48, cw, min(2.6, h * 0.32), frame_col, accent_col, lw_l, zo + 0.006)
+            elif model_id == "modern_cantilever":
+                ax.add_patch(Rectangle((x - 0.6, z + h), w + 1.2, 0.65, facecolor=accent_col, edgecolor=frame_col, linewidth=lw_m, zorder=zo + 0.007))
+
+        # 6. Balcony / Terrace Railing Styling
         if role == "rail":
             r_style = theme.get("rail_style", "glass")
             if r_style == "glass":
-                # Modern seamless glass balustrade with stainless top handrail
-                ax.add_patch(Rectangle((x + 0.1, z + 0.1), w - 0.2, h - 0.2, facecolor="#86BEDD", alpha=0.35,
+                ax.add_patch(Rectangle((x + 0.08, z + 0.08), w - 0.16, h - 0.16, facecolor="#7CC4E8", alpha=0.38,
                                        edgecolor=accent_col, linewidth=lw_l, zorder=zo + 0.005))
-                # Spigots / posts every 4.0 ft
-                for bx in np.arange(x + 1.5, x + w - 0.5, 4.0):
-                    ax.plot([bx, bx], [z, z + 0.5], color=frame_col, linewidth=lw_m * 1.5, zorder=zo + 0.008)
-                ax.plot([x, x + w], [z + h, z + h], color=frame_col, linewidth=lw_m * 1.5, zorder=zo + 0.01)
+                for bx in np.arange(x + 1.2, x + w - 0.4, 3.2):
+                    ax.plot([bx, bx], [z, z + 0.55], color=frame_col, linewidth=lw_m * 1.6, zorder=zo + 0.007)
+                ax.plot([x, x + w], [z + h, z + h], color=frame_col, linewidth=lw_m * 1.6, zorder=zo + 0.008)
             elif r_style == "wrought":
-                # Classical wrought iron spindles with intermediate circles/spears
                 for bx in np.arange(x + 0.4, x + w, 0.55):
                     ax.plot([bx, bx], [z, z + h], color=frame_col, linewidth=lw_l * 0.9, zorder=zo + 0.005)
-                ax.plot([x, x + w], [z + h, z + h], color=frame_col, linewidth=lw_m * 1.4, zorder=zo + 0.008)
-                ax.plot([x, x + w], [z + h - 0.4, z + h - 0.4], color=accent_col, linewidth=lw_l * 0.7, zorder=zo + 0.006)
-            elif r_style == "louver":
-                # Warm architectural horizontal timber slats
+                # Ornamental rings near top rail
+                for rx_c in np.arange(x + 0.7, x + w - 0.4, 1.1):
+                    ax.add_patch(Circle((rx_c, z + h - 0.45), 0.22, facecolor="none", edgecolor=frame_col, linewidth=lw_l * 0.75, zorder=zo + 0.006))
+                ax.plot([x, x + w], [z + h, z + h], color=frame_col, linewidth=lw_m * 1.5, zorder=zo + 0.008)
+                ax.plot([x, x + w], [z + h - 0.7, z + h - 0.7], color=frame_col, linewidth=lw_l * 0.7, zorder=zo + 0.006)
+            elif r_style == "timber_louver":
                 for ly in np.arange(z + 0.4, z + h, 0.45):
-                    ax.plot([x + 0.1, x + w - 0.1], [ly, ly], color="#8C6D46", linewidth=lw_m * 1.2, zorder=zo + 0.005)
-                # Vertical stanchions
+                    ax.plot([x + 0.1, x + w - 0.1], [ly, ly], color="#9B6B3B", linewidth=lw_m * 1.25, zorder=zo + 0.005)
                 for sx in np.arange(x + 0.8, x + w, 2.2):
                     ax.plot([sx, sx], [z, z + h], color=frame_col, linewidth=lw_m * 1.3, zorder=zo + 0.006)
                 ax.plot([x, x + w], [z + h, z + h], color=frame_col, linewidth=lw_m * 1.5, zorder=zo + 0.008)
-            else:
-                for bx in [x + k * 0.9 for k in range(1, int(w / 0.9) + 1) if x + k * 0.9 < x + w - 0.1]:
-                    ax.plot([bx, bx], [z, z + h], color=INK_MID, linewidth=lw_l * 0.8, zorder=zo)
-                ax.plot([x, x + w], [z + h, z + h], color=INK, linewidth=lw_m * 1.3, zorder=zo)
+            elif r_style == "jaali_screen":
+                _draw_jaali_pattern(ax, x, z, w, h, frame_col, accent_col, lw_l, zo + 0.005)
+                # Cantilevered planter box with greenery along balcony front edge
+                ax.add_patch(Rectangle((x - 0.15, z - 0.55), w + 0.3, 0.6, facecolor=accent_col, edgecolor=frame_col, linewidth=lw_l, zorder=zo + 0.007))
+                for gx in np.arange(x + 0.9, x + w - 0.6, 1.8):
+                    ax.add_patch(Circle((gx, z + 0.35), 0.42, facecolor="#5C8D67", edgecolor="#23483D", alpha=0.85, linewidth=lw_l * 0.5, zorder=zo + 0.008))
 
-        # Openings on front face (windows, vents, doors)
-        for o in s["open"]:
-            if o["face"] != "front":
-                continue
+        # 7. Exact Plan-Aligned Front Openings (Windows, Vents, Doors)
+        for o in front_opens:
             ow, oh = o["a1"] - o["a0"], o["z1"] - o["z0"]
             if o["kind"] in ("door", "main"):
                 _elev_door(ax, o["a0"], o["z0"], ow, oh, lw_m, main=o["kind"] == "main", zo=zo + 0.01, theme=theme)
             else:
                 _elev_window(ax, o["a0"], o["z0"], ow, oh, lw_m, vent=o["kind"] == "vent", zo=zo + 0.01, theme=theme)
 
-    # datum levels on the left
+    # Datum levels on the left
     def datum(z, label):
         ax.plot([-4.2, W + 1.2], [z, z], color=INK_LIGHT, linewidth=lw_l * 0.75, linestyle=(0, (6, 4)), zorder=2)
         ax.add_patch(MplPolygon([[-1.4, z], [-2.1, z + 0.55], [-2.1, z - 0.55]], closed=True, facecolor=frame_col,
@@ -543,7 +814,7 @@ def render_front_elevation(
     if m["has_mumty"]:
         datum(m["top"] + MUMTY_H + 0.5, "MUMTY TOP")
 
-    # overall height (right) and width (bottom)
+    # Overall height (right) and width (bottom)
     dx = W + 3.0
     ax.plot([dx, dx], [0, total], color=frame_col, linewidth=lw_l, zorder=12)
     for py in (0, total):
@@ -560,17 +831,16 @@ def render_front_elevation(
     theme_label = theme.get("name", style).upper()
     ax.text(W / 2.0, -4.6,
             f"FRONT ELEVATION (STREET SIDE)   |   {m['storeys']} STOREY(S)   |   PLOT: {_ft_in(W)} × {_ft_in(m['L'])}"
-            f"   |   STYLE: {theme_label}   |   SCALE: 1/8\" = 1'-0\"",
+            f"   |   MODEL: {theme_label}   |   SCALE: 1/8\" = 1'-0\"",
             ha="center", va="top", fontsize=max(7.0, 9.0 * scale), fontweight="bold", color=frame_col)
 
     ax.set_xlim(-13.5, W + 6.5)
-    ax.set_ylim(-6.6, total + 3.0)
+    ax.set_ylim(-6.6, total + extra_top + 2.5)
     ax.set_aspect("equal")
     ax.axis("off")
     plt.tight_layout(pad=0.4)
 
-    # Filename suffix distinguishes the variant
-    suffix = f"_{variant_key}" if variant_key else ""
+    suffix = f"_{model_id}" if variant_key else ""
     fpath = os.path.join(out_dir, f"{project_id}_front_elevation_2d{suffix}.png")
     plt.savefig(fpath, dpi=dpi, bbox_inches="tight", facecolor=bg_paper)
     plt.close(fig)
@@ -585,19 +855,21 @@ def render_all_elevation_styles(
     dpi: int = 220
 ) -> Dict[str, str]:
     """
-    Renders 3 distinct architectural front elevation styles for the exact same layout solids:
-    1. Modern Contemporary
-    2. Classical & Traditional
-    3. Minimalist Timber & Stone
-    Returns a dict mapping style key to output file path.
+    Renders 4 genuinely distinct architectural front elevation models for the exact same 2D plan solids:
+      1. modern_cantilever    — Modern Cantilever & Frame Grid
+      2. spanish_neoclassical — Spanish / Neoclassical Villa
+      3. brick_timber_sloped  — Contemporary Brick, Timber & Sloped Roof
+      4. jaali_courtyard      — Pakistani Jaali & Travertine Stone
+    Also populates backward-compatible alias keys (`modern_contemporary`, `classical_traditional`, `minimalist_timber`).
     """
     res: Dict[str, str] = {}
-    for v_key in ELEVATION_THEMES.keys():
+    for v_key in ELEVATION_MODELS.keys():
         path = render_front_elevation(layout, project_id, style, out_dir, dpi=dpi, variant_key=v_key)
         res[v_key] = path
-    # Also ensure the primary elevation is always available
+    for old_k, new_k in _STYLE_ALIASES.items():
+        res[old_k] = res[new_k]
     primary_theme = _resolve_theme(style)
-    res["primary"] = res.get(primary_theme["id"]) or render_front_elevation(layout, project_id, style, out_dir, dpi=dpi)
+    res["primary"] = res.get(primary_theme["id"]) or res["modern_cantilever"]
     return res
 
 

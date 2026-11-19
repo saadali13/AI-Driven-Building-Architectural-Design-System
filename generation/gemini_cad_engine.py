@@ -45,6 +45,7 @@ from google.genai import types
 
 from config.gemini_config import GeminiConfig
 from generation import massing_render
+from generation.pakistan_rag import build_planner_context
 from generation.plan_geometry_engine import (
     EXT_WALL, _pt, analyse_layout, build_wall_geometry, classify_room,
     format_issues_for_llm, is_enclosed, room_clear_rect,
@@ -1458,15 +1459,21 @@ def _render_design_package(layout_data: Dict[str, Any], style: str, project_id: 
     comp_path = render_composite_multi_floor_cad_sheet(layout_data, pid, proj_dir, is_furnishing=True)
     images["all"] = images["multiFloor"] = images["presentation"] = f"{web_prefix}/{os.path.basename(comp_path)}"
     # elevation and 3D views are projections of ONE massing model built from the plan geometry
-    # We render all 3 dynamic elevation style variations matching the exact 2D layout solids:
-    # 1. Modern Contemporary  2. Classical & Traditional  3. Minimalist Timber & Stone
+    # Render 4 genuinely distinct architectural facade models strictly aligned to the 2D plan solids:
+    # 1. modern_cantilever  2. spanish_neoclassical  3. brick_timber_sloped  4. jaali_courtyard
     elev_styles = massing_render.render_all_elevation_styles(layout_data, pid, style, proj_dir, dpi=RENDER_DPI)
-    elev_path = elev_styles.get("primary") or elev_styles.get("modern_contemporary")
+    elev_path = elev_styles.get("primary") or elev_styles.get("modern_cantilever")
     images["elevation"] = f"{web_prefix}/{os.path.basename(elev_path)}"
-    images["elevation_modern"] = f"{web_prefix}/{os.path.basename(elev_styles['modern_contemporary'])}"
-    images["elevation_classical"] = f"{web_prefix}/{os.path.basename(elev_styles['classical_traditional'])}"
-    images["elevation_timber"] = f"{web_prefix}/{os.path.basename(elev_styles['minimalist_timber'])}"
+    images["elevation_modern"] = f"{web_prefix}/{os.path.basename(elev_styles['modern_cantilever'])}"
+    images["elevation_classical"] = f"{web_prefix}/{os.path.basename(elev_styles['spanish_neoclassical'])}"
+    images["elevation_timber"] = f"{web_prefix}/{os.path.basename(elev_styles['brick_timber_sloped'])}"
+    images["elevation_jaali"] = f"{web_prefix}/{os.path.basename(elev_styles['jaali_courtyard'])}"
     images["elevation_styles"] = {
+        "modern_cantilever": images["elevation_modern"],
+        "spanish_neoclassical": images["elevation_classical"],
+        "brick_timber_sloped": images["elevation_timber"],
+        "jaali_courtyard": images["elevation_jaali"],
+        # backward-compatible aliases
         "modern_contemporary": images["elevation_modern"],
         "classical_traditional": images["elevation_classical"],
         "minimalist_timber": images["elevation_timber"],
@@ -1490,7 +1497,7 @@ SCRIPT_MODELS = ["gemini-3-flash-preview", "gemini-2.5-flash", "gemini-3.1-flash
 MAX_SCRIPT_ROUNDS = 4        # 1 design call + up to 3 repair calls driven by the CAD engine
 SCRIPT_CANDIDATES_FIRST = 3  # designs asked for in parallel in round 1 (the engine keeps the best)
 SCRIPT_CANDIDATES_REPAIR = 2 # repairs asked for in parallel in each later round
-MAX_CONVERSE_ROUNDS = 3      # the requested change + up to 2 automatic repairs
+MAX_CONVERSE_ROUNDS = 4      # the requested change + up to 3 automatic repair/rebalance rounds
 MAX_DESIGN_ROUNDS = MAX_SCRIPT_ROUNDS      # backward-compatible name
 SCRIPT_THINKING_LEVEL = "MEDIUM"           # Gemini 3 thinking level for script calls
 COPY_LIMIT = 0.7             # an upper floor that repeats more than this share of the floor below is sent back
@@ -1612,11 +1619,19 @@ def prepare_design_context(prompt: str, plot_width: float, plot_length: float, f
         levels_note = ("Levels: the brief does not say how many storeys - use the fewest levels that hold everything the "
                        "client asked for with rooms that work (LEVEL 0 alone, or LEVEL 0 and LEVEL 1 with a stair). The "
                        "stair keeps its rectangle on every level. Add a ROOF level only if the client asks for roof items.")
+    rag_info = {"context_text": "", "references": [], "mode": "disabled"}
+    try:
+        rag_info = build_planner_context(brief, W, L, floors, top_k=5, api_key=api_key)
+    except Exception as e_rag:
+        print(f"[Pakistan RAG] notice: {e_rag}")
     return {"brief": brief, "W": W, "L": L, "floors": floors, "style": style, "marla_label": marla_label,
             "setbacks_from_prompt": {k: v for k, v in (setbacks or {}).items() if v is not None},
             "front_sb": front_sb, "rear_sb": rear_sb, "req": req, "llm_reading": llm_reading,
             "bedrooms": req["bedrooms"], "bathrooms": req["bathrooms"], "levels_note": levels_note,
-            "size_notions": _size_notions(custom_room_dimensions), "api_key": api_key}
+            "size_notions": _size_notions(custom_room_dimensions), "api_key": api_key,
+            "rag_context": rag_info.get("context_text", ""),
+            "rag_references": rag_info.get("references", []),
+            "rag_mode": rag_info.get("mode", "lexical")}
 
 
 def _ascii_map(geo: Dict[str, Any], levels: Optional[set] = None) -> str:
@@ -1837,6 +1852,8 @@ def synthesize_design(
                                  custom_room_dimensions, kwargs.get("requirements"), kwargs.get("setbacks"))
     base = build_script_prompt(ctx["brief"], ctx["req"]["checklist"], ctx["W"], ctx["L"], ctx["front_sb"],
                                ctx["rear_sb"], ctx["levels_note"], ctx["size_notions"], kwargs.get("style_label", style))
+    if ctx.get("rag_context"):
+        base = base + "\n\n" + ctx["rag_context"]
     portion = (ctx["req"].get("portion") or {}).get("kind") == "upper"
     if int(ctx["floors"] or 0) >= 2 and not portion:
         # a house of 2+ storeys is designed level by level: the ground floor is designed and checked first and stays
@@ -2705,7 +2722,8 @@ def converse_design_script(script: str, message: str, prompt: str = "", history:
     current = _evaluate_script(script, ctx, 0, "current", None, enforce_setbacks=False)
     base = build_converse_prompt(ctx["brief"], ctx["req"]["checklist"], current["script"], message, history or [],
                                  ctx["W"], ctx["L"], current["front_sb"], current["rear_sb"],
-                                 problems=current["problems"][:15] if current["errors"] else None)
+                                 problems=current["problems"][:15] if current["errors"] else None,
+                                 rag_context=ctx.get("rag_context", ""))
     attempts: List[Dict[str, Any]] = []
     reply = ""
     text = base
@@ -2736,19 +2754,20 @@ def converse_design_script(script: str, message: str, prompt: str = "", history:
             patch_src = None
             text = build_script_repair_prompt(base, top["script"], top["problems"] if top is not cand else problems)
     best = min(attempts, key=lambda a: (a["errors"], a["unmet"], len(a["lost"]), a["quality"], -a["round"]))
-    # A change must not make the design worse: if every attempt broke rules, dropped client items or took away
-    # furniture that fitted before, keep the current design and explain why (the proposal is returned to inspect).
-    if (best["errors"], best["unmet"]) > (current["errors"], current["unmet"]) or best["lost"]:
+    # Keep all physical CAD checks and balances intact: reject ONLY if the edit broke physical CAD rules
+    # (more errors than before) or dropped essential furniture in a room that still exists.
+    # Never block intentional room deletions/cuts or rebalances requested by the client.
+    if best["errors"] > current["errors"] or best["lost"]:
         current["round"], current["source"], current["model"] = 0, "kept_previous", None
         current["lost"] = []
         res = _design_response(current, attempts + [current], ctx, style, mode="converse")
-        if (best["errors"], best["unmet"]) > (current["errors"], current["unmet"]):
-            why = "it would break the design (" + "; ".join(p.lstrip("- ")[:140] for p in best["problems"][:3]) + ")"
+        if best["errors"] > current["errors"]:
+            why = "it would break physical CAD checks (" + "; ".join(p.lstrip("- ")[:140] for p in best["problems"][:3]) + ")"
         else:
             why = "it would no longer fit " + ", ".join(f"the {m['item']} in {m['name']}" for m in best["lost"])
         res["assistant_message"] = ((reply + " ") if reply else "") + \
-            f"I could not make that change because {why}, so I kept your current plan. " \
-            f"Try asking for it differently, or edit the script directly."
+            f"I could not make that change cleanly because {why}, so I kept your current plan. " \
+            f"Try specifying which adjacent room to trim or remove to make space."
         res["proposed_script"] = best["script"]
         res["change_applied"] = False
         res["design_source"] = "previous_design_kept"
@@ -3011,6 +3030,12 @@ def _design_response(best: Dict[str, Any], attempts: List[Dict[str, Any]], ctx: 
         },
         "three_d_model": {"nodes": three_d_nodes, "source": "massing_render",
                           "views": {k: v for k, v in images.items() if k.startswith("view3d_")}},
-        "llm_rag": {"source": "gemini_live", "model": model_used},
+        "rag_references": ctx.get("rag_references", []),
+        "llm_rag": {
+            "source": "gemini_live",
+            "model": model_used,
+            "rag_mode": ctx.get("rag_mode", "vector"),
+            "rules_retrieved": len(ctx.get("rag_references", [])),
+        },
         "timestamp": datetime.datetime.now().isoformat(),
     }

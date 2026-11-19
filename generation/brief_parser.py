@@ -1232,9 +1232,13 @@ _REMOVABLE = [
     (r"study|office", lambda r: r.__setitem__("extra_rooms", [e for e in r.get("extra_rooms", []) if e != "study"])),
     (r"dining", lambda r: r.__setitem__("extra_rooms", [e for e in r.get("extra_rooms", []) if e != "dining"])),
     (r"laundry", lambda r: r.__setitem__("extra_rooms", [e for e in r.get("extra_rooms", []) if e != "laundry"])),
+    (r"store|storage", lambda r: r.__setitem__("extra_rooms", [e for e in r.get("extra_rooms", []) if e not in ("store", "storage")])),
     (r"powder", lambda r: r.__setitem__("powder_bath", False)),
     (r"dirty kitchen", lambda r: r.__setitem__("dirty_kitchen", False)),
     (r"roof garden|garden", lambda r: r.__setitem__("roof_garden", False)),
+    (r"roof terrace|terrace|balcony", lambda r: r.__setitem__("roof_terrace", False)),
+    (r"rear lawn|front lawn|lawn", lambda r: r.__setitem__("rear_lawn", False)),
+    (r"car porch|porch|garage|parking", lambda r: (r.__setitem__("no_car_porch", True), r.__setitem__("cars", 0), r.__setitem__("cars_stated", True))),
     (r"gate", lambda r: r.__setitem__("entry_gate", False)),
     (r"corridor|gallery", lambda r: r.__setitem__("open_corridor", False)),
     (r"sofa ?bed", lambda r: r.pop("sofa_beds", None)),
@@ -1242,34 +1246,66 @@ _REMOVABLE = [
     (r"drawing", lambda r: r.__setitem__("drawing_room", False)),
 ]
 
+_REM_VERB = r"(?:remove|delete|drop|cut|eliminate|scrap|omit|without|no|get rid of|hata\w*|nahi|nahin)"
+
 
 def apply_message_to_requirements(req: Dict[str, Any], message: str, bedrooms: int, bathrooms: int,
                                   floors: int) -> Dict[str, Any]:
-    """'add a prayer room' adds the item to the checklist; 'remove the gate' takes it off."""
+    """'add a prayer room' adds the item to the checklist; 'remove/cut the drawing room' takes it off.
+    Supports simultaneous cut + add (e.g. 'delete the drawing room and add a study room')."""
     t = normalise_brief(message)
     req = dict(req)
+    req["extra_rooms"] = list(req.get("extra_rooms") or [])
+
+    # 1. Process explicit removals / cuts first
     for pat, drop in _REMOVABLE:
-        if re.search(r"\b(remove|delete|drop|without|no|hata\w*|nahi|nahin)\b[^.]{0,25}\b(" + pat + r")", t):
+        if re.search(rf"\b{_REM_VERB}\b[^.,;]{{0,30}}\b({pat})\b", t):
             drop(req)
-    add = parse_brief(message, 0, 0, floors, bedrooms, bathrooms)
-    if not re.search(r"\b(remove|delete|drop|without|hata\w*|nahi|nahin)\b", t):
-        for k in ("powder_bath", "drawing_bath", "dirty_kitchen", "roof_garden", "roof_terrace", "floor_seating",
-                  "open_corridor", "entry_gate", "rear_lawn"):
-            if add.get(k):
-                req[k] = True
-        if add.get("pool") and not req.get("pool"):
-            req["pool"] = add["pool"]
-        inside = re.search(r"\b(corner|nook|mat|alcove|area)\b[^.]{0,30}\b(in|inside|within)\s+(the\s+)?\w+", t) or \
-            re.search(r"\b(in|inside)\s+(the\s+)?(drawing|lounge|bed ?room|kitchen|corridor|majlis)", t)
-        for e in add.get("extra_rooms", []):
-            if inside or not re.search(r"\b(add|make|create|need|want|chahiye)\b[^.]{0,30}" + e[:5] + r"\w*\s+(room|quarter|space)", t):
-                continue                       # e.g. "a prayer corner in the drawing room" is a furniture change
-            if e not in req.setdefault("extra_rooms", []):
-                req["extra_rooms"].append(e)
-        for k in ("bedrooms_stated", "bathrooms_stated", "attached_baths", "sofa_beds"):
-            if add.get(k):
-                req[k] = add[k]
-        if add.get("cars_stated"):
-            req["cars"] = add["cars"]
-    req["checklist"] = build_checklist(req, bedrooms, bathrooms, floors)
+
+    # Bedroom / bathroom decrements (e.g. "remove 1 bedroom", "delete bedroom 3", "cut a bathroom")
+    if re.search(rf"\b{_REM_VERB}\b[^.,;]{{0,25}}\b(bed ?rooms?|beds?)\b", t):
+        m_cnt = re.search(rf"\b{_REM_VERB}\b[^.,;]{{0,15}}\b(\d+)\s*(?:bed ?rooms?|beds?)\b", t)
+        dec = int(m_cnt.group(1)) if m_cnt else 1
+        cur_b = int(req.get("bedrooms") or bedrooms or 1)
+        new_b = max(1, cur_b - dec)
+        req["bedrooms"] = new_b
+        req["bedrooms_stated"] = new_b
+        req.pop("beds_per_floor", None)
+    if re.search(rf"\b{_REM_VERB}\b[^.,;]{{0,25}}\b(bath ?rooms?|baths?|washrooms?|toilets?)\b", t):
+        m_cnt = re.search(rf"\b{_REM_VERB}\b[^.,;]{{0,15}}\b(\d+)\s*(?:bath ?rooms?|baths?|washrooms?)\b", t)
+        dec = int(m_cnt.group(1)) if m_cnt else 1
+        cur_ba = int(req.get("bathrooms") or bathrooms or 1)
+        new_ba = max(1, cur_ba - dec)
+        req["bathrooms"] = new_ba
+        req["bathrooms_stated"] = new_ba
+
+    # 2. Process additions on non-negated clauses (so "remove X and add Y" works cleanly)
+    add_text = re.sub(rf"\b{_REM_VERB}\b[^.,;&]*?(?=\band\b|\binstead\b|\breplace\b|,|\.|$)", " ", t)
+    add = parse_brief(add_text, 0, 0, floors, bedrooms, bathrooms)
+    for k in ("powder_bath", "drawing_bath", "dirty_kitchen", "roof_garden", "roof_terrace", "floor_seating",
+              "open_corridor", "entry_gate", "rear_lawn"):
+        if add.get(k):
+            req[k] = True
+    if add.get("pool") and not req.get("pool"):
+        req["pool"] = add["pool"]
+    inside = re.search(r"\b(corner|nook|mat|alcove|area)\b[^.]{0,30}\b(in|inside|within)\s+(the\s+)?\w+", add_text) or \
+        re.search(r"\b(in|inside)\s+(the\s+)?(drawing|lounge|bed ?room|kitchen|corridor|majlis)", add_text)
+    for e in add.get("extra_rooms", []):
+        if inside or not re.search(r"\b(add|make|create|need|want|replace\s+\w+\s+with|chahiye)\b[^.]{0,35}" + e[:5] + r"\w*", add_text):
+            continue
+        if e not in req["extra_rooms"]:
+            req["extra_rooms"].append(e)
+    for k in ("bedrooms_stated", "bathrooms_stated", "attached_baths", "sofa_beds"):
+        if add.get(k):
+            req[k] = add[k]
+            if k == "bedrooms_stated":
+                req["bedrooms"] = add[k]
+            elif k == "bathrooms_stated":
+                req["bathrooms"] = add[k]
+    if add.get("cars_stated") and not req.get("no_car_porch"):
+        req["cars"] = add["cars"]
+
+    eff_beds = int(req.get("bedrooms") or bedrooms)
+    eff_baths = int(req.get("bathrooms") or bathrooms)
+    req["checklist"] = build_checklist(req, eff_beds, eff_baths, floors)
     return req

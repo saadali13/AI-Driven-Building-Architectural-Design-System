@@ -636,19 +636,30 @@ Return the corrected script - everything the task above asks for - inside ```arc
 
 def build_converse_prompt(brief: str, checklist: List[str], script: str, message: str,
                           history: List[Dict[str, str]], plot_w: float, plot_l: float, front_sb: float,
-                          rear_sb: float, problems: Optional[List[str]] = None) -> str:
+                          rear_sb: float, problems: Optional[List[str]] = None,
+                          rag_context: str = "") -> str:
     convo = "\n".join(f"{h.get('role', 'user').upper()}: {h.get('text', '')}" for h in (history or [])[-8:])
     must = "\n".join(f"  - {c}" for c in checklist)
     probs = ("\n=== PROBLEMS THE CAD ENGINE STILL REPORTS ON THE CURRENT SCRIPT ===\n" + "\n".join(problems)) if problems else ""
-    return f"""You are the architect editing a client's ArchiScript in a conversation. Apply the client's message to the
-script and keep everything else that still fits the brief: keep every CLIENT ITEM, keep the same LEVELs (never add a
-level or a roof unless the message asks for it), keep the plot and setbacks. Make the smallest change that does what the
-client asked. If the message is only a question, answer it and return the script unchanged.
+    rag_block = ("\n" + rag_context.strip() + "\n") if (rag_context or "").strip() else ""
+    return f"""You are the architect editing a client's ArchiScript in a conversation.
+YOUR MISSION: ACTUALLY MAKE THE CLIENT'S CHANGE WORK — NEVER REFUSE OR SAY "NOT POSSIBLE".
+- If the client asks to DELETE, CUT, or REMOVE a specific room or feature (e.g. drawing room, car porch, dirty kitchen,
+  store, lawn, terrace, or a bedroom/bath), REMOVE that room's line from the script and cleanly expand adjacent rooms
+  (or replace it with whatever new room they asked for) so the ROWS/COLS still sum to the exact plot dimensions.
+- If the client asks to ADD or ENLARGE a room and space is tight, PROACTIVELY REBALANCE the floor: shrink neighboring
+  rooms proportionally (or trim non-essential secondary spaces like lawn, store, or porch if needed) so the new/enlarged
+  room fits cleanly with valid doors, windows on open air, and furniture clearances.
+- Keep all physical CAD checks and balances intact: every enclosed room must be reachable without walking through a
+  bedroom, every habitable room needs a window on open air (street, setback, or OTS), doors must sit on shared walls,
+  and stairs must stack identically across floors.
+- Keep the same LEVELs unless the client asks to add/remove a floor or roof level. If the message is only a question,
+  answer it and return the script unchanged.
 
 ORIGINAL BRIEF: "{brief.strip()}"
-CLIENT ITEMS:
+UPDATED CLIENT ITEMS:
 {must}
-SITE: plot {plot_w:g} x {plot_l:g} ft, front setback {front_sb:g} ft, rear setback {rear_sb:g} ft.
+SITE: plot {plot_w:g} x {plot_l:g} ft, front setback {front_sb:g} ft, rear setback {rear_sb:g} ft.{rag_block}
 {ENGINEERING_NOTIONS}
 {SCRIPT_SPEC}
 === CURRENT SCRIPT ===
@@ -661,7 +672,7 @@ SITE: plot {plot_w:g} x {plot_l:g} ft, front setback {front_sb:g} ft, rear setba
 {message.strip()}
 
 Return the COMPLETE updated script inside ```archiscript ... ``` fences, then one line:
-CHANGES: <what you changed and why, in one or two plain sentences>
+CHANGES: <what you added, cut, or adjusted and how you rebalanced adjacent rooms, in one or two plain sentences>
 """
 
 

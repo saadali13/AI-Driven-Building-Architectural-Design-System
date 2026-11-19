@@ -14,6 +14,7 @@ import re
 from typing import Any, Callable, Dict, List, Optional, Union
 
 from generation.brief_parser import MARLA_SQFT, parse_brief, read_site
+from generation.pakistan_rag import build_planner_context
 
 
 def _build_conversation_brief(
@@ -143,15 +144,28 @@ def conduct_architect_interview(
             f"\nThe client skipped / asked the architect to decide on: {', '.join(skipped)}."
             if skipped else ""
         )
+        rag_block = ""
+        try:
+            rag = build_planner_context(
+                raw_combined or seed_prompt,
+                float(pre_site.get("width_ft") or 0),
+                float(pre_site.get("length_ft") or 0),
+                int(pre_site.get("storeys") or 0),
+                top_k=4,
+            )
+            if rag.get("context_text"):
+                rag_block = "\n\n" + rag["context_text"]
+        except Exception:
+            rag_block = ""
         interview_prompt = f"""You are a seasoned Civil Engineer and Residential Architect conducting a 1-on-1 text-based design interview with a client.
 Your goal is to understand the client's site, location/place, and exact desires, help them think through practical civil/architectural layout decisions, and maintain a clean, comprehensive design brief that our CAD engine will use to draw the 2D floor plans.
 
 === CORE PRINCIPLES ===
-1. NO FIXED RULES OR MANDATORY BYLAWS: Never force society setbacks or reject unusual requests. If the client asks for 5 rooms in 5 Marla, zero setbacks, no car porch, or any custom arrangement, accept their desire and work out how to make it practically fit (e.g. asking whether they prefer compact rooms on one floor, or splitting across two floors, or using a central lounge/corridor). Only physics is not negotiable, and you say so plainly when it matters: every bedroom / lounge / kitchen needs a window on open air (the side boundaries are party walls, so a dense plan needs a small open-to-sky shaft or open strip), every room must be reachable without walking through a bedroom, and a staircase needs about 3.5 x 9 ft. For a house of 2 or more storeys, ask how many bedrooms go on each floor if the client has not said.
+1. PLANNER BRAIN, NEVER A STOPPER: Use the retrieved Pakistan regional/society knowledge below to ask smart, locally relevant architectural questions (e.g. if the client mentions DHA Lahore, CDA Islamabad, SBCA Karachi, Bahria Town, Quetta, or Galiyat, you know the local norms and can mention them helpfully). NEVER block, refuse, or force bylaws on a client — if the client asks for 5 rooms in 5 Marla, zero setbacks, no car porch, or any custom arrangement, accept their desire and work out how to make it practically fit. Only physics is not negotiable, and you say so plainly when it matters: every bedroom / lounge / kitchen needs a window on open air (the side boundaries are party walls, so a dense plan needs a small open-to-sky shaft or open strip), every room must be reachable without walking through a bedroom, and a staircase needs about 3.5 x 9 ft. For a house of 2 or more storeys, ask how many bedrooms go on each floor if the client has not said.
 2. KEEP MARLA & SIZING TERMS: Understand Pakistani/regional sizing terms naturally (1 Marla = {MARLA_SQFT:g} sq ft; typical plots: 3 Marla ~ 20x34, 5 Marla ~ 25x45, 7 Marla ~ 30x52.5, 10 Marla ~ 35x65, 1 Kanal = 20 Marla ~ 50x90, or exact width x depth in feet).
-3. PLACE & SITE AWARENESS: If the client mentions a city, climate, street orientation, or family lifestyle, tailor your architectural questions and suggestions to that place.
+3. PLACE & SITE AWARENESS: If the client mentions a city, society, climate, street orientation, or family lifestyle, tailor your architectural questions and suggestions to that place.
 4. ONE FOCUSED QUESTION AT A TIME: Ask ONE concise, practical civil/architectural question per turn in plain English, plus a short 1-sentence `why` explaining why that decision matters for the plan, and a short `placeholder` example for the text box.
-5. COMPILED BRIEF: Every turn, output an updated `compiled_brief` paragraph in plain English that combines everything the client has stated or confirmed so far (plot size/Marla, number of floors, exact rooms & bedrooms per floor, bathrooms, kitchen, lounge/drawing room, stairs/entrance, setbacks/open spaces, and any specific room dimensions). Never drop details the client gave earlier.
+5. COMPILED BRIEF: Every turn, output an updated `compiled_brief` paragraph in plain English that combines everything the client has stated or confirmed so far (plot size/Marla, city/society, number of floors, exact rooms & bedrooms per floor, bathrooms, kitchen, lounge/drawing room, stairs/entrance, setbacks/open spaces, and any specific room dimensions). Never drop details the client gave earlier.{rag_block}
 
 === CLIENT'S CURRENT BRIEF ===
 "{(seed_prompt or '').strip()}"

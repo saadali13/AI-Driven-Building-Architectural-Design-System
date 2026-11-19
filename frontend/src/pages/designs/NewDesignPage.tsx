@@ -222,8 +222,8 @@ export const NewDesignPage: React.FC = () => {
 
   // Result display active tab
   const [resultTab, setResultTab] = useState<'floor_plan' | 'elevation' | '3d_model' | 'audit' | 'boq'>('floor_plan');
-  // Dynamic Elevation Style Selection (Modern Contemporary, Classical & Traditional, Minimalist Timber & Stone)
-  const [activeElevationStyle, setActiveElevationStyle] = useState<'modern_contemporary' | 'classical_traditional' | 'minimalist_timber'>('modern_contemporary');
+  // Dynamic Elevation Model Selection (4 distinct architectural facade designs)
+  const [activeElevationStyle, setActiveElevationStyle] = useState<'modern_cantilever' | 'spanish_neoclassical' | 'brick_timber_sloped' | 'jaali_courtyard'>('modern_cantilever');
 
   const handleFetchGeminiMarketRates = async (keyToUse = geminiApiKey, cityToUse = geminiCity) => {
     setIsFetchingGeminiRates(true);
@@ -718,11 +718,13 @@ export const NewDesignPage: React.FC = () => {
           : (backendDesign?.images?.[`${storeyKeys[activeLevel]}_structural`] || backendDesign?.images?.[storeyKeys[activeLevel]]));
 
   const elevationImage =
-    activeElevationStyle === 'classical_traditional'
-      ? (backendDesign?.images?.elevation_classical || backendDesign?.images?.elevation_styles?.classical_traditional || backendDesign?.images?.elevation)
-      : activeElevationStyle === 'minimalist_timber'
-      ? (backendDesign?.images?.elevation_timber || backendDesign?.images?.elevation_styles?.minimalist_timber || backendDesign?.images?.elevation)
-      : (backendDesign?.images?.elevation_modern || backendDesign?.images?.elevation_styles?.modern_contemporary || backendDesign?.images?.elevation);
+    activeElevationStyle === 'spanish_neoclassical'
+      ? (backendDesign?.images?.elevation_styles?.spanish_neoclassical || backendDesign?.images?.elevation_classical || backendDesign?.images?.elevation)
+      : activeElevationStyle === 'brick_timber_sloped'
+      ? (backendDesign?.images?.elevation_styles?.brick_timber_sloped || backendDesign?.images?.elevation_timber || backendDesign?.images?.elevation)
+      : activeElevationStyle === 'jaali_courtyard'
+      ? (backendDesign?.images?.elevation_styles?.jaali_courtyard || backendDesign?.images?.elevation_jaali || backendDesign?.images?.elevation)
+      : (backendDesign?.images?.elevation_styles?.modern_cantilever || backendDesign?.images?.elevation_modern || backendDesign?.images?.elevation);
 
   return (
     <div className="space-y-8 pb-16 max-w-5xl mx-auto">
@@ -2056,31 +2058,37 @@ export const NewDesignPage: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* 3 DYNAMIC ELEVATION STYLE CARDS / SELECTOR */}
+                  {/* 4 DYNAMIC ARCHITECTURAL ELEVATION MODELS / SELECTOR */}
                   <div className="space-y-2">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-[#202923]">Choose Elevation Style Theme:</span>
-                      <span className="text-[10px] text-[#68736C]">3 Distinct Styles &bull; 100% Plan Aligned</span>
+                      <span className="text-xs font-bold text-[#202923]">Choose Front Elevation Design Model:</span>
+                      <span className="text-[10px] text-[#68736C]">4 Distinct Facade Models &bull; 100% Plan Aligned</span>
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                       {[
                         {
-                          id: 'modern_contemporary',
-                          name: 'Modern Contemporary',
-                          badge: 'Charcoal & Glass',
-                          desc: 'Sleek dark frames, seamless glass balustrade, refined horizontal reveals'
+                          id: 'modern_cantilever',
+                          name: 'Modern Cantilever & Frame',
+                          badge: 'Portal & Glass',
+                          desc: 'Cantilevered charcoal box-frames, pergola porch canopy, frameless glass railings, and shadow reveals'
                         },
                         {
-                          id: 'classical_traditional',
-                          name: 'Classical & Traditional',
-                          badge: 'Mouldings & Cornice',
-                          desc: 'Dentil parapet band, divided lite transom windows, corner quoin stones'
+                          id: 'spanish_neoclassical',
+                          name: 'Spanish / Neoclassical Villa',
+                          badge: 'Arches & Terracotta',
+                          desc: 'Arched window crowns with keystones, fluted pilasters, pitched terracotta roof hoods, and wrought iron'
                         },
                         {
-                          id: 'minimalist_timber',
-                          name: 'Minimalist Timber & Stone',
-                          badge: 'Cedar Louvers',
-                          desc: 'Warm architectural timber screens, louvered balustrade, bronze casing'
+                          id: 'brick_timber_sloped',
+                          name: 'Brick, Timber & Sloped Roof',
+                          badge: 'Sloped Canopy',
+                          desc: 'Exposed brick piers, vertical cedar louvers, sloped standing-seam porch & mumty canopies, timber slats'
+                        },
+                        {
+                          id: 'jaali_courtyard',
+                          name: 'Pakistani Jaali & Stone',
+                          badge: 'Jaali & Planters',
+                          desc: 'Geometric perforated jaali screens, travertine stone bands, cantilevered upper planter boxes'
                         }
                       ].map((item) => {
                         const isSelected = activeElevationStyle === item.id;
@@ -2096,9 +2104,9 @@ export const NewDesignPage: React.FC = () => {
                             }`}
                           >
                             <div className="space-y-1">
-                              <div className="flex items-center justify-between">
+                              <div className="flex items-center justify-between gap-2">
                                 <span className="font-bold text-xs text-[#202923]">{item.name}</span>
-                                <span className={`text-[9px] font-mono px-1.5 py-0.5 rounded font-bold ${
+                                <span className={`text-[9px] font-mono px-1.5 py-0.5 rounded font-bold shrink-0 ${
                                   isSelected ? 'bg-[#23483D] text-white' : 'bg-white border border-[#E2E7E1] text-[#68736C]'
                                 }`}>
                                   {item.badge}
@@ -2107,7 +2115,7 @@ export const NewDesignPage: React.FC = () => {
                               <p className="text-[10px] text-[#68736C] leading-snug line-clamp-2">{item.desc}</p>
                             </div>
                             <div className="pt-2 text-[10px] font-semibold flex items-center gap-1 text-[#23483D]">
-                              {isSelected ? '✓ Active Theme' : 'Click to View'}
+                              {isSelected ? '✓ Active Model' : 'Click to View'}
                             </div>
                           </button>
                         );

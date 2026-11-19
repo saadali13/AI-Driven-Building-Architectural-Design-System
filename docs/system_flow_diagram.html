@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ArchiCraft AI — Interactive System Flow Diagram</title>
+  <style>
+    :root {
+      --bg: #F6F7F3;
+      --card: #FFFFFF;
+      --primary: #23483D;
+      --primary-soft: #EEF4F0;
+      --primary-border: #CFE0D5;
+      --accent: #B86F50;
+      --accent-soft: #FDF3EE;
+      --ink: #1E2923;
+      --muted: #5F6D65;
+      --border: #DCE3DC;
+      --blue: #1D4ED8;
+      --blue-soft: #EFF6FF;
+      --purple: #6D28D9;
+      --purple-soft: #F5F3FF;
+      --amber: #B45309;
+      --amber-soft: #FFFBEB;
+      --shadow: 0 6px 24px rgba(20, 40, 32, 0.06);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1B3A30 0%, #23483D 60%, #2D5A4B 100%);
+      color: #FFFFFF;
+      padding: 24px 32px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    }
+    .header-inner {
+      max-width: 1380px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.14);
+      border: 1px solid rgba(255,255,255,0.28);
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+    }
+    header h1 { font-size: 24px; font-weight: 800; letter-spacing: -0.02em; }
+    header p { font-size: 13px; color: #D7E7DF; margin-top: 4px; max-width: 680px; }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .btn {
+      border: none;
+      cursor: pointer;
+      font-size: 12.5px;
+      font-weight: 700;
+      padding: 9px 15px;
+      border-radius: 10px;
+      transition: all 0.18s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-light {
+      background: rgba(255,255,255,0.14);
+      color: #FFFFFF;
+      border: 1px solid rgba(255,255,255,0.28);
+    }
+    .btn-light:hover { background: rgba(255,255,255,0.24); }
+    .btn-accent {
+      background: #E9A84C;
+      color: #1A241E;
+    }
+    .btn-accent:hover { background: #F2B964; transform: translateY(-1px); }
+
+    .tabs-bar {
+      max-width: 1380px;
+      margin: 20px auto 0;
+      padding: 0 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tab {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      color: var(--muted);
+      padding: 9px 16px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+    .tab:hover { border-color: var(--primary); color: var(--primary); }
+    .tab.active {
+      background: var(--primary);
+      color: #FFFFFF;
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(35, 72, 61, 0.22);
+    }
+
+    .walkthrough-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 6px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .walkthrough-bar button {
+      background: var(--primary-soft);
+      color: var(--primary);
+      border: 1px solid var(--primary-border);
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .walkthrough-bar button:hover { background: #DCE9E0; }
+
+    .main-grid {
+      max-width: 1380px;
+      margin: 16px auto 40px;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: 1fr 370px;
+      gap: 20px;
+      align-items: start;
+    }
+    @media (max-width: 1060px) {
+      .main-grid { grid-template-columns: 1fr; }
+    }
+
+    .canvas-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      overflow-x: auto;
+    }
+    .canvas-hint {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 14px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* Interactive Flow Layers */
+    .flow-diagram { display: none; }
+    .flow-diagram.active { display: block; }
+
+    .layer {
+      border: 1.5px dashed var(--border);
+      border-radius: 16px;
+      padding: 14px 16px 16px;
+      margin-bottom: 10px;
+      position: relative;
+      background: #FCFDFB;
+    }
+    .layer-title {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .layer-title .dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 12px;
+    }
+
+    .node {
+      background: #FFFFFF;
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      padding: 13px 14px;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      position: relative;
+    }
+    .node:hover {
+      transform: translateY(-2px);
+      border-color: var(--primary);
+      box-shadow: 0 8px 18px rgba(35, 72, 61, 0.10);
+    }
+    .node.selected {
+      border-color: var(--primary);
+      background: var(--primary-soft);
+      box-shadow: 0 0 0 4px rgba(35, 72, 61, 0.14);
+    }
+    .node.step-highlight {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      box-shadow: 0 0 0 4px rgba(184, 111, 80, 0.22);
+    }
+    .node-num {
+      position: absolute;
+      top: -10px;
+      left: 12px;
+      background: var(--primary);
+      color: #FFFFFF;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+    .node-tag {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 6px;
+    }
+    .tag-green { background: #E6F4EA; color: #1E6B3A; }
+    .tag-blue { background: #EBF2FF; color: #1D4ED8; }
+    .tag-purple { background: #F3E8FF; color: #6D28D9; }
+    .tag-amber { background: #FEF3C7; color: #B45309; }
+    .tag-rust { background: #FCECE4; color: #9A4B31; }
+
+    .node h4 {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--ink);
+      margin-top: 2px;
+    }
+    .node p {
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+    .node .file-pill {
+      margin-top: 8px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 10.5px;
+      color: var(--primary);
+      background: #F1F6F3;
+      padding: 3px 7px;
+      border-radius: 6px;
+      display: inline-block;
+      border: 1px solid #DCE7DE;
+    }
+
+    .arrow-down {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 6px 0;
+      color: var(--primary);
+      font-size: 11.5px;
+      font-weight: 700;
+    }
+    .arrow-down .shaft {
+      font-size: 18px;
+      line-height: 1;
+    }
+    .loop-banner {
+      background: #FFF8EB;
+      border: 1.5px solid #F5D08A;
+      color: #8A4F08;
+      border-radius: 12px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Side Inspector Panel */
+    .inspector {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 18px;
+    }
+    .inspector-kicker {
+      font-size: 10.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    .inspector h2 {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+    .inspector .summary {
+      font-size: 13px;
+      color: #36443C;
+      margin-bottom: 14px;
+    }
+    .info-box {
+      background: #F7F9F7;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 11px 13px;
+      margin-bottom: 10px;
+    }
+    .info-box .label {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+    .info-box ul {
+      padding-left: 16px;
+      font-size: 12px;
+      color: var(--ink);
+    }
+    .info-box li { margin-bottom: 4px; }
+    .info-box code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 11px;
+      background: #E9F0EC;
+      color: var(--primary);
+      padding: 1px 5px;
+      border-radius: 4px;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .legend span { display: inline-flex; align-items: center; gap: 5px; }
+    .legend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div>
+      <div class="badge">ArchiCraft AI Studio &bull; System Architecture</div>
+      <h1>How the AI Architectural Design System Works</h1>
+      <p>Click any box in the flow diagram below (or press <strong>Start Walkthrough</strong>) to see step-by-step how user prompts, the Pakistan Vector RAG Brain, Gemini ArchiScript, the Shapely CAD Engine, 4 Elevation Models, and Smart Regenerate work together.</p>
+    </div>
+    <div class="controls">
+      <button class="btn btn-accent" onclick="startWalkthrough()">&#9654; Start Step-by-Step Walkthrough</button>
+      <button class="btn btn-light" onclick="resetWalkthrough()">Reset Highlight</button>
+    </div>
+  </div>
+</header>
+
+<div class="tabs-bar">
+  <div class="tabs">
+    <button class="tab active" onclick="switchView('full', this)">1. Complete System Flow</button>
+    <button class="tab" onclick="switchView('rag', this)">2. Pakistan Vector RAG Brain</button>
+    <button class="tab" onclick="switchView('elev', this)">3. 4 Elevation Models &amp; 3D</button>
+    <button class="tab" onclick="switchView('regen', this)">4. Smart Cut/Add Regenerate</button>
+  </div>
+  <div class="walkthrough-bar">
+    <span id="stepCounter">Walkthrough: Click a node or press Start</span>
+    <button onclick="prevStep()">&larr; Prev</button>
+    <button onclick="nextStep()">Next &rarr;</button>
+  </div>
+</div>
+
+<div class="main-grid">
+  <div class="canvas-card">
+    <div class="canvas-hint">
+      <span><strong>Tip:</strong> Click any block to inspect its inputs, outputs, and exact source file.</span>
+      <div class="legend">
+        <span><i style="background:#23483D"></i>Frontend UI</span>
+        <span><i style="background:#6D28D9"></i>Vector RAG Brain</span>
+        <span><i style="background:#1D4ED8"></i>Gemini AI Engine</span>
+        <span><i style="background:#B45309"></i>Physical CAD Checks</span>
+        <span><i style="background:#B86F50"></i>2D / Elevation / 3D</span>
+      </div>
+    </div>
+
+    <!-- ========================================================= -->
+    <!-- VIEW 1: COMPLETE END-TO-END SYSTEM FLOW                   -->
+    <!-- ========================================================= -->
+    <div id="view-full" class="flow-diagram active">
+
+      <div class="layer">
+        <div class="layer-title"><span class="dot" style="background:#23483D"></span>Stage 1 — User Input in React Frontend (Port 5173)</div>
+        <div class="row">
+          <div class="node" data-id="mode_prompt" onclick="selectNode('mode_prompt')">
+            <span class="node-num">Step 1A</span>
+            <span class="node-tag tag-green">Direct Path</span>
+            <h4>Describe Your Design with AI</h4>
+            <p>User writes their house requirements in plain English (Marla/Kanal/ft, city/society, rooms, storeys).</p>
+            <div class="file-pill">NewDesignPage.tsx</div>
+          </div>
+          <div class="node" data-id="mode_interview" onclick="selectNode('mode_interview')">
+            <span class="node-num">Step 1B</span>
+            <span class="node-tag tag-green">Guided Path</span>
+            <h4>Guided Civil Architect Interview</h4>
+            <p>Text-only LLM architect asks one smart, place-aware question at a time and compiles the full brief.</p>
+            <div class="file-pill">GuidedInterview.tsx + brief_interview.py</div>
+          </div>
+          <div class="node" data-id="review_brief" onclick="selectNode('review_brief')">
+            <span class="node-num">Step 2</span>
+            <span class="node-tag tag-green">Brief Check</span>
+            <h4>Review Brief &amp; Parse Site</h4>
+            <p>Reads plot size, storeys, setbacks (default 0 unless asked), and room checklist before drawing.</p>
+            <div class="file-pill">/api/brief/read &bull; brief_parser.py</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow-down"><span class="shaft">&darr;</span> POST /api/generate (Brief + Plot + Storeys) to Python Server (api_server.py :8000)</div>
+
+      <div class="layer">
+        <div class="layer-title"><span class="dot" style="background:#6D28D9"></span>Stage 2 — Pakistan Construction Rules Vector RAG (Planner Brain — NOT a Stopper)</div>
+        <div class="row">
+          <div class="node" data-id="rag_db" onclick="selectNode('rag_db')">
+            <span class="node-num">Step 3</span>
+            <span class="node-tag tag-purple">Vector DB</span>
+            <h4>Nationwide Pakistan Bylaw Index</h4>
+            <p>53 cited rules (LDA, CDA, SBCA, CBC/DHA, Bahria, PDA, QDA, GDA, AJK/ERRA, BCP-2021) as 768-dim Gemini vectors.</p>
+            <div class="file-pill">pakistan_bylaws.jsonl + .npz</div>
+          </div>
+          <div class="node" data-id="rag_retriever" onclick="selectNode('rag_retriever')">
+            <span class="node-num">Step 4</span>
+            <span class="node-tag tag-purple">Hybrid Search</span>
+            <h4>Advisory Planner Briefing</h4>
+            <p>Cosine similarity + society/city/plot-size boost feeds local norms to Gemini as planning intelligence, never blocking the user.</p>
+            <div class="file-pill">generation/pakistan_rag.py</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow-down"><span class="shaft">&darr;</span> Brief + Checklist + Regional Planner Briefing + ArchiScript Spec</div>
+
+      <div class="layer">
+        <div class="layer-title"><span class="dot" style="background:#1D4ED8"></span>Stage 3 — Gemini AI Spatial Design &amp; Iterative CAD Repair Loop</div>
+        <div class="row">
+          <div class="node" data-id="llm_designer" onclick="selectNode('llm_designer')">
+            <span class="node-num">Step 5</span>
+            <span class="node-tag tag-blue">Gemini LLM</span>
+            <h4>ArchiScript Floor-by-Floor Planner</h4>
+            <p>Gemini writes a structured ROWS/COLS ArchiScript (parallel candidates; ground floor locked before upper floors).</p>
+            <div class="file-pill">gemini_cad_engine.py + design_script.py</div>
+          </div>
+          <div class="node" data-id="cad_engine" onclick="selectNode('cad_engine')">
+            <span class="node-num">Step 6</span>
+            <span class="node-tag tag-amber">Shapely CAD</span>
+            <h4>Deterministic Geometry &amp; Physics</h4>
+            <p>Tiles exact plot, cuts real wall door openings, places furniture, checks daylight, door swings &amp; stair stacking.</p>
+            <div class="file-pill">generation/plan_geometry_engine.py</div>
+          </div>
+          <div class="node" data-id="ai_review" onclick="selectNode('ai_review')">
+            <span class="node-num">Step 7</span>
+            <span class="node-tag tag-blue">Self-Review</span>
+            <h4>Senior Architect Review &amp; Polish</h4>
+            <p>Once physical checks pass, Gemini critiques its own ASCII floor map for privacy, flow &amp; room proportions.</p>
+            <div class="file-pill">architect_review()</div>
+          </div>
+        </div>
+        <div class="loop-banner">
+          &#8635; <strong>Automatic Repair Loop (Up to 4 Rounds):</strong> If the CAD engine finds any error (landlocked room, door off wall, furniture clash, misaligned stair), it sends exact script line numbers + an ASCII map back to Gemini for targeted line-edits until <code>0 errors</code>.
+        </div>
+      </div>
+
+      <div class="arrow-down"><span class="shaft">&darr;</span> ONE Validated Geometry Model (Zero Mismatch Between 2D, Elevations &amp; 3D)</div>
+
+      <div class="layer">
+        <div class="layer-title"><span class="dot" style="background:#B86F50"></span>Stage 4 — Unified Multi-View Rendering, 4 Elevation Models &amp; Exports</div>
+        <div class="row">
+          <div class="node" data-id="render_2d" onclick="selectNode('render_2d')">
+            <span class="node-num">Step 8A</span>
+            <span class="node-tag tag-rust">2D Sheets</span>
+            <h4>2D Structural &amp; Furnished Plans</h4>
+            <p>High-res CAD PNGs for every floor (Structural + Furnished), Rooftop Slab, and Composite sheet + PNG download.</p>
+            <div class="file-pill">render_floor_plan_cad_sheet()</div>
+          </div>
+          <div class="node" data-id="render_elev" onclick="selectNode('render_elev')">
+            <span class="node-num">Step 8B</span>
+            <span class="node-tag tag-rust">4 Models</span>
+            <h4>4 Architectural Elevation Models</h4>
+            <p>Cantilever Frame, Spanish Villa, Brick/Timber Sloped Roof, &amp; Pakistani Jaali — every window/door locked to 2D plan.</p>
+            <div class="file-pill">generation/massing_render.py</div>
+          </div>
+          <div class="node" data-id="render_3d" onclick="selectNode('render_3d')">
+            <span class="node-num">Step 8C</span>
+            <span class="node-tag tag-rust">3D + BOQ</span>
+            <h4>3D Views, BOQ &amp; CAD Exports</h4>
+            <p>Shaded 3D axonometric views, Three.js interactive 3D viewer, live Gemini PKR BOQ, and DXF/SVG/PDF/OBJ export.</p>
+            <div class="file-pill">Massing3DViewer.tsx + api_server.py</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="arrow-down"><span class="shaft">&darr;</span> User clicks "Regenerate &amp; Refine" to modify the generated design</div>
+
+      <div class="layer">
+        <div class="layer-title"><span class="dot" style="background:#23483D"></span>Stage 5 — Smart Regenerate Engine (Cut, Add, Rebalance — Never Says "Not Possible")</div>
+        <div class="row">
+          <div class="node" data-id="regen_engine" onclick="selectNode('regen_engine')">
+            <span class="node-num">Step 9</span>
+            <span class="node-tag tag-green">Smart Edit</span>
+            <h4>Cut / Delete + Add + Rebalance</h4>
+            <p>Simultaneously removes cut rooms, shrinks adjacent spaces to fit additions, runs 4 CAD repair rounds, and saves v2/v3.</p>
+            <div class="file-pill">converse_design_script() &bull; brief_parser.py</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================================= -->
+    <!-- VIEW 2: PAKISTAN VECTOR RAG BRAIN                         -->
+    <!-- ========================================================= -->
+    <div id="view-rag" class="flow-diagram">
+      <div class="layer">
+        <div class="layer-title"><span class="dot" style="background:#6D28D9"></span>Offline One-Time Build (knowledge/build_pakistan_rag.py)</div>
+        <div class="row">
+          <div class="node" onclick="selectNode('rag_db')">
+            <span class="node-tag tag-purple">53 Cited Rules</span>
+            <h4>Nationwide Pakistan Corpus</h4>
+            <p>Punjab (LDA, RDA, FDA, MDA, GDA), ICT (CDA), Sindh (SBCA, CBC/DHA Karachi), KP/Balochistan/AJK (PDA, QDA, Galiyat, ERRA), DHA, Bahria, B-17, Lake City, Wapda, Askari, BCP-2021.</p>
+            <div class="file-pill">knowledge/pakistan_bylaws.jsonl</div>
+          </div>
+          <div class="node" onclick="selectNode('rag_db')">
+            <span class="node-tag tag-blue">Gemini Embeddings</span>
+            <h4>gemini-embedding-001 (768-dim)</h4>
+            <p>Batch-embeds every rule + metadata into L2-normalized float32 vectors stored locally in a 149.6 KB compressed file.</p>
+            <div class="file-pill">pakistan_bylaws_vectors.npz</div>
+          </div>
+        </div>
+      </div>
+      <div class="arrow-down"><span class="shaft">&darr;</span> Runtime Query (during Interview, Generation, or Regenerate)</div>
+      <div class="layer">
+        <div class="layer-title"><span class="dot" style="background:#6D28D9"></span>Hybrid Vector + Regional Metadata Retrieval (generation/pakistan_rag.py)</div>
+        <div class="row">
+          <div class="node" onclick="selectNode('rag_retriever')">
+            <span class="node-tag tag-purple">68% Semantic</span>
+            <h4>Vector Cosine Similarity</h4>
+            <p>Embeds the user's brief with <code>RETRIEVAL_QUERY</code> and matches against all 53 rules (auto-falls back to lexical match if offline).</p>
+          </div>
+          <div class="node" onclick="selectNode('rag_retriever')">
+            <span class="node-tag tag-purple">32% Regional Boost</span>
+            <h4>Society / City / Plot Boost</h4>
+            <p>Boosts exact matches on society (+0.55), authority (+0.42), city (+0.42), province (+0.25), and plot size (+0.18).</p>
+          </div>
+          <div class="node" onclick="selectNode('rag_retriever')">
+            <span class="node-tag tag-green">Planner Only</span>
+            <h4>Advisory Context — Never a Stopper</h4>
+            <p>Injected into Gemini as smart local architectural guidance. If the user asks for 0 setbacks or 5 rooms in 5 Marla, the user's wish ALWAYS wins.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================================= -->
+    <!-- VIEW 3: 4 ELEVATION MODELS & 3D MASSING                   -->
+    <!-- ========================================================= -->
+    <div id="view-elev" class="flow-diagram">
+      <div class="layer">
+        <div class="layer-title"><span class="dot" style="background:#B45309"></span>Single Source of Truth — Validated 2D Plan Geometry</div>
+        <div class="row">
+          <div class="node" onclick="selectNode('cad_engine')">
+            <span class="node-tag tag-amber">Exact Coordinates</span>
+            <h4>build_massing(layout)</h4>
+            <p>Converts every floor's rooms, street-facing windows, main/terrace doors, porch columns, balcony railings, parapet &amp; stair mumty into 3D solids (x, y, z in feet).</p>
+            <div class="file-pill">generation/massing_render.py</div>
+          </div>
+        </div>
+      </div>
+      <div class="arrow-down"><span class="shaft">&darr;</span> Projected onto 4 Distinct Facade Models + 3D Axonometric Views (Never Disagrees With 2D Map)</div>
+      <div class="layer">
+        <div class="layer-title"><span class="dot" style="background:#B86F50"></span>4 Distinct Architectural Front Elevation Models (Instant UI Switching + PNG Download)</div>
+        <div class="row">
+          <div class="node" onclick="selectNode('render_elev')">
+            <span class="node-tag tag-rust">Model 1</span>
+            <h4>Modern Cantilever &amp; Frame</h4>
+            <p>Charcoal cantilevered upper box-frame wraps, pergola porch louvers, frameless glass balustrades, crisp drop shadows.</p>
+          </div>
+          <div class="node" onclick="selectNode('render_elev')">
+            <span class="node-tag tag-rust">Model 2</span>
+            <h4>Spanish / Neoclassical Villa</h4>
+            <p>Semicircular arched window crowns with keystones, fluted pilasters, dentil cornice, pitched terracotta roof hoods, wrought iron.</p>
+          </div>
+          <div class="node" onclick="selectNode('render_elev')">
+            <span class="node-tag tag-rust">Model 3</span>
+            <h4>Brick, Timber &amp; Sloped Roof</h4>
+            <p>Exposed terracotta-brick piers, vertical cedar louvers, sloped standing-seam porch &amp; mumty canopies, horizontal timber railings.</p>
+          </div>
+          <div class="node" onclick="selectNode('render_elev')">
+            <span class="node-tag tag-rust">Model 4</span>
+            <h4>Pakistani Jaali &amp; Stone</h4>
+            <p>Geometric perforated jaali privacy screens, travertine stone bands, cantilevered upper planter boxes with greenery.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================================= -->
+    <!-- VIEW 4: SMART CUT / ADD REGENERATE ENGINE                 -->
+    <!-- ========================================================= -->
+    <div id="view-regen" class="flow-diagram">
+      <div class="layer">
+        <div class="layer-title"><span class="dot" style="background:#23483D"></span>How "Regenerate &amp; Refine" Handles Cut, Add, and Adjust Requests</div>
+        <div class="row">
+          <div class="node" onclick="selectNode('regen_engine')">
+            <span class="node-num">1</span>
+            <span class="node-tag tag-green">Parse Request</span>
+            <h4>Simultaneous Cut + Add Parser</h4>
+            <p>Example: <em>"Delete the drawing room, cut the car porch, and add a study room"</em>. Removes cut items from checklist BEFORE adding new ones.</p>
+            <div class="file-pill">apply_message_to_requirements()</div>
+          </div>
+          <div class="node" onclick="selectNode('regen_engine')">
+            <span class="node-num">2</span>
+            <span class="node-tag tag-blue">Rebalance</span>
+            <h4>Gemini Edits Current ArchiScript</h4>
+            <p>Explicitly instructed to NEVER say "not possible": deletes cut lines, expands/shrinks adjacent rooms to keep exact plot dimensions.</p>
+            <div class="file-pill">build_converse_prompt()</div>
+          </div>
+          <div class="node" onclick="selectNode('cad_engine')">
+            <span class="node-num">3</span>
+            <span class="node-tag tag-amber">Checks &amp; Balances</span>
+            <h4>Up to 4 CAD Repair Rounds</h4>
+            <p>Verifies zero physical errors (walls, doors, daylight, stairs, furniture in remaining rooms). Saves new version (v2, v3) &amp; re-renders all sheets.</p>
+            <div class="file-pill">converse_design_script()</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- RIGHT-HAND INSPECTOR PANEL                                -->
+  <!-- ========================================================= -->
+  <aside class="inspector" id="inspector">
+    <div class="inspector-kicker" id="insKicker">System Overview</div>
+    <h2 id="insTitle">Click any block to inspect</h2>
+    <p class="summary" id="insSummary">
+      This interactive diagram maps every active module of ArchiCraft AI Studio. Click any step on the left—or start the guided walkthrough—to see exactly what goes in, what happens inside, and which code file runs it.
+    </p>
+    <div class="info-box">
+      <div class="label">Active Architecture Highlights</div>
+      <ul id="insBullets">
+        <li><strong>Frontend:</strong> React 19 + Vite on <code>http://127.0.0.1:5173</code></li>
+        <li><strong>Backend:</strong> Python HTTP API on <code>http://127.0.0.1:8000</code></li>
+        <li><strong>RAG Brain:</strong> 53 cited nationwide Pakistan rules in <code>768-dim</code> Gemini vectors</li>
+        <li><strong>CAD Physics:</strong> Shapely exact plot tiling, true door cutouts, daylight &amp; stair checks</li>
+        <li><strong>Unified Views:</strong> 2D Plans + 4 Front Elevation Models + 3D Views from ONE model</li>
+      </ul>
+    </div>
+    <div class="info-box">
+      <div class="label">Key Source File(s)</div>
+      <div id="insFiles" style="font-size:12px;"><code>frontend/src/pages/designs/NewDesignPage.tsx</code> &rarr; <code>api_server.py</code> &rarr; <code>generation/gemini_cad_engine.py</code></div>
+    </div>
+  </aside>
+</div>
+
+<script>
+  const NODE_DATA = {
+    mode_prompt: {
+      kicker: "Stage 1A • Direct AI Prompt",
+      title: "Describe Your Design with AI",
+      summary: "Fastest path: the user writes everything in plain English (plot size in Marla/Kanal/sq yd/feet, city or society, storeys, rooms, and special wishes). Nothing is pre-selected.",
+      bullets: [
+        "Input: Free-form English or Roman Urdu prompt",
+        "Preserves Marla (225 sq ft), Kanal, sq yd, and W × L ft sizing",
+        "Sends prompt to /api/brief/read so the user can verify what was understood"
+      ],
+      files: "frontend/src/pages/designs/NewDesignPage.tsx"
+    },
+    mode_interview: {
+      kicker: "Stage 1B • Guided Interview",
+      title: "Guided Civil Architect Interview",
+      summary: "Pure text-based 1-on-1 interview where Gemini acts as a Pakistani civil engineer & residential architect. Uses the Pakistan Vector RAG Brain to ask locally relevant questions one at a time.",
+      bullets: [
+        "No preset option chips — user answers naturally in text or clicks Skip",
+        "Shows a 'Why this is asked' note for every question",
+        "Continuously updates 'Your brief so far' (compiled_brief) without dropping earlier answers"
+      ],
+      files: "frontend/src/components/architectural/GuidedInterview.tsx • generation/brief_interview.py"
+    },
+    review_brief: {
+      kicker: "Stage 2 • Brief Parsing",
+      title: "Review Brief & Site Extraction",
+      summary: "Extracts plot width/length, storeys, optional setbacks (0 ft default unless user asks), room counts, and custom room dimensions so the user sees the exact design brief before generation.",
+      bullets: [
+        "Combines deterministic parsing + Gemini brief reading",
+        "Prompt always beats form defaults",
+        "Builds the live Requirements Compliance Checklist"
+      ],
+      files: "generation/brief_parser.py • POST /api/brief/read"
+    },
+    rag_db: {
+      kicker: "Stage 3 • Nationwide Vector Database",
+      title: "Pakistan Construction Rules Vector DB",
+      summary: "A local, fast, citation-backed vector database covering governing boards and housing societies across all of Pakistan, embedded with Gemini's gemini-embedding-001 model.",
+      bullets: [
+        "Punjab: LDA, RDA, FDA, MDA, GDA, DHA Lahore/Multan, Bahria, Lake City, Wapda, Askari",
+        "Federal & National: CDA Islamabad, B-17, BCP-2021 Seismic, Fire Safety 2016, Energy",
+        "Sindh / KP / Balochistan / AJK: SBCA Karachi, CBC/DHA Karachi, PDA, DHA Peshawar, Galiyat, QDA Quetta, ERRA",
+        "Stored locally as 53 JSONL rules + (53, 768) float32 .npz vectors (149.6 KB)"
+      ],
+      files: "knowledge/build_pakistan_rag.py • knowledge/pakistan_bylaws.jsonl • knowledge/pakistan_bylaws_vectors.npz"
+    },
+    rag_retriever: {
+      kicker: "Stage 4 • Hybrid Retrieval",
+      title: "Advisory Planner Brain (Never a Stopper)",
+      summary: "Retrieves the most relevant regional rules using 68% vector cosine similarity + 32% society/authority/city/plot-size boost (with automatic offline lexical fallback).",
+      bullets: [
+        "Injected into Interview, Design Synthesis, and Smart Regenerate prompts",
+        "Explicitly instructs Gemini: use as architectural intelligence, NEVER block or refuse the user",
+        "Returned in rag_references so every retrieved rule carries its authority & source citation"
+      ],
+      files: "generation/pakistan_rag.py"
+    },
+    llm_designer: {
+      kicker: "Stage 5 • AI Spatial Synthesis",
+      title: "Gemini ArchiScript Floor-by-Floor Planner",
+      summary: "Gemini translates the client brief + RAG planner context into ArchiScript — a compact ROWS/COLS slicing-tree language that guarantees rooms tile the exact plot with zero gaps or overlaps.",
+      bullets: [
+        "Generates multiple parallel candidates in round 1 and keeps the highest-scoring one",
+        "For 2+ storeys: designs and locks Ground Floor first, then designs each upper floor on top with stacked stairs",
+        "Repairs errors using targeted line-edits (REPLACE / INSERT / DELETE) guided by an ASCII map"
+      ],
+      files: "generation/gemini_cad_engine.py • generation/design_script.py"
+    },
+    cad_engine: {
+      kicker: "Stage 6 • Physical CAD Validation",
+      title: "Deterministic Shapely Geometry Engine",
+      summary: "Turns ArchiScript into exact architectural geometry and enforces non-negotiable physical reality — walls, door cutouts, daylight, circulation, stairs, and furniture.",
+      bullets: [
+        "Exact plot tiling (sum of widths & depths matches plot to 0.01 ft)",
+        "True wall cutouts for every door and window (no floating doors or party-wall windows)",
+        "Checks room reachability (no walk-through bedrooms), open-air daylight (no landlocked rooms), stair stacking, and 90° door-swing furniture clearance"
+      ],
+      files: "generation/plan_geometry_engine.py"
+    },
+    ai_review: {
+      kicker: "Stage 7 • Self-Critique",
+      title: "Senior Architect Self-Review",
+      summary: "After the CAD engine validates physical geometry, Gemini reviews its own finished ASCII floor map and room schedule as a senior residential architect in Pakistan.",
+      bullets: [
+        "Evaluates guest vs family privacy, lounge flow, kitchen/bath placement, and climate ventilation",
+        "Produces a score (1–10), strengths, concerns, and concrete suggestions",
+        "May automatically apply a polish pass if a clear improvement is found"
+      ],
+      files: "generation/gemini_cad_engine.py (architect_review)"
+    },
+    render_2d: {
+      kicker: "Stage 8A • 2D CAD Blueprints",
+      title: "2D Structural & Furnished Floor Plans",
+      summary: "Renders crisp high-DPI architectural CAD sheets for Ground, First, Upper floors (both Structural and Furnished layers), Rooftop Slab, and Composite multi-floor sheets.",
+      bullets: [
+        "Displayed inside ArchitecturalPlanCanvas with drag-to-pan, wheel zoom, 100%, Fit, grid & fullscreen",
+        "Includes 1-click Download PNG for the active floor plan",
+        "Vector SVG toggle available via FloorPlanViewer"
+      ],
+      files: "generation/gemini_cad_engine.py • ArchitecturalPlanCanvas.tsx • FloorPlanViewer.tsx"
+    },
+    render_elev: {
+      kicker: "Stage 8B • 4 Architectural Elevation Models",
+      title: "4 Distinct Front Elevation Models (100% Plan-Aligned)",
+      summary: "Builds ONE 3D solid massing model from the validated 2D floor plans and renders 4 genuinely distinct architectural facade designs with every floor, window, door, porch & balcony at its exact 2D coordinate.",
+      bullets: [
+        "1. Modern Cantilever & Frame Grid (charcoal portal wraps, pergola porch, glass railings)",
+        "2. Spanish / Neoclassical Villa (arched window crowns, pilasters, terracotta roof hoods, wrought iron)",
+        "3. Brick, Timber & Sloped Roof (exposed brick piers, cedar louvers, sloped metal canopies)",
+        "4. Pakistani Jaali & Travertine Stone (geometric jaali screens, stone bands, balcony planters)"
+      ],
+      files: "generation/massing_render.py • NewDesignPage.tsx"
+    },
+    render_3d: {
+      kicker: "Stage 8C • 3D Views, BOQ & Exports",
+      title: "3D Massing, Cost BOQ & CAD Export Package",
+      summary: "Projects shaded 3D axonometric views and interactive Three.js 3D solids from the exact same massing model, alongside live PKR material BOQ and professional CAD exports.",
+      bullets: [
+        "Shaded Front-Right and Front-Left 3D axonometric PNG views + interactive Massing3DViewer",
+        "Live Gemini PKR market rates & Bill of Quantities (cement, steel, bricks, finishing)",
+        "Exports DXF (AutoCAD), SVG, PDF, PNG, OBJ (3D mesh), and Blender (.blend)"
+      ],
+      files: "generation/massing_render.py • Massing3DViewer.tsx • api_server.py"
+    },
+    regen_engine: {
+      kicker: "Stage 9 • Smart Regenerate Engine",
+      title: "Adjust, Cut/Delete & Add Without Refusing",
+      summary: "When the user asks to modify a finished design (e.g. 'delete the drawing room and add a study room'), the engine updates requirements, cuts/rebalances spaces, and verifies all CAD checks.",
+      bullets: [
+        "Simultaneous cut + add requirement parsing (supports delete/cut/remove + add/replace in one message)",
+        "Instructs Gemini to actively remove rooms or shrink adjacent spaces instead of saying 'not possible'",
+        "Runs up to 4 CAD repair rounds so all physical checks stay intact, then saves revision v2, v3..."
+      ],
+      files: "generation/brief_parser.py • generation/design_script.py • generation/gemini_cad_engine.py"
+    }
+  };
+
+  const WALKTHROUGH_ORDER = [
+    "mode_prompt",
+    "mode_interview",
+    "review_brief",
+    "rag_db",
+    "rag_retriever",
+    "llm_designer",
+    "cad_engine",
+    "ai_review",
+    "render_2d",
+    "render_elev",
+    "render_3d",
+    "regen_engine"
+  ];
+  let currentStepIdx = -1;
+
+  function selectNode(id, isWalkthrough = false) {
+    document.querySelectorAll(".node").forEach(n => {
+      n.classList.remove("selected", "step-highlight");
+    });
+    document.querySelectorAll(`.node[data-id="${id}"]`).forEach(n => {
+      n.classList.add(isWalkthrough ? "step-highlight" : "selected");
+      if (isWalkthrough) n.scrollIntoView({ behavior: "smooth", block: "center" });
+    });
+    const d = NODE_DATA[id];
+    if (!d) return;
+    document.getElementById("insKicker").textContent = d.kicker;
+    document.getElementById("insTitle").textContent = d.title;
+    document.getElementById("insSummary").textContent = d.summary;
+    const ul = document.getElementById("insBullets");
+    ul.innerHTML = d.bullets.map(b => `<li>${b}</li>`).join("");
+    document.getElementById("insFiles").innerHTML = d.files
+      .split("•")
+      .map(f => `<code>${f.trim()}</code>`)
+      .join(" &bull; ");
+  }
+
+  function switchView(viewId, tabEl) {
+    document.querySelectorAll(".flow-diagram").forEach(v => v.classList.remove("active"));
+    document.getElementById("view-" + viewId).classList.add("active");
+    document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+    if (tabEl) tabEl.classList.add("active");
+  }
+
+  function startWalkthrough() {
+    switchView("full", document.querySelector(".tab"));
+    currentStepIdx = 0;
+    applyWalkthroughStep();
+  }
+
+  function nextStep() {
+    switchView("full", document.querySelector(".tab"));
+    if (currentStepIdx < WALKTHROUGH_ORDER.length - 1) {
+      currentStepIdx++;
+    } else {
+      currentStepIdx = 0;
+    }
+    applyWalkthroughStep();
+  }
+
+  function prevStep() {
+    switchView("full", document.querySelector(".tab"));
+    if (currentStepIdx > 0) {
+      currentStepIdx--;
+    } else {
+      currentStepIdx = WALKTHROUGH_ORDER.length - 1;
+    }
+    applyWalkthroughStep();
+  }
+
+  function applyWalkthroughStep() {
+    const id = WALKTHROUGH_ORDER[currentStepIdx];
+    document.getElementById("stepCounter").textContent =
+      `Step ${currentStepIdx + 1} of ${WALKTHROUGH_ORDER.length}: ${NODE_DATA[id].title}`;
+    selectNode(id, true);
+  }
+
+  function resetWalkthrough() {
+    currentStepIdx = -1;
+    document.querySelectorAll(".node").forEach(n => n.classList.remove("selected", "step-highlight"));
+    document.getElementById("stepCounter").textContent = "Walkthrough: Click a node or press Start";
+  }
+</script>
+</body>
+</html>

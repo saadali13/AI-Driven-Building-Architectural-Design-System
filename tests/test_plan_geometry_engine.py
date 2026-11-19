@@ -754,3 +754,60 @@ def test_change_requests_report_what_really_changed():
     assert gce._script_changes(old, old) == []
     ch = gce._script_changes(old, old.replace("20 | A | lounge", "24 | A | lounge").replace("30 | B", "26 | B"))
     assert "- 20 | A | lounge" in ch and "+ 24 | A | lounge" in ch and len(ch) == 4
+
+
+def test_pakistan_rag_vector_db_acts_as_planner_brain():
+    """Nationwide Pakistan construction rules vector DB exists, retrieves regional/society rules, and frames them
+    strictly as planner guidance (never a stopper)."""
+    from generation.pakistan_rag import JSONL_PATH, VECTORS_PATH, build_planner_context
+    assert JSONL_PATH.exists() and VECTORS_PATH.exists()
+
+    dha = build_planner_context("10 marla house in DHA Lahore with basement", 35, 65, 2, top_k=3, use_embeddings=False)
+    assert any("DHA Lahore" in r["authority"] for r in dha["references"])
+    assert "NOT A STOPPER" in dha["context_text"]
+
+    khi = build_planner_context("240 sq yd house in Karachi Gulshan-e-Iqbal SBCA", 36, 60, 2, top_k=3, use_embeddings=False)
+    assert any("SBCA" in r["authority"] or "Karachi" in r["city"] for r in khi["references"])
+
+    qta = build_planner_context("1 kanal house in Quetta Balochistan", 50, 90, 2, top_k=3, use_embeddings=False)
+    assert any("Quetta" in r["city"] or "Quetta" in r["authority"] for r in qta["references"])
+
+
+def test_four_distinct_architectural_elevation_models(tmp_path):
+    """All 4 facade models render distinct, non-identical PNGs from the exact same 2D plan geometry."""
+    from generation import massing_render as mr
+    from generation.design_script import parse_script
+    from generation.plan_geometry_engine import analyse_layout
+
+    p = parse_script(_three_storey_script(), 30, 50)
+    geo = analyse_layout({"floors": p["floors"]}, 30, 50, 0, 0, 5, 0)
+    geo["plot_width_ft"], geo["plot_length_ft"] = 30.0, 50.0
+
+    styles = mr.render_all_elevation_styles(geo, "elev4", "modern", str(tmp_path), dpi=60)
+    model_keys = ("modern_cantilever", "spanish_neoclassical", "brick_timber_sloped", "jaali_courtyard")
+    raw_bytes = []
+    for k in model_keys:
+        assert k in styles and os.path.exists(styles[k])
+        data = open(styles[k], "rb").read()
+        assert len(data) > 5000
+        raw_bytes.append(data)
+    # Every model must produce visually distinct pixels (not identical copies)
+    assert len(set(raw_bytes)) == 4
+
+
+def test_regenerate_supports_simultaneous_cut_and_add_requirements():
+    """Regenerate requirement updater cleanly handles deleting/cutting rooms AND adding replacements in one message."""
+    from generation.brief_parser import apply_message_to_requirements, parse_brief
+
+    base_req = parse_brief("10 marla house with 4 bedrooms, 4 baths, drawing room, car porch, dirty kitchen", 35, 65, 2, 4, 4)
+    assert base_req.get("drawing_room") and base_req.get("dirty_kitchen")
+
+    updated = apply_message_to_requirements(
+        base_req,
+        "delete the drawing room and cut the car porch and add a study room",
+        bedrooms=4, bathrooms=4, floors=2,
+    )
+    assert updated.get("drawing_room") is False
+    assert updated.get("no_car_porch") is True and updated.get("cars") == 0
+    assert "study" in (updated.get("extra_rooms") or [])
+
